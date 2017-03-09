@@ -26,6 +26,7 @@
   <![endif]-->
 </head>
 <body class="hold-transition login-page " >
+  <?php $error = "";?>
 <div class="login-box" style="background: #000044;border: solid;">
     <div class="login-logo" >
     <a href="" style="color:white;"><b>THE BEST</b>HOTEL DEAL</a>
@@ -34,13 +35,13 @@
   <div class="login-box-body">
     <p class="login-box-msg" id="message"><?php echo $error ?></p>
 
-    <form action="" method="post">
+    <form action="../LoginController/login" method="post">
       <div class="form-group has-feedback">
-          <input type="text" class="form-control" placeholder="UserName" name="username" onfocus="this.value = '';" onclick="setMess()" autocomplete="off">
+          <input type="text" style="cursor: pointer;" class="form-control" placeholder="UserName" name="username" onfocus="this.value = '';" onclick="setMess()" autocomplete="off">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Password" onfocus="this.value = '';" name="password" autocomplete="off">
+          <input type="password" style="cursor: pointer;" class="form-control" placeholder="Password" onfocus="this.value = '';" name="password" autocomplete="off">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -80,7 +81,24 @@
   function setMess(){
      document.getElementById('message').innerHTML="Sign in to continue";
   }
- 
+$(document).ready(function(){   
+
+
+    $("#signin").click(function()
+    {  
+    var username = document.getElementById()     
+     $.ajax({
+         type: "POST",
+         url: "<?php echo base_url(); ?>index.php/LoginController/hello", 
+         data: 'checkin='+start+'&checkout='+end,
+         success: 
+              function(data){
+                alert(data);  //as a debugging message.
+              }
+          });// you have missed this bracket
+     return false;
+ });
+ });
 </script>
 <?php ?>
 </body>
