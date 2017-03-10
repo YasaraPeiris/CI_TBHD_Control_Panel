@@ -4,35 +4,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class LoginController extends CI_Controller {
 
 	public function login(){
-		if (empty($_POST['username']) || empty($_POST['password'])) {
-			$error = "Username or Password is invalid";
+		$this->load->library('session');
+		$errors = 'Sign into start your session';
+		$username=$this->input->post('username');
+		$password=$this->input->post('password');
+		if ($username==null || $password==null) {
+			$errors = "Don't keep any of the spaces blank.";
+			$this->load->view('../../Welcome/ViewIndex');
 		} else {
+			$this->load->model('LoginModel');
 			$count = 0;
 // Define $username and $password
-			$username = $_POST['username'];
-			$password = $_POST['password'];
 			$username = stripslashes($username);
 			$password = stripslashes($password);
 			$user =  $this->LoginModel->authenticate($username,$password);
-			$user = array_filter($errors);
-			if (!empty($user)) {
+			if(!empty($user)){
 				$_SESSION['username'] = $username;
 				$_SESSION['password'] = $password;
-				$usertype=$user->usertype;
+				$usertype = $user[0]->usertype;
 				$_SESSION['usertype'] = $usertype;
+
 				if($usertype=="hotelAdmin"){
-				$_SESSION['hotelno'] = $user->hotel_No;
-				$this->load->view('adminHome');
+					$_SESSION['hotelno'] = $user[0]->hotel_No;
+					echo "hellohotel";
+					$this->load->view('hotel/hotelsHome');
+				}
+				else{
+					$_SESSION['hotelno'] = 0;
+					echo "helloadmin";
+					$this->load->view('admin/adminHome');
+				}	
 			}
 			else{
-				$_SESSION['hotelno'] = 0;
-				$this->load->view('hotelHome');
-			}
-			
-
-		} else {
-				$error = "Username or Password is invalid";
-            //header("location: ../index.php");
+				$errors = "Your username or password is incorrect";
+				$this->load->view('../../');
 			}
 			
 		}

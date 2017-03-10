@@ -26,14 +26,14 @@
   <![endif]-->
 </head>
 <body class="hold-transition login-page " >
-  <?php $error = "";?>
+  <?php $errors = "";?>
 <div class="login-box" style="background: #000044;border: solid;">
     <div class="login-logo" >
     <a href="" style="color:white;"><b>THE BEST</b>HOTEL DEAL</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg" id="message"><?php echo $error ?></p>
+    <p class="login-box-msg" id="message"><?php echo $errors ?></p>
 
     <form action="../LoginController/login" method="post">
       <div class="form-group has-feedback">
