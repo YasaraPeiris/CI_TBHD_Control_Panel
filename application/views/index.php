@@ -35,7 +35,7 @@
   <div class="login-box-body">
     <p class="login-box-msg" id="message"><?php echo $errors ?></p>
 
-    <form action="../LoginController/login" method="post">
+    <form action="<?php echo base_url(); ?>index.php/LoginController/login" method="post">
       <div class="form-group has-feedback">
           <input type="text" style="cursor: pointer;" class="form-control" placeholder="UserName" name="username" onfocus="this.value = '';" onclick="setMess()" autocomplete="off">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -81,24 +81,24 @@
   function setMess(){
      document.getElementById('message').innerHTML="Sign in to continue";
   }
-$(document).ready(function(){   
+//$(document).ready(function(){   
 
 
-    $("#signin").click(function()
-    {  
-    var username = document.getElementById()     
-     $.ajax({
-         type: "POST",
-         url: "<?php echo base_url(); ?>index.php/LoginController/hello", 
-         data: 'checkin='+start+'&checkout='+end,
-         success: 
-              function(data){
-                alert(data);  //as a debugging message.
-              }
-          });// you have missed this bracket
-     return false;
- });
- });
+ //    $("#signin").click(function()
+ //    {  
+ //    var username = document.getElementById()     
+ //     $.ajax({
+ //         type: "POST",
+ //         url: "<?php echo base_url(); ?>index.php/LoginController/hello", 
+ //         data: 'checkin='+start+'&checkout='+end,
+ //         success: 
+ //              function(data){
+ //                alert(data);  //as a debugging message.
+ //              }
+ //          });// you have missed this bracket
+ //     return false;
+ // });
+ //});
 </script>
 <?php ?>
 </body>

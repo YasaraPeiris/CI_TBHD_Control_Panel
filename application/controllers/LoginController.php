@@ -10,7 +10,8 @@ class LoginController extends CI_Controller {
 		$password=$this->input->post('password');
 		if ($username==null || $password==null) {
 			$errors = "Don't keep any of the spaces blank.";
-			$this->load->view('../../Welcome/ViewIndex');
+			echo $errors;
+			$this->load->view('index');
 		} else {
 			$this->load->model('LoginModel');
 			$count = 0;
@@ -37,7 +38,8 @@ class LoginController extends CI_Controller {
 			}
 			else{
 				$errors = "Your username or password is incorrect";
-				$this->load->view('../../');
+				echo $errors;
+				$this->load->view('index');
 			}
 			
 		}

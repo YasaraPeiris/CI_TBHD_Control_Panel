@@ -1,0 +1,1 @@
+All the images suppose to be here has moved to assets/images for future ease.

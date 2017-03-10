@@ -1,9 +1,9 @@
 <?php
-if ((isset($_SESSION['login_hotel'])) && !empty($_SESSION['login_hotel'])) {
+// if ((isset($_SESSION['login_hotel'])) && !empty($_SESSION['login_hotel'])) {
     
-} else {
-    header("location: ../../index.php");
-}
+// } else {
+//     header("location: ../../index.php");
+// }
 ?>
 <!-- Logo -->
 <a href="index2.html" class="logo" style="background-color: #000044;">
@@ -75,7 +75,7 @@ if ((isset($_SESSION['login_hotel'])) && !empty($_SESSION['login_hotel'])) {
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header" style="text-align: center;background-color: #000044;">
-                        <img src="../../images/1_main.jpg"  style='border-radius: 40%;' class="img-circle" alt="User Image">
+                        <img src="../../assets/images/1_main.jpg"  style='border-radius: 40%;' class="img-circle" alt="User Image">
 
                         <p>
                             <?php echo $_SESSION['login_hotel'] ?>
