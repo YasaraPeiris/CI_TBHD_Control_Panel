@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class LoginController extends CI_Controller {
-
+	
 	public function login(){
 		$this->load->library('session');
 		$errors = 'Sign into start your session';
@@ -26,13 +26,16 @@ class LoginController extends CI_Controller {
 				$_SESSION['usertype'] = $usertype;
 
 				if($usertype=="hotelAdmin"){
-					$_SESSION['hotelno'] = $user[0]->hotel_No;
-					echo "hellohotel";
-					$this->load->view('hotel/hotelsHome');
+					$listing_no = $user[0]->listing_no;
+					$_SESSION['hotelno'] = $listing_no;
+					$this->load->model('ListingsModel');
+					$listing =  $this->ListingsModel->getListingDetails($listing_no);
+					$_SESSION['login_hotel'] = $listing[0]->listing_name;
+					$data= array('data1'=> $listing[0] );
+					$this->load->view('hotel/hotelsHome',$data);
 				}
 				else{
 					$_SESSION['hotelno'] = 0;
-					echo "helloadmin";
 					$this->load->view('admin/adminHome');
 				}	
 			}
@@ -44,6 +47,8 @@ class LoginController extends CI_Controller {
 			
 		}
 	}
+
+	
 	
 
 

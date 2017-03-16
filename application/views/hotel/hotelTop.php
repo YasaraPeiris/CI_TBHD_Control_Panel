@@ -3,7 +3,7 @@
  <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box " style="background-color: #555555;border: solid;border-color:  #000044;border-width: 0.5em;padding: 1%;">
+          <div class="small-box " style="background-color: #555555;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
             <div class="inner" style="color: #555555;background-color: white;">
               <h3 id="orders" style="color: black"></h3>
 
@@ -18,7 +18,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6" >
           <!-- small box -->
-          <div class="small-box " style="background-color: #555555;border: solid;border-color:  #000044;border-width: 0.5em;padding: 1%;">
+          <div class="small-box " style="background-color: #555555;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
             <div class="inner" style="color: #555555;background-color: white;">
               <h3 id="visitors" style="color: black"></h3>
 
@@ -33,7 +33,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box" style="background-color: #555555;border: solid;border-color:  #000044;border-width: 0.5em;padding: 1%;">
+          <div class="small-box" style="background-color: #555555;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
             <div class="inner" style="color: #555555;background-color: white;">
               <h3 id="inquiries" style="color: black"></h3>
 
@@ -48,7 +48,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box" style="background-color: #555555;border: solid;border-color:  #000044;border-width: 0.5em;padding: 1%;">
+          <div class="small-box" style="background-color: #555555;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
             <div class="inner" style="color: #555555;background-color: white;">
               <h3 id="notifications" style="color: black"></h3>
 

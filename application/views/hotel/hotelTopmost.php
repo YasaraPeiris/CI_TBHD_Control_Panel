@@ -13,7 +13,7 @@
     <span class="logo-lg"><b>TheBest</b>HotelDeal</span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
-<nav class="navbar navbar-static-top" style="background-color:#000044;">
+<nav class="navbar navbar-static-top" style="background-color:#000044;padding-bottom:0;">
     <!-- Sidebar toggle button-->
     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
