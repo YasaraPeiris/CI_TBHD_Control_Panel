@@ -6,14 +6,14 @@
 // }
 ?>
 <!-- Logo -->
-<a href="index2.html" class="logo" style="background-color: #000044;">
+<a href="index2.html" class="logo" style="background-color: #222d32;">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>TB</b>HD</span>
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg"><b>TheBest</b>HotelDeal</span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
-<nav class="navbar navbar-static-top" style="background-color:#000044;padding-bottom:0;">
+<nav class="navbar navbar-static-top" style="background-color:#222d32;padding-bottom:0;">
     <!-- Sidebar toggle button-->
     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -69,12 +69,12 @@
 
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu" >
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-align: center;background-color: #000044;">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-align: center;background-color: #222d32;">
                     <span class="hidden-xs"><?php echo $_SESSION['login_hotel'] . "      " ?></span><i class="fa fa-gears"></i>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
-                    <li class="user-header" style="text-align: center;background-color: #000044;">
+                    <li class="user-header" style="text-align: center;background-color: #222d32;">
                         <img src="../../assets/images/1_main.jpg"  style='border-radius: 40%;' class="img-circle" alt="User Image">
 
                         <p>
@@ -85,7 +85,7 @@
                     <!-- Menu Body -->
 
                     <!-- Menu Footer-->
-                    <li class="user-footer" style="text-align: center;background-color: #000044;">
+                    <li class="user-footer" style="text-align: center;background-color: #222d32;">
                         <!--                <div class="pull-left">
                                           <a href="#" class="btn btn-default btn-flat">Profile</a>
                                         </div>-->

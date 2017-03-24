@@ -3,61 +3,67 @@
  <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box " style="background-color: #555555;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
+          <div class="small-box " style="background-color: #222d32;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
             <div class="inner" style="color: #555555;background-color: white;">
               <h3 id="orders" style="color: black"></h3>
 
-              <p>New Orders</p>
+              <p style="font-weight:bold;margin:0;">New Orders</p>
+               <p style="font-weight:bold;font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
+
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" style="padding:6px 0;"> <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6" >
           <!-- small box -->
-          <div class="small-box " style="background-color: #555555;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
+          <div class="small-box " style="background-color: #222d32;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
             <div class="inner" style="color: #555555;background-color: white;">
               <h3 id="visitors" style="color: black"></h3>
 
-              <p>No of Visitors </p>
-            </div>
+                <p style="font-weight:bold;margin:0;">No of Visitors</p>
+               <p style="font-weight:bold;font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
+  </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" style="padding:6px 0;"><i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box" style="background-color: #555555;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
+          <div class="small-box" style="background-color: #222d32;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
             <div class="inner" style="color: #555555;background-color: white;">
               <h3 id="inquiries" style="color: black"></h3>
+   <p style="font-weight:bold;margin:0;">No of Inquiries</p>
+               <p style="font-weight:bold;font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
 
-              <p>No of Inquiries</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" style="padding:6px 0;"> <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box" style="background-color: #555555;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
+          <div class="small-box" style="background-color: #222d32;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
             <div class="inner" style="color: #555555;background-color: white;">
               <h3 id="notifications" style="color: black"></h3>
 
-              <p>No of Updates</p>
+                <p style="font-weight:bold;margin:0;">No of Updates</p>
+               <p style="font-weight:bold;font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
+
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" style="padding:6px 0;"> <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -68,7 +74,7 @@
      
 
 <script>
-    firstCall();
+//firstCall();
     function firstCall(){
         setvisitors();
         setorders();

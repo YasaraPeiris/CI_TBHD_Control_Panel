@@ -47,10 +47,10 @@
     <!-- Logo -->
     
     <!-- Header Navbar: style can be found in header.less -->
-    <?php include './hotelTopMost.php';?>
+    <?php include 'hotelTopMost.php';?>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php include './hotelSidebar.php';?>
+  <?php include 'hotelSidebar.php';?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -69,7 +69,7 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <?php include './hotelTop.php';?>
+      <?php include 'hotelTop.php';?>
       
       <!-- /.row -->
       
@@ -79,17 +79,6 @@
 <div class="row">
         <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
-          <!-- Custom tabs (Charts with tabs)-->
-         
-          <!-- /.nav-tabs-custom -->
-
-          <!-- Chat box -->
-     
-          <!-- /.box (chat box) -->
-
-          <!-- TO DO List -->
-        
-          <!-- /.box -->
 
           <!-- quick email widget -->
           <div class="box box-info">

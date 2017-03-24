@@ -54,21 +54,20 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1 style="font-weight:bold;font-size: 2em;">
-        Edit Details
-<!--        <small>Control panel</small>-->
-      </h1>
+    <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:5%;">
+        <h1 style="font-weight:bold;font-size: 2em;">
+          Edit Details
+         <small>Control panel</small>
+        </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Edit Details</li>
       </ol>
     </section>
     <!-- Main content -->
-    <section class="content">
-      <!-- Small boxes (Stat box) -->
-     <?php include 'hotelTop.php'; ?>
-
+     <section class="content" style="padding-right:5%;padding-left:5%;">
+       <!-- Small boxes (Stat box) -->
+    
       
         <div class="row" style="padding-top: 1%;">
 <!--            <h1 style="color: black;padding-left: 1%;">Edit Details</h1>-->
@@ -76,7 +75,8 @@
         <br>
         <div class="col-lg-6 col-xs-12" >
           <!-- small box -->
-          <div class="small-box"  style="height:250px;text-align: center;background-color: #000044;">
+          <div class="small-box"  style="height:250px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
+">
             <div class="inner" style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
             <h1 style="color:black;">Update Hotel Details.</h1>
              <br>
@@ -86,12 +86,13 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-                    <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/hotelDetails'); ?>' class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
+                    <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/hotelDetails'); ?>' class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;color:#222d32;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
         </div>
         </div>
            <div class="col-lg-6 col-xs-12">
           <!-- small box -->
-          <div class="small-box "  style="height:250px;text-align: center;background-color: #000044;">
+          <div class="small-box "  style="height:250px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
+">
             <div class="inner" style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                 <h1 style="color:black;">Update Room Rates.</h1>
                 <br>
@@ -100,7 +101,7 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
              </div>
-                    <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/roomRates'); ?>' class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
+                    <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/roomRates'); ?>' class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;color:#222d32;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
         </div>
         </div>
         <!-- ./col -->
@@ -112,7 +113,8 @@
         <br>
         <div class="col-lg-6 col-xs-12" >
           <!-- small box -->
-          <div class="small-box"  style="height:250px;text-align: center;background-color: #000044;">
+          <div class="small-box"  style="height:250px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
+">
             <div class="inner" style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
             <h1 style="color:black;">Update Promotions.</h1>
              <br>
@@ -122,12 +124,13 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-                    <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/updateHotelDetails'); ?>' class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
+                    <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/updateHotelDetails'); ?>' class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;color:#222d32;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
         </div>
         </div>
            <div class="col-lg-6 col-xs-12">
           <!-- small box -->
-          <div class="small-box "  style="height:250px;text-align: center;background-color: #000044;">
+          <div class="small-box "  style="height:250px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
+">
             <div class="inner" style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                 <h1 style="color:black;">Update Packages.</h1>
                 <br>
@@ -136,7 +139,7 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-                    <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/viewHomePage'); ?>' class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
+                    <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/viewHomePage'); ?>' class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;color:#222d32;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
         </div>
         </div>
         <!-- ./col -->

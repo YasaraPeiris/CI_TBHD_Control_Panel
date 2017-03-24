@@ -31,11 +31,13 @@
         <!-- bootstrap wysihtml5 - text editor -->
         <link rel="stylesheet" href="../../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
         <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
-         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
-          <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
-           <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.1/css/select.dataTables.min.css">
-            <link rel="stylesheet" href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css">
-        
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
+
+
+
+
 
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -58,104 +60,72 @@
             <!-- Left side column. contains the logo and sidebar -->
             <?php include 'hotelSidebar.php';?>
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
+            <div class="content-wrapper" style="min-height: 88vh">
                 <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1 style="font-weight:bold;font-size: 2em;">
+             <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:5%;">
+             <h1 style="font-weight:bold;font-size: 2em;">
                       Update Room Rates
                   </h1>
                   <ol class="breadcrumb">
                       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                     <li class="active">Edit Details</li>
+                      <li class="active">Edit Details</li>
                   </ol>
               </section>
-              <section class="content">
-                   <div class="container-fluid edit-container" style="background:white;padding: 20px;box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);-webkit-border-radius: 5px;border-radius: 5px;">
-      
-               <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Room Rates</h2>
-               <div class="small-box" id="hotelDes" style="box-shadow:none;">
-                <div style="background: white;" >
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="box box-info" style="border-color:gray;">
-                        <div class="box-body pad" style="color: black;">
-                           <form id="updateRate" method="post">
-                            <div class="row" style="padding:3% 0;" >
-                                <div class ="col-md-4">
-                                    <label style="color:black;font-size: 1.4em;">Room Type</label>
-                                </div>
-                                <div class ="col-md-4">
-                                    <select id="roomtypemodal" name="roomtypemodal" class="form-control" required=""  style="width: 100%;font-size: 1.2em;" onchange="loadprice()">
-                                        <option value="select" selected="" disabled="">Select Room Type</option>
-                                        <?php
-                                        $r = 0;
-                                        while ($r < sizeof($data1)) {
-                                            ?><option value=<?php echo $data1[$r]->room_type_id ?>><?php  echo $data1[$r]->room_name ?> </option>";
-                                            <?php
-                                            $r++;
-                                        }
-                                        ?></select>  
-                                    </div></div>
-                                    <br><br>
-                                    <div class="row" id="coreEdit" style="display: none;padding :3% 0;" >
-                                       
-                                            <div class ="col-md-4">
-                                                <label style="color:black;font-size: 1.4em;">With Breakfast/Without Breakfast</label>
-                                            </div>
-                                            <div class ="col-md-4">
-                                                <select id="roomratemodal" name="roomratemodal" class="form-control"   style="width: 100%;font-size: 1.1em;" onchange="displayPrice()">
-                                                    <option value="select" selected="" disabled="">WITH / WITHOUT Breakfast</option>
-                                                    <option value="0" >Without Breakfast</option>
-                                                    <option value="1" >With Breakfast</option>
-                                                </select> 
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <div class="row"id="prices" style="display: none;">
-                                            <div class ='col-md-9'>
-                                                <div class="form-group">
-                                                    <div class="col-md-6">
-                                                        <label>Current Value</label>
-                                                        <input id="roomtypeid" name="roomtypeid" type="hidden"  class="form-control"  >
-                                                        <input id="hotelid" type="hidden"  class="form-control"  >
-                                                        <input id="rate" type="text"  class="form-control" value="" disabled="true" >
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label>New Value</label>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <input  type="text" class="form-control" value="Rs." disabled="true">
+             <section class="content" style="padding-right:5%;padding-left:5%;">
+        <div  style="background:white;padding: 20px;box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);-webkit-border-radius: 5px;border-radius: 5px;">
 
-                                                            </div>
-                                                            <div class="col-md-9">
-                                                                <input id="added_rate" name="added_rate" type="number" class="form-control" value="Rs." disabled="true">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="btn-group-vertical" style="background: white;padding:3%;">
-                                                    <button onclick="changeRoomDisable()" style='background-color: maroon;' type="button" class="btn btn-block btn-success btn-lg">Edit</button>
-                                                    <button onclick="updateRoom()" style='background-color: maroon;' disabled="true" id="roomfacility" type="button" class="btn btn-block btn-success btn-lg">Update</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                   <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Room Rates</h2>
+                   <div class="small-box" id="hotelDes" style="box-shadow:none;">
+                    <div style="background: white;" >
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="box box-info" style="border-color:gray;">
+                            <div class="box-body pad" style="color: black;">
+                               <table id="example" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Room Type</th>
+                                        <th>Room Name</th>
+                                        <th>Office</th>
+                                        <th>Age</th>
+                                        <th>Start date</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                        <th>Age</th>
+                                        <th>Start date</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr>
+                                        <td>Tiger Nixon</td>
+                                        <td>System Architect</td>
+                                        <td>Edinburgh</td>
+                                        <td>61</td>
+                                        <td>2011/04/25</td>
+                                        <td>$320,800</td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 </div>
 
-    </section>
+</section>
 
-    <!-- /.content -->
+<!-- /.content -->
 </div>
 
 <!-- /.content-wrapper -->
@@ -217,9 +187,25 @@
         <script src="../../assets/dist/js/bootstrap-dialog.js"></script>
         <script src="../../assets/dist/js/jquery.confirm.js"></script>
         <script src="../../assets/dist/js/f_clone_Notify.js" type="text/javascript"></script>
-
+        <!--datatables-->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/fixedheader/3.1.2/js/dataTables.fixedHeader.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
         <script>
+
+        $(document).ready(function() {
+            var table = $('#example').DataTable( {
+                responsive: true
+            } );
+
+            new $.fn.dataTable.FixedHeader( table );
+        } );
+
         function displayPrice() {
+
             document.getElementById("prices").style.display = 'block';
             var comp = document.getElementById("roomratemodal").selectedIndex;
             var compp = document.getElementById("roomtypemodal").selectedIndex;
@@ -234,114 +220,103 @@
             if (obj !== null) {
                 obj.onreadystatechange = function () {
                     if (obj.readyState < 4) {
-                                                                                            // progress
-                                                                                        } else if (obj.readyState === 4) {
-                                                                                            var res = obj.responseText;
-                                                                                            var opt1 = JSON.parse(res)[0].price_only_bed;
-                                                                                            var opt2 = JSON.parse(res)[0].price_bed_breakfast;
-                                                                                            var opt3 = JSON.parse(res)[0].hotel_id;
-                                                                                            var opt4 = JSON.parse(res)[0].roomType;
-                                                                                            var opt5 = JSON.parse(res)[0].room_type_id;
+                        // progress
+                    } else if (obj.readyState === 4) {
+                        var res = obj.responseText;
+                        var opt1 = JSON.parse(res)[0].price_only_bed;
+                        var opt2 = JSON.parse(res)[0].price_bed_breakfast;
+                        var opt3 = JSON.parse(res)[0].hotel_id;
+                        var opt4 = JSON.parse(res)[0].roomType;
+                        var opt5 = JSON.parse(res)[0].room_type_id;
 
-                                                                                            document.getElementById("roomtypeid").value = opt5;
-                                                                                            document.getElementById("hotelid").value = opt3;
-                                                                                            if (comp == 1) {
-                                                                                                document.getElementById("rate").value = "Rs. " + opt1;
-                                                                                            }
-                                                                                            if (comp == 2) {
-                                                                                                document.getElementById("rate").value = "Rs. " + opt2;
-                                                                                            }
-                                                                                            document.getElementById("added_rate").disabled = true;
-                                                                                        }
-                                                                                    }
-                                                                                    obj.open("GET", "test2.php?roomType=" + encodeURIComponent(compp), true);
-                                                                                    obj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                                                                    obj.send();
-                                                                                }
-                                                                            }
+                        document.getElementById("roomtypeid").value = opt5;
+                        document.getElementById("hotelid").value = opt3;
+                        if (comp == 1) {
+                            document.getElementById("rate").value = "Rs. " + opt1;
+                        }
+                        if (comp == 2) {
+                            document.getElementById("rate").value = "Rs. " + opt2;
+                        }
+                        document.getElementById("added_rate").disabled = true;
+                    }
+                }
+                obj.open("GET", "test2.php?roomType=" + encodeURIComponent(compp), true);
+                obj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                obj.send();
+            }
+        }
 
-                                                                            function changeRoomDisable() {
+        function changeRoomDisable() {
 
-                                                                                document.getElementById('added_rate').disabled = false;
-                                                                                document.getElementById('roomfacility').disabled = false;
+            document.getElementById('added_rate').disabled = false;
+            document.getElementById('roomfacility').disabled = false;
 
-                                                                            }
-                                                                            function updateRoom() {
-                                                                                $.ajax({
-                                                                                    type: 'POST',
-                                                                                    url: 'updateprice.php',
-                                                                                    data: $('#updateRate').serialize(),
-                                                                                    success: function (data) {
-                                                                                        cleanData();
-                                                                                        
+        }
+        function updateRoom() {
+            $.ajax({
+                type: 'POST',
+                url: 'updateprice.php',
+                data: $('#updateRate').serialize(),
+                success: function (data) {
+                    cleanData();
+                }
+            });
+        }
+        function cleanData() {
 
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                            function cleanData() {
-
-                                                                                document.getElementById('added_rate').value = 123;
-                                                                                document.getElementById("coreEdit").style.display = 'none'
-                                                                                document.getElementById("roomtypemodal").selectedIndex = 0;
-                                                                                document.getElementById('roomratemodal').selectedIndex = 0;
+            document.getElementById('added_rate').value = 123;
+            document.getElementById("coreEdit").style.display = 'none'
+            document.getElementById("roomtypemodal").selectedIndex = 0;
+            document.getElementById('roomratemodal').selectedIndex = 0;
 
 
-                                                                            }
-                                                                            function loadprice() {
-                                                                                document.getElementById("coreEdit").style.display = 'block';
-                                                                                var comp = document.getElementById("roomtypemodal").selectedIndex;
+        }
+        function loadprice() {
+            document.getElementById("coreEdit").style.display = 'block';
+            var comp = document.getElementById("roomtypemodal").selectedIndex;
 
-                                                                                var obj;
-                                                                                if (window.XMLHttpRequest) {
-                                                                                    obj = new XMLHttpRequest();
-                                                                                } else if (window.ActiveXObject) {
-                                                                                    obj = new ActiveXObject("Microsoft.XMLHTTP");
-                                                                                } else {
-                                                                                    alert("Browser Doesn't Support AJAX!");
-                                                                                }
-                                                                                if (obj !== null) {
-                                                                                    obj.onreadystatechange = function () {
-                                                                                        if (obj.readyState < 4) {
-                                                                                            // progress
-                                                                                        } else if (obj.readyState === 4) {
-                                                                                            var res = obj.responseText;
-                                                                                            var checkboxes = document.getElementsByName('check_roomlist[]');
+            var obj;
+            if (window.XMLHttpRequest) {
+                obj = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                obj = new ActiveXObject("Microsoft.XMLHTTP");
+            } else {
+                alert("Browser Doesn't Support AJAX!");
+            }
+            if (obj !== null) {
+                obj.onreadystatechange = function () {
+                    if (obj.readyState < 4) {
+            // progress
+        } else if (obj.readyState === 4) {
+            var res = obj.responseText;
+            var checkboxes = document.getElementsByName('check_roomlist[]');
 
-                                                                                            for (var f = 0; f < checkboxes.length; f++) {
-                                                                                                checkboxes[f].checked = false;
-                                                                                                checkboxes[f].disabled = true;
-                                                                                            }
-                                                                                            for (var i = 0; i < JSON.parse(res).length; i++) {
+            for (var f = 0; f < checkboxes.length; f++) {
+                checkboxes[f].checked = false;
+                checkboxes[f].disabled = true;
+            }
+            for (var i = 0; i < JSON.parse(res).length; i++) {
 
-                                                                                                for (var f = 0; f < checkboxes.length; f++) {
+                for (var f = 0; f < checkboxes.length; f++) {
 
-                                                                                                    var t = JSON.parse(res)[0].basic_facility;
-
-
-                                                                                                    if (t == checkboxes[f].value) {
-                                                                                                        checkboxes[f].disabled = false;
-                                                                                                        checkboxes[f].checked = true;
-                                                                                                        checkboxes[f].disabled = true;
-                                                                                                        break;
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                    obj.open("GET", "test1.php?roomType=" + encodeURIComponent(comp), true);
-                                                                                    obj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                                                                    obj.send();
-                                                                                }
-                                                                            }
+                    var t = JSON.parse(res)[0].basic_facility;
 
 
-
-
-
-
-
-
-
-                                                                            </script>
-                                                                        </body>
-                                                                        </html>
+                    if (t == checkboxes[f].value) {
+                        checkboxes[f].disabled = false;
+                        checkboxes[f].checked = true;
+                        checkboxes[f].disabled = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    obj.open("GET", "test1.php?roomType=" + encodeURIComponent(comp), true);
+    obj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    obj.send();
+}
+}
+</script>
+</body>
+</html>

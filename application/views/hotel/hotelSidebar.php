@@ -1,6 +1,6 @@
 <?php ?>
 
-<aside class="main-sidebar" >
+<aside class="main-sidebar" style="" >
   <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar" style="">
     <!-- Sidebar user panel -->
@@ -26,7 +26,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
        <li>
-        <a title="My account" href='<?php echo base_url ('index.php/RedirectPageController/viewHomePage'); ?>'>
+        <a title="My home" href='<?php echo base_url ('index.php/LoginController/viewHomePage'); ?>'>
           <i class="fa fa-calendar"></i> <span>Home Page</span>
        </a>
      </li>
@@ -40,17 +40,12 @@
         <i class="fa fa-calendar"></i> <span>Edit Details</span> 
       </a>
     </li>
-    <li>
-     <a href="../editDetails.php" >
-      <i class="fa fa-calendar"></i> <span>Edit Details</span>
-    </a>
-  </li>
-  <li>
-    <a href="orderList.php" >
-      <i class="fa fa-calendar"></i> <span>Check Orders</span>
-      <small class="label pull-right bg-red" id="ordersSideBar">3</small>
-    </a>
-  </li>
+   <li>
+       <a title="My account" href='<?php echo base_url ('index.php/LoginController/viewOrderDetails'); ?>'>
+        <i class="fa fa-calendar"></i> <span>Order History</span>
+      </a>
+    </li>
+ 
 
 
   <li>
