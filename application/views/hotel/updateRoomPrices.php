@@ -48,6 +48,7 @@
         <![endif]-->
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
+    <p><?php print_r($data1[0]); ?></p>
         <div class="wrapper">
 
             <!-- Left side column. contains the logo and sidebar -->
@@ -64,67 +65,389 @@
                 <!-- Content Header (Page header) -->
              <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:5%;">
              <h1 style="font-weight:bold;font-size: 2em;">
-                      Update Room Rates
+              Update Room Details
                   </h1>
                   <ol class="breadcrumb">
                       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                       <li class="active">Edit Details</li>
                   </ol>
               </section>
-             <section class="content" style="padding-right:5%;padding-left:5%;">
+    <section class="content" style="padding-right:5%;padding-left:5%;">
         <div  style="background:white;padding: 20px;box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);-webkit-border-radius: 5px;border-radius: 5px;">
 
-                   <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Room Rates</h2>
-                   <div class="small-box" id="hotelDes" style="box-shadow:none;">
-                    <div style="background: white;" >
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="box box-info" style="border-color:gray;">
+        <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Room 1 Details</h2>
+        <div class="small-box" id="hotelDes" style="box-shadow:none;">
+            <div style="background: white;" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-info" style="border-color:gray;">
                             <div class="box-body pad" style="color: black;">
-                               <table id="example" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>Room Type</th>
-                                        <th>Room Name</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
+                                
+
+
+
+
+                            <form action="" method="post" enctype="multipart/form-data" id="roomForm">
+                              <p class="para1 "> Room Type 
+                              <select id="room_type" name="room_type" style="margin: 5px 10px; padding: 6px; max-width: 70%;" required="true">
+                                <option selected disabled>Please Select</option>
+                                <option value="Single" <?php if ($data1[0]->room_type == "Single") {echo "selected"; } ?> >Single Room</option>
+                                <option value="Double" <?php if ($data1[0]->room_type == "Double") {echo "selected"; } ?> >Double Room</option>
+                                <option value="Twin" <?php if ($data1[0]->room_type == "Twin") {echo "selected"; } ?> >Twin Room</option>
+                                <option value="Triple">Triple Room</option>
+                                <option value="Quadruple">Quadruple Room</option>
+                                <option value="family">Family Room</option>
+                                <option value="Studio">Studio Room</option>
+                              </select></p>
+                                <!-- <label for="rent_area">Your Rent Area</label> -->
+                                <p class="para1 "> Room Name<input type="text" name="room_name" value="<?php echo $data1[0]->room_name;?>" style="margin: 5px 10px; padding: 6px; max-width: 70%;" required></p>
+                                <p class="para1 ">Occupancy <input type="number" name="occupancy" value="<?php echo $data1[0]->no_of_people;?>"  min="1" max="16" style="margin: 0 10px; min-width: 50px; padding: 2px 10px; " required></p>
+                                <p class="para1 ">Maximum Occupancy <input type="number" name="max_occupancy" id="max_ppl" value="<?php echo $data1[0]->max_no_of_guests;?>" min="1" max="16" style="margin: 0 10px; min-width: 50px; padding: 2px 10px; " required></p>
+                                <label for="how_much">Price,</label>
+                               <!-- 
+                                -->
+
+
+                                 <!-- <hr> -->
+                                 <input type="hidden" name="priceValueCount" id="priceValueCount" value="1">
+                                 <ul id="Price_ul">
+                                   <li>
+                                     <!-- <p class="para1 with_indent">  --><!-- <input type="text" name="priceName1" id="priceName1" min="0" style="margin: 10px 10px; min-width: 85px;max-width: 150px; padding: 5px 10px;" value="Room Only Price"> -->
+                                     <select name="priceName1" id="priceName1" style="margin: 5px 5px; min-width: 85px;max-width: 140px; padding: 5px 5px;">
+                                       <option value="Room Only">Room Only</option>
+                                       <option value="Bed and Breakfast">Bed and Breakfast</option>
+                                       <option value="Half-board">Half-board</option>
+                                       <option value="Full-board">Full-board</option>
+                                       <option value="with AC">with AC</option>
+                                       <option value="without AC">without AC</option>
+                                       <option value="AC room with breakfast">AC room with breakfast</option>
+                                       <option value="non AC room with breakfast">non AC room with breakfast</option>
+                                       <option value="Other">Other</option>
+                                     </select>
+                                     <input type="text" name="priceNameCustm1" id="priceNameCustm1" placeholder="please specify." style=" visibility: hidden; max-width: 150px;margin: 5px 5px;padding: 5px 5px;" >
+                                      Rs.&nbsp;<input type="number" name="price1" id="price1" min="0" style="margin: 5px; min-width: 85px;" required>
+                                     <br>Special things to note,<br>
+                                     <textarea rows="2" cols="50" name="priceOther1" style="width: 85%; margin: 5px ; padding: 5px; resize: vertical; border-radius: 5px;" ></textarea>
+                                     <br>Extra facilities for the price.
+                                     <br>
+                                     <div class="row">
+                                       <div class="col-md-6">
+                                         <input type="checkbox" name="extraFaci1[]" value="Breakfast">Breakfast<br>
+                                         <input type="checkbox" name="extraFaci1[]" value="Lunch">Lunch<br>
+                                         <input type="checkbox" name="extraFaci1[]" value="Dinner">Dinner<br>
+                                       </div>
+                                       <div class="col-md-6">                           
+                                         <input type="checkbox" name="extraFaci1[]" value="AC">A/C<br>
+                                         <input type="checkbox" name="extraFaci1[]" value="Hot water">Hot water<br>
+                                       </div>
+                                     </div>
+                                     
+                                   </li>
+                                   <!-- <li>
+                                      <input type="text" name="priceName2" id="priceName2" min="0" style="margin: 10px 10px; min-width: 85px; max-width: 150px; padding: 5px 10px;" value="Bed and Breakfast"> Rs. <input type="number" name="price2" id="price2"  min="0" style="margin: 0 10px; min-width: 85px; "> 
+                                     <textarea rows="2" cols="50" name="other_amenities" style="width: 85%; margin: 5px ; margin-left: 20px; padding: 10px; resize: vertical; border-radius: 5px;" ></textarea>
+                                   </li> -->
+                                 </ul>
+                                   <button type="button" onclick="addAnotherPrice()">Add Another Price.</button>
+                                   <button type="button" onclick="removeLastPrice()">Remove Last Price</button>
+                                 <script type="text/javascript">
+                                   var x = 2;
+                                   function addAnotherPrice() {
+                                     // alert('ayeee');
+                                     var appendLi = '<li><hr class="hr_style"><select name="priceName'+x+'" id="priceName'+x+'" style="margin: 5px 5px; min-width: 85px;max-width: 140px; padding: 5px 5px;">'+
+                                       '<option value="Room Only">Room Only</option>'+
+                                       '<option value="Bed and Breakfast">Bed and Breakfast</option>'+
+                                       '<option value="Half-board">Half-board</option>'+
+                                       '<option value="Full-board">Full-board</option>'+
+                                       '<option value="with AC">with AC</option>'+
+                                       '<option value="without AC">without AC</option>'+
+                                       '<option value="AC room with breakfast">AC room with breakfast</option>'+
+                                       '<option value="non AC room with breakfast">non AC room with breakfast</option>'+
+                                       '<option value="Other">Other</option>'+
+                                     '</select>'+
+                                     '<input type="text" name="priceNameCustm'+x+'" id="priceNameCustm'+x+'" placeholder="please specify." style=" visibility: hidden; max-width: 150px;margin: 5px 5px;padding: 5px 5px;" >'+
+                                      'Rs.&nbsp;<input type="number" name="price'+x+'" id="price'+x+'" min="0" style="margin: 5px; min-width: 85px;" required>'+
+                                     '<br>Special things to note,<br>'+
+                                     '<textarea rows="2" cols="50" name="priceOther'+x+'" style="width: 85%; margin: 5px ; padding: 5px; resize: vertical; border-radius: 5px;" ></textarea>'+
+                                     '<br>Extra facilities for the price.<br>'+
+                                     '<div class="row">'+
+                                      ' <div class="col-md-6">'+
+                                       '  <input type="checkbox" name="extraFaci'+x+'[]" value="Breakfast">Breakfast<br>'+
+                                        ' <input type="checkbox" name="extraFaci'+x+'[]" value="Lunch">Lunch<br>'+
+                                         '<input type="checkbox" name="extraFaci'+x+'[]" value="Dinner">Dinner<br>'+
+                                       '</div>'+
+                                       '<div class="col-md-6">'+                           
+                                        ' <input type="checkbox" name="extraFaci'+x+'[]" value="AC">A/C<br>'+
+                                         '<input type="checkbox" name="extraFaci'+x+'[]" value="Hot water">Hot water<br>'+
+                                       '</div>'+
+                                     '</div>'+
+                                     
+                                   '</li>';
+                                   // alert(x);
+                                   var y =x;
+                                     $('#Price_ul').append(appendLi);
+                                     $('#priceName'+y).change(function(){
+                                      // alert('asasas'+y);
+                                        if ($('#priceName'+y).val() == "Other") {  
+                                          // alert('sasasas'+y);
+                                          $('#priceNameCustm'+y).css("visibility", "visible"); 
+                                          $('#priceNameCustm'+y).prop('required',true);
+                                        }
+                                        else{
+                                          $('#priceNameCustm'+y).css("visibility", "hidden");
+                                          $('#priceNameCustm'+y).prop('required',false);
+                                        }
+                                       
+                                      });
+                                   // alert(x);
+                                   $('#priceValueCount').val(x);
+                                   // alert( $('#priceValueCount').val());
+                                     x = x +1;
+                                   // alert(x);
+                                   }
+                                   function removeLastPrice() {
+                                    if (x>2) {
+                                      $('#Price_ul li:last-child').remove();
+                                      x = x -1;
+                                      $('#priceValueCount').val(x-1);
+                                      // alert( $('#priceValueCount').val());
+                                    }
+                                    else{alert('You have to add atleast one price to the room.')}
+                                     
+                                     // $event.preventDefault();
+                                     // return false;
+                                   }
+                                   $('#priceName1').change(function(){
+                                      if ($('#priceName1').val() == "Other") {  
+                                        // alert('sasasas');
+                                        $('#priceNameCustm1').css("visibility", "visible"); 
+                                        $('#priceNameCustm1').prop('required',true);
+                                      }
+                                      else{
+                                        $('#priceNameCustm1').css("visibility", "hidden");
+                                        $('#priceNameCustm1').prop('required',false);
+                                      }
+                                     
+                                    });
+                                 </script>
+
+                                <p class="para1">Bathroom
+                                <select id="bathroom_type" name="bathroom_type" style="margin: 5px 10px; padding: 6px; max-width:200px;width: 70%;">
+                                <option selected disabled>Please Select</option>
+                                <option value="attached" <?php if ($data1[0]->bathroom_type == "attached") {echo "selected"; } ?> >Attached</option>
+                                <option value="private" <?php if ($data1[0]->bathroom_type == "private") {echo "selected"; } ?>>Private</option>
+                                <option value="shared" <?php if ($data1[0]->bathroom_type == "shared") {echo "selected"; } ?>>Shared</option>
+                              </select></p>
+                                 <br>
+                                 <p class="para1">Add Photos</p>
+                                 <p><b>Images of the Room</b><span style="font-size: 0.8em;">  (Add Multiple images)</span>
+                                 <input type="file"  id="roomImg" multiple required></p>
+                                 <p><b> Images of the Bathroom</b><span style="font-size: 0.8em;">  (Add Multiple images)</span>
+                                 <input type="file"  id="bathroomImg" multiple required></p>
+                                 <br><br>
+                                 <label for="amenties"> Facilities special for the room</label>
+                                 <br>
+
+                                 <div class="row" style="margin: 5px 0px ;">
+                                   <div class="col-md-6">
+                                   <input type="checkbox" name='room_faci[]' value="Wifi" > Wifi @ the room <br>
+                                   <input type="checkbox" name='room_faci[]' value="AC" >  Air Conditioned room <br>
+                                   <input type="checkbox" name='room_faci[]' value="Heating Fireplace" > Heating/ Fireplace in the room
+                                   </div>
+                                   <div class="col-md-6">
+                                   <input type="checkbox" name='room_faci[]' value="Fan" > Fans in the room<br>
+                                   <input type="checkbox" name='room_faci[]' value="Mosquito Nets" > Mosquito Nets <br>
+                                   <input type="checkbox" name='room_faci[]' value="Hot Water" > Hot Water
+                                   </div>
+                                 </div>
+                                 <br>
+                                 <div class="row" style="margin: 5px 0;">
+                                   <div class="col-md-6">
+                                       <input type="checkbox" name='room_faci[]' value="Refrigerator" > Refrigerator in the room<br>
+                                       <input type="checkbox" name='room_faci[]' value="Iron" > Iron in the room<br>
+                                       <input type="checkbox" name='room_faci[]' value="Flat Screen TV" > Flat Screen TV in the room<br>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <input type="checkbox" name='room_faci[]' value="TV" > TV in the room<br>
+                                       <input type="checkbox" name='room_faci[]' value="Satellite Channels" > Satellite Channels <br>
+                                       <input type="checkbox" name='room_faci[]' value="Hair Dryer" > Hair Dryer in the room<br>
+                                   </div>
+                                 </div>
+                                 <br>
+                                 <div class="row" style="margin: 5px 0px;">
+                                   <div class="col-md-6">
+                                     <input type="checkbox" name='room_faci[]' value="ClothRack" > Cloth Rack in the room<br>
+                                     <input type="checkbox" name='room_faci[]' value="Wardrobe Closet" > Wardrobe / Closet in the room<br>
+                                     <input type="checkbox" name='room_faci[]' value="Safe" > Safe in the room<br>
+                                   </div>
+                                   <div class="col-md-6">
+                                     Seating facilities to, <br>
+                                     <input type="radio" name="Seating" checked="checked" value="Chairs To Every One"> every one <input type="radio" name="Seating" value="Chairs Only To Fewer"> fewer <input type="radio" name="Seating" value="No chairs"> No chairs<br>
+                                     <input type="checkbox" name='room_faci[]' value="Desk" > Desk in the room
+                                   </div>
+                                 </div>
+                                 <br>
+
+                                 <div style="margin: 5px 0px 0px;">
                                    
-                                </tbody>
-                            </table>
+
+                                     <input type="checkbox" name='room_faci[]' value="Carpeted" > Carpeted Room<br>
+                                     <input type="checkbox" name='room_faci[]' value=" Tiled/Marble Floor" >  Tiled/Marble Room Floor<br>
+
+                                     <br>
+                                     <input type="checkbox" name='room_faci[]' value="Balcony Directly Accessible from the room" > Balcony Directly Accessible from the room<br>
+                                     <input type="checkbox" name='room_faci[]' value="Terrace Directly Accessible from the room" > Terrace Directly Accessible from the room<br>
+
+                                     <br>
+                                     <p>Room has a
+                                     <select id="view" name="view" style="width: 70% ; max-width: 400px; margin: 0 20px;" required>
+                                      <!-- <option selected disabled>Please Select</option> -->
+                                      <option value="no_view" selected>No view</option>
+                                      <option value="City">City View</option>
+                                      <option value="Garden">Garden View</option>
+                                      <option value="Lake">Lake View</option>
+                                      <option value="Mountain">Mountain View</option>
+                                      <option value="River">River View</option>
+                                      <option value="Sea">Sea View</option>
+                                      <option value="Pool">Pool View</option>
+                                      <option value="Landmark_View">Landmark View</option>
+                                      
+                                    </select></p>
+                                     <input type="checkbox" name='room_faci[]' value="Wheelchair Accessible" >  Room is Wheelchair accessible<br>
+                                     <input type="checkbox" name='room_faci[]' value="Elevator Accessible" > Room is Elevator accessible<br>
+                                     <br>
+                                     <p> Other things to note on amenities
+                                      <textarea rows="4" cols="50" name="other_amenities" value="<?php echo $data1[0]->other_on_faci;?>"  style="width: 85%; margin: 5px ; margin-left: 20px; padding: 10px; resize: vertical; border-radius: 5px;" ></textarea>
+                                      <!-- <input type="text" name="other_amenties" style="margin-bottom: 0;"> -->
+                                      </p><br>
+                                 
+                                 </div>
+                                 <hr class="hr_style">
+                                 <p class="para1"><b>Details of uploaded photos,</b></p>
+
+                                 <table class="table" id="imgTable1">
+                                  <thead>
+                                    <th>Time</th>
+                                    <th>Initial Size</th>
+                                    <th>Image</th>
+                                    <th>Status</th>
+                                    <!-- <th>Uploaded Size</th> -->
+                                  </thead>
+                                  <tbody id="tbodyID1">
+                                    <!-- <tr>
+                                      <td>-NA-</td>
+                                      <td>-NA-</td>
+                                      <td>-NA-</td>
+                                      <td>Not Any Photos Uploaded Yet</td>
+                                    </tr> -->
+                                    
+                                  </tbody>
+                                  <tbody id="tbodyID2">
+                                    <!-- <tr>
+                                      <td>-NA-</td>
+                                      <td>-NA-</td>
+                                      <td>-NA-</td>
+                                      <td>Not Any Photos Uploaded Yet</td>
+                                    </tr> -->
+                                    
+                                  </tbody>
+                                 </table>
+                                 <hr class="hr_style">
+                                 <label >How many this kind of rooms? </label> 
+                                 <input type="number" name="each_room_count" value="<?php echo $data1[0]->no_of_rooms;?>"  min="1" max="10" style="margin: 5px 10px; min-width: 50px; padding: 2px 10px; ">
+                                <!-- <input type="text" id="fname" name="firstname"> -->
+                                <!-- <label for="property_type">The place is a</label>
+                                
+                                <label for="floor_level">Floor Level</label>
+                                <br>
+                                <input type="Number" id="floor_level" name="floor level" min="-1" max="50">  -->
+                                <br>
+                                <br>
+                                <input type="submit" value="Save" name="save" >
+                                <!-- <button onclick="goBack()" class="back_button">Back</button> -->
+                                <!-- <input type="submit" value="Finish" name="finishButton" id="dsas"> -->
+                            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
-</div>
+    </section>
+    <!-- <section class="content" style="padding-right:5%;padding-left:5%;">
+        <div  style="background:white;padding: 20px;box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);-webkit-border-radius: 5px;border-radius: 5px;">
 
-</section>
+        <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Room Rates</h2>
+        <div class="small-box" id="hotelDes" style="box-shadow:none;">
+            <div style="background: white;" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-info" style="border-color:gray;">
+                            <div class="box-body pad" style="color: black;">
+                                <table id="example" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Room Type</th>
+                                            <th>Room Name</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
+
+    </section>
+ -->
 <!-- /.content -->
 </div>
 

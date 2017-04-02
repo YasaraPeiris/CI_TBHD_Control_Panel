@@ -22,12 +22,13 @@ class EditDetailsController extends CI_Controller {
 		$this->load->view('hotel/hotelDetails',$data);
 	}
 
-	public function roomRates(){
+	public function roomDetails(){
 		$this->load->library('session');
 		$listing_no = $_SESSION['hotelno'];
 		$this->load->model('RoomModel');
 		$rooms =  $this->RoomModel->getRoomDetails($listing_no);
 		$data= array('data1'=> $rooms );
+		// print_r($data);
 		$this->load->view('hotel/updateRoomPrices',$data);
 
 	}

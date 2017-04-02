@@ -4,7 +4,7 @@ class AccountModel extends CI_Model
 
 	function getAccountDetails($listing_no){
 
-		$this->db->select('first_name,last_name,image_path,owner.email,owner.mobile,tel,owner.listing_type,owner.owner_id,username,password,login.login_id');
+		$this->db->select('first_name,last_name,image_path,owner.email,owner.mobile,owner.listing_type,owner.owner_id,username,password,login.login_id');
 		$this->db->where('listings.listing_id', $listing_no);
 		$this->db-> from('listings');
 		$this->db->join('owner', 'listings.owner_id = owner.owner_id');
