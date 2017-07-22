@@ -48,7 +48,7 @@
         <![endif]-->
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
-    <p><?php print_r($data1[0]); ?></p>
+
         <div class="wrapper">
 
             <!-- Left side column. contains the logo and sidebar -->
@@ -73,10 +73,20 @@
                   </ol>
               </section>
     <section class="content" style="padding-right:5%;padding-left:5%;">
-        <div  style="background:white;padding: 20px;box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);-webkit-border-radius: 5px;border-radius: 5px;">
+        <div class="row">
+             <div class="col-md-12">
+                <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            ">
+                    <div class="box-header with-border" style="text-align: center;background: rgb(235,235,235); /* Old browsers */
+            background: -moz-linear-gradient(-45deg, rgba(235,235,235,1) 10%, rgba(190,212,216,1) 27%, rgba(172,196,190,1) 36%, rgba(142,166,162,1) 46%, rgba(130,157,152,1) 54%, rgba(78,92,90,1) 73%, rgba(34,45,50,1) 86%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(-45deg, rgba(235,235,235,1) 10%,rgba(190,212,216,1) 27%,rgba(172,196,190,1) 36%,rgba(142,166,162,1) 46%,rgba(130,157,152,1) 54%,rgba(78,92,90,1) 73%,rgba(34,45,50,1) 86%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(135deg, rgba(235,235,235,1) 10%,rgba(190,212,216,1) 27%,rgba(172,196,190,1) 36%,rgba(142,166,162,1) 46%,rgba(130,157,152,1) 54%,rgba(78,92,90,1) 73%,rgba(34,45,50,1) 86%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', endColorstr='#222d32',GradientType=1 );
+            ">
+                        <h3 class="box-title" style="font-size: 1.6em;font-weight: bold;">Room Details</h3>
+                    </div>
 
-        <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Room 1 Details</h2>
-        <div class="small-box" id="hotelDes" style="box-shadow:none;">
+                 <div class="small-box" id="hotelDes" style="box-shadow:none;">
             <div style="background: white;" >
                 <div class="row">
                     <div class="col-md-12">

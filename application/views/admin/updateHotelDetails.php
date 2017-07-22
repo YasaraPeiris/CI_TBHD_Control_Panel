@@ -117,7 +117,7 @@
                                 <!--            <div class="icon">
                                               <i class="ion ion-pie-graph"></i>
                                             </div>-->
-                                <a href="basicNotifications.php" class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="checkNotifications.php" class="small-box-footer" style="height: 50px;line-height: 50px;font-size: 1.2em;;">Click Here <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 <!--                        <div class="col-lg-4 col-xs-12">

@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['index_page'] = 'index.php';
-$config['base_url'] = 'http://localhost/CI_TBHD_Control_Panel/';
+$config['base_url'] = 'http://localhost/CI_TBHD_Control_Panel/index.php';
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-\=';
 $config['encryption_key'] = 'thu23456789#[n,';
 /*

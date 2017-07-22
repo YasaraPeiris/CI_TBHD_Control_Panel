@@ -96,12 +96,14 @@
             <table id="example_checkin" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
               <thead style="text-align:center;background: linear-gradient(to bottom, #f5d11d 0%,#f3d10e 1%,#efcf1c 2%,#fccd0d 4%,#f7ca0d 5%,#f9cb1e 6%,#f7cb10 7%,#f8cc14 8%,#f0c40c 54%,#edc50c 55%,#e9c108 71%,#ecc008 78%,#e6be06 91%,#e9bd06 93%,#e8bc06 100%);
               background-image: linear-gradient(rgb(245, 209, 29) 0%, rgb(243, 209, 14) 1%, rgb(239, 207, 28) 2%, rgb(252, 205, 13) 4%, rgb(247, 202, 13) 5%, rgb(249, 203, 30) 6%, rgb(247, 203, 16) 7%, rgb(248, 204, 20) 8%, rgb(240, 196, 12) 54%, rgb(237, 197, 12) 55%, rgb(233, 193, 8) 71%, rgb(236, 192, 8) 78%, rgb(230, 190, 6) 91%, rgb(233, 189, 6) 93%, rgb(232, 188, 6) 100%);">
-              <tr >
+              <tr style="text-align: center;">
                 <th data-priority="1">Order ID</th>
+                  <th data-priority="8">Customer Name</th>
+                  <th data-priority="9">Tele</th>
                 <th data-priority="4">Check-In Date</th>
                 <th data-priority="5">Check-Out Date</th>
                 <th data-priority="6">Room Type</th>
-                <th data-priority="8">Total Rate</th>
+                <th data-priority="7">Total Rate</th>
                 <th data-priority="2">Confirm</th>
                 <th data-priority="3">Ignore</th>
               </tr>
@@ -109,6 +111,8 @@
             <tfoot >
               <tr>
                <th>Order ID</th>
+                  <th>Customer Name</th>
+                  <th>Tele</th>
                <th>Check-In Date</th>
                <th>Check-Out Date</th>
                <th>Room Type</th>
@@ -123,7 +127,9 @@
               for($i=0;$i<sizeof($data2);$i++){?>
               <tr id="<?php echo $data2[$i][0]['booking_id']?>">
                 <td><?php echo $data2[$i][0]['booking_id']; ?></td>
-                <td><?php echo  $data2[$i][0]['check_in'];?></td>
+                  <td><?php echo $data2[$i][0]['customer_name']; ?></td>
+                  <td><?php echo $data2[$i][0]['phone']; ?></td>
+                  <td><?php echo  $data2[$i][0]['check_in'];?></td>
                 <td><?php echo  $data2[$i][0]['check_out'];?></td>
                 <td style="text-align:left;"><?php foreach ($data2[$i] as $row){
                   echo $row['item_name'].' - '.$row['quantity'].'</br>';}?></td>
@@ -131,11 +137,11 @@
                     <?php 
                     foreach ($data2[$i] as $row)
                     {
-                      echo $row['room_total_rate'].'</br>';
+                      echo $row['rate'].'</br>';
                     } 
-                    echo '<span style="border-top:1px solid;border-bottom:double;">'.$data2[$i][0]['total_rate'].'</span></br>';?>
+                    echo '<span style="border-top:1px solid;border-bottom:double;">'.$data2[$i][0]['total_to_hotel'].'</span></br>';?>
                 </td>
-                <td><input type="button" style="font-weight:bold;background-color:#def1b7;" class="btn btn-default" onclick="setConfirm(this.id)" value="Confirm" id="<?php echo $data2[$i][0]['booking_id'].'c';?>" /></td>
+                  <td><input type="button" style="font-weight:bold;background-color:#def1b7;" class="btn btn-default" onclick="setConfirm(this.id)" value="Confirm" id="<?php echo $data2[$i][0]['booking_id'].'c';?>" /></td>
                 <td><input type="button" style="font-weight:bold;background-color:#ff8279;color:black;" class="btn btn-default" onclick="setIgnored(this.id)" value="Ignore" id="<?php echo $data2[$i][0]['booking_id'].'i';?>" /></td>
               </tr>
             <?php }
@@ -203,9 +209,9 @@
               $newDate = date("Y-m-d", strtotime($order_date));?>
               <tr id="<?php echo $data3[$i][0]['booking_id']?>">
                    <td><?php echo  $data3[$i][0]['booking_id'];?></td>
-                <td><?php echo $data3[$i][0]['customer_name'].' '.$data3[$i][0]['last_name']; ?></td>
+                <td><?php echo $data3[$i][0]['customer_name']; ?></td>
                  <td><?php echo  $data3[$i][0]['nic_number'];?></td>
-                <td><?php echo  $data3[$i][0]['telephone_num'];?></td>
+                <td><?php echo  $data3[$i][0]['phone'];?></td>
                 <td><?php echo  $newDate;?></td>
                 <td><?php echo  $data3[$i][0]['check_in'];?></td>
                 <td><?php echo  $data3[$i][0]['check_out'];?></td>
@@ -240,7 +246,7 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <p style="font-size: 1.3em;font-weight: bold;">-A Hotel Reservation System which offer both local and foreign tourists to book hotels in Sri Lanka using a smart, searchable website and it lets customer to choose the best hotel to book by swiftly navigating through rates, features and offers of multiple hotels in the preferred destination. Customers will be provided with the facility to pay online using eZ cash or m-cash.Additional services offered by this website are</p><ul style="font-size: 1.3em;font-weight: bold;"><li>Enjoy low cost bookings</li><li>Cancellation without any cost.</li><li>Automated email and sms notification system.</li><li>Location based google api services.</li></ul><br><p style="font-size: 1.4em;font-weight: bold;text-align: center;text-decoration: underline;"><a href="" >THe Best Hotel Deal</a></p>
+        <p style="font-size: 1.1em;font-weight: bold;">-A Hotel Reservation System which offer both local and foreign tourists to book hotels in Sri Lanka using a smart, searchable website and it lets customer to choose the best hotel to book by swiftly navigating through rates, features and offers of multiple hotels in the preferred destination. Customers will be provided with the facility to pay online using eZ cash or m-cash.Additional services offered by this website are</p><ul style="font-size: 1.3em;font-weight: bold;"><li>Enjoy low cost bookings</li><li>Cancellation without any cost.</li><li>Automated email and sms notification system.</li><li>Location based google api services.</li></ul><br><p style="font-size: 1.4em;font-weight: bold;text-align: center;text-decoration: underline;"><a href="" >THe Best Hotel Deal</a></p>
       </div>
       <!-- /.box-body -->
     </div>

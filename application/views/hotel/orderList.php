@@ -144,10 +144,7 @@
           </div>  <div class="row" style="font-weight:bold;">
             <div class="col-md-4">Customer Name</div>
             <div class="col-md-8" id="full_name"></div><hr>
-              </div>  <div class="row" style="font-weight:bold;">
-            <div class="col-md-4">Address</div>
-            <div class="col-md-8" id="address"></div><hr>
-              </div>  <div class="row" style="font-weight:bold;">
+              </div>    <div class="row" style="font-weight:bold;">
             <div class="col-md-4">Country</div>
             <div class="col-md-8" id="country"></div><hr>
               </div>  <div class="row" style="font-weight:bold;">
@@ -207,17 +204,15 @@
                     <?php 
                     foreach ($data2[$i] as $row)
                     {
-                      echo $row['room_total_rate'].'</br>';
+                      echo $row['rate'].'</br>';
                     } 
-                    echo '<span style="border-top:1px solid;border-bottom:double;">'.$data2[$i][0]['total_rate'].'</span></br>';?>
+                    echo '<span style="border-top:1px solid;border-bottom:double;">'.$data2[$i][0]['total_to_hotel'].'</span></br>';?>
                   </td>
                   <?php $status = $data2[$i][0]['confirm_hotel'];
                   if($status==2){ ?>
                   <td style="padding-top:2%;"><img src="../../assets/images/remove.png" title="ignored orders" ></td>
                   <?php }elseif($status==0){ ?>
-                  <td><input type="button" style="font-weight:bold;margin-bottom:4%;width:100%;background-color:#def1b7;color:black;" class="btn btn-default" onclick="setConfirm(this.id)" value="Confirm" id="<?php echo $data2[$i][0]['booking_id'].'c';?>" /></br>
-                    <input type="button" style="font-weight:bold;width:100%;background-color:#ff8279;color:black;" class="btn btn-default" onclick="setIgnored(this.id)" value="Ignore" id="<?php echo $data2[$i][0]['booking_id'].'i';?>" /></td>
-                    <?php }elseif ($status == 1) { ?>
+                      <td><img src="../../assets/images/remove.png" title="unaccepted orders" ></td> <?php }elseif ($status == 1) { ?>
                     <td style="padding-top:2%;"><img src="../../assets/images/icon.png" title="accepted orders" ></td>
                     <?php   } ?>
                     <td style="padding-top:2%;"><input type="button" title="click here to viewmore details" style="font-weight:bold;border:none;z-index:100;" class="btn btn-default infobtn" data-toggle="modal" data-target="#myModal"  id="<?php echo $i;?>" /></td>
@@ -290,12 +285,11 @@ $.widget.bridge('uibutton', $.ui.button);
 function setConfirm(clicked_id){
     var dataArry =  <?php echo  json_encode($data2);?>;
     i=clicked_id;
-    $('#full_name').html(dataArry[i][0].customer_name+" "+dataArry[i][0].last_name);
-    $('#address').html(dataArry[i][0].address);
+    $('#full_name').html(dataArry[i][0].customer_name);
     $('#country').html(dataArry[i][0].country);
     $('#nic_num').html(dataArry[i][0].nic_number);
     $('#email').html(dataArry[i][0].email);
-     $('#telephone').html(dataArry[i][0].telephone_num);
+     $('#telephone').html(dataArry[i][0].phone);
      $('#bid').html(dataArry[i][0].booking_id);
   }
   $(".infobtn").click(function(){

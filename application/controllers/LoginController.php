@@ -35,28 +35,27 @@ class LoginController extends CI_Controller {
 					$orders= $this->newOrders($listing_no);
 					$checkins = $this->recent_checkins($listing_no);
 					$data= array('data1'=> $listing[0],'data2'=>$orders,'data3'=>$checkins);
+                    $_SESSION['login_user'] =  "hotel";
 					$this->load->view('hotel/hotelsHome',$data);
 				}
 				else{
 					$_SESSION['hotelno'] = 0;
+                    $_SESSION['login_user'] =  "admin";
 					$this->load->view('admin/adminHome');
 				}	
 			}
-			else{
-				$errors = "Your username or password is incorrect";
-				echo $errors;
-				redirect();
-				// $this->load->view('index');
-			}
-			
+			else {
+                $errors = "Your username or password is incorrect";
+                echo $errors;
+                redirect();
+                // $this->load->view('index');
+            }
 		}
 	}
-
 	
 	public function newOrders($listing_no){
-
 		$this->load->model('CheckOrderModel');
-		$orders =  $this->CheckOrderModel->getNewOrders($listing_no);
+		$orders =  $this->CheckOrderModel->getRecentOrders($listing_no);
 		$booking_id=0;
 		$result = array();
 		$element = array();
@@ -89,7 +88,6 @@ class LoginController extends CI_Controller {
 			if($k=sizeof($orders)){
 				$result[$j] = $element;
 			}
-
 		}
 	}
 		return $result;
@@ -136,10 +134,6 @@ class LoginController extends CI_Controller {
 	}
 		return $result;
 	}
-
-
-
-
 	public function viewHomePage(){
 		$this->load->library('session');
 
@@ -157,7 +151,6 @@ class LoginController extends CI_Controller {
 		}
 
 	}
-
 	public function recent_checkins($listing_no){
 		$this->load->model('CheckOrderModel');
 		$orders =  $this->CheckOrderModel->getRecentCheckins($listing_no);

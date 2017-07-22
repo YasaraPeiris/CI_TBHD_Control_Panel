@@ -18,7 +18,6 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../assets/dist/css/AdminLTE.min.css">
    <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
-
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../../assets/dist/css/skins/_all-skins.min.css">
@@ -45,19 +44,14 @@
 <body class="hold-transition skin-blue sidebar-mini" onload="">
     <?php ?>
 <div class="wrapper">
-
     <header class="main-header">
     <!-- Logo -->
-    
     <!-- Header Navbar: style can be found in header.less -->
     <?php include 'adminTopMost.php';?>
   </header>
-    
   <!-- Left side column. contains the logo and sidebar -->
 <?php include 'adminSidebar.php';?>
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+   <div class="content-wrapper">
     <section class="content-header">
       <h1>
         Dashboard
@@ -68,292 +62,108 @@
         <li class="active">Dashboard</li>
       </ol>
     </section>
-
     <!-- Main content -->
-    <section class="content">
-      <!-- Small boxes (Stat box) -->
-    <?php include 'adminTop.php';?>
-      <!-- /.row -->
-      
-      <!-- /.row -->
-      <!-- Main row -->
-   
-    <div class="row">
-        <div class="col-md-6">
-        <div class="box box-solid" style="border: solid;border-color: #000044;border-width: 0.5em;">
-            <div class="box-header with-border" style="text-align: center;background-color: #000044;">
-              <h3 class="box-title" style="font-size: 1.6em;font-weight: bold;">About BEST HOTEL DEAL</h3>
-           </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <p style="font-size: 1.3em;font-weight: bold;">-A Hotel Reservation System which offer both local and foreign tourists to book hotels in Sri Lanka using a smart, searchable website and it lets customer to choose the best hotel to book by swiftly navigating through rates, features and offers of multiple hotels in the preferred destination. Customers will be provided with the facility to pay online using eZ cash or m-cash.Additional services offered by this website are</p><ul style="font-size: 1.3em;font-weight: bold;"><li>Enjoy low cost bookings</li><li>Cancellation without any cost.</li><li>Automated email and sms notification system.</li><li>Location based google api services.</li></ul><br><p style="font-size: 1.4em;font-weight: bold;text-align: center;text-decoration: underline;"><a href="" >THe Best Hotel Deal</a></p>
-            </div>
-            <!-- /.box-body -->
+      <section class="content">
+          <!-- Small boxes (Stat box) -->
+          <?php include 'adminTop.php'; ?>
+          <div class="box box-info">
+              <div class="box-header with-border" style='background-color: #000044;'>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Latest Orders</h3>
+                  <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+              </div>
+              <div class="box-body">
+                  <div class="table-responsive">
+                      <form id="notifications" method="post" >
+                          <input type="hidden" id="bookingidset" name="bookingidset"/>
+                          <input type="hidden" id="itemidset" name="itemidset"/>
+                          <table class="table no-margin" style="font-family: Verdana;">
+                              <thead >
+                              <tr >
+                                  <th style="text-align: center;">Order ID</th>
+                                  <th style="text-align: center;">Item ID</th>
+                                  <th style="text-align: center;">Hotel</th>
+                                  <th style="text-align: center;">Room Type</th>
+                                  <th style="text-align: center;">Check-In Date</th>
+                                  <th style="text-align: center;">Check-Out Date</th>
+                                  <th style="text-align: center;">No of Rooms</th>
+                                  <th style="text-align: center;">Notified</th>
+                                  <th style="text-align: center;">Status</th>
+                              </tr>
+                              </thead>
+                              <tbody id="orderTable" style="text-align: center;">
+                              </tbody>
+                          </table>
+                      </form>
+                  </div>
+              </div>
           </div>
-          <!-- /.box -->
-        </div>
-        
-        <!-- /.col -->
-        <div class="col-md-6">
-          <div class="box box-solid" style="border: solid;border-color: #000044;border-width: 0.5em;padding-bottom: 1%;padding-top: 2%;">
-            <div class="box-header with-border" style="text-align: center;background-color: #000044;">
-                <h3 class="box-title"  style="font-size: 1.6em;font-weight: bold;">The Best Hotel Deal<br>Photo Gallery</h3>
-           </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
-                   <li data-target="#carousel-example-generic" data-slide-to="4" class=""></li>
-                </ol>
-                <div class="carousel-inner">
-                  <div class="item active">
-                      <img src="../../assets/images/kandy.jpg" alt="First slide">
-
-                    <div class="carousel-caption">
-                      First Slide
-                    </div>
+          <div class="box box-info">
+              <div class="box-header with-border" style='background-color: #000044;'>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >New Inquiries</h3>
+                  <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
-                  <div class="item">
-                      <img src="../../assets/images/anuradhapura.jpg" alt="Second slide">
-
-                    <div class="carousel-caption">
-                      Second Slide
-                    </div>
-                  </div>
-                  <div class="item">
-                      <img src="../../assets/images/galle.jpg" alt="Third slide">
-
-                    <div class="carousel-caption">
-                      Third Slide
-                    </div>
-                  </div>
-                     <div class="item">
-                         <img src="../../assets/images/colombo.jpg" alt="Fourth slide">
-
-                    <div class="carousel-caption">
-                     Fourth Slide
-                    </div>
+              </div>
+               <div class="box-body">
+                  <div class="table-responsive">
+                      <form id="notifications" method="post" >
+                          <input type="hidden" id="bookingidset" name="bookingidset"/>
+                          <input type="hidden" id="itemidset" name="itemidset"/>
+                          <table class="table no-margin" style="font-family: Verdana;">
+                              <thead>
+                              <tr>
+                                  <th style="text-align: center;">Contact ID</th>
+                                  <th style="text-align: center;">Customer First Name</th>
+                                  <th style="text-align: center;">Customer Last Name</th>
+                                  <th style="text-align: center;">EMail</th>
+                                  <th style="text-align: center;">Phone</th>
+                                  <th style="text-align: center;">Check</th>
+                              </tr>
+                              </thead>
+                              <tbody id="inquiryTable" style="text-align: center;">
+                              </tbody>
+                          </table>
+                      </form>
                   </div>
                 </div>
-                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                  <span class="fa fa-angle-left"></span>
-                </a>
-                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                  <span class="fa fa-angle-right"></span>
-                </a>
+             </div>
+           <div class="box box-info">
+              <div class="box-header with-border" style='background-color: #000044;'>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >New Inquiries</h3>
+                  <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
               </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>   
-      
-    </section>
-   
-    <!-- /.content -->
+              <div class="box-body">
+                  <div class="table-responsive">
+                      <form id="notifications" method="post" >
+                          <input type="hidden" id="bookingidset" name="bookingidset"/>
+                          <input type="hidden" id="itemidset" name="itemidset"/>
+                          <table class="table no-margin" style="font-family: Verdana;">
+                              <thead>
+                              <tr>
+                                  <th style="text-align: center;">Hotel ID</th>
+                                  <th style="text-align: center;">Hotel Name</th>
+                                  <th style="text-align: center;">Check</th>
+                              </tr>
+                              </thead>
+                              <tbody id="orderTable" style="text-align: center;">
+                              </tbody>
+                          </table>
+                      </form>
+                  </div>
+               </div>
+      </div>
+       </section>
   </div>
- 
-  <!-- /.content-wrapper -->
-  <?php include '../footer.php';?>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-user bg-yellow"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                <p>New phone +1(800)555-1234</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                <p>nora@example.com</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-                <p>Execution time 5 seconds</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="label label-danger pull-right">70%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Update Resume
-                <span class="label label-success pull-right">95%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Laravel Integration
-                <span class="label label-warning pull-right">50%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Back End Framework
-                <span class="label label-primary pull-right">68%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-      </div>
-      <!-- /.tab-pane -->
-      <!-- Stats tab content -->
-      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-      <!-- /.tab-pane -->
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Some information about this general settings option
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Allow mail redirect
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Other sets of options are available
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Expose author name in posts
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-                Allow the user to show his name in blog posts
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Show me as online
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Turn off notifications
-              <input type="checkbox" class="pull-right">
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Delete chat history
-              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-            </label>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 

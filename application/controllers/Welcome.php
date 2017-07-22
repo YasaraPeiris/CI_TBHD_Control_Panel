@@ -22,6 +22,10 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('index');
 	}
+	public function chart()
+    {
+        $this->load->view('hotel/charts');
+    }
 	// public function ViewIndex()
 	// {
 	// 	$this->load->view('index');

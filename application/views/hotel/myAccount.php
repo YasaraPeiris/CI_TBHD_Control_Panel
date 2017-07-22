@@ -260,13 +260,7 @@
         </div>
         <!-- /.col -->
 
-      </div>   
-        <div style="background:white;padding: 20px;box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);-webkit-border-radius: 5px;border-radius: 5px;">
-          <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Personal Details</h2>
-          <div class="small-box" id="hotelDes" style="box-shadow:none;">
-            
-            </div>
-          </div>
+      </div>
 
         </section>
 

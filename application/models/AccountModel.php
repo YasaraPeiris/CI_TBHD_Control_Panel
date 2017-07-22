@@ -23,8 +23,7 @@ class AccountModel extends CI_Model
 
 	function editPersonalDetails($results,$owner_id){
 		$this->db->where('owner_id', $owner_id);  
-		$this->db->update("owner", $results);  
-		echo "done";
+		$this->db->update("owner", $results);
 	}
 
 

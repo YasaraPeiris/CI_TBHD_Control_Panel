@@ -17,6 +17,21 @@ class RedirectPageController extends CI_Controller {
 		$this->load->view('hotel/editDetails');
 	}
 
+	public function viewCheckOrders(){
+        $this->load->library('session');
+        $this->load->view('admin/checkOrders');
+    }
+
+    public function viewCheckInquiries(){
+        $this->load->library('session');
+        $this->load->view('admin/checkInquiries');
+    }
+
+    public function viewCheckNotifications(){
+        $this->load->library('session');
+        $this->load->view('admin/checkNotifications');
+    }
+
 	
 
 	
