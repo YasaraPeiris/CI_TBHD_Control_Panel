@@ -35,7 +35,7 @@
   <div class="login-box-body">
     <p class="login-box-msg" id="message"><?php echo $errors ?></p>
 
-    <form action="<?php echo base_url(); ?>LoginController/login" method="post">
+    <form action="<?php echo base_url(); ?>index.php/LoginController/login" method="post">
       <div class="form-group has-feedback">
           <input type="text" style="cursor: pointer;" class="form-control" placeholder="UserName" name="username" onfocus="this.value = '';" onclick="setMess()" autocomplete="off">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
