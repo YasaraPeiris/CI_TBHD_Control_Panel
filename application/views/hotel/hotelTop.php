@@ -3,12 +3,12 @@
  <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box " style="background-color: #222d32;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
-            <div class="inner" style="color: #555555;background-color: white;">
-              <h3 id="orders" style="color: black"></h3>
+          <div class="small-box " style="background-color: #8892d6;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="inner" style="color: white;">
+              <h3 id="orders"></h3>
 
-              <p style="font-weight:bold;margin:0;">New Orders</p>
-               <p style="font-weight:bold;font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
+              <p style="margin:0;">New Orders</p>
+               <p style="font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
 
             </div>
             <div class="icon">
@@ -20,12 +20,12 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6" >
           <!-- small box -->
-          <div class="small-box " style="background-color: #222d32;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
-            <div class="inner" style="color: #555555;background-color: white;">
-              <h3 id="visitors" style="color: black"></h3>
+          <div class="small-box " style="background-color: #45bbe0;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="inner" style="color: white;">
+              <h3 id="visitors"></h3>
 
-                <p style="font-weight:bold;margin:0;">No of Visitors</p>
-               <p style="font-weight:bold;font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
+                <p style="margin:0;">No of Visitors</p>
+               <p style="font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
   </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -36,11 +36,11 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box" style="background-color: #222d32;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
-            <div class="inner" style="color: #555555;background-color: white;">
-              <h3 id="inquiries" style="color: black"></h3>
-   <p style="font-weight:bold;margin:0;">No of Inquiries</p>
-               <p style="font-weight:bold;font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
+          <div class="small-box" style="background-color:#F06292;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="inner" style="color: white;">
+              <h3 id="inquiries"></h3>
+   <p style="margin:0;">No of Inquiries</p>
+               <p style="font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
 
             </div>
             <div class="icon">
@@ -52,12 +52,12 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box" style="background-color: #222d32;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 1%;">
-            <div class="inner" style="color: #555555;background-color: white;">
-              <h3 id="notifications" style="color: black"></h3>
+          <div class="small-box" style="background-color:#78c350;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="inner" style="color: white;">
+              <h3 id="notifications"></h3>
 
-                <p style="font-weight:bold;margin:0;">No of Updates</p>
-               <p style="font-weight:bold;font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
+                <p style="margin:0;">No of Updates</p>
+               <p style="font-size:2.8em;margin:0;"><?php echo sizeof($data2);?></p>
 
             </div>
             <div class="icon">
