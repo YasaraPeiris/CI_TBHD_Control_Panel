@@ -77,7 +77,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="background-color:rgb(235, 235, 235);">
       <!-- Content Header (Page header) -->
-      <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:5%;">
+      <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:2%;">
           <h1 style="font-weight:bold;font-size: 2em;">
           Edit Property Details
          <small>Control panel</small>
@@ -89,93 +89,89 @@
       </section>
       <!-- Main content -->
       <section class="content" style="padding-right:5%;padding-left:5%;">
-        <div style="background:white;padding: 20px;box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);-webkit-border-radius: 5px;border-radius: 5px;">
-          <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Hotel Description</h2>
-          <div class="small-box" id="hotelDes" style="box-shadow:none;">
+          <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
+
+              <div class="box-header with-border" style="text-align: center;">
+                  <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">Hotel Description</h3>
+              </div> <div class="small-box" id="hotelDes" style="box-shadow:none;">
             <div style="background: white;" >
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="box box-info" style="border-color:gray;">
-                    <div class="box-body pad" style="color: black;">
+                  <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
+                    <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 2%;padding-bottom: 1%;">
                       <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/EditDetailsController/updateHotelDescription" id="form2" role="form" data-toggle="validator">
-                       <textarea id="editor1" name="editor1" style="width: 100%;" rows="8" disabled><?php echo $data2->listing_desc ?></textarea>
-                       <div class ="row" style="margin-top:2%;">
-                        <button type="button" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #222d32;color:white;' disabled>Save</button>
-                        <button type="button" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color:#222d32;color:white;'>Edit</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
+                       <textarea id="editor1" name="editor1" style="padding:3%;width: 100%;margin-bottom: 1%;" rows="8" disabled><?php echo $data2->listing_desc ?></textarea>
+
+
+                          <button type="button" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
+                        <button type="button" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color: #8892d6;color:white;font-size: inherit;'>Edit</button>
+                     </form>
+                        <hr style="border: 1px solid rgba(0, 0, 0, 0.3);margin-top: 60px;">
+
+                    </div>
+
             </div>
           </div>
         </div>
-        <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Basic Facilities</h2>
-        <div class="small-box" id="hotelDes" style="box-shadow:none;">
-          <div style="background: white;" >
-            <div class="row"  >
-              <div class="col-md-12">
-                <div class="box box-info" style="border-color:gray;">
-                  <div class="box-body pad">
-                    <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/EditDetailsController/updateFacilities" id="form1" role="form" data-toggle="validator">
-                     <div class="row" style="color:black;font-size: 1.2em;" >
-                      <br>
-                      <div class ='col-md-12'>
-                        <?php
-                        $s = 0;
-                        $y = -1;
-                        $facilities = array('Wifi', 'TV', 'Room Service', 'Laundry Service','Parking','Beverages','Lobby','Restaurant');
-                        $data = json_decode($data2->main_facilities, TRUE);
+          </div>
+      </section>
+        <section class="content" style="padding-right:5%;padding-left:5%;padding-top: 0;">
+            <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
 
-                        while ($y < sizeof($facilities) - 1) {
-                          $y++;
-
-
-                          if (in_array($facilities[$y], $data)) {
-
-                            ?>
-
-                            <div class ="col-md-4" style="text-align: left;">
-
-                              <label>
-                                <input type="checkbox" name="check_list[]" checked disabled="true"   value="<?php echo $facilities[$y] ?>"><?php echo $facilities[$y] ?>
-                              </label>
+                <div class="box-header with-border" style="text-align: center;">
+                    <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">Basic Facilities</h3>
+                </div> <div class="small-box" id="hotelDes" style="box-shadow:none;">
+                    <div style="background: white;" >
+                        <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
+                            <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;">
+                                <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/EditDetailsController/updateFacilities" id="form1" role="form" data-toggle="validator">
+                                    <div class="row" style="color:black;font-size: 13px;" >
+                                        <br>
+                                        <div class ='col-md-12'>
+                                            <?php
+                                            $s = 0;
+                                            $y = -1;
+                                            $facilities = array('Wifi', 'TV', 'Room Service', 'Laundry Service','Parking','Beverages','Lobby','Restaurant');
+                                            $data = json_decode($data2->main_facilities, TRUE);
+                                            while ($y < sizeof($facilities) - 1) {
+                                                $y++;
+                                                if (in_array($facilities[$y], $data)) {
+                                                    ?>
+                                                    <div class ="col-md-4" style="text-align: left;color: dimgrey;">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-right:5px;" name="check_list[]" checked disabled="true"   value="<?php echo $facilities[$y] ?>"><?php echo $facilities[$y] ?>
+                                                        </label>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class ="col-md-4" style="text-align: left;">
+                                                        <label style="color: dimgrey;">
+                                                            <input type="checkbox" style="margin-right: 5px;" name="check_list[]" disabled="true"   value="<?php echo $facilities[$y] ?>"><?php echo $facilities[$y] ?>
+                                                        </label>
+                                                    </div>
+                                                <?php } if (($y + 1) % 3 == 0) { ?>
+                                                    <br><br>
+                                                <?php } ?>
+                                            <?php }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class ="row" style="margin-top:2%;">
+                                        <button type="button" id="save_btn_fac" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
+                                        <button type="button" id="edit_btn_fac" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color: #8892d6;color:white;font-size: inherit;'>Edit</button>
+                                    </div>
+                                </form>
+                                <hr style="border: 1px solid rgba(0, 0, 0, 0.3);">
                             </div>
-                            <?php } else { ?>
-                            <div class ="col-md-4" style="text-align: left;">
-                              <label>
-                                <input type="checkbox" name="check_list[]" disabled="true"   value="<?php echo $facilities[$y] ?>"><?php echo $facilities[$y] ?>
-                              </label>
-                            </div>
-                            <?php } if (($y + 1) % 3 == 0) { ?>
-                            <br><br>
-                            <?php } ?>
-                            <?php }
-                            ?>
-                          </div>        
                         </div>
-                        <div class ="row" style="margin-top:2%;">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                         <button type="button" id="save_btn_fac" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #222d32;color:white;' disabled>Save</button>
-                         <button type="button" id="edit_btn_fac" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color:#222d32;color:white;'>Edit</button>
-
-                       </div>
-
-                     </form>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </section>
 
      <!-- /.content -->
 
+    </div>
 
-
-
+  </div>
 
      <!-- jQuery 2.2.0 -->
      <script src="../../assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
@@ -269,6 +265,7 @@ $('#form2').validator().on('submit', function (e) {
 
 
 </script>
-</script>
+
+
 </body>
 </html>

@@ -54,14 +54,14 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:5%;">
+    <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:2%;">
         <h1 style="font-weight:bold;font-size: 2em;">
           Edit Details
          <small>Control panel</small>
         </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Edit Details</li>
+        <li class="active">Edit Hotel Details</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -69,7 +69,7 @@
        <!-- Small boxes (Stat box) -->
     
       
-        <div class="row" style="padding-top: 1%;">
+        <div class="row" style="">
 <!--            <h1 style="color: black;padding-left: 1%;">Edit Details</h1>-->
         <!-- ./col -->
         <br>
@@ -167,8 +167,8 @@
    
     <!-- /.content -->
   </div>
- 
 
+</div>
 
 
 <!-- jQuery 2.2.0 -->

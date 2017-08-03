@@ -101,13 +101,14 @@
         <div class="row" >
           <div class="col-md-12">
             <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
-            <div class="box-header with-border" style="text-align: center;color:dimgrey;">
-            <h3 class="box-title" style="font-size:21px;"><?php echo "New orders for " . date("d/m/Y") . "<br>";?></h3>
-          </div>
-          <!-- /.box-header -->
+
+                <div class="box-header with-border" style="text-align: center;">
+                    <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;"><?php echo "New orders for " . date("d/m/Y") . "<br>";?></h3>
+                </div>
+                <!-- /.box-header -->
           <div class="box-body" style="padding:0 4%;">
-            <h3 style="margin-bottom:15px;font-size:19px;color:dimgrey;">New Bookings</h3>
-            <table id="example_checkin" class="table table-striped nowrap table-responsive" cellspacing="0" width="100%">
+              <br>
+             <table id="example_checkin" class="table table-striped nowrap table-responsive" cellspacing="0" width="100%">
 
               <thead class="no-border">
               <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
@@ -168,7 +169,7 @@
               }?>
           </tbody>
               </table>
-              <hr style="border: 2px solid rgba(0, 0, 0, 0.3);">
+              <hr style="border: 1px solid rgba(0, 0, 0, 0.3);">
             </div>
             <!-- /.box-body -->
           </div>
@@ -181,13 +182,13 @@
         <div class="col-md-12">
           <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           ">
-          <div class="box-header with-border" style="text-align:center; color:dimgrey;">
-          <h3 class="box-title"  style="font-size:21px;"><?php echo "Today is " . date("d/m/Y") . "<br>";?></h3>
-        </div>
-        <!-- /.box-header -->
+
+              <div class="box-header with-border" style="text-align: center;">
+                  <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;"><?php echo "Today is " . date("d/m/Y") . " - Upcoming Check Ins<br>";?></h3>
+              </div>
+              <!-- /.box-header -->
         <div class="box-body" style="padding:0 4%;">
-          <h3 style="margin-bottom:15px;font-size:19px;color:dimgrey;">Upcoming Check Ins</h3>
-          <table id="example_checkin_today" class="table table-striped nowrap table-responsive" cellspacing="0" width="100%">
+        <br>   <table id="example_checkin_today" class="table table-striped nowrap table-responsive" cellspacing="0" width="100%">
               <thead class="no-border">
               <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
               <th data-priority="1">Booking Id</th>
@@ -239,7 +240,7 @@
               }?>
             </tbody>
           </table>
-          <hr style="border: 2px solid rgba(0, 0, 0, 0.3);">
+          <hr style="border: 1px solid rgba(0, 0, 0, 0.3);">
         
         </div>
         <!-- /.box-body -->
@@ -253,12 +254,14 @@
   <div class="row" >
     <div class="col-md-12">
       <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-        <div class="box-header with-border" style="text-align: center;">
-        <h3 class="box-title" style="font-size: 21px;">About INNA.LK</h3>
-      </div>
-      <!-- /.box-header -->
+
+          <div class="box-header with-border" style="text-align: center;">
+              <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">About INNA.LK</h3>
+          </div>
+          <!-- /.box-header -->
       <div class="box-body" style="padding-right: 3%;padding-left: 3%;">
-        <p style="color:dimgrey;font-size: 14px;">-A Hotel Reservation System which offer both local and foreign tourists to book hotels in Sri Lanka using a smart, searchable website and it lets customer to choose the best hotel to book by swiftly navigating through rates, features and offers of multiple hotels in the preferred destination. Customers will be provided with the facility to pay online using eZ cash or m-cash.Additional services offered by this website are</p><ul style="color:dimgrey;font-size: 14px;"><li>Enjoy low cost bookings</li><li>Cancellation without any cost.</li><li>Automated email and sms notification system.</li><li>Location based google api services.</li></ul><br><p style="font-size: 1.4em;font-weight: bold;text-align: center;text-decoration: underline;"><a href="http://inna.lk/" style="color: #00a7d0;" >inna.lk</a></p>
+          <br>
+        <p style="color:dimgrey;font-size: 15px;">A Hotel Reservation System which offer both local and foreign tourists to book hotels in Sri Lanka using a smart, searchable website and it lets customer to choose the best hotel to book by swiftly navigating through rates, features and offers of multiple hotels in the preferred destination. Customers will be provided with the facility to pay online using eZ cash or m-cash.Additional services offered by this website are</p><ul style="color:dimgrey;font-size: 15px;"><li>Enjoy low cost bookings</li><li>Cancellation without any cost.</li><li>Automated email and sms notification system.</li><li>Location based google api services.</li></ul><br><p style="font-size: 1.4em;font-weight: bold;text-align: center;text-decoration: underline;"><a href="http://inna.lk/" style="color: #00a7d0;" >inna.lk</a></p>
       </div>
       <!-- /.box-body -->
     </div>

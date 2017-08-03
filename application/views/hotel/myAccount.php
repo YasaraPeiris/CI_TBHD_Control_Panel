@@ -59,7 +59,14 @@
         display: none;
       }
     }
+
   }
+  label{
+      color: dimgrey;
+  }
+      .box{
+          box-shadow: none !important;
+      }
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -75,9 +82,9 @@
     <?php include 'hotelSidebar.php';?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="background-color:rgb(235, 235, 235);">
+    <div class="content-wrapper" style="background-color:ghostwhite;">
       <!-- Content Header (Page header) -->
-      <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:5%;">
+      <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:2%;">
         <h1 style="font-weight:bold;font-size: 2em;">
           Edit Account Details
          <small>Control panel</small>
@@ -94,23 +101,16 @@
           <div class="col-md-12">
             <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             ">
-            <div class="box-header with-border" style="text-align: center;background: rgb(235,235,235); /* Old browsers */
-            background: -moz-linear-gradient(-45deg, rgba(235,235,235,1) 10%, rgba(190,212,216,1) 27%, rgba(172,196,190,1) 36%, rgba(142,166,162,1) 46%, rgba(130,157,152,1) 54%, rgba(78,92,90,1) 73%, rgba(34,45,50,1) 86%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(-45deg, rgba(235,235,235,1) 10%,rgba(190,212,216,1) 27%,rgba(172,196,190,1) 36%,rgba(142,166,162,1) 46%,rgba(130,157,152,1) 54%,rgba(78,92,90,1) 73%,rgba(34,45,50,1) 86%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(135deg, rgba(235,235,235,1) 10%,rgba(190,212,216,1) 27%,rgba(172,196,190,1) 36%,rgba(142,166,162,1) 46%,rgba(130,157,152,1) 54%,rgba(78,92,90,1) 73%,rgba(34,45,50,1) 86%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', endColorstr='#222d32',GradientType=1 );
-            ">
-            <h3 class="box-title" style="font-size: 1.6em;font-weight: bold;">Personal and Account Details</h3>
+            <div class="box-header with-border" style="text-align: center;">
+            <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;">Personal and Account Details</h3>
           </div>
           <!-- /.box-header -->
-          <div class="box-body" style="padding:0 4%;">
-            <h3 style="margin-bottom:15px;font-weight:bold;">Edit Details</h3>
+          <div class="box-body" style="padding:3% 4%;">
+
        <div style="background: white;" >
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="box box-info" style="border-color:gray;">
+                  <div class="box box-info" style="border: none;">
                     <div class="box-body pad" style="color: black;">
-                      <hr>
+
                       <div class="row">
 
                         <!-- left column -->
@@ -119,7 +119,7 @@
                         <!-- <script src="../../assets/js/photoResize/app.js"></script> -->
 
                         <form enctype="multipart/form-data" id="form1" method="POST">
-                          <div class="col-md-3">
+                          <div class="col-md-3" style="padding-top: 5%; margin-top: 10px;padding-bottom: 5%;border: 2px solid #f4f4f4;">
 
                             <div class="text-center">
                               <img src="<?php if ($data1->image_path != null) {
@@ -130,7 +130,7 @@
                               <input type="file" id="imgUploadId" name="imgUpload"  accept="image/jpeg, image/png" required/>
                               <!-- <input type="hidden" id="usernameHid" value="<?php echo $data1->username; ?>" > -->
                               <br>
-                              <button type="button" id="uploadBtn" class="btn btn-default btn-lg btn-save js-save" style='background-color: #222d32;color:white;' >Submit</button>
+                              <button type="button" id="uploadBtn" class="btn btn-default btn-lg btn-save js-save" style='background-color: #8892d6;color:white;font-size: inherit;' >Submit</button>
                       
                               
                               <?php $_SESSION['username'] = $data1->username; $_SESSION['owner_id'] =$data1->owner_id;?>
@@ -184,10 +184,10 @@
                         </script>
                         <!-- edit form column -->
                         <div class="col-md-9">
-                       <h3 style="margin-bottom:15px;font-weight:bold;">Personal Info</h3>   <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/AccountController/editMyAccount" id="form2" role="form" data-toggle="validator">
+                       <h4 style="text-align:left;color:dimgrey;padding-bottom:6px;border-bottom:1px solid #f4f4f4;">Personal Info</h4>   <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/AccountController/editMyAccount" id="form2" role="form" data-toggle="validator">
                             <input type="hidden" value = "<?php echo $data1->login_id; ?>" name="login_id" id="login_id">
                             <input type="hidden" value = "<?php echo $data1->owner_id; ?>" name="owner_id" id="owner_id">
-                            
+
                             <div class="form-group">
                               <label for="firstname">First Name</label>
                               <input type="text" class="form-control is-disabled" id="firstname" name="firstname" placeholder="First Name" value="<?php echo $data1->first_name; ?>" disabled required>
@@ -217,7 +217,7 @@
                               <input type="tel" class="form-control is-disabled" id="tele" name="tele" value="<?php echo $data1->mobile; ?>" data-maxlength="10" data-minlength="10" pattern="[0-9]{10}" disabled required>
                               <div class="help-block with-errors">Format of the telephone number should be [0711234567] (length - 10 numbers.)</div>
                             </div>
-                           <h3 style="margin-bottom:15px;font-weight:bold;">Accounts Info</h3>
+                           <h4 style="text-align:left;color:dimgrey;padding-bottom:6px;border-bottom:1px solid #f4f4f4;">Accounts Info</h4>
                             <div class="form-group">
                               <label for="username">Username</label>
                               <input type="text" class="form-control is-disabled" data-minlength="6" id="username" name="username" placeholder="username" value="<?php echo $data1->username; ?>" disabled required>
@@ -239,9 +239,9 @@
                              </div>
                             </div>
                            
-                            <hr>
-                            <button type="button" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #222d32;color:white;' disabled>Save</button>
-                            <button type="button" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color:#222d32;color:white;'>Edit</button>
+
+                            <button type="button" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
+                            <button type="button" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color:#8892d6;color:white;font-size: inherit;'>Edit</button>
 
                           </form>
                         </div>
@@ -250,9 +250,7 @@
 
                     </div>
                   </div>
-                </div>
-              </div>
-              <hr style="border: 2px solid rgba(0, 0, 0, 0.3);">
+              <hr style="border: 1px solid rgba(0, 0, 0, 0.3);">
             </div>
             <!-- /.box-body -->
           </div>
