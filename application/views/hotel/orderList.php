@@ -122,7 +122,7 @@
 
         <!-- Content Header (Page header) -->
 
-        <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:5%;">
+        <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:2%;">
             <h1 style="font-weight:bold;font-size: 2em;">
                 History Of Bookings.
                 <small>Control panel</small>
@@ -138,6 +138,44 @@
                 <div class="box-header with-border" style="text-align: center;">
                     <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;"><?php echo "Order History for " . date("d/m/Y") . "<br>";?></h3>
                 </div>
+                <div class="modal bs-modal-md col-sm-12 col-xs-12 modal2" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header" style="">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 class="modal-title" id="myModalLabel" style="font-weight:bold;font-size: 18px;color: dimgrey;">Customer Booking Details</h3>
+                            </div>
+
+                            <div class="modal-body">
+                                <!-- /.box-header -->
+                                <div class="box-body" style="padding:0 4%;min-height:100px;font-size:13px;color:dimgrey;">
+                                    <div class="row">
+                                        <div class="col-md-4" style="font-weight:bold;">Booking Id</div>
+                                        <div class="col-md-8" id="bid"></div><hr>
+                                    </div>  <div class="row" >
+                                        <div class="col-md-4" style="font-weight:bold;">Customer Name</div>
+                                        <div class="col-md-8" id="full_name"></div><hr>
+                                    </div>    <div class="row">
+                                        <div class="col-md-4" style="font-weight:bold;">Country</div>
+                                        <div class="col-md-8" id="country"></div><hr>
+                                    </div>  <div class="row">
+                                        <div class="col-md-4" style="font-weight:bold;">Nic Number</div>
+                                        <div class="col-md-8" id="nic_num"></div><hr>
+                                    </div>  <div class="row">
+                                        <div class="col-md-4" style="font-weight:bold;">Email</div>
+                                        <div class="col-md-8" id="email"></div><hr>
+                                    </div>  <div class="row">
+                                        <div class="col-md-4" style="font-weight:bold;">Telephone</div>
+                                        <div class="col-md-8" id="telephone"></div><hr>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class="small-box" id="hotelDes" style="box-shadow:none;">
                     <div style="background: white;" >
                         <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">

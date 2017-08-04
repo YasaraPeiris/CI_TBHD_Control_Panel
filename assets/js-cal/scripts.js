@@ -193,22 +193,32 @@ function init() {
 	scheduler.init('scheduler_here', new Date(2017, 2, 1), "timeline");
 	scheduler.load("./data.php", "json");
 	window.dp = new dataProcessor("./data.php");
-	dp.init(scheduler);
+    // scheduler.load("../viewCalenderController/viewData", "json");
+    // window.dp = new dataProcessor("../viewCalenderController/viewData");
+
+    dp.init(scheduler);
 
 
 	(function () {
 		var element = document.getElementById("scheduler_here");
+        var element_new = document.getElementById("data");
 		var top = scheduler.xy.nav_height + 1 + 1;// first +1 -- blank space upper border, second +1 -- hardcoded border length
 		var height = scheduler.xy.scale_height;
 		var width = scheduler.matrix.timeline.dx;
 		var header = document.createElement("div");
-		header.className = "collection_label";
-		header.style.position = "absolute";
+        var dataelement = document.createElement("div");
+        header.className = "collection_label";
+        dataelement.className = "collection_label";
+        header.style.position = "absolute";
 		header.style.top = top + "px";
 		header.style.width = width + "px";
 		header.style.height = height + "px";
+        dataelement.style.width = width + "px";
+        dataelement.style.height = height + "px";
+        dataelement.style.position = "absolute";
+        dataelement.style.top = top+height + "px";
 
-		var descriptionHTML = "<div class='timeline_item_separator'></div>" +
+        var descriptionHTML = "<div class='timeline_item_separator'></div>" +
 			"<div class='timeline_item_cell'>Number</div>" +
 			"<div class='timeline_item_separator'></div>" +
 			"<div class='timeline_item_cell'>Type</div>" +
@@ -216,5 +226,29 @@ function init() {
 			"<div class='timeline_item_cell room_status'>Status</div>";
 		header.innerHTML = descriptionHTML;
 		element.appendChild(header);
+
+        // $.ajax({
+        //     type : 'GET',
+        //     url : '../viewCalenderController/index',
+        //     success :   function(data){
+        //
+        //         var dataHTML="";
+        //         for( i=0;i<data.details.length;i++) {
+        //
+        //             dataHTML += "<div class='timeline_item_separator'></div>" +
+        //                 "<div class='timeline_item_cell'>"+data.details[i].room_type_id+"</div>" +
+        //                 "<div class='timeline_item_separator'></div>" +
+        //                 "<div class='timeline_item_cell'>"+data.details[i].room_type+"</div>" +
+        //                 "<div class='timeline_item_separator'></div>" +
+        //                 "<div class='timeline_item_cell room_status'>Status</div>";
+        //
+        //         }
+        //
+        //         dataelement.innerHTML = dataHTML;
+        //         element.appendChild(dataelement);
+        //     }
+        // });
+
 	})();
+
 }

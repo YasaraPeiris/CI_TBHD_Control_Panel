@@ -87,6 +87,7 @@
                             <div style="background: white;" >
                                 <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
                                     <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 2%;padding-bottom: 1%;">
+
                                         <form action="" method="post" enctype="multipart/form-data" id="roomForm">
                                             <div class="col-md-12" style="margin-bottom: 10px;">
                                                 <div class="col-md-4">
@@ -232,7 +233,7 @@
                                             </div>
                                     </div>
 
-                                            <div class="col-md-12" style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
+                                            <div class="col-md-12" style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;color:dimgrey;">
                                                 <div class="col-md-12" style="margin-bottom: 1%;">
                                                     <div class="col-md-6">
                                                         <input type="checkbox" class="faci" name='room_faci[]' value="Wifi" > Wifi @ the room <br>
@@ -283,7 +284,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12" style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
+                                            <div class="col-md-12" style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;;color:dimgrey;">
                                                 <div class="col-md-12" style="margin-bottom: 10px;">
                                                     <div class="col-md-4">
                                                         <p style="color:dimgrey;font-size: 14px;"> Room has a</p>
@@ -304,7 +305,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12" style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
+                                            <div class="col-md-12" style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
                                             <div class="col-md-12">
                                                     <div class="col-md-6">
                                                     <input type="checkbox" name='room_faci[]' value="Wheelchair Accessible" >  Room is Wheelchair accessible<br>
@@ -314,7 +315,7 @@
                                                     </div>
                                                     </div>
                                             </div>
-                                            <div class="col-md-12" style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
+                                            <div class="col-md-12" style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
                                             <div class="col-md-12" style="margin-bottom: 2%;color:dimgrey;font-size: 14px;">
                                                 Other things to note on amenities
                                             </div>
@@ -322,7 +323,7 @@
                                                 <textarea rows="2" cols="50" name="other_amenities" style="color:dimgrey;font-size: 14px;width: 85%; margin: 5px ; padding: 5px; resize: vertical; border-radius: 5px;" value="<?php echo $data1[0]->other_on_faci;?>" ></textarea>
                                             </div>
                                             </div>
-                                            <div class="col-md-12" style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
+                                            <div class="col-md-12" style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
                                                 <div class="col-md-12" style="margin-bottom: 2%;color:dimgrey;font-size: 14px;">
                                                     Details of uploaded photos
                                                 </div>
@@ -342,9 +343,9 @@
                                                         </tbody>
                                                     </table>     </div>
                                             </div>
-                                            <div class="col-md-12" style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
+                                            <div class="col-md-12" style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-12" style=";color:dimgrey;">
                                                 <div class="col-md-6">
                                                     How many this kind of rooms?
                                                 </div>
@@ -353,7 +354,7 @@
                                                 </div>
                                             </div>
                                             </div>
-                                            <div class="col-md-12" style="margin-top:2%;">
+                                            <div class="col-md-12" style=";color:dimgrey;margin-top:2%;">
                                                 <button type="submit" name="save" class="btn btn-default btn-lg" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' onclick="addAnotherPrice()">Save</button>
                                             </div>
                                         </form>
