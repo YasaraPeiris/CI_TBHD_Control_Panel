@@ -62,9 +62,10 @@
 	}
 
 	function getSchedulerData() {
+        var c = $('#myPhpValue').val();
+        alert(c);
 		if (!localStorage.getItem('dhx-scheduler-hotel-booking')) {
-			var data = { "data":[{"room":"1","start_date":"2017-03-02","end_date":"2017-03-23","text":"A-12","id":"1","status":"1","is_paid":"1"},{"room":"3","start_date":"2017-03-07","end_date":"2017-03-21","text":"A-45","id":"2","status":"2","is_paid":"1"},{"room":"5","start_date":"2017-03-06","end_date":"2017-03-14","text":"A-58","id":"3","status":"3","is_paid":"0"},{"room":"7","start_date":"2017-03-04","end_date":"2017-03-18","text":"A-28","id":"4","status":"4","is_paid":"0"}],"collections":{"roomType":[{"id":"1","value":"1","label":"1 bed"},{"id":"2","value":"2","label":"2 beds"},{"id":"3","value":"3","label":"3 beds"},{"id":"4","value":"4","label":"4 beds"}],"roomStatus":[{"id":"1","value":"1","label":"Ready"},{"id":"2","value":"2","label":"Dirty"},{"id":"3","value":"3","label":"Clean up"}],"bookingStatus":[{"id":"1","value":"1","label":"New"},{"id":"2","value":"2","label":"Confirmed"},{"id":"3","value":"3","label":"Arrived"},{"id":"4","value":"4","label":"Checked Out"}],"room":[{"id":"1","value":"1","label":"101","type":"1","status":"1"},{"id":"2","value":"2","label":"102","type":"1","status":"3"},{"id":"3","value":"3","label":"103","type":"1","status":"2"},{"id":"4","value":"4","label":"104","type":"1","status":"1"},{"id":"5","value":"5","label":"105","type":"2","status":"1"},{"id":"6","value":"6","label":"201","type":"2","status":"2"},{"id":"7","value":"7","label":"202","type":"2","status":"1"},{"id":"8","value":"8","label":"203","type":"3","status":"3"},{"id":"9","value":"9","label":"204","type":"3","status":"3"},{"id":"10","value":"10","label":"301","type":"4","status":"2"},{"id":"11","value":"11","label":"302","type":"4","status":"2"}]}};
-
+			var data = c;
 			localStorage.setItem('dhx-scheduler-hotel-booking', JSON.stringify(data));
 		}
 

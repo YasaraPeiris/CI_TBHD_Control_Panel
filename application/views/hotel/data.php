@@ -6,17 +6,9 @@
  * Time: 7:22 AM
  */
 ?>
-<script>
-$.ajax({
-        type : 'GET',
-        url : '../viewCalenderController/index',
-        success :   function(data){
-    alert(data.details[0].room_type);
-}
-    });
-</script>
+
 <?php
-/*$roomtypes = new JSONOptionsConnector($res, $dbtype);
+$roomtypes = new JSONOptionsConnector($res, $dbtype);
 $roomtypes->render_table("room_types","id","id(value),name(label)");
 
 $roomstatuses = new JSONOptionsConnector($res, $dbtype);
@@ -35,7 +27,8 @@ $scheduler->set_options("roomStatus", $roomstatuses);
 $scheduler->set_options("bookingStatus", $bookingstatuses);
 $scheduler->set_options("room", $rooms);
 
-$scheduler->render_table("bookings","id","start_date,end_date,text,room,status,is_paid");*/
+$scheduler->render_table("bookings","id","start_date,end_date,text,room,status,is_paid");
+
 ?>
 
 

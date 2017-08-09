@@ -25,11 +25,11 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition login-page " >
+<body class="hold-transition login-page " style="background-color: aliceblue;">
   <?php $errors = "";?>
-<div class="login-box" style="background: #000044;border: solid;">
+<div class="login-box" style="background: #8892d6;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
     <div class="login-logo" >
-    <a href="" style="color:white;"><b>THE BEST</b>HOTEL DEAL</a>
+        <a href="" style="color:white;text-align: left;"><b>Inna.lk </b><br><span style="font-size:23px;">managed by The Best Hotel Deal.</span></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -49,7 +49,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" id="signin"  name="submit" class="btn btn-primary btn-block btn-flat" style="background-color: #000044;">Sign In</button>
+          <button type="submit" id="signin"  name="submit" class="btn btn-primary btn-block btn-flat" style="background-color: #8892d6;">Sign In</button>
         </div>
         <!-- /.col -->
       </div>

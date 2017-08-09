@@ -2,19 +2,25 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class viewCalenderController extends CI_Controller {
-    public function index()
+    public function calender()
     {
-        // echo "string";
         $this->load->library('session');
-        $this->load->model('RoomModel');
+        $this->load->model('CalenderModel');
         $listing_no = $_SESSION['hotelno'];
-        $data=$this->RoomModel->getRoomDetails($listing_no);
-        $return =  array('status'=>'success','details'=>$data);
-        $this->output->set_content_type('application/json')->set_output(json_encode( $return));
-        return;
+        $roomType=$this->CalenderModel->getRoomTypes($listing_no);
+        $bookingStatus=$this->CalenderModel->getBookingStatus();
+        $room=$this->CalenderModel->getRooms($listing_no);
+        $roomStatus=$this->CalenderModel->getRoomStatus();
+        $collections =  array('roomType'=>$roomType,'bookingStatus'=>$bookingStatus,'room'=>$room,'roomStatus'=>$roomStatus);
+        $data=$this->CalenderModel->getData($listing_no);
+        $return =  array('data'=>$data,'collections'=>$collections);
+//        $this->output->set_content_type('application/json')->set_output(json_encode( $return));
+        $data_array= json_encode( $return);
+        $return_array =  array('data_array'=>$data_array);
+      //  return;
+        $this->load->view('hotel/viewCalender',$return_array);
     }
     public function viewData()
     {
-        $this->load->view('hotel/data');
     }
 }
