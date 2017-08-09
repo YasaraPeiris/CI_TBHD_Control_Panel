@@ -32,6 +32,7 @@
 
 <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
     <div class="dhx_cal_navline">
+        <input type="hidden" id="myPhpValue" value='<?php echo $data_array;?>' />
 
         <div style="font-size:16px;padding:4px 20px;">
             Show rooms:
@@ -47,4 +48,5 @@
     <div class="dhx_cal_data">
     </div>
 </div>
+
 </body>
