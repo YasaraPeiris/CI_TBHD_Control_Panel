@@ -62,12 +62,12 @@
 	}
 
 	function getSchedulerData() {
-        var c = $('#myPhpValue').val();
-        alert(c);
-		if (!localStorage.getItem('dhx-scheduler-hotel-booking')) {
-			var data = c;
-			localStorage.setItem('dhx-scheduler-hotel-booking', JSON.stringify(data));
-		}
+
+         // var c = $('#myPhpValue').val();
+    //  	if (!localStorage.getItem('dhx-scheduler-hotel-booking')) {
+
+        localStorage.setItem('dhx-scheduler-hotel-booking', JSON.stringify(data));
+	//	}
 
 		return localStorage.getItem('dhx-scheduler-hotel-booking');
 	}

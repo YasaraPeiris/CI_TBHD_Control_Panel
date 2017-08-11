@@ -28,15 +28,18 @@ class ListingsModel extends CI_Model
 
 	function setConfirm($booking_id){
 		$data = array(  
-			'confirm_hotel' => 1,  
+			'confirm_hotel' => 1,
+            'status_cal'=> 2,
 			);  
 		$this->db->where('booking_id', $booking_id);  
-		$this->db->update("booking", $data);  
-	}
+		$this->db->update("booking", $data);
+
+    }
 
 	function setIgnore($booking_id){
 		$data = array(  
-			'confirm_hotel' => 2,  
+			'confirm_hotel' => 2,
+            'status_cal'=> 2,
 			);  
 		$this->db->where('booking_id', $booking_id);  
 		$this->db->update("booking", $data);  
