@@ -28,11 +28,14 @@ class viewCalenderController extends CI_Controller
             $room_count = $row->no_of_rooms;
             $label_new = $row->label;
             $id_new = $row->id;
+            $val_new = $row->value;
             for ($i = 1; $i <= $room_count; $i++) {
                 $label = $label_new . " - " . $i;
                 $id = $id_new . " - " . $i;
+                $val = $val_new . " - " . $i;
                 $row->label = $label;
                 $row->id = $id;
+                $row->value = $val;
                 $x = clone($row);
                 $rooms[] = $x;
             }
@@ -40,20 +43,48 @@ class viewCalenderController extends CI_Controller
         }
         $roomStatus = $this->CalenderModel->getRoomStatus();
         $collections = array('roomType' => $roomType, 'roomStatus' => $roomStatus, 'bookingStatus' => $bookingStatus, 'room' => $rooms);
-        $data = $this->CalenderModel->getData($listing_no);
+        $data1 = $this->CalenderModel->getData($listing_no);
         $data_checkins = array();
-        $room_types = 0;
-        foreach ($room as $row) {
-            $room_types++;
-            $room_count = $row->no_of_rooms;
-            $room_id = $row->id;
+        $data=array();
+        $room_types = sizeof($room);
+        $data_size = sizeof($data1);
+        $t = 0;
+        for ($i = 0; $i < $data_size; $i++) {
+            $count = $data1[$i]->quantity;
+            if($count>1){
+                $t++;
+                for($k=1;$k<$count;$k++){
+                    $x = clone($data1[$i]);
+                    $m = $x->text;
+                    $l = $x->room;
+                    $m_new = $m . ' - ' . $l.' -  '. $k.' room out of '.$count.' rooms' ;
+                    $x->id = $m_new;
+                    $x->text = $m_new;
+                    $data[] = $x;
+                }
+                $m = $data1[$i]->text;
+                $l = $data1[$i]->room;
+                $m_new = $m . ' - ' . $l.' -  '. $count.' room out of '.$count.' rooms' ;
+                $data1[$i]->id = $m_new;
+                $data1[$i]->text = $m_new;
+            }
 
+            $data[]= $data1[$i];
         }
         $sub_array = array();
         for ($i = 1; $i <= $room_types; $i++) {
             $k = array();
             $count = 0;
             foreach ($data as $row) {
+                if($i==1) {
+                    $m = $row->text;
+                    if (strpos($m, '-') == false){
+                        $l = $row->room;
+                    $m_new = $m . ' - ' . $l;
+                    $row->id = $m_new;
+                    $row->text = $m_new;
+                }
+                }
                 if ($row->room == $i) {
                     $count++;
                     $k[] = $row;
@@ -63,7 +94,6 @@ class viewCalenderController extends CI_Controller
         }
         foreach ($sub_array as $row) {
             for ($i = 0; $i < sizeof($row); $i++) {
-
                 $id_new = substr($row[$i]->room, 0, 1);
                 if ($i == 0) {
                     $k = 1;
@@ -73,37 +103,46 @@ class viewCalenderController extends CI_Controller
                     //  $data_checkins[] = $x;
                 }
                 for ($j = ($i + 1); $j < sizeof($row); $j++) {
+               //     if($row[$i])
                     $start_one = $row[$i]->start_date;
                     $end_one = $row[$i]->end_date;
                     $start_two = $row[$j]->start_date;
                     $end_two = $row[$j]->end_date;
 
                     $ret = $this->datesOverlap($start_one, $end_one, $start_two, $end_two);
+                  //  echo sizeof($row[$j]->room).'<br>';
 
                     if ($ret == 1) {
-                        if (sizeof($k) > 1) {
+                         if (strlen($row[$j]->room) > 1) {
+
                             $k = substr($row[$j]->room, -1);
+
                         } else {
                             $k = 1;
                         }
-
-                        $id = $id_new . " - " . $k++;
+                        $k++;
+                        $id = $id_new . " - " . $k;
+//                        echo 'k'.$k.'<br>';
                         $row[$j]->room = $id;
-
+//                        echo $row[$j]->room.' - '.$id.'<br>';
                         // $x = clone($row);
                         // $data_checkins[] = $x;
                     } else {
-                        if (sizeof($k) > 1) {
+                        if (strlen($row[$j]->room) > 1) {
                             $k = substr($row[$j]->room, -1);
                         } else {
                             $k = 1;
+                   //         echo $row[$j]->text.'<br>';
+
                         }
+
                         $id = $id_new . " - " . $k;
                         $row[$j]->room = $id;
+
+//                        echo $row[$j]->room.'<br>';
                     }
 
                 }
-                echo $row[$i]->room.'<br>';
                 $data_checkins[] = $row[$i];
 
             }

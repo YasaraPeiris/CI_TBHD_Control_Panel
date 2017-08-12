@@ -45,21 +45,21 @@
         <i class="fa fa-calendar"></i> <span>Order History</span>
       </a>
     </li>
- 
+          <li>
+              <a title="My account" href='<?php echo base_url ('index.php/viewCalenderController/calender'); ?>'>
+                  <i class="fa fa-calendar"></i> <span>View Calender</span>
+              </a>
+          </li>
 
 
-  <li>
+
+          <li>
     <a href="quickEmailHotel.php" >
       <i class="fa fa-calendar"></i> <span>Quick Email</span>
       <small class="label pull-right bg-red">3</small>
     </a>
   </li>
-  <li>
-    <a href="mailboxHotel/mailbox.php">
-      <i class="fa fa-envelope"></i> <span>Mailbox</span>
-      <small class="label pull-right bg-yellow">12</small>
-    </a>
-  </li>
+
 
 
 </ul>
