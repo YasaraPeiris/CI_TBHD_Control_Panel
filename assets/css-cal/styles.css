@@ -88,6 +88,9 @@ html, body {
 .event_4 {
 	background-color: #BDBDBD !important;
 }
+.event_5 {
+	background-color:  darksalmon !important;
+}
 
 .booking_status, .booking_paid {
 	position: absolute;

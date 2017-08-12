@@ -39,7 +39,7 @@ class ListingsModel extends CI_Model
 	function setIgnore($booking_id){
 		$data = array(  
 			'confirm_hotel' => 2,
-            'status_cal'=> 2,
+            'status_cal'=> 5,
 			);  
 		$this->db->where('booking_id', $booking_id);  
 		$this->db->update("booking", $data);  

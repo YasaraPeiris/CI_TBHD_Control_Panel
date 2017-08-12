@@ -99,7 +99,7 @@
                         <div class="box-body" style="padding:0 4%;">
                             <br>
 
-                            <div id="scheduler_here" class="dhx_cal_container" style='width:100%;min-height:400px; max-height:1000px; position:relative;'>
+                            <div id="scheduler_here" class="dhx_cal_container" style='width:100%;min-height:800px; max-height:1000px; position:relative;'>
     <div class="dhx_cal_navline">
 
         <div style="font-size:16px;padding:4px 20px;">

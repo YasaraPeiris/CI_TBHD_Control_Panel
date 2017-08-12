@@ -113,19 +113,20 @@
 		var paidStatus = getPaidStatus(event.is_paid);
 		var startDate = eventDateFormat(event.start_date);
 		var endDate = eventDateFormat(event.end_date);
-		return ["<div class='col-md-12'>"+event.text + "</div><br><div class='col-md-12'>" + paidStatus + "</div>"].join("");
+		return ["<div>"+event.text + "</div><br><div>" + getBookingStatus(event.status) + ", "+paidStatus+"</div>"].join("");
 	};
 
 	scheduler.templates.tooltip_text = function (start, end, event) {
 		var room = getRoom(event.room) || {label: ""};
 		var amount = event.paid_amount;
 		var val = parseFloat(Math.round(amount * 100) / 100).toFixed(2);
+        var paidStatus = getPaidStatus(event.is_paid);
 		var html = [];
 		html.push("Booking: <b>" + event.text + "</b>");
 		html.push("Room: <b>" + room.label + "</b>");
 		html.push("Check-in: <b>" + eventDateFormat(start) + "</b>");
 		html.push("Check-out: <b>" + eventDateFormat(end) + "</b>");
-		html.push(getBookingStatus(event.status) + ", " + getPaidStatus(event.is_paid));
+		html.push(getBookingStatus(event.status) + ", " + paidStatus);
         html.push("Total: <b>Rs." +event.total_to_hotel+ "</b>");
 		if(event.is_paid==1) {
             html.push("Paid Amount: <b>Rs." +val+ "</b>");
