@@ -198,8 +198,9 @@
             dhtmlx.alert("Unfolrtunately you can't delete the dates reserved through the system.");
             return false;
         }
-    })();
+    });
     scheduler.attachEvent("onEventSave", function (id, ev, is_new) {
+
         if ((ev.status) == 6) {
             $.ajax({
                 type: 'POST',
@@ -217,11 +218,12 @@
             }
             return true;
         }
-
-        dhtmlx.alert("You can't change online reserved dates.");
-        return false;
+        else {
+            dhtmlx.alert("You can't change online reserved dates.");
+            scheduler.endLightbox(true, document.getElementsByClassName( 'dhx_cal_light_wide' )[0]);
+            return false;
+        }
     });
-
 })();
 
 function init() {
