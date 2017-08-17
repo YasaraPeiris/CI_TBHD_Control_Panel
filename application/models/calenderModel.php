@@ -26,7 +26,7 @@ class CalenderModel extends CI_Model
         $this->db->where('listing_id', $listing_id);
         $this->db->from('roomtypes');
         $query1 = $this->db->get();
-        if ($query1->num_rows() > 0){
+        if ($query1->num_rows() > 0) {
             return $query1->result();    // return a array of object
         } else {
             return NULL;
@@ -38,7 +38,7 @@ class CalenderModel extends CI_Model
         $this->db->select('item_name,room_type_id AS room, check_in AS start_date,check_out AS end_date,booking.booking_id AS text,booking.booking_id AS id,status_cal AS status,is_paid_cal AS is_paid,paid_amount as paid_amount,total_to_hotel,quantity');
         $this->db->where('listing_id', $listing_id);
         $this->db->from('booking');
-        $this->db->join('itemdetails', 'booking.booking_id = itemdetails.booking_id','left');
+        $this->db->join('itemdetails', 'booking.booking_id = itemdetails.booking_id', 'left');
         $query1 = $this->db->get();
         if ($query1->num_rows() > 0) {
 
@@ -59,25 +59,32 @@ class CalenderModel extends CI_Model
         }
     }
 
-    function getRoomStatus(){
-        $this->db-> from('roomstatus');
+    function getRoomStatus()
+    {
+        $this->db->from('roomstatus');
         $query1 = $this->db->get();
-        if ($query1-> num_rows() > 0){
+        if ($query1->num_rows() > 0) {
             return $query1->result();    // return a array of object
-        }
-        else{
+        } else {
             return NULL;
         }
     }
 
-    function getBookingStatus(){
-        $this->db-> from('bookingstatus');
+    function getBookingStatus()
+    {
+        $this->db->from('bookingstatus');
         $query1 = $this->db->get();
-        if ($query1-> num_rows() > 0){
+        if ($query1->num_rows() > 0) {
             return $query1->result();    // return a array of object
-        }
-        else{
+        } else {
             return NULL;
         }
+    }
+
+    function saveNoSpace()
+    {
+        //  $bookingData = array ( 'check_in' => $date1, 'check_out' => $date2, 'customer_id' => $_SESSION['customer_id'], 'listing_id' => $_SESSION['listingid'], 'status' => $status, 'paid_amount' => 0, 'total_to_hotel' => $_SESSION['totalhotel'], 'total_rate' => ( $_SESSION['totalhotel'] * ( 1 + $_SESSION['commision'] / 100 ) ) );
+        //  $this->BookingModel->place_booking ( $bookingData );
+
     }
 }

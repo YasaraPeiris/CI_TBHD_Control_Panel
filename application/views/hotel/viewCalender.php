@@ -19,7 +19,7 @@
     <script src='../../assets/lib-cal/dhtmlxScheduler/ext/dhtmlxscheduler_tooltip.js'></script>
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script>var test='<?php echo $data_array?>'</script>
+    <script>var test='<?php echo $data_array?>'</script>
     <script src='../../assets/js-cal/mock_backend.js'></script>
     <script src='../../assets/js-cal/scripts.js'></script>
 

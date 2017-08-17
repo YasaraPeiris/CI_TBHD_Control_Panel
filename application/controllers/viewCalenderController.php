@@ -175,5 +175,7 @@ class viewCalenderController extends CI_Controller
         //   $this->load->view('hotel/viewCalender');
     }
 
+    public function saveNoSpaceBookings(){
 
+    }
 }
