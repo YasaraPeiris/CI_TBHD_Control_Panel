@@ -76,7 +76,7 @@
     <header class="main-header">
         <!-- Logo -->
         <!-- Header Navbar: style can be found in header.less -->
-        <?php include 'hotelTopmost.php'; ?>
+        <?php include 'hotelTopMost.php'; ?>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
     <?php include 'hotelSidebar.php'; ?>
