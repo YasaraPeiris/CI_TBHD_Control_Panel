@@ -8,7 +8,9 @@
 <!doctype html>
 <head xmlns="http://www.w3.org/1999/html">
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>Hotel Room Reservation</title>
+    <title>inna.lk :: Control Panel</title>
+    <!-- <link href="favicon.ico" rel="shortcut icon"> -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
 
     <script src='../../assets/lib-cal/dhtmlxScheduler/dhtmlxscheduler.js'></script>
     <script src='../../assets/lib-cal/dhtmlxScheduler/ext/dhtmlxscheduler_limit.js'></script>
