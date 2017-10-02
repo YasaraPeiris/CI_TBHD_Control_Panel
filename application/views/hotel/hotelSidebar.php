@@ -46,7 +46,7 @@
       </a>
     </li>
           <li>
-              <a title="My account" href='<?php echo base_url ('index.php/viewCalenderController/calender'); ?>'>
+              <a title="My account" href='<?php echo base_url ('index.php/ViewCalenderController/calender'); ?>'>
                   <i class="fa fa-calendar"></i> <span>View Calender</span>
               </a>
           </li>
@@ -54,7 +54,7 @@
 
 
           <li>
-    <a title="Quick Email" href='<?php echo base_url ('index.php/quickEmailController/email'); ?>' >
+    <a title="Quick Email" href='<?php echo base_url ('index.php/QuickEmailController/email'); ?>' >
       <i class="fa fa-calendar"></i> <span>Quick Email</span>
       <small class="label pull-right bg-red">3</small>
     </a>

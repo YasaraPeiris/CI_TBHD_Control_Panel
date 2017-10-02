@@ -4,12 +4,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class RedirectPageController extends CI_Controller {
 
 	public function viewMyAccount(){
-		$this->load->model('AccountModel');
 		$this->load->library('session');
-		$listing_no = $_SESSION['hotelno'];
-		$listing =  $this->AccountModel->getAccountDetails($listing_no);
-		$data= array('data1'=> $listing[0] );
-		$this->load->view('hotel/myAccount',$data);
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$this->load->model('AccountModel');
+			$listing_no = $_SESSION['hotelno'];
+			$listing =  $this->AccountModel->getAccountDetails($listing_no);
+			$data= array('data1'=> $listing[0] );
+			$this->load->view('hotel/myAccount',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 	
 	public function viewEditDetails(){

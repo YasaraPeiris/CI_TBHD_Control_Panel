@@ -21,6 +21,26 @@ class AccountModel extends CI_Model
 
 	}
 
+	// function logPersonalDetails($owner_id){
+	// 	// $DB1 = $this->load->database('default', TRUE);
+	// 	$DB2 = $this->load->database('log_db', TRUE);
+
+	// 	$DB2 -> where('owner_id',$owner_id) ;
+	// 	$DB2 -> from('owner');
+	// 	$query1 = $DB2 ->get();
+	// 	if ($query1-> num_rows() > 0){
+	// 		return $query1->result();    // return a array of object
+	// 	}	
+	// 	else{
+	// 		return NULL;	
+	// 	}
+
+	//     log_message('debug', print_r($query1, true));
+
+	    
+
+	// }
+
 	function editPersonalDetails($results,$owner_id){
 		$this->db->where('owner_id', $owner_id);  
 		$this->db->update("owner", $results);

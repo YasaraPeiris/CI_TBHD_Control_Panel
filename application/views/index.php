@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>inna.lk | Log in</title>
   <link rel="shortcut icon" href="assets/images/favicon.ico"/>
 
   <!-- Tell the browser to be responsive to screen width -->
@@ -28,6 +28,17 @@
   <![endif]-->
 </head>
 <body class="hold-transition login-page " style="background-color: aliceblue;">
+<?php
+if (!empty($_SESSION['error'])) {
+    echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Warning! </strong> ".$_SESSION['error']."</div>";
+    unset($_SESSION['error']);
+}
+
+if (!empty($_SESSION['alert'])) {
+    echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['alert']."</div>";
+    unset($_SESSION['alert']);
+}
+?>
   <?php $errors = "";?>
 <div class="login-box" style="background: #8892d6;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
     <div class="login-logo" >

@@ -90,7 +90,7 @@
                                           <a href="#" class="btn btn-default btn-flat">Profile</a>
                                         </div>-->
 
-                        <a href="#" onclick="logout()" class="btn btn-default btn-flat" style='background-color: #555555;color:white;'>Sign out</a>
+                        <a href="<?php echo base_url();?>index.php/LoginController/logout" class="btn btn-default btn-flat" style='background-color: #555555;color:white;'>Sign out</a>
 
                     </li>
                 </ul>
@@ -102,18 +102,24 @@
 </nav>
 <script>
 
-    function logout() {
+    // function logout() {
 
-        $.ajax({
-            type: 'POST',
-            url: '../logout.php',
-            success: function (data) {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '<?php //echo base_url();?>/index.php/LogoutController/logout',
+    //         datatype: "html",
+    //         success: function (data) { 
+    //             $('#rooms').html(data);
+    //         }
+    //         // type: 'POST',
+    //         // url: '../logout.php',
+    //         // success: function (data) {
 
-                BootstrapDialog.alert("You have successfully updated hotel description.")
-                window.location.href = '../../index.php'
+    //         //     BootstrapDialog.alert("You have successfully updated hotel description.")
+    //         //     window.location.href = '../../index.php'
 
-            }
-        });
-    }
+    //         // }
+    //     });
+    // }
 
 </script>
