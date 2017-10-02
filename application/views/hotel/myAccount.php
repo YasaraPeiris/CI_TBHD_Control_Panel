@@ -123,9 +123,12 @@
                           <div class="col-md-3" style="padding-top: 5%; margin-top: 10px;padding-bottom: 5%;border: 2px solid #f4f4f4;">
 
                             <div class="text-center">
-                              <img src="<?php if ($data1->image_path != null) {
-                                echo '../../'.$data1->image_path;
-                              }else{echo '//placehold.it/100';}  ?>" class="avatar img-circle" alt="avatar">
+                            <?php 
+                            if ($data1->image_path != null){
+                              echo '<img src="../../'.$data1->image_path.'" class="avatar img-circle" alt="avatar">';
+                            }
+                            else {echo '<img src="//placehold.it/100" class="avatar img-circle" alt="avatar">';}  ?>
+                              
                               <h6> Upload a different photo...</h6>
                               <!-- <input type="file" class="form-control"> -->
                               <input type="file" id="imgUploadId" name="imgUpload"  accept="image/jpeg, image/png" required/>
@@ -171,16 +174,20 @@
                               var imgCount = 0;
                           var files = document.getElementById("imgUploadId").files[0];
                           //for (var i in files) {
-                            console.log(files);
+                            // console.log(files);
                             if (typeof files == 'object'){
                             (function () {
                               var initialSize = files.size;
                               resize.photo(files, 200, 200, 'file', function (resizedFile) {
                                 var resizedSize = resizedFile.size;
                                 upload(resizedFile, function (response) {
+
+                                    window.location.reload(); // reload the page so that user can see the changes he made 
+
                                 });
                               }); 
                             }()); }
+                            // setTimeout(location.reload.bind(location), 800);
                         });
                         </script>
                         <!-- edit form column -->

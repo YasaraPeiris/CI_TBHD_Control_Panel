@@ -19,6 +19,11 @@ class LoginModel extends CI_Model
 		$data = array(  
 			'image_path' => $dir,  
 			);  
+	    // log_message('debug',$owner_id);
+	    // log_message('debug',$dir);
+	    // log_message('debug', print_r($data,true));
+	    
+
 		$this->db->where('owner_id', $owner_id);  
 		$this->db->update("owner", $data); 
 	}

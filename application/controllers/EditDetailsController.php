@@ -97,7 +97,7 @@ class EditDetailsController extends CI_Controller {
 	    public function photoUpload(){
 	    	$this->load->library('session');
 			// if(isset($_SESSION)){
-				log_message('debug', print_r($_SESSION,true));
+				// log_message('debug', print_r($_SESSION,true));
 			// 	log_message('debug',$_SESSION['username']);
 			// }
 	    	// log_message('debug',"aaaaaaaaaaaabbbbbbbbbbbbaaaaaaaaaaaaa");
@@ -106,7 +106,7 @@ class EditDetailsController extends CI_Controller {
 	    	if (isset($_SESSION['username'])){
 		    	if (isset($_FILES["photo"])) { 
 		    		// .$_SESSION['username']
-		    		$name ="userPhoto_".$_SESSION['owner_id']."_".$_SESSION['username'];
+		    		$name ="userPhoto_".$_SESSION['owner_id']; //."_".$_SESSION['username']
 		    		// if (isset($_SESSION['post']['listing_img_dir'])){
 		    			// $dir = "backend/assets/images/users/";
 		    		// }
@@ -132,7 +132,7 @@ class EditDetailsController extends CI_Controller {
 					    $target_file = $target_dir . basename($name);   
 					    $uploadOk = 1;
 					    // print_r($_FILES)
-					    log_message('debug', $target_file);
+					    // log_message('debug', $target_file);
 					    // Check if image file is a actual image or fake image
 					    if(isset($_POST["submit"])) {
 					        $check = getimagesize($_FILES["photo"]["tmp_name"]);
@@ -173,6 +173,12 @@ class EditDetailsController extends CI_Controller {
 					        	// $_SESSION['error_page5'] = "Sorry, file already exists."; 
 					    	    // $this->load->view('new_listing/C4_description');
 					    	    // $_SESSION['post'][$imageArray][] = $name;
+					    	    $this->load->model('LoginModel');
+					    	    $path = "assets/images/users/".$name;
+					    	    // log_message('debug', print_r($_SESSION,true));
+					    	    $listing_pics =  $this->LoginModel->LoginPics($path, $_SESSION['owner_id']);
+					    	    // $_SESSION['post']['imageNum'] = $_SESSION['post']['imageNum'] +1;
+
 					    	    return true;
 					            // echo "The file ". basename( $_FILES["photo"]["name"][$i]). " has been uploaded.";
 					        } else {
@@ -182,12 +188,7 @@ class EditDetailsController extends CI_Controller {
 					            // echo "Sorry, there was an error uploading your file.";
 					        }
 					    }
-					    $this->load->model('LoginModel');
-					    $path = "assets/images/users/".$name;
-					    log_message('debug',$path);
-
-					    $listing_pics =  $this->LoginModel->LoginPics($path, $_SESSION['owner_id']);
-					    // $_SESSION['post']['imageNum'] = $_SESSION['post']['imageNum'] +1;
+					    
 				}
 			}
 	    }
