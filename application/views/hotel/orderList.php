@@ -60,7 +60,11 @@
         .testbox .modal{
             color: #333;
         }
-
+        @media (min-width: 768px) {
+            .modal-dialog {
+                width: auto;
+            }
+        }
         /* overwriting default behaviour of Modal Popup in Bootstrap  */
         body{
             overflow: auto !important;
@@ -226,7 +230,7 @@
 
                                                 <?php $status = $data2[$i][0]['confirm_hotel'];
                                                 if($status==2){ ?>
-                                                    <td style="padding-top:2%;"><img src="../../assets/images/remove.png" title="ignored orders" ></td>
+                                                    <td style="padding-top:2%;"><img src="../../assets/images/remove.png"  style="margin: auto;" width="16" height="16" title="ignored orders" ></td>
                                                 <?php }elseif($status==0){ ?>
                                                     <td style="vertical-align: middle;"><img src="../../assets/images/remove.png" title="unaccepted orders" style="margin: auto;" width="16" height="16"></td> <?php }elseif ($status == 1) { ?>
                                                     <td style="vertical-align: middle;"><img src="../../assets/images/icon.png" title="accepted orders" style="margin: auto;vertical-align: middle;" width="16" height="16"></td>

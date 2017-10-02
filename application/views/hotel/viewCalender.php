@@ -60,7 +60,18 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+<style>
+    .dhx_cal_light_wide{
+        position: absolute;
+        left: 50% !important;
+        /* now you must set a margin left under zero - value is a half width your window */
+        margin-left: -312px !important;
+        /* this same situation is with height - example */
+        height: 500px;
+        top: 50% !important;
+        margin-top: -250px !important;
+    }
+</style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini" onload="init()">
