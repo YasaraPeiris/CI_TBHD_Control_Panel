@@ -56,7 +56,7 @@
           <li>
     <a title="Quick Email" href='<?php echo base_url ('index.php/QuickEmailController/email'); ?>' >
       <i class="fa fa-calendar"></i> <span>Quick Email</span>
-      <small class="label pull-right bg-red">3</small>
+      <!-- <small class="label pull-right bg-red">3</small> -->
     </a>
   </li>
 

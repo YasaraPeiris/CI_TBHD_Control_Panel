@@ -5,93 +5,135 @@ class EditDetailsController extends CI_Controller {
 
 	public function hotelDetails(){
 		$this->load->library('session');
-		$listing_no = $_SESSION['hotelno'];
-		$this->load->model('ListingsModel');
-		$listing =  $this->ListingsModel->getListingDetails($listing_no);
-		$data= array('data1'=> $listing[0]->main_facilities, 'data2'=>$listing[0] );
-		$this->load->view('hotel/hotelDetails',$data);
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_no = $_SESSION['hotelno'];
+			$this->load->model('ListingsModel');
+			$listing =  $this->ListingsModel->getListingDetails($listing_no);
+			$data= array('data1'=> $listing[0]->main_facilities, 'data2'=>$listing[0] );
+			$this->load->view('hotel/hotelDetails',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 
 	}
 
 	public function hotelPics(){
 		$this->load->library('session');
-		$listing_no = $_SESSION['hotelno'];
-		$this->load->model('ListingsModel');
-		$listing_pics =  $this->ListingsModel->getListingPics($listing_no);
-		$data= array('data'=> $listing_pics );
-		$this->load->view('hotel/hotelDetails',$data);
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_no = $_SESSION['hotelno'];
+			$this->load->model('ListingsModel');
+			$listing_pics =  $this->ListingsModel->getListingPics($listing_no);
+			$data= array('data'=> $listing_pics );
+			$this->load->view('hotel/hotelDetails',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 
 	public function roomDetails(){
 		$this->load->library('session');
-		$listing_no = $_SESSION['hotelno'];
-		$this->load->model('RoomModel');
-		$rooms =  $this->RoomModel->getRoomDetails($listing_no);
-		$data= array('data1'=> $rooms );
-		// print_r($data);
-		$this->load->view('hotel/updateRoomPrices',$data);
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_no = $_SESSION['hotelno'];
+			$this->load->model('RoomModel');
+			$rooms =  $this->RoomModel->getRoomDetails($listing_no);
+			$data= array('data1'=> $rooms );
+			// print_r($data);
+			$this->load->view('hotel/updateRoomPrices',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 
 	}
 
 	public function roomPics(){
 		$this->load->library('session');
-		$listing_no = $_SESSION['hotelno'];
-		$this->load->model('ListingsModel');
-		$listing_pics =  $this->ListingsModel->getListingPics($listing_no);
-		$data= array('data'=> $listing_pics );
-		$this->load->view('hotel/hotelDetails',$data);
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_no = $_SESSION['hotelno'];
+			$this->load->model('ListingsModel');
+			$listing_pics =  $this->ListingsModel->getListingPics($listing_no);
+			$data= array('data'=> $listing_pics );
+			$this->load->view('hotel/hotelDetails',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 
 	public function viewMyAccount(){
-		$this->load->library('session');
+		$this->load->library('session');  // *************** account for session time out ******************
 		$this->load->view('myAccount');
 	}
 	
 	public function viewEditDetails(){
 		$this->load->library('session');
-		$this->load->view('hotel/editDetails');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$this->load->view('hotel/editDetails');
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 
 	public function updateHotelDescription(){
-		$this->load->helper('form');
-		$this->load->helper('url');
-		$data1=array();
-		if(isset($_POST['editor1'])){
-			$this->load->model('ListingsModel');
-			$this->load->library('session');
-			if(isset($_SESSION)){
-				$listing_id = $_SESSION['hotelno'];
-			}
-			$data1 = array(  
-				'listing_desc' =>$_POST['editor1']
-				);
-			$this->ListingsModel->updateListingsDescription($listing_id,$data1);
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$this->load->helper('form');
+			$this->load->helper('url');
+			$data1=array();
+			if(isset($_POST['editor1'])){
+				$this->load->model('ListingsModel');
+				if(isset($_SESSION)){
+					$listing_id = $_SESSION['hotelno'];
+				}
+				$data1 = array(  
+					'listing_desc' =>$_POST['editor1']
+					);
+				$this->ListingsModel->updateListingsDescription($listing_id,$data1);
 
+			}
+			$this->hotelDetails();
 		}
-		$this->hotelDetails();
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 
 	}
 
 	public function updateFacilities(){
-		$this->load->helper('form');
-		$this->load->helper('url');
-		$data1=array();
-		if(!empty($_POST['check_list'])) {
-			$this->load->model('ListingsModel');
-			$this->load->library('session');
-			if(isset($_SESSION)){
-				$listing_id = $_SESSION['hotelno'];
-			}
-			foreach($_POST['check_list'] as $check) {
-				array_push($data1,$check);
-			}
-			$data = json_encode($data1);
-		$data2 = array(  
-				'main_facilities' =>$data
-				);	
-		$this->ListingsModel->updateFacilities($listing_id,$data2);
-		}	
-		$this->hotelDetails();
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$this->load->helper('form');
+			$this->load->helper('url');
+			$data1=array();
+			if(!empty($_POST['check_list'])) {
+				$this->load->model('ListingsModel');
+				if(isset($_SESSION)){
+					$listing_id = $_SESSION['hotelno'];
+				}
+				foreach($_POST['check_list'] as $check) {
+					array_push($data1,$check);
+				}
+				$data = json_encode($data1);
+			$data2 = array(  
+					'main_facilities' =>$data
+					);	
+			$this->ListingsModel->updateFacilities($listing_id,$data2);
+			}	
+			$this->hotelDetails();
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 
 	}
 	    public function photoUpload(){

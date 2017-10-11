@@ -20,7 +20,13 @@ class RedirectPageController extends CI_Controller {
 	
 	public function viewEditDetails(){
 		$this->load->library('session');
-		$this->load->view('hotel/editDetails');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$this->load->view('hotel/editDetails');
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 
 	public function viewCheckOrders(){
