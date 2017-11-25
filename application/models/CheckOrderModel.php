@@ -8,6 +8,7 @@ class CheckOrderModel extends CI_Model
 		$this->db->where('listing_id', $listing_no);
 		$this->db->where('confirm_hotel', '0');
 		$this->db->where('check_in>=', $date_val);
+        $this->db->where('status', 'confirm');
 		$this->db-> from('booking');
 		$this->db->join('itemdetails', 'itemdetails.booking_id = booking.booking_id');
 		$this->db->order_by("itemdetails.booking_id","asc");
