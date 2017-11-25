@@ -61,8 +61,11 @@ class CalenderModel extends CI_Model
 
     function getRoomStatus()
     {
+//        $this->db->select('id,value,label');
+//        $this->db->where('value','6');
         $this->db->from('roomstatus');
         $query1 = $this->db->get();
+
         if ($query1->num_rows() > 0) {
             return $query1->result();    // return a array of object
         } else {
@@ -81,9 +84,9 @@ class CalenderModel extends CI_Model
         }
     }
 
-    function saveNoSpace()
+    function saveNoSpace($checkin,$checkout,$room_id,$lisitng_id,$status)
     {
-        //  $bookingData = array ( 'check_in' => $date1, 'check_out' => $date2, 'customer_id' => $_SESSION['customer_id'], 'listing_id' => $_SESSION['listingid'], 'status' => $status, 'paid_amount' => 0, 'total_to_hotel' => $_SESSION['totalhotel'], 'total_rate' => ( $_SESSION['totalhotel'] * ( 1 + $_SESSION['commision'] / 100 ) ) );
+          $bookingData = array ( 'check_in' => $checkin, 'check_out' => $checkout, 'customer_id' => 'MANUAL_BOOKING', 'listing_id' => $lisitng_id, 'status' => $status, 'paid_amount' => 0, 'total_to_hotel' => 0, 'total_rate' => 0 );
         //  $this->BookingModel->place_booking ( $bookingData );
 
     }

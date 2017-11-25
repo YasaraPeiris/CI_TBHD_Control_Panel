@@ -19,7 +19,7 @@
     scheduler.config.lightbox.sections = [
         {map_to: "text", name: "text", type: "textarea", height: 24},
         {map_to: "room", name: "room", type: "select", options: scheduler.serverList("currentRooms")},
-        {map_to: "status", name: "status", type: "radio", options: scheduler.serverList("bookingStatus")},
+        // {map_to: "status", name: "status", type: "radio", options: scheduler.serverList("bookingStatus")},
         {map_to: "is_paid", name: "is_paid", type: "checkbox", checked_value: true, unchecked_value: false},
         {map_to: "time", name: "time", type: "calendar_time"}
     ];
@@ -152,10 +152,12 @@
     });
 
     scheduler.attachEvent('onEventCreated', function (event_id) {
+
         var ev = scheduler.getEvent(event_id);
         ev.status = 6;
         ev.is_paid = false;
         ev.text = 'No space';
+
     });
 
     scheduler.addMarkedTimespan({days: [0, 6], zones: "fullday", css: "timeline_weekend"});
@@ -192,6 +194,7 @@
     }
 
     scheduler.attachEvent("onBeforeEventDelete", function (id, ev, is_new) {
+
         if (ev.status == 6) {
             return true;
         } else {
@@ -201,7 +204,7 @@
     });
     scheduler.attachEvent("onEventSave", function (id, ev, is_new) {
 
-        if ((ev.status) == 6) {
+        // if ((ev.status) == 6) {
             $.ajax({
                 type: 'POST',
                 async: false,
@@ -209,6 +212,7 @@
                 url: "<?php echo base_url(); ?>index.php/viewCalenderController/saveNoSpaceBookings",
                 dataType: 'json',
                 success: function (response) {
+
                 }
             });
 
@@ -217,12 +221,13 @@
                 return false;
             }
             return true;
-        }
-        else {
-            dhtmlx.alert("You can't change online reserved dates.");
-            scheduler.endLightbox(true, document.getElementsByClassName( 'dhx_cal_light_wide' )[0]);
-            return false;
-        }
+        // }
+        // else {
+        //
+        //     dhtmlx.alert("You can't change online reserved dates.");
+        //     scheduler.endLightbox(true, document.getElementsByClassName( 'dhx_cal_light_wide' )[0]);
+        //     return false;
+        // }
     });
 })();
 

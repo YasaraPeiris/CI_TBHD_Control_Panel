@@ -184,5 +184,21 @@ class ViewCalenderController extends CI_Controller
 
     public function saveNoSpaceBookings(){
 
+        $this->load->library('session');
+        if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+
+            $this->load->model('CalenderModel');
+            $listing_no = $_SESSION['hotelno'];
+            $checkin = $_POST['checkin'];
+            $checkout = $_POST['checkout'];
+            $room_id = $_POST['room_id'];
+            $status = $_POST['status'];
+            $this->CalenderModel->createEvent();
+//            $this->AccountModel->editAccountDetails($data2,$login_id);
+
+
+        }
+
+
     }
 }

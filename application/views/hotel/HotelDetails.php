@@ -88,6 +88,31 @@
           <li class="active">Edit Details</li>
         </ol>
       </section>
+        <section class="content" style="padding-right:5%;padding-left:5%;padding-bottom: 0;">
+            <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
+
+                <div class="box-header with-border" style="text-align: center;">
+                    <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">Hotel Description</h3>
+                </div> <div class="small-box" id="hotelDes" style="box-shadow:none;">
+                    <div style="background: white;" >
+                        <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
+                            <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 2%;padding-bottom: 1%;">
+                                <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/EditDetailsController/updateHotelDescription" id="form2" role="form" data-toggle="validator">
+                                    <textarea id="editor1" name="editor1" style="padding:3%;width: 100%;margin-bottom: 1%;" rows="8" disabled><?php echo $data2->listing_desc ?></textarea>
+
+
+                                    <button type="button" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
+                                    <button type="button" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color: #8892d6;color:white;font-size: inherit;'>Edit</button>
+                                </form>
+                                <hr style="border: 1px solid rgba(0, 0, 0, 0.3);margin-top: 60px;">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
       <!-- Main content -->
       <section class="content" style="padding-right:5%;padding-left:5%;">
           <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
