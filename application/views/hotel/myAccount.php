@@ -208,10 +208,10 @@
                               <label for="listingtype">Listing Type</label>
                               <select name="listing_type" id="listing_type" class="form-control is-disabled" disabled>
                                 <?php if($data1->listing_type == "hotel"){?>
-                                <option value="private_listing" >Private Listing</option>
+                                <option value="hotel" selected>Hotel</option>
                                 <?php } 
                                 else{ ?>
-                                <option value="hotel" selected>Hotel</option>
+                                <option value="private_listing" >Private Listing</option>
                                 <?php } ?>
                               </select>
                             </div>

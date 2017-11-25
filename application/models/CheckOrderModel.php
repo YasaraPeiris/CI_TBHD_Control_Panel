@@ -31,7 +31,8 @@ class CheckOrderModel extends CI_Model
         $this->db->where('check_in>=', $date_val);
         $this->db-> from('booking');
         $this->db->join('itemdetails', 'itemdetails.booking_id = booking.booking_id');
-        $this->db->join('customer', 'booking.customer_id = customer_no');
+        $this->db->join('customers', 'booking.customer_id = customer_no');
+        // $this->db->join('customer', 'booking.customer_id = customer_no');
         $this->db->order_by("itemdetails.booking_id","desc");
         $this->db->order_by("room_type_id","desc");
         $query1 = $this->db->get();
@@ -54,7 +55,7 @@ class CheckOrderModel extends CI_Model
         $this->db->where('check_in<=', $date_val);
         $this->db-> from('booking');
         $this->db->join('itemdetails', 'itemdetails.booking_id = booking.booking_id');
-        $this->db->join('customer', 'booking.customer_id = customer_no');
+        $this->db->join('customers', 'booking.customer_id = customer_no');
         $this->db->order_by("itemdetails.booking_id","desc");
         $this->db->order_by("room_type_id","desc");
         $query1 = $this->db->get();
