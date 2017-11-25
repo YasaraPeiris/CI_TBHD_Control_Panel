@@ -12,7 +12,6 @@ class ViewCalenderController extends CI_Controller
 
         return 0; //Return 0 if there is no overlap
     }
-
     public function calender()
     {
 
