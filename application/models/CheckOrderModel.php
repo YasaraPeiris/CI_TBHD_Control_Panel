@@ -29,6 +29,7 @@ class CheckOrderModel extends CI_Model
         $this->db->where('listing_id', $listing_no);
         $this->db->where('confirm_hotel', '0');
         $this->db->where('check_in>=', $date_val);
+        $this->db->where('status', 'confirm');
         $this->db-> from('booking');
         $this->db->join('itemdetails', 'itemdetails.booking_id = booking.booking_id');
         $this->db->join('customers', 'booking.customer_id = customer_no');
@@ -52,6 +53,7 @@ class CheckOrderModel extends CI_Model
 		//$this->db->select('booking.booking_id,check_in,check_out,listing_id,confirm_hotel,is_paid,total_rate,item_id,item_name,room_total_rate,quantity,item_type,customer_name,nic_number,address,telephone_num,last_name,order_created_date,country,email');
         $this->db->select('*');
         $this->db->where('listing_id', $listing_no);
+        $this->db->where('status', 'confirm');
         $this->db->where('check_in<=', $date_val);
         $this->db-> from('booking');
         $this->db->join('itemdetails', 'itemdetails.booking_id = booking.booking_id');
@@ -93,6 +95,7 @@ class CheckOrderModel extends CI_Model
         $this->db->where('listing_id', $listing_no);
 		$this->db->where('check_in<=', $date);
 		$this->db->where('check_in>=', $date_val);
+        $this->db->where('status', 'confirm');
 		$this->db-> from('booking');
         $this->db->join('itemdetails', 'itemdetails.booking_id = booking.booking_id');
         $this->db->join('customer', 'booking.customer_id = customer_no');

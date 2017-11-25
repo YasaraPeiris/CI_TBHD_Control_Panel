@@ -220,10 +220,10 @@ class LoginController extends CI_Controller {
 		$this->load->library('session');
 		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
 
-			if(isset($_SESSION)){
+			// if(isset($_SESSION)){
 				$listing_no = $_SESSION['hotelno'];
 				$orders= $this->orderHistory($listing_no);
-			}
+			// }
 			
 			$data2= array('data2'=>$orders);
 			$this->load->view('hotel/orderList',$data2);
