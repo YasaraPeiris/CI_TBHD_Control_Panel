@@ -104,7 +104,7 @@
                          style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
                         <div class="box-header with-border" style="text-align: center;">
                             <h3 class="box-title"
-                                style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;"><?php echo "New orders for " . date("d/m/Y") . "<br>"; ?></h3>
+                                style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;"><?php echo "New orders<br>"; ?></h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body" style="padding:0 4%;">
@@ -195,7 +195,7 @@
           ">
                         <div class="box-header with-border" style="text-align: center;">
                             <h3 class="box-title"
-                                style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;"><?php echo "Today is " . date("d/m/Y") . " - Upcoming Check Ins<br>"; ?></h3>
+                                style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;"><?php echo "Confirmed Upcoming Check-ins from Today (" . date("d/m/Y") . ")<br>"; ?></h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body" style="padding:0 4%;">

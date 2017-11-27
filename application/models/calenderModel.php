@@ -37,6 +37,7 @@ class CalenderModel extends CI_Model
     {
         $this->db->select('item_name,room_type_id AS room, check_in AS start_date,check_out AS end_date,booking.booking_id AS text,booking.booking_id AS id,status_cal AS status,is_paid_cal AS is_paid,paid_amount as paid_amount,total_to_hotel,quantity, status');
         $this->db->where('listing_id', $listing_id);
+        $this->db->where('status', 'confirm');
         $this->db->from('booking');
         $this->db->join('itemdetails', 'booking.booking_id = itemdetails.booking_id', 'left');
         $query1 = $this->db->get();

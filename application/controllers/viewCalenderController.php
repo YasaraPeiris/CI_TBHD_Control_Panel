@@ -170,7 +170,7 @@ class ViewCalenderController extends CI_Controller
             $return = array('data' => $data_checkins, 'collections' => $collections);
     //        $this->output->set_content_type('application/json')->set_output(json_encode( $return));
             $data_array = json_encode($return);
-            $return_array = array('data_array' => $data_array, 'df' => "fdfd");
+            $return_array = array('data_array' => $data_array);
             //  return;
             $this->load->view('hotel/viewCalender', $return_array);
             //   $this->load->view('hotel/viewCalender');
