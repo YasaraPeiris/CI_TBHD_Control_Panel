@@ -71,7 +71,7 @@
                 <!-- Main content -->
                 <section class="content">
                     <!-- Small boxes (Stat box) -->
-                 
+
 
                     <div class="row" style="background: white;;padding-top: 1%;padding-bottom: 3%;">
                         <h1 style="color: black;padding-left: 1%;text-decoration: underline;">Edit Details</h1>
@@ -87,7 +87,7 @@
 <!--                                    <br>
                                     <button type="button" class="btn btn-block btn-success btn-lg" onclick="button3()">Update Room Facilities</button>-->
                                 </div>
-                               
+
                                 <div style="background: #555555;height: 220px;margin-left: 4%;margin-right: 4%;border:solid;border-color: white;margin-top: 15%;margin-bottom: 15%;">
                                     <p style="font-family: courier;font-size: 1.8em;padding-top: 5%;color:white;">THE BEST HOTEL DEAL.</p><br>
                                     <p>(Worldwide service provider)</p>
@@ -115,7 +115,7 @@
                                                 <div class="box-body pad" style="color: black;">
                                                     <form id="desc">
                                                         <textarea id="editor1" name="editor1" style="width: 80%;" rows="8" >
-                                            
+
                                                         </textarea>
                                                         <div class ="row" style="padding: 1%;">
                                                             <div class='col-lg-3 col-lg-offset-6'>
@@ -235,7 +235,7 @@
                                                                         <?php
                                                                         $r++;
                                                                     }
-                                                                    ?></select>  
+                                                                    ?></select>
                                                             </div></div>
                                                         <br><br>
 
