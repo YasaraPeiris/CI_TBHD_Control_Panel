@@ -26,4 +26,17 @@ class RoomModel extends CI_Model
 			return NULL;	
 		}
 	}
+
+	function updateRoomDetails($data,$listing_id,$roomtype_id){
+        $this->db->where('listing_id',$listing_id);
+        $this->db->where('room_type_id',$roomtype_id);
+        if( $this->db->update('roomtypes',$data))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

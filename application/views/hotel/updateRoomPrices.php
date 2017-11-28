@@ -113,15 +113,17 @@
                         <?php } ?>
                     </ul>
                     <div class="tab-content">
-                    <div style="background: white;" id="<?php echo $data1[0]->room_name ?>"
-                         class="tab-pane fade in active">
-                        <div class="box box-info" style="padding:2%;border-color:gray;border:1px solid #f4f4f4;">
+                        <div style="background: white;" id="<?php echo $data1[0]->room_name ?>"
+                             class="tab-pane fade in active">
+                            <div class="box box-info" style="padding:2%;border-color:gray;border:1px solid #f4f4f4;">
 
 
                                 <div class="box-body pad"
                                      style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 2%;padding-bottom: 1%;">
 
-                                    <form method="POST" action="<?php echo site_url(); ?>/EditDetailsController/saveDetails" enctype="multipart/form-data" id="roomForm0" name="roomForm0">
+                                    <form method="post" action="<?php echo site_url(); ?>/EditDetailsController/saveDetails"  id="roomForm0" name="roomForm0">
+                                        <input type="hidden" name="formId" value="0">
+                                                                                <input type="hidden" name="roomTypeId" value="<?php echo $data1[0]->room_type_id?>">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <div class="col-md-4">
                                                 <p style="color:dimgrey;font-size: 14px;"> Room Type</p>
@@ -130,40 +132,40 @@
                                                 <div class="col-md-12">
                                                     <div class="col-md-6" style="margin-bottom: 2%;">
                                                         <label class="radio-inline"><input type="radio" id="Single0"
-                                                                                           name="optradio0">Single Room</label>
+                                                                                           name="optradio0" value="Single">Single Room</label>
                                                     </div>
                                                     <div class="col-md-6" style="margin-bottom: 2%;">
                                                         <label class="radio-inline"><input type="radio" id="Double0"
-                                                                                           name="optradio0">Double Room</label>
+                                                                                           name="optradio0" value="Double">Double Room</label>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-12">
                                                     <div class="col-md-6" style="margin-bottom: 2%;">
                                                         <label class="radio-inline"><input type="radio" id="Twin0"
-                                                                                           name="optradio0">Twin
+                                                                                           name="optradio0" value="Twin">Twin
                                                             Room</label>
                                                     </div>
                                                     <div class="col-md-6" style="margin-bottom: 2%;">
                                                         <label class="radio-inline"><input type="radio" id="Triple0"
-                                                                                           name="optradio0">Triple Room</label>
+                                                                                           name="optradio0" value="Triple">Triple Room</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="col-md-6" style="margin-bottom: 2%;">
                                                         <label class="radio-inline"><input type="radio" id="Quadruple0"
-                                                                                           name="optradio0">Quadruple
+                                                                                           name="optradio0" value="Quadruple">Quadruple
                                                             Room</label>
                                                     </div>
                                                     <div class="col-md-6" style="margin-bottom: 2%;">
                                                         <label class="radio-inline"><input type="radio" id="Family0"
-                                                                                           name="optradio0">Family Room</label>
+                                                                                           name="optradio0" value="Family">Family Room</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="col-md-6" style="margin-bottom: 2%;">
                                                         <label class="radio-inline"><input type="radio" id="Studio0"
-                                                                                           name="optradio0">Studio Room</label>
+                                                                                           name="optradio0" value="Studio">Studio Room</label>
                                                     </div>
                                                 </div>
 
@@ -198,7 +200,7 @@
                                                 <p style="color:dimgrey;font-size: 14px;"> Maximum Occupancy</p>
                                             </div>
                                             <div class="col-md-4">
-                                                <input type="number" name="max_occupancy" id="max_ppl"
+                                                <input type="number" name="max_occupancy0" id="max_ppl"
                                                        value="<?php echo $data1[0]->max_no_of_guests; ?>" min="1"
                                                        max="16"
                                                        style="margin: 0 10px;color:dimgrey;font-size: 14px; min-width: 50px; padding: 2px 10px; "
@@ -215,9 +217,9 @@
                                                     <th>Price Condition</th>
                                                     <th>Price</th>
                                                     <th>Facilities</th>
-<!--                                                    <th>Special Things to Note</th>-->
-<!--                                                         <th>Add Facilities</th>-->
-<!--                                                    <th>Remove Facilities</th>-->
+                                                    <!--                                                    <th>Special Things to Note</th>-->
+                                                    <!--                                                         <th>Add Facilities</th>-->
+                                                    <!--                                                    <th>Remove Facilities</th>-->
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -226,22 +228,25 @@
                                                 print_r($r);
                                                 for($i=0;$i<sizeof($r->priceArry);$i++){
 
-                                                ?>
+                                                    ?>
 
-                                                <tr>
-                                                    <td><?php echo $r->priceNameArry[$i]; ?></td>
-                                                    <td><input style="text-align: right;"  value="<?php echo number_format($r->priceArry[$i],2); ?>" name="roomprice"></td>
-                                                    <td><?php
-                                                       $nm= sizeof($r->priceFaci[$i]);
-                                                    for($j=0; $j<$nm; $j++){
-                                                        echo $r->priceFaci[$i][$j] ;?><br><?php }
-                                                           ?>
-                                                    </td>
-                                                </tr>
-<?php } ?>
+                                                    <tr>
+                                                        <td><?php echo $r->priceNameArry[$i]; ?><input type="hidden" value="<?php echo $r->priceNameArry[$i]; ?>" name="pricename0[]"></td>
+<!--                                                        <td><input style="text-align: right;"  value="--><?php //echo number_format($r->priceArry[$i],2); ?><!--" name="roomprice0[]"></td>-->
+                                                        <td><input style="text-align: right;"  value="<?php echo $r->priceArry[$i]; ?>" name="roomprice0[]"></td>
+
+<!--                                                        <td>--><?php
+//                                                            $nm= sizeof($r->priceFaci[$i]);
+//                                                            for($j=0; $j<$nm; $j++){
+//                                                                echo $r->priceFaci[$i][$j] ;?><!--<br>--><?php //}
+//                                                            ?>
+<!--<!--                                                            <input type="hidden" value="--><?php ////echo $r->priceFaci[$i]; ?><!--<!--" name="pricefaci0[]">-->-->
+<!--                                                        </td>-->
+                                                    </tr>
+                                                <?php } ?>
                                                 </tbody>
                                             </table>
-                                          </div>
+                                        </div>
 
                                         <br>
                                         <div class="col-md-12" style="margin-bottom: 10px;margin-top:4%;">
@@ -250,7 +255,7 @@
                                             </div>
                                             <div class="col-md-4">
 
-                                                <select id="bathroom_type" name="bathroom_type"
+                                                <select id="bathroom_type" name="bathroom_type0"
                                                         style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"
                                                         required="true">
                                                     <option selected disabled>Please Select</option>
@@ -275,117 +280,117 @@
                                             <?php $array = json_decode($data1[0]->room_facilities); ?>
                                             <div class="col-md-12" style="margin-bottom: 1%;">
                                                 <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci[]' value="Wifi" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>>
+                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="Wifi" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>>
                                                     Wifi @ the room <br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]' value="AC" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>>
+                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="AC" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>>
                                                     Air Conditioned room <br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Heating Fireplace" <?php if (in_array("Heating Fireplace", $array)) { echo 'checked="checked"';}?>>
-                                                   Heating/ Fireplace in the room
+                                                    Heating/ Fireplace in the room
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci[]' value="Fan" <?php if (in_array("Fan", $array)) { echo 'checked="checked"';}?>>
+                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="Fan" <?php if (in_array("Fan", $array)) { echo 'checked="checked"';}?>>
                                                     Fans in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Mosquito Nets" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>> Mosquito Nets <br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Hot Water" <?php if (in_array("Hot Water", $array)) { echo 'checked="checked"';}?>> Hot Water
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="col-md-12" style="margin-bottom: 1%;">
                                                 <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Refrigerator"> Refrigerator in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]' value="Iron" <?php if (in_array("Refrigerator", $array)) { echo 'checked="checked"';}?>>
+                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="Iron" <?php if (in_array("Refrigerator", $array)) { echo 'checked="checked"';}?>>
                                                     Iron in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Flat Screen TV" <?php if (in_array("Flat Screen TV", $array)) { echo 'checked="checked"';}?>> Flat Screen TV in the room<br>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci[]' value="TV" <?php if (in_array("TV", $array)) { echo 'checked="checked"';}?>>
+                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="TV" <?php if (in_array("TV", $array)) { echo 'checked="checked"';}?>>
                                                     TV in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Satellite Channels" <?php if (in_array("Satellite Channels", $array)) { echo 'checked="checked"';}?>> Satellite Channels <br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Hair Dryer" <?php if (in_array("Hair Dryer", $array)) { echo 'checked="checked"';}?>> Hair Dryer in the room<br>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12" style="margin-bottom: 1%;">
                                                 <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="ClothRack" <?php if (in_array("ClothRack", $array)) { echo 'checked="checked"';}?>> Cloth Rack in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Wardrobe Closet" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>> Wardrobe / Closet in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]' value="Safe" <?php if (in_array("Safe", $array)) { echo 'checked="checked"';}?>>
+                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="Safe" <?php if (in_array("Safe", $array)) { echo 'checked="checked"';}?>>
                                                     Safe in the room<br>
                                                 </div>
                                                 <div class="col-md-6">
                                                     Seating facilities to, <br>
-                                                    <input type="radio" class="faci" name="Seating" checked="checked"
+                                                    <input type="radio" name="room_faci_radio0[]" class="faci"  checked="checked"
                                                            value="Chairs To Every One"> every one <input type="radio"
-                                                                                                         name="Seating"
+
                                                                                                          value="Chairs Only To Fewer" <?php if (in_array("Chairs Only To Fewer", $array)) { echo 'checked="checked"';}?>>
-                                                    fewer <input type="radio" name="Seating" value="No chairs" <?php if (in_array("No chairs", $array)) { echo 'checked="checked"';}?>> No
+                                                    fewer <input type="radio" name="room_faci_radio0[]"  value="No chairs" <?php if (in_array("No chairs", $array)) { echo 'checked="checked"';}?>> No
                                                     chairs<br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]' value="Desk" <?php if (in_array("Desk", $array)) { echo 'checked="checked"';}?>>
+                                                    <input type="checkbox" name="room_faci0[]" class="faci" name='room_faci0[]' value="Desk" <?php if (in_array("Desk", $array)) { echo 'checked="checked"';}?>>
                                                     Desk in the room
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12" style="margin-bottom: 1%;">
                                                 <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Carpeted" <?php if (in_array("Carpeted", $array)) { echo 'checked="checked"';}?>> Carpeted Room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Tiled/Marble Floor" <?php if (in_array("Tiled/Marble Floor", $array)) { echo 'checked="checked"';}?>> Tiled/Marble Room Floor<br>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Balcony Directly Accessible from the room" <?php if (in_array("Balcony Directly Accessible from the room", $array)) { echo 'checked="checked"';}?>> Balcony
                                                     Directly Accessible from the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci[]'
+                                                    <input type="checkbox" class="faci" name='room_faci0[]'
                                                            value="Terrace Directly Accessible from the room" <?php if (in_array("Terrace Directly Accessible from the room", $array)) { echo 'checked="checked"';}?>> Terrace
                                                     Directly Accessible from the room<br>
                                                 </div>
                                             </div>
                                         </div>
-<!--                                        <div class="col-md-12"-->
-<!--                                             style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;;color:dimgrey;">-->
-<!--                                            <div class="col-md-12" style="margin-bottom: 10px;">-->
-<!--                                                <div class="col-md-4">-->
-<!--                                                    <p style="color:dimgrey;font-size: 14px;"> Room has a</p>-->
-<!--                                                </div>-->
-<!--                                                <div class="col-md-4">-->
-<!---->
-<!--                                                    <select i-->
-<!--                                                            d="view" name="view"-->
-<!--                                                            style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"-->
-<!--                                                            required="true">-->
-<!--                                                        <option value="no_view" selected>No view</option>-->
-<!--                                                        <option value="City">City View</option>-->
-<!--                                                        <option value="Garden">Garden View</option>-->
-<!--                                                        <option value="Lake">Lake View</option>-->
-<!--                                                        <option value="Mountain">Mountain View</option>-->
-<!--                                                        <option value="River">River View</option>-->
-<!--                                                        <option value="Sea">Sea View</option>-->
-<!--                                                        <option value="Pool">Pool View</option>-->
-<!--                                                        <option value="Landmark_View">Landmark View</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="col-md-12"-->
+                                        <!--                                             style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;;color:dimgrey;">-->
+                                        <!--                                            <div class="col-md-12" style="margin-bottom: 10px;">-->
+                                        <!--                                                <div class="col-md-4">-->
+                                        <!--                                                    <p style="color:dimgrey;font-size: 14px;"> Room has a</p>-->
+                                        <!--                                                </div>-->
+                                        <!--                                                <div class="col-md-4">-->
+                                        <!---->
+                                        <!--                                                    <select i-->
+                                        <!--                                                            d="view" name="view"-->
+                                        <!--                                                            style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"-->
+                                        <!--                                                            required="true">-->
+                                        <!--                                                        <option value="no_view" selected>No view</option>-->
+                                        <!--                                                        <option value="City">City View</option>-->
+                                        <!--                                                        <option value="Garden">Garden View</option>-->
+                                        <!--                                                        <option value="Lake">Lake View</option>-->
+                                        <!--                                                        <option value="Mountain">Mountain View</option>-->
+                                        <!--                                                        <option value="River">River View</option>-->
+                                        <!--                                                        <option value="Sea">Sea View</option>-->
+                                        <!--                                                        <option value="Pool">Pool View</option>-->
+                                        <!--                                                        <option value="Landmark_View">Landmark View</option>-->
+                                        <!--                                                    </select>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </div>-->
                                         <div class="col-md-12"
                                              style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
                                             <div class="col-md-12">
                                                 <div class="col-md-6">
-                                                    <input type="checkbox" name='room_faci[]'
+                                                    <input type="checkbox" name='room_faci0[]'
                                                            value="Wheelchair Accessible" <?php if (in_array("Wheelchair Accessible", $array)) { echo 'checked="checked"';}?>> Room is Wheelchair
                                                     accessible<br>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="checkbox" name='room_faci[]'
+                                                    <input type="checkbox" name='room_faci0[]'
                                                            value="Elevator Accessible" <?php if (in_array("Elevator Accessible", $array)) { echo 'checked="checked"';}?>> Room is Elevator
                                                     accessible<br>
                                                 </div>
@@ -399,7 +404,7 @@
                                                     How many this kind of rooms?
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="number" name="each_room_count"
+                                                    <input type="number" name="each_room_count0"
                                                            value="<?php echo $data1[0]->no_of_rooms; ?>" min="1"
                                                            max="10"
                                                            style="margin: 5px 10px; min-width: 50px; padding: 2px 10px; ">
@@ -407,11 +412,11 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12" style=";color:dimgrey;margin-top:2%;">
-                                            <button type="submit" name="save" class="btn btn-default btn-lg"
+                                            <button type="reset" name="reset0" class="btn btn-default btn-lg"
                                                     style='float:right;background-color: #8892d6;color:white;font-size: inherit;'
                                                     onclick="ResetDetails()">Reset Details
                                             </button>
-                                            <button type="submit" id="save0" name="save0" class="btn btn-default btn-lg"
+                                            <button type="btn" id="save0" name="save0" class="btn btn-default btn-lg"
                                                     style='float:right;background-color: #8892d6;color:white;font-size: inherit;'
                                                     onclick="saveDetails()">Save
                                             </button>
@@ -420,8 +425,8 @@
                                 </div>
 
 
+                            </div>
                         </div>
-                    </div>
                         <?php for ($i = 1; $i < sizeof($data1); $i++) { ?>
                             <div style="background: white;" id="<?php echo $data1[$i]->room_name ?>"
                                  class="tab-pane fade">
@@ -429,7 +434,9 @@
                                     <div class="box-body pad"
                                          style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 2%;padding-bottom: 1%;">
 
-                                        <form action="<?php echo site_url(); ?>/EditDetailsController/saveDetails" method="post" enctype="multipart/form-data" id="roomForm<?php echo $i; ?>" name="roomForm<?php echo $i; ?>">
+                                        <form method="post" action="<?php echo site_url(); ?>/EditDetailsController/saveDetails"  enctype="multipart/form-data" id="roomForm<?php echo $i; ?>" name="roomForm<?php echo $i; ?>">
+                                            <input type="hidden" name="formId" value="<?php echo $i?>">
+                                                                                        <input type="hidden" name="roomTypeId" value="<?php echo $data1[$i]->room_type_id?>">
                                             <div class="col-md-12" style="margin-bottom: 10px;">
                                                 <div class="col-md-4">
                                                     <p style="color:dimgrey;font-size: 14px;"> Room Type</p>
@@ -438,29 +445,27 @@
                                                     <div class="col-md-12">
                                                         <div class="col-md-6" style="margin-bottom: 2%;">
                                                             <label class="radio-inline"><input type="radio" id='Single<?php echo $i ?>'
-                                                                                               name="optradio"
-                                                                                               .<?php echo $i ?>>Single
+                                                                                               name="optradio<?php echo $i; ?>" value="Single">Single
                                                                 Room</label>
                                                         </div>
                                                         <div class="col-md-6" style="margin-bottom: 2%;">
                                                             <label class="radio-inline"><input type="radio" id="Double<?php echo $i ?>"
-                                                                                               name="optradio"
-                                                                                               .<?php echo $i ?>>Double
+                                                                                               name="optradio<?php echo $i; ?>" value="Double">Double
                                                                 Room</label>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-12">
                                                         <div class="col-md-6" style="margin-bottom: 2%;">
+
+
                                                             <label class="radio-inline"><input type="radio" id="Twin<?php echo $i; ?>"
-                                                                                               name="optradio"
-                                                                                               .<?php echo $i ?>>Twin
+                                                                                               name="optradio<?php echo $i; ?>" value="Twin">Twin
                                                                 Room</label>
                                                         </div>
                                                         <div class="col-md-6" style="margin-bottom: 2%;">
                                                             <label class="radio-inline"><input type="radio" id="Triple<?php echo $i; ?>"
-                                                                                               name="optradio"
-                                                                                               .<?php echo $i ?>>Triple
+                                                                                               name="optradio<?php echo $i; ?>" value="Triple">Triple
                                                                 Room</label>
                                                         </div>
                                                     </div>
@@ -468,22 +473,19 @@
                                                         <div class="col-md-6" style="margin-bottom: 2%;">
                                                             <label class="radio-inline"><input type="radio"
                                                                                                id="Quadruple<?php echo $i; ?>"
-                                                                                               name="optradio"
-                                                                                               .<?php echo $i ?>>Quadruple
+                                                                                               name="optradio<?php echo $i; ?>" value="Quadruple">Quadruple
                                                                 Room</label>
                                                         </div>
                                                         <div class="col-md-6" style="margin-bottom: 2%;">
                                                             <label class="radio-inline"><input type="radio" id="Family<?php echo $i; ?>"
-                                                                                               name="optradio"
-                                                                                               .<?php echo $i ?>>Family
+                                                                                               name="optradio<?php echo $i; ?>" value="Family">Family
                                                                 Room</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="col-md-6" style="margin-bottom: 2%;">
                                                             <label class="radio-inline"><input type="radio" id="Studio<?php echo $i; ?>"
-                                                                                               name="optradio"
-                                                                                               .<?php echo $i ?>>Studio
+                                                                                               name="optradio<?php echo $i; ?>" value="Studio">Studio
                                                                 Room</label>
                                                         </div>
                                                     </div>
@@ -497,7 +499,7 @@
                                                     <p style="color:dimgrey;font-size: 14px;"> Room Name</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="room_name"
+                                                    <input type="text" name="room_name<?php echo $i; ?>"
                                                            value="<?php echo $data1[$i]->room_name; ?>"
                                                            style="color:dimgrey;font-size: 14px;margin: 0px 10px; padding: 6px;width:100%;"
                                                            required>
@@ -508,7 +510,7 @@
                                                     <p style="color:dimgrey;font-size: 14px;"> Occupancy</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" name="occupancy"
+                                                    <input type="number" name="occupancy<?php echo $i; ?>"
                                                            value="<?php echo $data1[$i]->no_of_people; ?>" min="1"
                                                            max="16"
                                                            style="color:dimgrey;font-size: 14px;margin: 0 10px; min-width: 50px; padding: 2px 10px; "
@@ -520,7 +522,7 @@
                                                     <p style="color:dimgrey;font-size: 14px;"> Maximum Occupancy</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" name="max_occupancy" id="max_ppl"
+                                                    <input type="number" name="max_occupancy<?php echo $i; ?>" id="max_ppl"
                                                            value="<?php echo $data1[$i]->max_no_of_guests; ?>" min="1"
                                                            max="16"
                                                            style="margin: 0 10px;color:dimgrey;font-size: 14px; min-width: 50px; padding: 2px 10px; "
@@ -552,14 +554,17 @@
                                                         ?>
 
                                                         <tr>
-                                                            <td><?php echo $r->priceNameArry[$k]; ?></td>
-                                                            <td><input style="text-align: right;"  value="<?php echo number_format($r->priceArry[$k],2); ?>"></td>
-                                                            <td><?php
-                                                                $nm= sizeof($r->priceFaci[$k]);
-                                                                for($j=0; $j<$nm; $j++){
-                                                                    echo $r->priceFaci[$k][$j] ;?><br><?php }
-                                                                ?>
-                                                            </td>
+                                                            <td><?php echo $r->priceNameArry[$k]; ?><input type="hidden" value="<?php echo $r->priceNameArry[$k]; ?>" name="pricename<?php echo $i; ?>[]"></td>
+<!--                                                            <td><input style="text-align: right;" name="roomprice--><?php //echo $i; ?><!--[]"  value="--><?php //echo number_format($r->priceArry[$k],2); ?><!--"></td>-->
+                                                    <td><input style="text-align: right;" name="roomprice<?php echo $i; ?>[]"  value="<?php echo $r->priceArry[$k]; ?>"></td>
+<!--
+    <td>--><?php
+//                                                                $nm= sizeof($r->priceFaci[$k]);
+//                                                                for($j=0; $j<$nm; $j++){
+//                                                                    echo $r->priceFaci[$k][$j] ;?><!--<br>--><?php //}
+//                                                                ?>
+<!--<!--                                                                <input type="hidden" value="-->--><?php ////echo $r->priceFaci[$k]; ?><!--<!--" name="pricefaci-->--><?php ////echo $k; ?><!--<!--[]">-->-->
+<!--                                                            </td>-->
                                                         </tr>
                                                     <?php } ?>
                                                     </tbody>
@@ -572,7 +577,7 @@
                                                 </div>
                                                 <div class="col-md-4">
 
-                                                    <select id="bathroom_type" name="bathroom_type"
+                                                    <select id="bathroom_type" name="bathroom_type<?php echo $i; ?>"
                                                             style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"
                                                             required="true">
                                                         <option selected disabled>Please Select</option>
@@ -598,116 +603,116 @@
                                                 ?>
                                                 <div class="col-md-12" style="margin-bottom: 1%;">
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci[]' value="Wifi" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>>
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Wifi" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>>
                                                         Wifi @ the room <br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]' value="AC" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>>
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="AC" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>>
                                                         Air Conditioned room <br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Heating Fireplace" <?php if (in_array("Heating Fireplace", $array)) { echo 'checked="checked"';}?>>
                                                         Heating/ Fireplace in the room
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci[]' value="Fan" <?php if (in_array("Fan", $array)) { echo 'checked="checked"';}?>>
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Fan" <?php if (in_array("Fan", $array)) { echo 'checked="checked"';}?>>
                                                         Fans in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Mosquito Nets" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>> Mosquito Nets <br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Hot Water" <?php if (in_array("Hot Water", $array)) { echo 'checked="checked"';}?>> Hot Water
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <div class="col-md-12" style="margin-bottom: 1%;">
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Refrigerator"> Refrigerator in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]' value="Iron" <?php if (in_array("Refrigerator", $array)) { echo 'checked="checked"';}?>>
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Iron" <?php if (in_array("Refrigerator", $array)) { echo 'checked="checked"';}?>>
                                                         Iron in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Flat Screen TV" <?php if (in_array("Flat Screen TV", $array)) { echo 'checked="checked"';}?>> Flat Screen TV in the room<br>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci[]' value="TV" <?php if (in_array("TV", $array)) { echo 'checked="checked"';}?>>
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="TV" <?php if (in_array("TV", $array)) { echo 'checked="checked"';}?>>
                                                         TV in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Satellite Channels" <?php if (in_array("Satellite Channels", $array)) { echo 'checked="checked"';}?>> Satellite Channels <br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Hair Dryer" <?php if (in_array("Hair Dryer", $array)) { echo 'checked="checked"';}?>> Hair Dryer in the room<br>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-12" style="margin-bottom: 1%;">
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="ClothRack" <?php if (in_array("ClothRack", $array)) { echo 'checked="checked"';}?>> Cloth Rack in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Wardrobe Closet" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>> Wardrobe / Closet in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]' value="Safe" <?php if (in_array("Safe", $array)) { echo 'checked="checked"';}?>>
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Safe" <?php if (in_array("Safe", $array)) { echo 'checked="checked"';}?>>
                                                         Safe in the room<br>
                                                     </div>
                                                     <div class="col-md-6">
                                                         Seating facilities to, <br>
-                                                        <input type="radio" class="faci" name="Seating" checked="checked"
+                                                        <input type="radio" class="faci" name="room_faci_radio<?php echo $i?>[]" checked="checked"
                                                                value="Chairs To Every One"> every one <input type="radio"
-                                                                                                             name="Seating"
+                                                                                                             name="room_faci_radio<?php echo $i?>[]"
                                                                                                              value="Chairs Only To Fewer" <?php if (in_array("Chairs Only To Fewer", $array)) { echo 'checked="checked"';}?>>
-                                                        fewer <input type="radio" name="Seating" value="No chairs" <?php if (in_array("No chairs", $array)) { echo 'checked="checked"';}?>> No
+                                                        fewer <input type="radio" name="room_faci_radio<?php echo $i?>[]" value="No chairs" <?php if (in_array("No chairs", $array)) { echo 'checked="checked"';}?>> No
                                                         chairs<br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]' value="Desk" <?php if (in_array("Desk", $array)) { echo 'checked="checked"';}?>>
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Desk" <?php if (in_array("Desk", $array)) { echo 'checked="checked"';}?>>
                                                         Desk in the room
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-12" style="margin-bottom: 1%;">
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Carpeted" <?php if (in_array("Carpeted", $array)) { echo 'checked="checked"';}?>> Carpeted Room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Tiled/Marble Floor" <?php if (in_array("Tiled/Marble Floor", $array)) { echo 'checked="checked"';}?>> Tiled/Marble Room Floor<br>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Balcony Directly Accessible from the room" <?php if (in_array("Balcony Directly Accessible from the room", $array)) { echo 'checked="checked"';}?>> Balcony
                                                         Directly Accessible from the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci[]'
+                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
                                                                value="Terrace Directly Accessible from the room" <?php if (in_array("Terrace Directly Accessible from the room", $array)) { echo 'checked="checked"';}?>> Terrace
                                                         Directly Accessible from the room<br>
                                                     </div>
                                                 </div>
                                             </div>
-<!--                                            <div class="col-md-12"-->
-<!--                                                 style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;;color:dimgrey;">-->
-<!--                                                <div class="col-md-12" style="margin-bottom: 10px;">-->
-<!--                                                    <div class="col-md-4">-->
-<!--                                                        <p style="color:dimgrey;font-size: 14px;"> Room has a</p>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="col-md-4">-->
-<!---->
-<!--                                                        <select id="view" name="view"-->
-<!--                                                                style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"-->
-<!--                                                                required="true">-->
-<!--                                                            <option value="no_view" selected>No view</option>-->
-<!--                                                            <option value="City">City View</option>-->
-<!--                                                            <option value="Garden">Garden View</option>-->
-<!--                                                            <option value="Lake">Lake View</option>-->
-<!--                                                            <option value="Mountain">Mountain View</option>-->
-<!--                                                            <option value="River">River View</option>-->
-<!--                                                            <option value="Sea">Sea View</option>-->
-<!--                                                            <option value="Pool">Pool View</option>-->
-<!--                                                            <option value="Landmark_View">Landmark View</option>-->
-<!--                                                        </select>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
+                                            <!--                                            <div class="col-md-12"-->
+                                            <!--                                                 style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;;color:dimgrey;">-->
+                                            <!--                                                <div class="col-md-12" style="margin-bottom: 10px;">-->
+                                            <!--                                                    <div class="col-md-4">-->
+                                            <!--                                                        <p style="color:dimgrey;font-size: 14px;"> Room has a</p>-->
+                                            <!--                                                    </div>-->
+                                            <!--                                                    <div class="col-md-4">-->
+                                            <!---->
+                                            <!--                                                        <select id="view" name="view"-->
+                                            <!--                                                                style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"-->
+                                            <!--                                                                required="true">-->
+                                            <!--                                                            <option value="no_view" selected>No view</option>-->
+                                            <!--                                                            <option value="City">City View</option>-->
+                                            <!--                                                            <option value="Garden">Garden View</option>-->
+                                            <!--                                                            <option value="Lake">Lake View</option>-->
+                                            <!--                                                            <option value="Mountain">Mountain View</option>-->
+                                            <!--                                                            <option value="River">River View</option>-->
+                                            <!--                                                            <option value="Sea">Sea View</option>-->
+                                            <!--                                                            <option value="Pool">Pool View</option>-->
+                                            <!--                                                            <option value="Landmark_View">Landmark View</option>-->
+                                            <!--                                                        </select>-->
+                                            <!--                                                    </div>-->
+                                            <!--                                                </div>-->
+                                            <!--                                            </div>-->
                                             <div class="col-md-12"
                                                  style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
                                                 <div class="col-md-12">
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" name='room_faci[]'
+                                                        <input type="checkbox" name='room_faci<?php echo $i?>[]'
                                                                value="Wheelchair Accessible" <?php if (in_array("Wheelchair Accessible", $array)) { echo 'checked="checked"';}?>> Room is Wheelchair
                                                         accessible<br>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" name='room_faci[]'
+                                                        <input type="checkbox" name='room_faci<?php echo $i?>[]'
                                                                value="Elevator Accessible" <?php if (in_array("Elevator Accessible", $array)) { echo 'checked="checked"';}?>> Room is Elevator
                                                         accessible<br>
                                                     </div>
@@ -721,15 +726,15 @@
                                                         How many this kind of rooms?
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="number" name="each_room_count"
-                                                               value="<?php echo $data1[0]->no_of_rooms; ?>" min="1"
+                                                        <input type="number" name="each_room_count<?php echo $i; ?>"
+                                                               value="<?php echo $data1[$i]->no_of_rooms; ?>" min="1"
                                                                max="10"
                                                                style="margin: 5px 10px; min-width: 50px; padding: 2px 10px; ">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12" style=";color:dimgrey;margin-top:2%;">
-                                                <button type="submit" name="save" class="btn btn-default btn-lg"
+                                                <button type="reset" name="reset" class="btn btn-default btn-lg"
                                                         style='float:right;background-color: #8892d6;color:white;font-size: inherit;'
                                                         onclick="ResetDetails()">Reset Details
                                                 </button>
@@ -872,114 +877,8 @@
 <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
-<script type="text/javascript">
-    var x = 2;
-    function addAnotherPrice() {
-        // alert('ayeee');
-        var appendLi = '<li><hr class="hr_style"><select name="priceName' + x + '" id="priceName' + x + '" style="margin: 5px 5px; min-width: 85px;max-width: 140px; padding: 5px 5px;">' +
-            '<option value="Room Only">Room Only</option>' +
-            '<option value="Bed and Breakfast">Bed and Breakfast</option>' +
-            '<option value="Half-board">Half-board</option>' +
-            '<option value="Full-board">Full-board</option>' +
-            '<option value="with AC">with AC</option>' +
-            '<option value="without AC">without AC</option>' +
-            '<option value="AC room with breakfast">AC room with breakfast</option>' +
-            '<option value="non AC room with breakfast">non AC room with breakfast</option>' +
-            '<option value="Other">Other</option>' +
-            '</select>' +
-            '<input type="text" name="priceNameCustm' + x + '" id="priceNameCustm' + x + '" placeholder="please specify." style=" visibility: hidden; max-width: 150px;margin: 5px 5px;padding: 5px 5px;" >' +
-            'Rs.&nbsp;<input type="number" name="price' + x + '" id="price' + x + '" min="0" style="margin: 5px; min-width: 85px;" required>' +
-            '<br>Special things to note,<br>' +
-            '<textarea rows="2" cols="50" name="priceOther' + x + '" style="width: 85%; margin: 5px ; padding: 5px; resize: vertical; border-radius: 5px;" ></textarea>' +
-            '<br>Extra facilities for the price.<br>' +
-            '<div class="row">' +
-            ' <div class="col-md-6">' +
-            '  <input type="checkbox" name="extraFaci' + x + '[]" value="Breakfast">Breakfast<br>' +
-            ' <input type="checkbox" name="extraFaci' + x + '[]" value="Lunch">Lunch<br>' +
-            '<input type="checkbox" name="extraFaci' + x + '[]" value="Dinner">Dinner<br>' +
-            '</div>' +
-            '<div class="col-md-6">' +
-            ' <input type="checkbox" name="extraFaci' + x + '[]" value="AC">A/C<br>' +
-            '<input type="checkbox" name="extraFaci' + x + '[]" value="Hot water">Hot water<br>' +
-            '</div>' +
-            '</div>' +
 
-            '</li>';
-        // alert(x);
-        var y = x;
-        $('#Price_ul').append(appendLi);
-        $('#priceName' + y).change(function () {
-            // alert('asasas'+y);
-            if ($('#priceName' + y).val() == "Other") {
-                // alert('sasasas'+y);
-                $('#priceNameCustm' + y).css("visibility", "visible");
-                $('#priceNameCustm' + y).prop('required', true);
-            }
-            else {
-                $('#priceNameCustm' + y).css("visibility", "hidden");
-                $('#priceNameCustm' + y).prop('required', false);
-            }
 
-        });
-        // alert(x);
-        $('#priceValueCount').val(x);
-        // alert( $('#priceValueCount').val());
-        x = x + 1;
-        // alert(x);
-    }
-    function removeLastPrice() {
-        if (x > 2) {
-            $('#Price_ul li:last-child').remove();
-            x = x - 1;
-            $('#priceValueCount').val(x - 1);
-            // alert( $('#priceValueCount').val());
-        }
-        else {
-            alert('You have to add atleast one price to the room.')
-        }
-
-        // $event.preventDefault();
-        // return false;
-    }
-    $('#priceName1').change(function () {
-        if ($('#priceName1').val() == "Other") {
-            // alert('sasasas');
-            $('#priceNameCustm1').css("visibility", "visible");
-            $('#priceNameCustm1').prop('required', true);
-        }
-        else {
-            $('#priceNameCustm1').css("visibility", "hidden");
-            $('#priceNameCustm1').prop('required', false);
-        }
-
-    });
-</script>
-<script>
-//    $(document).ready(function () {
-//        $(".btn[data-target='#myModal']").click(function () {
-//            var columnHeadings = $("thead th").map(function () {
-//                return $(this).text();
-//            }).get();
-//            columnHeadings.pop();
-//            var columnValues = $(this).parent().siblings().map(function () {
-//                return $(this).text();
-//            }).get();
-//            var modalBody = $('<div id="modalContent"></div>');
-//            var modalForm = $('<form role="form" name="modalForm" action="putYourPHPActionHere.php" method="post"></form>');
-//            $.each(columnHeadings, function (i, columnHeader) {
-//                var formGroup = $('<div class="form-group"></div>');
-//                formGroup.append('<label for="' + columnHeader + '">' + columnHeader + '</label>');
-//                formGroup.append('<input class="form-control" name="' + columnHeader + i + '" id="' + columnHeader + i + '" value="' + columnValues[i] + '" />');
-//                modalForm.append(formGroup);
-//            });
-//            modalBody.append(modalForm);
-//            $('.modal-body').html(modalBody);
-//        });
-//        $('.modal-footer .btn-primary').click(function () {
-//            $('form[name="modalForm"]').submit();
-//        });
-//    });
-</script>
 <script type='text/javascript'>
     <?php
     $php_array = $data1;
@@ -1016,6 +915,7 @@
         var valg = '#' + room_val + selected_item_id;
 
     }
+
     function setRadioButton(val_id)
     {
         var selected_item_id = val_id;
@@ -1026,128 +926,11 @@
 
 
     }
-    $(document).ready(function () {
-
-        function displayPrice() {
-
-            document.getElementById("prices").style.display = 'block';
-            var comp = document.getElementById("roomratemodal").selectedIndex;
-            var compp = document.getElementById("roomtypemodal").selectedIndex;
-            var obj;
-            if (window.XMLHttpRequest) {
-                obj = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                obj = new ActiveXObject("Microsoft.XMLHTTP");
-            } else {
-                alert("Browser Doesn't Support AJAX!");
-            }
-            if (obj !== null) {
-                obj.onreadystatechange = function () {
-                    if (obj.readyState < 4) {
-                        // progress
-                    } else if (obj.readyState === 4) {
-                        var res = obj.responseText;
-                        var opt1 = JSON.parse(res)[0].price_only_bed;
-                        var opt2 = JSON.parse(res)[0].price_bed_breakfast;
-                        var opt3 = JSON.parse(res)[0].hotel_id;
-                        var opt4 = JSON.parse(res)[0].roomType;
-                        var opt5 = JSON.parse(res)[0].room_type_id;
-
-                        document.getElementById("roomtypeid").value = opt5;
-                        document.getElementById("hotelid").value = opt3;
-                        if (comp == 1) {
-                            document.getElementById("rate").value = "Rs. " + opt1;
-                        }
-                        if (comp == 2) {
-                            document.getElementById("rate").value = "Rs. " + opt2;
-                        }
-                        document.getElementById("added_rate").disabled = true;
-                    }
-                }
-                obj.open("GET", "test2.php?roomType=" + encodeURIComponent(compp), true);
-                obj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                obj.send();
-            }
-        }
-
-        function changeRoomDisable() {
-
-            document.getElementById('added_rate').disabled = false;
-            document.getElementById('roomfacility').disabled = false;
-
-        }
-
-        function updateRoom() {
-            $.ajax({
-                type: 'POST',
-                url: 'updateprice.php',
-                data: $('#updateRate').serialize(),
-                success: function (data) {
-                    cleanData();
-                }
-            });
-        }
-
-        function cleanData() {
-
-            document.getElementById('added_rate').value = 123;
-            document.getElementById("coreEdit").style.display = 'none'
-            document.getElementById("roomtypemodal").selectedIndex = 0;
-            document.getElementById('roomratemodal').selectedIndex = 0;
-
-
-        }
-
-        function loadprice() {
-            document.getElementById("coreEdit").style.display = 'block';
-            var comp = document.getElementById("roomtypemodal").selectedIndex;
-
-            var obj;
-            if (window.XMLHttpRequest) {
-                obj = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                obj = new ActiveXObject("Microsoft.XMLHTTP");
-            } else {
-                alert("Browser Doesn't Support AJAX!");
-            }
-            if (obj !== null) {
-                obj.onreadystatechange = function () {
-                    if (obj.readyState < 4) {
-                        // progress
-                    } else if (obj.readyState === 4) {
-                        var res = obj.responseText;
-                        var checkboxes = document.getElementsByName('check_roomlist[]');
-
-                        for (var f = 0; f < checkboxes.length; f++) {
-                            checkboxes[f].checked = false;
-                            checkboxes[f].disabled = true;
-                        }
-                        for (var i = 0; i < JSON.parse(res).length; i++) {
-
-                            for (var f = 0; f < checkboxes.length; f++) {
-
-                                var t = JSON.parse(res)[0].basic_facility;
-
-
-                                if (t == checkboxes[f].value) {
-                                    checkboxes[f].disabled = false;
-                                    checkboxes[f].checked = true;
-                                    checkboxes[f].disabled = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                obj.open("GET", "test1.php?roomType=" + encodeURIComponent(comp), true);
-                obj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                obj.send();
-            }
-        }
-    });
 
     function saveDetails(){
-        $('#roomForm0').submit();
+        var selected_item_id = $("#roomnames li.active").attr('id');
+        var valForm = '#roomForm'+ selected_item_id;
+        $(valFrom).submit();
     }
 
     function resetDetails(){
