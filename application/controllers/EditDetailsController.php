@@ -234,6 +234,31 @@ class EditDetailsController extends CI_Controller {
 				}
 			}
 	    }
+
+	    public function saveDetails(){
+            $this->load->library('session');
+            if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+                if (isset($_POST['roomForm0'])){
+                    $roomtype = $_SESSION['optradio0'];
+                    $roomname = $_POST['room_name0'];
+                    $checkout = $_POST['occupancy0'];
+                    $max_occupancy = $_POST['max_occupancy0'];
+                    $prices = $_POST['roomprices0'];
+                    echo  "ee";
+                }
+                else{
+                    echo "no";
+                }
+                print_r($roomname);
+                $this->load->model('CalenderModel');
+
+//                $this->roomModel->createEvent();
+//            $this->AccountModel->editAccountDetails($data2,$login_id);
+
+
+            }
+
+        }
 	
 
 
