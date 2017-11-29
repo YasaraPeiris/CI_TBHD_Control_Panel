@@ -101,19 +101,19 @@
 
                 <div class="small-box" id="hotelDes" style="box-shadow:none;">
                     <ul class="nav nav-tabs" id="roomnames">
-                        <li class="active" id="0"><a data-toggle="tab" id="0" style="background-color: transparent;"
-                                                     href="<?php echo '#' . $data1[0]->room_name ?>"><?php echo $data1[0]->room_name ?></a>
+                        <li id="0" class="active"><a id="0" data-toggle="tab" style="background-color: transparent;"
+                                                     href="<?php echo '#' . preg_replace('/\s+/', '', $data1[0]->room_name); ?>"><?php echo $data1[0]->room_name ?></a>
                         </li>
                         <?php for ($i = 1; $i < sizeof($data1); $i++) { ?>
 
                             <li id="<?php echo $i ?>"><a id="<?php echo $i ?>" data-toggle="tab"
                                                          style="background-color: transparent;"
-                                                         href="<?php echo '#' . $data1[$i]->room_name ?>"><?php echo $data1[$i]->room_name ?></a>
+                                                         href="<?php echo '#' . preg_replace('/\s+/', '', $data1[$i]->room_name); ?>"><?php echo $data1[$i]->room_name ?></a>
                             </li>
                         <?php } ?>
                     </ul>
                     <div class="tab-content">
-                        <div style="background: white;" id="<?php echo $data1[0]->room_name ?>"
+                        <div style="background: white;" id="<?php echo preg_replace('/\s+/', '', $data1[0]->room_name); ?>"
                              class="tab-pane fade in active">
                             <div class="box box-info" style="padding:2%;border-color:gray;border:1px solid #f4f4f4;">
 
@@ -433,7 +433,7 @@
                             </div>
                         </div>
                         <?php for ($i = 1; $i < sizeof($data1); $i++) { ?>
-                            <div style="background: white;" id="<?php echo $data1[$i]->room_name ?>"
+                            <div style="background: white;" id="<?php echo preg_replace('/\s+/', '', $data1[$i]->room_name); ?>"
                                  class="tab-pane fade">
                                 <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
                                     <div class="box-body pad"
@@ -569,10 +569,11 @@
                                                                 for($j=0; $j<$nm; $j++){
                                                                     echo $r->priceFaci[$k][$j] ;?><br><?php }}
                                                                 ?>
-                                                                <input type="hidden" value="<?php echo json_encode($r->priceFaci[$k]); ?>" name="pricefaci<?php echo $k; ?>[]">
                                                             </td>
                                                         </tr>
                                                     <?php } ?>
+                                                    <input type="hidden" value="<?php echo json_encode($r->priceFaci); ?>" name="pricefaci<?php echo $i; ?>[]">
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -878,7 +879,7 @@
 <script src="../../assets/dist/js/demo.js"></script>
 <script src="../../assets/dist/js/validator.min.js"></script>
 <!--datatables-->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
@@ -903,6 +904,10 @@
     $(document).ready(function () {
         $('a[data-toggle="tab"]').bind('click', function (e) {
 //            alert($(e.target.id));
+
+        });
+
+        $('a[data-toggle=tab]').click(function(){
             var id_val = $(this).attr('id');
             setRadioButton(id_val);
         });

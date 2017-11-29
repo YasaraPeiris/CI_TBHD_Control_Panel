@@ -243,9 +243,9 @@ class EditDetailsController extends CI_Controller {
 
             $i = $_POST['formId'];
 			$room_type_id = $_POST['roomTypeId'];
-                $price_faci = $_POST['pricefaci0'];
+                $price_faci = $_POST['pricefaci'.$i];
                 print_r($price_faci);
-                $field3_array  = json_decode($_POST['pricefaci0']);
+//                $field3_array  = json_decode($_POST['pricefaci'.$i]);
 //                print_r($field3_array);
                     $field1_array = isset($_POST['roomprice'.$i]) ? $_POST['roomprice'.$i] : array();
                 $field2_array = isset($_POST['pricename'.$i]) ? $_POST['pricename'.$i] : array();
