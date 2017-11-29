@@ -239,10 +239,10 @@ class EditDetailsController extends CI_Controller {
             $this->load->library('session');
             $this->load->model('RoomModel');
             $listing_id = $_SESSION['hotelno'];
-            if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+            if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel']) &&  isset($_POST['formId'])) {
 
-                    $i = $_POST['formId'];
-$room_type_id = $_POST['roomTypeId'];
+            $i = $_POST['formId'];
+			$room_type_id = $_POST['roomTypeId'];
 
                     $field1_array = isset($_POST['roomprice'.$i]) ? $_POST['roomprice'.$i] : array();
                 $field2_array = isset($_POST['pricename'.$i]) ? $_POST['pricename'.$i] : array();
@@ -285,6 +285,7 @@ $room_type_id = $_POST['roomTypeId'];
 
 
             }
+            $this->roomDetails();
 
         }
 	
