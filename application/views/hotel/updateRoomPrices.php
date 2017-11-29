@@ -225,25 +225,30 @@
                                                 <tbody>
                                                 <?php
                                                 $r = json_decode($data1[0]->price_details);
-                                                print_r($r);
+
                                                 for($i=0;$i<sizeof($r->priceArry);$i++){
 
                                                     ?>
 
                                                     <tr>
                                                         <td><?php echo $r->priceNameArry[$i]; ?><input type="hidden" value="<?php echo $r->priceNameArry[$i]; ?>" name="pricename0[]"></td>
-<!--                                                        <td><input style="text-align: right;"  value="--><?php //echo number_format($r->priceArry[$i],2); ?><!--" name="roomprice0[]"></td>-->
-                                                        <td><input style="text-align: right;"  value="<?php echo $r->priceArry[$i]; ?>" name="roomprice0[]"></td>
+                                                        <td><input style="border: none;background-color:transparent;text-align: right;"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$i])),2); ?>" name="roomprice0[]"></td>
+<!--                                                        <td><input style="border: none;background-color:transparent;text-align: right;"  value="--><?php //echo $r->priceArry[$i]; ?><!--" name="roomprice0[]"></td>-->
 
-<!--                                                        <td>--><?php
-//                                                            $nm= sizeof($r->priceFaci[$i]);
-//                                                            for($j=0; $j<$nm; $j++){
-//                                                                echo $r->priceFaci[$i][$j] ;?><!--<br>--><?php //}
-//                                                            ?>
-<!--<!--                                                            <input type="hidden" value="--><?php ////echo $r->priceFaci[$i]; ?><!--<!--" name="pricefaci0[]">-->-->
-<!--                                                        </td>-->
+                                                        <td><?php
+                                                            $nm= sizeof($r->priceFaci[$i]);
+
+                                                            for($j=0; $j<$nm; $j++){
+                                                                echo $r->priceFaci[$i][$j] ;?><br><?php }
+
+
+                                                            ?>
+                                                        </td>
                                                     </tr>
-                                                <?php } ?>
+                                                <?php } print_r(json_encode(($r->priceFaci)));?>
+
+                                                <input type="hidden" value="<?php echo json_encode($r->priceFaci); ?>" name="pricefaci0">
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -555,16 +560,17 @@
 
                                                         <tr>
                                                             <td><?php echo $r->priceNameArry[$k]; ?><input type="hidden" value="<?php echo $r->priceNameArry[$k]; ?>" name="pricename<?php echo $i; ?>[]"></td>
-<!--                                                            <td><input style="text-align: right;" name="roomprice--><?php //echo $i; ?><!--[]"  value="--><?php //echo number_format($r->priceArry[$k],2); ?><!--"></td>-->
-                                                    <td><input style="text-align: right;" name="roomprice<?php echo $i; ?>[]"  value="<?php echo $r->priceArry[$k]; ?>"></td>
+                                                            <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$k])),2); ?>"></td>
+<!--                                                    <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice--><?php //echo $i; ?><!--[]"  value="--><?php //echo $r->priceArry[$k]; ?><!--"></td>-->
 <!--
-    <td>--><?php
-//                                                                $nm= sizeof($r->priceFaci[$k]);
-//                                                                for($j=0; $j<$nm; $j++){
-//                                                                    echo $r->priceFaci[$k][$j] ;?><!--<br>--><?php //}
-//                                                                ?>
-<!--<!--                                                                <input type="hidden" value="-->--><?php ////echo $r->priceFaci[$k]; ?><!--<!--" name="pricefaci-->--><?php ////echo $k; ?><!--<!--[]">-->-->
-<!--                                                            </td>-->
+    <td>--><?php $nm= sizeof($r->priceFaci[$k]);
+    if($nm>0){
+
+                                                                for($j=0; $j<$nm; $j++){
+                                                                    echo $r->priceFaci[$k][$j] ;?><br><?php }}
+                                                                ?>
+                                                                <input type="hidden" value="<?php echo json_encode($r->priceFaci[$k]); ?>" name="pricefaci<?php echo $k; ?>[]">
+                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                     </tbody>
