@@ -129,7 +129,11 @@
     <div class="dhx_cal_data">
     </div>
                             </div></div></div></div></div></section>
-    </div></div>
+    </div>
+    <?php 
+       include 'footer.html';
+    ?>
+    </div>
 
 
 <!-- jQuery 2.2.0 -->

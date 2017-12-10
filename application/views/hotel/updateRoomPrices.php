@@ -207,6 +207,7 @@
                                                        required>
                                             </div>
                                         </div>
+                                        
                                         <!-- <label for="rent_area">Your Rent Area</label> -->
                                         <br>
                                         <hr>
@@ -225,8 +226,7 @@
                                                 <tbody>
                                                 <?php
                                                 $r = json_decode($data1[0]->price_details);
-
-                                                for($i=0;$i<sizeof($r->priceArry);$i++){
+                                                for($i=0;$i<sizeof($r->priceArry);$i++){  // for number of rooms
 
                                                     ?>
 
@@ -236,16 +236,18 @@
 <!--                                                        <td><input style="border: none;background-color:transparent;text-align: right;"  value="--><?php //echo $r->priceArry[$i]; ?><!--" name="roomprice0[]"></td>-->
 
                                                         <td><?php
+                                                        if (isset($r->priceFaci[$i])) {                                                          
                                                             $nm= sizeof($r->priceFaci[$i]);
 
                                                             for($j=0; $j<$nm; $j++){
                                                                 echo $r->priceFaci[$i][$j] ;?><br><?php }
+                                                        }
 
 
                                                             ?>
                                                         </td>
                                                     </tr>
-                                                <?php } print_r(json_encode(($r->priceFaci)));?>
+                                                <?php } //print_r(json_encode(($r->priceFaci)));?>
 
                                                 <input type="hidden" value="<?php echo json_encode($r->priceFaci); ?>" name="pricefaci0">
 
@@ -562,12 +564,15 @@
                                                             <td><?php echo $r->priceNameArry[$k]; ?><input type="hidden" value="<?php echo $r->priceNameArry[$k]; ?>" name="pricename<?php echo $i; ?>[]"></td>
                                                             <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$k])),2); ?>"></td>
 <!--                                                    <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice--><?php //echo $i; ?><!--[]"  value="--><?php //echo $r->priceArry[$k]; ?><!--"></td>-->
-<!--
-    <td>--><?php $nm= sizeof($r->priceFaci[$k]);
-    if($nm>0){
+
+                                                            <td>
+                                                            <?php 
+                                                            // print_r($r);
+                                                            $nm= sizeof($r->priceFaci[$k]);
+                                                            if($nm>0){
 
                                                                 for($j=0; $j<$nm; $j++){
-                                                                    echo $r->priceFaci[$k][$j] ;?><br><?php }}
+                                                                    echo $r->priceFaci[$k][$j]." , " ; }}
                                                                 ?>
                                                             </td>
                                                         </tr>
@@ -830,13 +835,9 @@
     </div>
 
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>Version</b> 2.3.3
-        </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-        reserved.
-    </footer>
+    <?php 
+       include 'footer.html';
+    ?>
 
     <!-- Control Sidebar -->
 

@@ -299,7 +299,10 @@
             <!-- /.row (main row) -->
         </section>
     </div>
-
+    <?php 
+       include 'footer.html';
+    ?>
+</div>
     <!-- jQuery 2.2.0 -->
     <script src="../../assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
     <!-- jQuery UI 1.11.4 -->

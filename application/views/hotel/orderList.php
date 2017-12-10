@@ -255,6 +255,10 @@
 
         <!-- /.content -->
     </div>
+    <?php 
+           include 'footer.html';
+        ?>
+    </div>
 
 
 

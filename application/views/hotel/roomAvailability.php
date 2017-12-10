@@ -227,7 +227,7 @@
   </div>
  
   <!-- /.content-wrapper -->
-  <?php include '../footer.php';?>
+  <?php include 'footer.html';?>
 
   <!-- Control Sidebar -->
 <?php include './hotelSidebar.php';?>

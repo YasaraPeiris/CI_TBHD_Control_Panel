@@ -174,6 +174,9 @@
 
     </div>
 
+    <?php 
+       include 'footer.html';
+    ?>
   </div>
 
      <!-- jQuery 2.2.0 -->

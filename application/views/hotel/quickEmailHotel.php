@@ -49,7 +49,7 @@
     <!-- Logo -->
     <!-- Header Navbar: style can be found in header.less -->
     <?php include 'hotelTopMost.php';?>
-  </header>
+</header>
   <!-- Left side column. contains the logo and sidebar -->
   <?php include 'hotelSidebar.php';?>
 
@@ -66,7 +66,7 @@
                 <li class="active">Edit Details</li>
             </ol>
         </section>
-    <!-- Main content -->
+        <!-- Main content -->
         <section class="content" style="padding-right:5%;padding-left:5%;">
             <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
 
@@ -104,6 +104,10 @@
             </div>
         </section>
     <!-- /.content -->
+  </div>
+  <?php 
+         include 'footer.html';
+      ?>
   </div>
     <!-- jQuery 2.2.0 -->
     <script src="../../assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
