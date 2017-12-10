@@ -231,25 +231,29 @@
                                                     ?>
 
                                                     <tr>
-                                                        <td><?php echo $r->priceNameArry[$i]; ?><input type="hidden" value="<?php echo $r->priceNameArry[$i]; ?>" name="pricename0[]"></td>
+                                                        <td><?php echo $r->priceNameArry[$i]; ?>
+                                                        <input type="hidden" value="<?php echo $r->priceNameArry[$i]; ?>" name="pricename0[]"></td>
                                                         <td><input style="border: none;background-color:transparent;text-align: right;"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$i])),2); ?>" name="roomprice0[]"></td>
 <!--                                                        <td><input style="border: none;background-color:transparent;text-align: right;"  value="--><?php //echo $r->priceArry[$i]; ?><!--" name="roomprice0[]"></td>-->
 
-                                                        <td><?php
+                                                        <td>
+                                                        <?php
                                                         if (isset($r->priceFaci[$i])) {                                                          
                                                             $nm= sizeof($r->priceFaci[$i]);
 
                                                             for($j=0; $j<$nm; $j++){
-                                                                echo $r->priceFaci[$i][$j] ;?><br><?php }
+                                                                echo $r->priceFaci[$i][$j]." , " ; }
                                                         }
 
 
                                                             ?>
                                                         </td>
                                                     </tr>
-                                                <?php } //print_r(json_encode(($r->priceFaci)));?>
+                                                <?php } 
+                                                ?>
 
-                                                <input type="hidden" value="<?php echo json_encode($r->priceFaci); ?>" name="pricefaci0">
+                                                        <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci0">
+
 
                                                 </tbody>
                                             </table>
@@ -336,11 +340,14 @@
                                                 <div class="col-md-6">
                                                     Seating facilities to, <br>
                                                     <input type="radio" name="room_faci_radio0[]" class="faci"  checked="checked"
-                                                           value="Chairs To Every One"> every one <input type="radio"
+                                                           value="Chairs To Every One"> 
+                                                    every one 
 
-                                                                                                         value="Chairs Only To Fewer" <?php if (in_array("Chairs Only To Fewer", $array)) { echo 'checked="checked"';}?>>
-                                                    fewer <input type="radio" name="room_faci_radio0[]"  value="No chairs" <?php if (in_array("No chairs", $array)) { echo 'checked="checked"';}?>> No
-                                                    chairs<br>
+                                                    <input type="radio" name="room_faci_radio0[]" value="Chairs Only To Fewer" <?php if (in_array("Chairs Only To Fewer", $array)) { echo 'checked="checked"';}?>>
+                                                    fewer 
+                                                    <input type="radio" name="room_faci_radio0[]"  value="No chairs" <?php if (in_array("No chairs", $array)) { echo 'checked="checked"';}?>> 
+                                                    No chairs
+                                                    <br>
                                                     <input type="checkbox" name="room_faci0[]" class="faci" name='room_faci0[]' value="Desk" <?php if (in_array("Desk", $array)) { echo 'checked="checked"';}?>>
                                                     Desk in the room
                                                 </div>
@@ -555,13 +562,13 @@
                                                     <tbody>
                                                     <?php
                                                     $r = json_decode($data1[$i]->price_details);
-
                                                     for($k=0;$k<sizeof($r->priceArry);$k++){
 
                                                         ?>
 
                                                         <tr>
-                                                            <td><?php echo $r->priceNameArry[$k]; ?><input type="hidden" value="<?php echo $r->priceNameArry[$k]; ?>" name="pricename<?php echo $i; ?>[]"></td>
+                                                            <td><?php echo $r->priceNameArry[$k]; ?>
+                                                            <input type="hidden" value="<?php echo $r->priceNameArry[$k]; ?>" name="pricename<?php echo $i; ?>[]"></td>
                                                             <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$k])),2); ?>"></td>
 <!--                                                    <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice--><?php //echo $i; ?><!--[]"  value="--><?php //echo $r->priceArry[$k]; ?><!--"></td>-->
 
@@ -576,8 +583,12 @@
                                                                 ?>
                                                             </td>
                                                         </tr>
-                                                    <?php } ?>
-                                                    <input type="hidden" value="<?php echo json_encode($r->priceFaci); ?>" name="pricefaci<?php echo $i; ?>[]">
+                                                    <?php } 
+                                                    // echo json_encode($r->priceFaci);
+                                                    // echo "--------";
+                                                    // print_r( json_encode($r->priceFaci));
+                                                    ?>
+                                                    <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci<?php echo $i; ?>">
 
                                                     </tbody>
                                                 </table>
@@ -664,9 +675,9 @@
                                                     <div class="col-md-6">
                                                         Seating facilities to, <br>
                                                         <input type="radio" class="faci" name="room_faci_radio<?php echo $i?>[]" checked="checked"
-                                                               value="Chairs To Every One"> every one <input type="radio"
-                                                                                                             name="room_faci_radio<?php echo $i?>[]"
-                                                                                                             value="Chairs Only To Fewer" <?php if (in_array("Chairs Only To Fewer", $array)) { echo 'checked="checked"';}?>>
+                                                               value="Chairs To Every One"> every one 
+
+                                                        <input type="radio" name="room_faci_radio<?php echo $i?>[]" value="Chairs Only To Fewer" <?php if (in_array("Chairs Only To Fewer", $array)) { echo 'checked="checked"';}?>>
                                                         fewer <input type="radio" name="room_faci_radio<?php echo $i?>[]" value="No chairs" <?php if (in_array("No chairs", $array)) { echo 'checked="checked"';}?>> No
                                                         chairs<br>
                                                         <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Desk" <?php if (in_array("Desk", $array)) { echo 'checked="checked"';}?>>

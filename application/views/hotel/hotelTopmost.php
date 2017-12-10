@@ -79,7 +79,7 @@
 
                         <p>
                             <?php echo $_SESSION['login_hotel'] ?>
-                            <small>Member since Nov. 2012</small>
+                            <small>Member since 2017</small>
                         </p>
                     </li>
                     <!-- Menu Body -->
