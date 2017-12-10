@@ -218,7 +218,7 @@
                                                     <th>Price Condition</th>
                                                     <th>Price</th>
                                                     <th>Facilities</th>
-                                                    <!--                                                    <th>Special Things to Note</th>-->
+                                                    <th>Note</th>
                                                     <!--                                                         <th>Add Facilities</th>-->
                                                     <!--                                                    <th>Remove Facilities</th>-->
                                                 </tr>
@@ -233,7 +233,7 @@
                                                     <tr>
                                                         <td><?php echo $r->priceNameArry[$i]; ?>
                                                         <input type="hidden" value="<?php echo $r->priceNameArry[$i]; ?>" name="pricename0[]"></td>
-                                                        <td><input style="border: none;background-color:transparent;text-align: right;"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$i])),2); ?>" name="roomprice0[]"></td>
+                                                        <td><input   value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$i])),2); ?>" name="roomprice0[]"></td>
 <!--                                                        <td><input style="border: none;background-color:transparent;text-align: right;"  value="--><?php //echo $r->priceArry[$i]; ?><!--" name="roomprice0[]"></td>-->
 
                                                         <td>
@@ -248,6 +248,8 @@
 
                                                             ?>
                                                         </td>
+                                                        <td><?php echo $r->priceOtherArry[$i]; ?></td>
+
                                                     </tr>
                                                 <?php } 
                                                 ?>
@@ -554,7 +556,7 @@
                                                         <th>Price Condition</th>
                                                         <th>Price</th>
                                                         <th>Facilities</th>
-                                                        <!--                                                    <th>Special Things to Note</th>-->
+                                                        <th>Note</th>
                                                         <!--                                                         <th>Add Facilities</th>-->
                                                         <!--                                                    <th>Remove Facilities</th>-->
                                                     </tr>
@@ -569,12 +571,11 @@
                                                         <tr>
                                                             <td><?php echo $r->priceNameArry[$k]; ?>
                                                             <input type="hidden" value="<?php echo $r->priceNameArry[$k]; ?>" name="pricename<?php echo $i; ?>[]"></td>
-                                                            <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$k])),2); ?>"></td>
+                                                            <td><input name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$k])),2); ?>"></td>
 <!--                                                    <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice--><?php //echo $i; ?><!--[]"  value="--><?php //echo $r->priceArry[$k]; ?><!--"></td>-->
 
                                                             <td>
-                                                            <?php 
-                                                            // print_r($r);
+                                                            <?php
                                                             $nm= sizeof($r->priceFaci[$k]);
                                                             if($nm>0){
 
@@ -582,6 +583,7 @@
                                                                     echo $r->priceFaci[$k][$j]." , " ; }}
                                                                 ?>
                                                             </td>
+                                                            <td><?php echo $r->priceOtherArry[$k]; ?></td>
                                                         </tr>
                                                     <?php } 
                                                     // echo json_encode($r->priceFaci);
@@ -589,6 +591,7 @@
                                                     // print_r( json_encode($r->priceFaci));
                                                     ?>
                                                     <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci<?php echo $i; ?>">
+                                                    <input type="hidden" value='<?php echo json_encode( $r->priceOtherArry); ?>' name="priceOtherArry<?php echo $i; ?>">
 
                                                     </tbody>
                                                 </table>

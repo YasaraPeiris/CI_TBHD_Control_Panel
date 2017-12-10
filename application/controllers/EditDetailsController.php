@@ -250,10 +250,11 @@ class EditDetailsController extends CI_Controller {
                 $field2_array = isset($_POST['pricename'.$i]) ? $_POST['pricename'.$i] : array();
 
                 $field3_array = isset($_POST['pricefaci'.$i]) ? json_decode($_POST['pricefaci'.$i]) : array();
-                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>[]);
+                $field4_array = isset($_POST['priceOtherArry'.$i]) ? json_decode($_POST['priceOtherArry'.$i]) : array();
+                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array);
 
-                
-                   // print_r(($price_array));
+
+                   print_r(($price_array));
                    // echo "<br> - - - <br>";			
 
 
