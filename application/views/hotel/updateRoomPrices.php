@@ -254,6 +254,7 @@
                                                 <?php } 
                                                 ?>
 
+                                                        <input type="hidden" value='<?php echo json_encode( $r->priceOtherArry); ?>' name="priceOtherArry0">
                                                         <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci0">
 
 

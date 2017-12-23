@@ -254,7 +254,7 @@ class EditDetailsController extends CI_Controller {
                 $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array);
 
 
-                   print_r(($price_array));
+                   // print_r(($price_array));
                    // echo "<br> - - - <br>";			
 
 
@@ -286,8 +286,8 @@ class EditDetailsController extends CI_Controller {
 
 
                 $this->load->model('RoomModel');
-                $data=array('room_facilities'=>$full_faci,'room_name'=>$roomname,'room_type'=>$roomtype,'bathroom_type'=>$bathtype,'no_of_people'=>$occupancy,'max_no_of_guests'=>$max_occupancy,'price_details'=>json_encode($price_array),'min_price'=>json_encode($min_array));
-
+                $data=array('room_facilities'=>$full_faci,'room_name'=>$roomname,'room_type'=>$roomtype,'bathroom_type'=>$bathtype,'no_of_people'=>$occupancy,'max_no_of_guests'=>$max_occupancy,'price_details'=>json_encode($price_array),'min_price'=>json_encode($min_array),'no_of_rooms'=>$room_count);
+                // print_r($data);
                 $this->RoomModel->updateRoomDetails($data,$listing_id,$room_type_id);
 //            $this->AccountModel->editAccountDetails($data2,$login_id);
 
