@@ -129,23 +129,23 @@
 ">
                         <div class="inner"
                              style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                            <h1 style="color:black;">Update Promotions.</h1>
+                            <h1 style="color:black;">Update Images.</h1>
                             <br>
-                            <p style="color: #555555;font-size: 1.2em;">(Click here to add hotel promotions.)</p>
+                            <p style="color: #555555;font-size: 1.2em;">(Click here to add or alter images of your listing.)</p>
 
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a title="My account" onclick="bb()" class="small-box-footer"
+                        <a title="My account" href="<?php echo base_url('index.php/EditDetailsController/mainimages'); ?>" class="small-box-footer"
                            style="height: 50px;line-height: 50px;font-size: 1.2em;color:#222d32;">Click Here <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         <!-- href='<?php //echo base_url ('index.php/EditDetailsController/updateHotelDetails'); ?>' -->
-                        <script type="text/javascript">
-                            function bb() {
-                                alert('Sorry, Adding promotions are not allowed yet.');
-                            }
-                        </script>
+                       <!--  <script type="text/javascript">
+                            // function bb() {
+                            //     // alert('Sorry, Adding promotions are not allowed yet.');
+                            // }
+                        </script> -->
                     </div>
                 </div>
                 <div class="col-lg-6 col-xs-12">
@@ -154,22 +154,22 @@
 ">
                         <div class="inner"
                              style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                            <h1 style="color:black;">Update Packages.</h1>
+                            <h1 style="color:black;">Update Room Images.</h1>
                             <br>
-                            <p style="color:#555555;font-size: 1.2em;">(Click here to add packages.)</p>
+                            <p style="color:#555555;font-size: 1.2em;">(Click here to add or alter room images.)</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a title="My account" onclick="aa()" class="small-box-footer"
+                        <a title="My account" href="<?php echo base_url('index.php/EditDetailsController/roomimages'); ?>" class="small-box-footer"
                            style="height: 50px;line-height: 50px;font-size: 1.2em;color:#222d32;">Click Here <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         <!-- href='<?php //echo base_url ('index.php/EditDetailsController/viewHomePage'); ?>' -->
-                        <script type="text/javascript">
-                            function aa() {
-                                alert('Sorry, Adding package details is not allowed yet.');
-                            }
-                        </script>
+                        <!-- <script type="text/javascript">
+                            // function aa() {
+                            //     alert('Sorry, Adding package details is not allowed yet.');
+                            // }
+                        </script> -->
                     </div>
                 </div>
                 <!-- ./col -->
