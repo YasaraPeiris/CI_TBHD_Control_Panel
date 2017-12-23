@@ -20,11 +20,21 @@ class ListingsModel extends CI_Model
 		$query1 = $this->db->get();
 		if ($query1-> num_rows() > 0){
 			return $query1->result();    // return a array of object
-		}	
+		}
 		else{
-			return NULL;	
+			return NULL;
 		}
 	}
+
+	function deleteListingPics($image_id){
+		$this->db->delete('listingpics', array('listing_pic_id' => $image_id));
+	}
+
+	function addListingPics($image_id){
+    		//include the code for adding a pic
+    	}
+
+
 
 	function setConfirm($booking_id){
 		$data = array(  

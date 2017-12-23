@@ -8,6 +8,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
    <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
    <style type="text/css">
 
    ::selection { background-color: #E13300; color: white; }
@@ -70,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>CodeIgniter Image Gallery</h1>
+   <h1>Hotel Image Gallery</h1>
 
    <div id="body">
       <?php
@@ -81,19 +84,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                <?=$this->session->flashdata('message')?>
             </div>
          <?php endif; ?>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add a new Image</button>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
-         <div align="center"><?=anchor('gallery/add','Add a new image',['class'=>'btn btn-primary'])?></div>
-         <hr />   
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add new Image</h4>
+      </div>
+      <div class="modal-body" id="inputImages">
+        <div class="form-group">
+                  <label for="userfile[]">Image File</label>
+                  <input type="file" class="form-control" name="userfile[]">
+                </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="addAnotherInput()">Add another image</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addImage()">Upload</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+function addAnotherInput(){
+	var values = [];
+    $("input[name='userfile[]']").each(function() {
+
+    	if($(this).val()==""){
+    	alert("No image location is specified for the given location.");
+    	e.preventDefault();
+       }
+    });
+	var node_input = document.createElement("input");
+	node_input.setAttribute("type", "file");
+	node_input.setAttribute("class", "form-control");
+	node_input.setAttribute("name", "userfile[]");
+	var node = document.createElement("DIV");
+	node.setAttribute("class", "form-group");
+	node.appendChild(node_input);
+	document.getElementById("inputImages").appendChild(node);
+
+}
+</script>
+          <hr />
          <div class="row">
             <?php foreach($images as $img) : ?>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3">
                <div class="thumbnail">
-                 <img src="'../../../../<?php echo $img->image_path?>'" >
+                 <img src="../../<?php echo $img->image_path?>" >
                   <div class="caption">
 
                      <p>
-                        <?=anchor('gallery/edit/'.$img->listing_pic_id,'Edit',['class'=>'btn btn-warning', 'role'=>'button'])?>
-                        <?=anchor('gallery/delete/'.$img->listing_pic_id,'Delete',['class'=>'btn btn-danger', 'role'=>'button','onclick'=>'return confirm(\'Are you sure?\')'])?>
+                      <button type="button" class="btn btn-danger" onclick="deleteImage(<?php echo $img->listing_pic_id?>)">Delete</button>
                      </p>
                   </div>
                </div>
@@ -101,12 +147,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php endforeach; ?>
          </div>
       <?php else : ?>
-         <div align="center">We don't have any image yet, go ahead and <?=anchor('gallery/add','add a new one')?>.</div>
+         <div align="center">We don't have any image yet, go ahead and add a new image.</div>
       <?php endif; ?>
    </div>
 
-   <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
+   </div>
+<script>
 
+function deleteImage(id){
+$.ajax({
+                    type: 'POST',
+                    data: 'imageid=' + id,
+                    url: "<?php echo base_url(); ?>index.php/EditImagesController/deleteImage",
+                    success: function (data) {
+    						location.reload();
+                    }
+                });
+
+}
+
+function addImage(){
+var values = [];
+$("input[name='userfile[]']").each(function() {
+    values.push($(this).val());
+});
+$.ajax({
+                    type: 'POST',
+                    data: 'imagefile=' + values,
+                    url: "<?php echo base_url(); ?>index.php/EditImagesController/addImage",
+                    success: function (data) {
+    						location.reload();
+                    }
+                });
+
+}
+</script>
 </body>
 </html>
