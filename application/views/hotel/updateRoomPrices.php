@@ -80,6 +80,12 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="min-height: 88vh">
         <!-- Content Header (Page header) -->
+        <?php 
+        if (!empty($_SESSION['errorURP'])) {
+            echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Warning! </strong> ".$_SESSION['errorURP']."</div>";
+            unset($_SESSION['errorURP']);
+        }
+        ?>
         <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:2%;">
             <h1 style="font-weight:bold;font-size: 2em;">
                 Update Room Details

@@ -259,57 +259,69 @@ class EditDetailsController extends CI_Controller {
             $this->load->library('session');
             $this->load->model('RoomModel');
             $listing_id = $_SESSION['hotelno'];
-            if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel']) &&  isset($_POST['formId'])) {
+            if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel']) &&  isset($_POST['formId']) ) {
 			// print_r($_POST);
             $i = $_POST['formId'];
-			$room_type_id = $_POST['roomTypeId'];
-                echo gettype($_POST['pricename'.$i]);
-                echo gettype($_POST['pricefaci'.$i]);
-                    $field1_array = isset($_POST['roomprice'.$i]) ? $_POST['roomprice'.$i] : array();
-                $field2_array = isset($_POST['pricename'.$i]) ? $_POST['pricename'.$i] : array();
+            if (isset($_POST['roomprice'.$i]) && isset($_POST['pricename'.$i]) && isset($_POST['pricefaci'.$i]) && isset($_POST['priceOtherArry'.$i])) {
+	            
+				$room_type_id = $_POST['roomTypeId'];
+	                // echo gettype($_POST['pricename'.$i]);
+	                // echo gettype($_POST['pricefaci'.$i]);
+					// print_r($_POST['roomprice'.$i]);
+					$roomprice_arr = $_POST['roomprice'.$i];
+					foreach ($roomprice_arr as $key => $value) {
+						$roomprice_arr[$key]= str_replace(',', '', $value);
+					}
+					// print_r($roomprice_arr);
+	                $field1_array = $roomprice_arr;
+	                // $field1_array = isset($_POST['roomprice'.$i]) ? $_POST['roomprice'.$i] : array();
+	                $field2_array = $_POST['pricename'.$i];
 
-                $field3_array = isset($_POST['pricefaci'.$i]) ? json_decode($_POST['pricefaci'.$i]) : array();
-                $field4_array = isset($_POST['priceOtherArry'.$i]) ? json_decode($_POST['priceOtherArry'.$i]) : array();
-                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array);
-
-
-                   // print_r(($price_array));
-                   // echo "<br> - - - <br>";			
-
-
-                $lowest_key = array_keys($field1_array, min($field1_array));
-
-                $lowest_price = $field1_array[$lowest_key[0]];
-
-                $lowest_price_name = $field2_array[$lowest_key[0]];
-                $min_array =  array("minPriceName"=>$lowest_price_name,"minPrice"=>$lowest_price);
-                    $roomtype = $_POST['optradio'.$i];
-
-                    $faci = $_POST['room_faci'.$i];
-//                    print_r($faci);
-                    $faci_radio = $_POST['room_faci_radio'.$i];
-//                    print_r($faci_radio);
-                $full_faci = array_merge($faci,$faci_radio);
-                $full_faci = json_encode($full_faci);
+	                $field3_array =  json_decode($_POST['pricefaci'.$i]);
+	                $field4_array =  json_decode($_POST['priceOtherArry'.$i]);
+	                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array);
 
 
-                $roomname = $_POST['room_name'.$i];
-
-                $bathtype= $_POST['bathroom_type'.$i];
-
-                $occupancy = $_POST['occupancy'.$i];
-
-                $max_occupancy = $_POST['max_occupancy'.$i];
-
-                $room_count = $_POST['each_room_count'.$i];
+	                   // print_r(($price_array));
+	                   // echo "<br> - - - <br>";			
 
 
-                $this->load->model('RoomModel');
-                $data=array('room_facilities'=>$full_faci,'room_name'=>$roomname,'room_type'=>$roomtype,'bathroom_type'=>$bathtype,'no_of_people'=>$occupancy,'max_no_of_guests'=>$max_occupancy,'price_details'=>json_encode($price_array),'min_price'=>json_encode($min_array),'no_of_rooms'=>$room_count);
-                // print_r($data);
-                $this->RoomModel->updateRoomDetails($data,$listing_id,$room_type_id);
-//            $this->AccountModel->editAccountDetails($data2,$login_id);
+	                $lowest_key = array_keys($field1_array, min($field1_array));
 
+	                $lowest_price = $field1_array[$lowest_key[0]];
+
+	                $lowest_price_name = $field2_array[$lowest_key[0]];
+	                $min_array =  array("minPriceName"=>$lowest_price_name,"minPrice"=>$lowest_price);
+	                    $roomtype = $_POST['optradio'.$i];
+
+	                    $faci = $_POST['room_faci'.$i];
+	//                    print_r($faci);
+	                    $faci_radio = $_POST['room_faci_radio'.$i];
+	//                    print_r($faci_radio);
+	                $full_faci = array_merge($faci,$faci_radio);
+	                $full_faci = json_encode($full_faci);
+
+
+	                $roomname = $_POST['room_name'.$i];
+
+	                $bathtype= $_POST['bathroom_type'.$i];
+
+	                $occupancy = $_POST['occupancy'.$i];
+
+	                $max_occupancy = $_POST['max_occupancy'.$i];
+
+	                $room_count = $_POST['each_room_count'.$i];
+
+
+	                $this->load->model('RoomModel');
+	                $data=array('room_facilities'=>$full_faci,'room_name'=>$roomname,'room_type'=>$roomtype,'bathroom_type'=>$bathtype,'no_of_people'=>$occupancy,'max_no_of_guests'=>$max_occupancy,'price_details'=>json_encode($price_array),'min_price'=>json_encode($min_array),'no_of_rooms'=>$room_count);
+	                // print_r($data);
+	                $this->RoomModel->updateRoomDetails($data,$listing_id,$room_type_id);
+	//            $this->AccountModel->editAccountDetails($data2,$login_id);
+			}
+			else{
+				$_SESSION['errorURP'] = "Error in changing the price, please try again.";
+			}
 
             }
             $this->roomDetails();

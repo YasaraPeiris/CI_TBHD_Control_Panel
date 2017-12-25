@@ -10,6 +10,7 @@ class EditImagesController extends CI_Controller {
 			$this->load->model('ListingsModel');
 			$images =  $this->ListingsModel->getListingPics($listing_no);
 			$data= array('images'=> $images );
+            print_r($data);
 			$this->load->view('hotel/updateMainImages',$data);
 		}
 		else{
