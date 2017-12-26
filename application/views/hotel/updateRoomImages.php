@@ -192,36 +192,7 @@
                                         <?php endif; ?>
 
                                         <!-- Modal -->
-                                        <div id="myModalChange" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
 
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal">&times;
-                                                        </button>
-                                                        <h4 class="modal-title">Change existing main image</h4>
-                                                    </div>
-                                                    <div class="modal-body" id="inputImages">
-                                                        <div class="form-group">
-                                                            <label for="userfile">Image File</label>
-                                                            <input type="file" class="form-control" name="userfile">
-                                                        </div>
-                                                        <input type="hidden" id="changeId">
-                                                        <input type="hidden" id="changePath">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Cancel
-                                                        </button>
-                                                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
-                                                                onclick="saveImage()">Save Image
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
 
                                         <hr/>
                                         <div class="row">
@@ -277,54 +248,6 @@
                                             data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add a new Image
                                     </button>
                                     <!-- Modal -->
-                                    <div id="myModal" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-
-                                            <!-- Modal content-->
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Add new Image</h4>
-                                                </div>
-                                                <div class="modal-body" id="inputImages">
-                                                    <div class="form-group">
-                                                        <label for="userfile[]">Image File</label>
-                                                        <input type="file" class="form-control" name="userfile[]">
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
-                                                        Add another image
-                                                    </button>
-                                                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
-                                                            onclick="addImage()">Upload
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <script>
-                                        function addAnotherInput() {
-                                            var values = [];
-                                            $("input[name='userfile[]']").each(function () {
-
-                                                if ($(this).val() == "") {
-                                                    alert("No image location is specified for the given location.");
-                                                    e.preventDefault();
-                                                }
-                                            });
-                                            var node_input = document.createElement("input");
-                                            node_input.setAttribute("type", "file");
-                                            node_input.setAttribute("class", "form-control");
-                                            node_input.setAttribute("name", "userfile[]");
-                                            var node = document.createElement("DIV");
-                                            node.setAttribute("class", "form-group");
-                                            node.appendChild(node_input);
-                                            document.getElementById("inputImages").appendChild(node);
-
-                                        }
-                                    </script>
                                 <hr style="margin-top: 5px;margin-bottom: 5px;">
                                     <div class="row">
                                         <?php foreach ($images as $img) :
@@ -336,7 +259,7 @@
 
                                                             <p>
                                                                 <button type="button" class="btn btn-danger btn-sm"
-                                                                        onclick="deleteImage(<?php echo $img->roompic_id ?>)">
+                                                                        onclick="confirmDialog(<?php echo $img->roompic_id ?>)">
                                                                     Delete
                                                                 </button>
                                                                 <button type="button" style="float: right;" class="btn btn-success btn-sm"
@@ -377,36 +300,6 @@
                                 <?php endif; ?>
 
                                 <!-- Modal -->
-                                <div id="myModalChange" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;
-                                                </button>
-                                                <h4 class="modal-title">Change existing main image</h4>
-                                            </div>
-                                            <div class="modal-body" id="inputImages">
-                                                <div class="form-group">
-                                                    <label for="userfile">Image File</label>
-                                                    <input type="file" class="form-control" name="userfile">
-                                                </div>
-                                                <input type="hidden" id="changeId">
-                                                <input type="hidden" id="changePath">
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">Cancel
-                                                </button>
-                                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
-                                                        onclick="saveImage()">Save Image
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
 
                                 <hr/>
                                 <div class="row">
@@ -458,54 +351,7 @@
                                     data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add a new Image
                             </button>
                             <!-- Modal -->
-                            <div id="myModal" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Add new Image</h4>
-                                        </div>
-                                        <div class="modal-body" id="inputImages">
-                                            <div class="form-group">
-                                                <label for="userfile[]">Image File</label>
-                                                <input type="file" class="form-control" name="userfile[]">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
-                                                Add another image
-                                            </button>
-                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
-                                                    onclick="addImage()">Upload
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <script>
-                                function addAnotherInput() {
-                                    var values = [];
-                                    $("input[name='userfile[]']").each(function () {
-
-                                        if ($(this).val() == "") {
-                                            alert("No image location is specified for the given location.");
-                                            e.preventDefault();
-                                        }
-                                    });
-                                    var node_input = document.createElement("input");
-                                    node_input.setAttribute("type", "file");
-                                    node_input.setAttribute("class", "form-control");
-                                    node_input.setAttribute("name", "userfile[]");
-                                    var node = document.createElement("DIV");
-                                    node.setAttribute("class", "form-group");
-                                    node.appendChild(node_input);
-                                    document.getElementById("inputImages").appendChild(node);
-
-                                }
-                            </script>
                         <hr style="margin-top: 5px;margin-bottom: 5px;">
                             <div class="row">
                                 <?php foreach ($images as $img) :
@@ -517,7 +363,7 @@
 
                                                     <p>
                                                         <button type="button" class="btn btn-danger btn-sm"
-                                                                onclick="deleteImage(<?php echo $img->roompic_id ?>)">
+                                                                onclick="confirmDialog(<?php echo $img->roompic_id ?>)">
                                                             Delete
                                                         </button>
                                                         <button type="button" style="float: right;" class="btn btn-success btn-sm"
@@ -549,7 +395,9 @@
     </section>
     <script>
 
-        function deleteImage(id) {
+
+        function deleteImage() {
+            id = $('#runFunc').val();
             $.ajax({
                 type: 'POST',
                 data: 'imageid=' + id,
@@ -562,22 +410,35 @@
         }
 
         function addImage() {
-            var values = [];
+            var val=true;
             $("input[name='userfile[]']").each(function () {
-                values.push($(this).val());
-            });
-            $.ajax({
-                type: 'POST',
-                data: 'imagefile=' + values,
-                url: "<?php echo base_url(); ?>index.php/EditImagesController/addRoomImages",
-                success: function (data) {
-                    location.reload();
+
+                if ($(this).val() == "") {
+                    alert("No image location is specified for the given location.");
+                    val = false;
                 }
             });
+            if (!val) {
+                return false;
+            }
+            else {
+                $('#myModal').modal('hide');
+                var values = [];
 
+                $("input[name='userfile[]']").each(function () {
+                    values.push($(this).val());
+                });
+                $.ajax({
+                    type: 'POST',
+                    data: 'imagefile=' + values,
+                    url: "<?php echo base_url(); ?>index.php/EditImagesController/addRoomImages",
+                    success: function (data) {
+
+                        location.reload();
+                    }
+                });
+            }
         }
-    </script>
-    <script>
 
         function  changeImage(imageId,loc){
             $('#changeId').attr('value',imageId);
@@ -586,10 +447,14 @@
         }
 
         function saveImage(){
-            if ($('#userfile').val() == "") {
+
+            checkVal = $("input[name='userfile']").val();
+            if (checkVal == "") {
                 alert("No image location is specified for the given location.");
-                e.preventDefault();
-            }else {
+                return false;
+            }
+            else{
+                $('#myModalChange').modal('hide');
                 var id = $("#changeId").val();
                 var loc = $("#changePath").val();
 
@@ -605,10 +470,111 @@
             }
         }
 
+        function addAnotherInput() {
+            var values = [];
+            var val=true;
+            $("input[name='userfile[]']").each(function () {
+
+                if ($(this).val() == "") {
+                    alert("No image location is specified for the given location.");
+                   val = false;
+                }
+            });
+            if(!val){
+                return false;
+            }
+            var node_input = document.createElement("input");
+            node_input.setAttribute("type", "file");
+            node_input.setAttribute("class", "form-control");
+            node_input.setAttribute("name", "userfile[]");
+            var node = document.createElement("DIV");
+            node.setAttribute("class", "form-group");
+            node.appendChild(node_input);
+            document.getElementById("inputImagesAdd").appendChild(node);
+
+        }
+
+
+        function  confirmDialog(id) {
+            $('#runFunc').attr('value',id);
+            $("#confirmDialog").modal();
+        }
     </script>
 </div>
+    <div id="myModalChange" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-<!-- /.content-wrapper -->
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;
+                    </button>
+                    <h4 class="modal-title">Change existing main image</h4>
+                </div>
+                <div class="modal-body" id="inputImages">
+                    <div class="form-group">
+                        <label for="userfile">Image File</label>
+                        <input type="file" class="form-control" name="userfile">
+                    </div>
+                    <input type="hidden" id="changeId">
+                    <input type="hidden" id="changePath">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">Cancel
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm"
+                            onclick="saveImage()">Save Image
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add new Image</h4>
+                </div>
+                <div class="modal-body" id="inputImagesAdd">
+                    <div class="form-group">
+                        <label for="userfile[]">Image File</label>
+                        <input type="file" class="form-control" name="userfile[]">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
+                        Add another image
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm"
+                            onclick="addImage()">Upload
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="confirmDialog" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+        <div class="modal-body">
+            Are you sure you want to do this thing?
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" id="runFunc">
+            <button type="button" data-dismiss="modal" class="btn btn-primary" id="confirmed" onclick="deleteImage()">Yes</button>
+            <button type="button" data-dismiss="modal" class="btn">No</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- /.content-wrapper -->
 <?php
 include 'footer.html';
 ?>
@@ -653,13 +619,18 @@ immediately after the control sidebar -->
 <!-- AdminLTE for demo purposes -->
 <script src="../../assets/dist/js/demo.js"></script>
 <script src="../../assets/dist/js/validator.min.js"></script>
+<script src="../../assets/bootstrap/js/Bootstrap-Confirmation.js"></script>
 <!--datatables-->
 
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
-
+<script>
+    $('#myModal').on('hide',function(e){
+        e.preventDefault();
+    });
+</script>
 
 </body>
 </html>

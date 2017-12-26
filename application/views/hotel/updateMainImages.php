@@ -65,7 +65,6 @@
     <style type="text/css">
 
 
-
         body {
             background-color: #fff;
 
@@ -118,8 +117,9 @@
             padding: 10px;
 
         }
-        h4{
-            color:dimgrey;
+
+        h4 {
+            color: dimgrey;
         }
     </style>
 
@@ -168,62 +168,34 @@
                             if (sizeof($images) > 0) : ?>
 
                                 <?php if ($this->session->flashdata('message')) : ?>
-                                <div class="alert alert-success" role="alert" align="center">
-                                    <?= $this->session->flashdata('message') ?>
-                                </div>
-                            <?php endif; ?>
+                                    <div class="alert alert-success" role="alert" align="center">
+                                        <?= $this->session->flashdata('message') ?>
+                                    </div>
+                                <?php endif; ?>
 
                                 <!-- Modal -->
-                                <div id="myModalChange" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
 
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;
-                                                </button>
-                                                <h4 class="modal-title">Change existing main image</h4>
-                                            </div>
-                                            <div class="modal-body" id="inputImages">
-                                                <div class="form-group">
-                                                    <label for="userfile">Image File</label>
-                                                    <input type="file" class="form-control" name="userfile">
-                                                </div>
-                                                <input type="hidden" id="changeId">
-                                                <input type="hidden" id="changePath">
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">Cancel
-                                                </button>
-                                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
-                                                        onclick="saveImage()">Save Image
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            <hr/>
+                                <hr/>
                                 <div class="row">
                                     <?php foreach ($images as $img) :
-                                        if($img->is_main){?>
-                                        <div class="col-md-3 col-sm-3">
-                                            <div class="thumbnail">
-                                                <img height="100px" src="../../<?php echo $img->image_path ?>">
-                                                <div class="caption" style="padding-bottom: 0;">
+                                        if ($img->is_main) {
+                                            ?>
+                                            <div class="col-md-3 col-sm-3">
+                                                <div class="thumbnail">
+                                                    <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                    <div class="caption" style="padding-bottom: 0;">
 
-                                                    <p style="text-align: center;">
-                                                        <button type="button" class="btn btn-success btn-sm" style="text-align: center;margin: 0 auto;"
-                                                                onclick="changeImage(<?php echo $img->listing_pic_id?>,'../../<?php echo $img->image_path ?>')">
-                                                           Change
-                                                        </button>
-                                                    </p>
+                                                        <p style="text-align: center;">
+                                                            <button type="button" class="btn btn-success btn-sm"
+                                                                    style="text-align: center;margin: 0 auto;"
+                                                                    onclick="changeImage(<?php echo $img->listing_pic_id ?>,'../../<?php echo $img->image_path ?>')">
+                                                                Change
+                                                            </button>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php }endforeach; ?>
+                                        <?php }endforeach; ?>
                                 </div>
                             <?php else : ?>
                                 <div align="center">We don't have any image yet, go ahead and add a new image.</div>
@@ -232,123 +204,56 @@
                         </div>
 
                     </div>
-                    <script>
 
-                        function  changeImage(imageId,loc){
-                            $('#changeId').attr('value',imageId);
-                            $('#changePath').attr('value',loc);
-                            $("#myModalChange").modal();
-                        }
-
-                        function saveImage(){
-                            var id = $("#changeId").val();
-                            var loc = $("#changePath").val();
-
-                            //upload to the same location
-                            $.ajax({
-                                type: 'POST',
-                                data : {"imageid":id,"imageloc":loc},
-                                url: "<?php echo base_url(); ?>index.php/EditImagesController/updateImage",
-                                success: function (data) {
-                                    location.reload();
-                                }
-                            });
-                        }
-
-                    </script>
                 </div>
                 <hr>
                 <div id="container">
                     <h4 style="font-weight:bold;">Other Images</h4>
-<hr>
+                    <hr>
                     <div id="body">
                         <?php
                         if (sizeof($images) > 0) :
                             ?>
                             <?php
-                        if ($this->session->flashdata('message')) :
+                            if ($this->session->flashdata('message')) :
+                                ?>
+                                <div class="alert alert-success" role="alert" align="center">
+                                    <?= $this->session->flashdata('message') ?>
+                                </div>
+                            <?php
+                            endif;
                             ?>
-                            <div class="alert alert-success" role="alert" align="center">
-                                <?= $this->session->flashdata('message') ?>
-                            </div>
-                        <?php
-                        endif;
-                        ?>
                             <button type="button" class="btn btn-info btn-md" data-toggle="modal"
-                                    data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add a new Image
+                                    data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add a new
+                                Image
                             </button>
                             <!-- Modal -->
-                            <div id="myModal" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Add new Image</h4>
-                                        </div>
-                                        <div class="modal-body" id="inputImages">
-                                            <div class="form-group">
-                                                <label for="userfile[]">Image File</label>
-                                                <input type="file" class="form-control" name="userfile[]">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
-                                                Add another image
-                                            </button>
-                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
-                                                    onclick="addImage()">Upload
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <script>
-                                function addAnotherInput() {
-                                    var values = [];
-                                    $("input[name='userfile[]']").each(function () {
-
-                                        if ($(this).val() == "") {
-                                            alert("No image location is specified for the given location.");
-                                            e.preventDefault();
-                                        }
-                                    });
-                                    var node_input = document.createElement("input");
-                                    node_input.setAttribute("type", "file");
-                                    node_input.setAttribute("class", "form-control");
-                                    node_input.setAttribute("name", "userfile[]");
-                                    var node = document.createElement("DIV");
-                                    node.setAttribute("class", "form-group");
-                                    node.appendChild(node_input);
-                                    document.getElementById("inputImages").appendChild(node);
-
-                                }
-                            </script>
-                        <hr style="margin-top: 5px;margin-bottom: 5px;">
+                            <hr style="margin-top: 5px;margin-bottom: 5px;">
                             <div class="row">
                                 <?php foreach ($images as $img) :
-                                if(!$img->is_main){?>
-                                    <div class="col-md-3 col-sm-3">
-                                        <div class="thumbnail">
-                                            <img height="100px" src="../../<?php echo $img->image_path ?>">
-                                            <div class="caption" style="padding-bottom: 0;">
+                                    if (!$img->is_main) {
+                                        ?>
+                                        <div class="col-md-3 col-sm-3">
+                                            <div class="thumbnail">
+                                                <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                <div class="caption" style="padding-bottom: 0;">
 
-                                                <p>
-                                                    <button type="button" class="btn btn-danger btn-sm"
-                                                            onclick="deleteImage(<?php echo $img->listing_pic_id ?>)">
-                                                        Delete
-                                                    </button>
-                                                    <button type="button" style="float: right;" class="btn btn-success btn-sm"
-                                                            onclick="changeImage(<?php echo $img->listing_pic_id ?>,'../../<?php echo $img->image_path ?>')">
-                                                        Change
-                                                    </button>
-                                                </p>
+                                                    <p>
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                                onclick="deleteImage(<?php echo $img->listing_pic_id ?>)">
+                                                            Delete
+                                                        </button>
+                                                        <button type="button" style="float: right;"
+                                                                class="btn btn-success btn-sm"
+                                                                onclick="changeImage(<?php echo $img->listing_pic_id ?>,'../../<?php echo $img->image_path ?>')">
+                                                            Change
+                                                        </button>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php }endforeach; ?>
+                                    <?php }endforeach; ?>
                             </div>
                         <?php else : ?>
                             <div align="center">We don't have any image yet, go ahead and add a new image.</div>
@@ -356,42 +261,162 @@
                     </div>
 
                 </div>
-                <script>
 
-                    function deleteImage(id) {
-                        $.ajax({
-                            type: 'POST',
-                            data: 'imageid=' + id,
-                            url: "<?php echo base_url(); ?>index.php/EditImagesController/deleteImage",
-                            success: function (data) {
-                                location.reload();
-                            }
-                        });
-
-                    }
-
-                    function addImage() {
-                        var values = [];
-                        $("input[name='userfile[]']").each(function () {
-                            values.push($(this).val());
-                        });
-                        $.ajax({
-                            type: 'POST',
-                            data: 'imagefile=' + values,
-                            url: "<?php echo base_url(); ?>index.php/EditImagesController/addImage",
-                            success: function (data) {
-                                location.reload();
-                            }
-                        });
-
-                    }
-                </script>
             </div>
     </div>
 
     </section>
 
 
+</div>
+<script>
+
+    function deleteImage(id) {
+        $.ajax({
+            type: 'POST',
+            data: 'imageid=' + id,
+            url: "<?php echo base_url(); ?>index.php/EditImagesController/deleteImage",
+            success: function (data) {
+                location.reload();
+            }
+        });
+
+    }
+
+    function addImage() {
+        $("input[name='userfile[]']").each(function () {
+
+            if ($(this).val() == "") {
+                alert("No image location is specified for the given location.");
+                val = false;
+            }
+        });
+        if (!val) {
+            return false;
+        }
+        else {
+            $('#myModal').modal('hide');
+            var values = [];
+            $("input[name='userfile[]']").each(function () {
+                values.push($(this).val());
+            });
+            $.ajax({
+                type: 'POST',
+                data: 'imagefile=' + values,
+                url: "<?php echo base_url(); ?>index.php/EditImagesController/addImage",
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        }
+    }
+
+    function addAnotherInput() {
+        var values = [];
+        $("input[name='userfile[]']").each(function () {
+
+            if ($(this).val() == "") {
+                alert("No image location is specified for the given location.");
+                return false;
+            }
+        });
+        var node_input = document.createElement("input");
+        node_input.setAttribute("type", "file");
+        node_input.setAttribute("class", "form-control");
+        node_input.setAttribute("name", "userfile[]");
+        var node = document.createElement("DIV");
+        node.setAttribute("class", "form-group");
+        node.appendChild(node_input);
+        document.getElementById("inputImagesAdd").appendChild(node);
+
+    }
+
+    function changeImage(imageId, loc) {
+        $('#changeId').attr('value', imageId);
+        $('#changePath').attr('value', loc);
+        $("#myModalChange").modal();
+    }
+
+    function saveImage() {
+        checkVal = $("input[name='userfile']").val();
+        if (checkVal == "") {
+            alert("No image location is specified for the given location.");
+            return false;
+        }
+        else{
+            $('#myModalChange').modal('hide');
+            var id = $("#changeId").val();
+            var loc = $("#changePath").val();
+
+            //upload to the same location
+            $.ajax({
+                type: 'POST',
+                data: {"imageid": id, "imageloc": loc},
+                url: "<?php echo base_url(); ?>index.php/EditImagesController/updateImage",
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        }
+    }
+
+</script>
+<div id="myModalChange" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;
+                </button>
+                <h4 class="modal-title">Change existing main image</h4>
+            </div>
+            <div class="modal-body" id="inputImages">
+                <div class="form-group">
+                    <label for="userfile">Image File</label>
+                    <input type="file" class="form-control" name="userfile">
+                </div>
+                <input type="hidden" id="changeId">
+                <input type="hidden" id="changePath">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">Cancel
+                </button>
+                <button type="button" class="btn btn-default btn-sm"
+                        onclick="saveImage()">Save Image
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add new Image</h4>
+            </div>
+            <div class="modal-body" id="inputImagesAdd">
+                <div class="form-group">
+                    <label for="userfile[]">Image File</label>
+                    <input type="file" class="form-control" name="userfile[]">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
+                    Add another image
+                </button>
+                <button type="button" class="btn btn-default btn-sm"
+                        onclick="addImage()">Upload
+                </button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <!-- /.content-wrapper -->
@@ -445,69 +470,5 @@ immediately after the control sidebar -->
 <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
-
-
-<script type='text/javascript'>
-    <?php
-    $php_array = $data1;
-    $js_array = json_encode($php_array);
-    echo "var javascript_array = " . $js_array . ";\n";
-    ?>
-
-</script>
-<script>
-
-    $(document).ready(function () {
-        setInitialRadioButton();
-    });
-
-
-    $(document).ready(function () {
-        $('a[data-toggle="tab"]').bind('click', function (e) {
-//            alert($(e.target.id));
-
-        });
-
-        $('a[data-toggle=tab]').click(function () {
-            var id_val = $(this).attr('id');
-            setRadioButton(id_val);
-        });
-
-    });
-
-
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    function setInitialRadioButton() {
-        var selected_item_id = $("#roomnames li.active").attr('id');
-
-        var room_val = capitalizeFirstLetter(javascript_array[selected_item_id].room_type);
-        $('#' + room_val + selected_item_id).prop("checked", true);
-        var valg = '#' + room_val + selected_item_id;
-
-    }
-
-    function setRadioButton(val_id) {
-        var selected_item_id = val_id;
-
-        var room_val = capitalizeFirstLetter(javascript_array[selected_item_id].room_type);
-        $('#' + room_val + selected_item_id).prop("checked", true);
-        var valg = '#' + room_val + selected_item_id;
-
-
-    }
-
-    function saveDetails() {
-        var selected_item_id = $("#roomnames li.active").attr('id');
-        var valForm = '#roomForm' + selected_item_id;
-        $(valFrom).submit();
-    }
-
-    function resetDetails() {
-        location.reload();
-    }
-</script>
 </body>
 </html>

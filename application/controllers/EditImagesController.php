@@ -152,7 +152,7 @@ class EditImagesController extends CI_Controller
         if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
             //	$listing_no = $_SESSION['hotelno'];
             $this->load->model('RoomModel');
-            $images = $this->ListingsModel->addRoomPics($imagefiles);
+            $images = $this->RoomModel->addRoomPics($imagefiles);
         } else {
             $_SESSION['error'] = 'Time is up, please log in again for your own security.';
             redirect();
