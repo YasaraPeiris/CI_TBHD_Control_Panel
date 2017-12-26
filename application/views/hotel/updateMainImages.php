@@ -142,7 +142,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:2%;">
             <h1 style="font-weight:bold;font-size: 2em;">
-                Update Room Details
+                Update Hotel Images
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -414,7 +414,7 @@
             <div class="modal-body" id="inputImages">
                 <div class="form-group">
                     <label for="userfile">Image File</label>
-                    <input type="file" class="form-control" name="userfile" id="userfile">
+                    <input type="file" class="form-control" accept="image/jpeg, image/png" name="userfile" id="userfile">
                 </div>
                 <input type="hidden" id="changeId">
                 <input type="hidden" id="changePath" value="<?php echo $images[0]->image_path ?>">

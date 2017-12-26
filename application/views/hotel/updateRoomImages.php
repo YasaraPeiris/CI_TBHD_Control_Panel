@@ -439,37 +439,9 @@
                 }());
                 // alert('object');
             }
-            // var val=true;
-            // $("input[name='userfile2[]']").each(function () {
-
-            //     if ($(this).val() == "") {
-            //         alert("No image location is specified for the given location.");
-            //         // alert("consider");
-            //         // continue;
-            //         // alert("out");
-            //         // val = false;
-            //     }
-            // });
-            // if (!val) {
-            //     return false;
-            // }
-            // else {
-                $('#myModal').modal('hide');
-                // var values = [];
-
-                // $("input[name='userfile2[]']").each(function () {
-                //     values.push($(this).val());
-                // });
-                // $.ajax({
-                //     type: 'POST',
-                //     data: 'imagefile=' + values,
-                //     url: "<?php echo base_url(); ?>index.php/EditImagesController/addRoomImages",
-                //     success: function (data) {
-
-                //         location.reload();
-                //     }
-                // });
-            // }
+            $('#myModal').modal('hide');
+            // window.location.reload(false);
+               
         }
 
         function  changeImage(imageId,loc){
@@ -563,7 +535,7 @@
                 <div class="modal-body" id="inputImages">
                     <div class="form-group">
                         <label for="userfile">Image File</label>
-                        <input type="file" class="form-control" name="userfile" id="userfile">
+                        <input type="file" class="form-control" accept="image/jpeg, image/png" name="userfile" id="userfile">
                     </div>
                     <input type="hidden" id="changeId">
                     <input type="hidden" id="changePath" value="<?php echo $images[0]->image_path ?>">

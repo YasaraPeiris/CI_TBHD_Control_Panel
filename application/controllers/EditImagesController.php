@@ -178,6 +178,8 @@ class EditImagesController extends CI_Controller
     }
     public function photoUploadMainMultiple(){
         // session_start();
+        if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+
             if (isset($_FILES["photo"]) && isset($_POST["loc"]) ) {
                 $this->load->model('ImageModel');
 
@@ -186,22 +188,19 @@ class EditImagesController extends CI_Controller
                 // $name = $path[sizeof($path)-1];
                 $dir = $path[sizeof($path)-2];
                 $this->uploadSolo($dir,$name);
-
-
-                // ****************************************************  -- ***************************
-
-                $data = array('listing_id'=> 17, 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
-
-                // ****************************************************  -- ***************************
-
-
-                
+                $data = array('listing_id'=> $_SESSION['hotelno'], 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
                 $this->ImageModel->addmainimage($data);
                 
             }
+        } else {
+            $_SESSION['error'] = 'Time is up, please log in again for your own security.';
+            redirect();
+        }
     }
     public function photoUploadRoomMultiple(){
         // session_start();
+        if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+
             if (isset($_FILES["photo"]) && isset($_POST["loc"]) ) {
                 $this->load->model('ImageModel');
 
@@ -214,7 +213,7 @@ class EditImagesController extends CI_Controller
 
                 // ****************************************************  -- ***************************
 
-                $data = array('listing_id'=> 17, 'room_type_id'=> 1, 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
+                $data = array('listing_id'=> $_SESSION['hotelno'], 'room_type_id'=> 2, 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
 
                 // ****************************************************  -- ***************************
 
@@ -223,6 +222,11 @@ class EditImagesController extends CI_Controller
                 $this->ImageModel->addroomimage($data);
                 
             }
+        } 
+        else {
+            $_SESSION['error'] = 'Time is up, please log in again for your own security.';
+            redirect();
+        }
     }
     public function uploadSolo( $directory , $filename)
     {
