@@ -245,7 +245,7 @@
                                 endif;
                                 ?>
                                     <button type="button" class="btn btn-info btn-md" data-toggle="modal"
-                                            data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add a new Image
+                                            data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add New Image
                                     </button>
                                     <!-- Modal -->
                                 <hr style="margin-top: 5px;margin-bottom: 5px;">
@@ -348,7 +348,7 @@
                         endif;
                         ?>
                             <button type="button" class="btn btn-info btn-md" data-toggle="modal"
-                                    data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add a new Image
+                                    data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add New Image
                             </button>
                             <!-- Modal -->
 
@@ -413,34 +413,63 @@
         }
 
         function addImage() {
-            var val=true;
-            $("input[name='userfile2[]']").each(function () {
+            var files = document.getElementById("userfile2").files;
+            var loc = $("#changePath").val();
+            for (var i in files) {
 
-                if ($(this).val() == "") {
-                    alert("No image location is specified for the given location.");
-                    val = false;
+                if (typeof files[i] !== 'object'){
+                    // alert ('not object');
+                    continue;
                 }
-            });
-            if (!val) {
-                return false;
+                // console.log(id);
+                // console.log(loc);
+                (function () {
+
+                    var initialSize = files[i].size;
+
+                    resize.photo(files[i], 880, 488, 'file', function (resizedFile) {
+
+                        //var resizedSize = resizedFile.size;
+                        // ds.push(resizedFile);
+                        upload2(resizedFile,initialSize,loc, function (response) {
+                        });
+
+                    });
+                    // alert('for loop');
+                }());
+                // alert('object');
             }
-            else {
+            // var val=true;
+            // $("input[name='userfile2[]']").each(function () {
+
+            //     if ($(this).val() == "") {
+            //         alert("No image location is specified for the given location.");
+            //         // alert("consider");
+            //         // continue;
+            //         // alert("out");
+            //         // val = false;
+            //     }
+            // });
+            // if (!val) {
+            //     return false;
+            // }
+            // else {
                 $('#myModal').modal('hide');
-                var values = [];
+                // var values = [];
 
-                $("input[name='userfile2[]']").each(function () {
-                    values.push($(this).val());
-                });
-                $.ajax({
-                    type: 'POST',
-                    data: 'imagefile=' + values,
-                    url: "<?php echo base_url(); ?>index.php/EditImagesController/addRoomImages",
-                    success: function (data) {
+                // $("input[name='userfile2[]']").each(function () {
+                //     values.push($(this).val());
+                // });
+                // $.ajax({
+                //     type: 'POST',
+                //     data: 'imagefile=' + values,
+                //     url: "<?php echo base_url(); ?>index.php/EditImagesController/addRoomImages",
+                //     success: function (data) {
 
-                        location.reload();
-                    }
-                });
-            }
+                //         location.reload();
+                //     }
+                // });
+            // }
         }
 
         function  changeImage(imageId,loc){
@@ -490,29 +519,29 @@
             }
         }
 
-        function addAnotherInput() {
-            var values = [];
-            var val=true;
-            $("input[name='userfile2[]']").each(function () {
+        // function addAnotherInput() {
+        //     // var values = [];
+        //     // var val=true;
+        //     // $("input[name='userfile2[]']").each(function () {
 
-                if ($(this).val() == "") {
-                    alert("No image location is specified for the given location.");
-                   val = false;
-                }
-            });
-            if(!val){
-                return false;
-            }
-            var node_input = document.createElement("input");
-            node_input.setAttribute("type", "file");
-            node_input.setAttribute("class", "form-control");
-            node_input.setAttribute("name", "userfile2[]");
-            var node = document.createElement("DIV");
-            node.setAttribute("class", "form-group");
-            node.appendChild(node_input);
-            document.getElementById("inputImagesAdd").appendChild(node);
+        //     //     if ($(this).val() == "") {
+        //     //         alert("No image location is specified for the given location.");
+        //     //        val = false;
+        //     //     }
+        //     // });
+        //     // if(!val){
+        //     //     return false;
+        //     // }
+        //     // var node_input = document.createElement("input");
+        //     // node_input.setAttribute("type", "file");
+        //     // node_input.setAttribute("class", "form-control");
+        //     // node_input.setAttribute("name", "userfile2[]");
+        //     // var node = document.createElement("DIV");
+        //     // node.setAttribute("class", "form-group");
+        //     // node.appendChild(node_input);
+        //     // document.getElementById("inputImagesAdd").appendChild(node);
 
-        }
+        // }
 
 
         function  confirmDialog(id) {
@@ -537,7 +566,7 @@
                         <input type="file" class="form-control" name="userfile" id="userfile">
                     </div>
                     <input type="hidden" id="changeId">
-                    <input type="hidden" id="changePath">
+                    <input type="hidden" id="changePath" value="<?php echo $images[0]->image_path ?>">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default"
@@ -563,13 +592,13 @@
                 <div class="modal-body" id="inputImagesAdd">
                     <div class="form-group">
                         <label for="userfile2[]">Image File</label>
-                        <input type="file" class="form-control" name="userfile2[]">
+                        <input type="file" class="form-control" name="userfile2[]" id="userfile2" accept="image/jpeg, image/png" multiple>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
+                    <!-- <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
                         Add another image
-                    </button>
+                    </button> -->
                     <button type="button" class="btn btn-default btn-sm"
                             onclick="addImage()">Upload
                     </button>

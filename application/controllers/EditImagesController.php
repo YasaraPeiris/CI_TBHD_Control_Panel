@@ -168,26 +168,63 @@ class EditImagesController extends CI_Controller
                 $name = $path[sizeof($path)-1];
                 $dir = $path[sizeof($path)-2];
                 if ($_POST["size"] == 'big') {
-                    $this->uploadSolo("photo",$dir,$name);
+                    $this->uploadSolo($dir,$name);
                 }
                 else if ($_POST["size"] == 'small') {
                     $name2 ='small_'.$name;
-                    $this->uploadSolo("photo",$dir,$name2);
+                    $this->uploadSolo($dir,$name2);
                 }
             }
     }
-    public function photoUploadRoom(){
+    public function photoUploadMainMultiple(){
         // session_start();
-            if (isset($_FILES["photo"]) && isset($_POST["id"])&& isset($_POST["loc"])) {
+            if (isset($_FILES["photo"]) && isset($_POST["loc"]) ) {
+                $this->load->model('ImageModel');
+
                 $path =  explode("/",$_POST["loc"]);
-                // $name ='photo' . date('Y-m-d-H-i-s') . '_' . uniqid() . '.jpg';
-                $name = $path[sizeof($path)-1];
+                $name ='photo_' . date('Y-m-d-H-i-s') . '_' . uniqid() . '.png';
+                // $name = $path[sizeof($path)-1];
                 $dir = $path[sizeof($path)-2];
-                $this->uploadSolo("photo",$dir,$name);
+                $this->uploadSolo($dir,$name);
+
+
+                // ****************************************************  -- ***************************
+
+                $data = array('listing_id'=> 17, 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
+
+                // ****************************************************  -- ***************************
+
+
+                
+                $this->ImageModel->addmainimage($data);
                 
             }
     }
-    public function uploadSolo($id, $directory , $filename)
+    public function photoUploadRoomMultiple(){
+        // session_start();
+            if (isset($_FILES["photo"]) && isset($_POST["loc"]) ) {
+                $this->load->model('ImageModel');
+
+                $path =  explode("/",$_POST["loc"]);
+                $name ='room_' . date('Y-m-d-H-i-s') . '_' . uniqid() . '.png';
+                // $name = $path[sizeof($path)-1];
+                $dir = $path[sizeof($path)-2];
+                $this->uploadSolo($dir,$name);
+
+
+                // ****************************************************  -- ***************************
+
+                $data = array('listing_id'=> 17, 'room_type_id'=> 1, 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
+
+                // ****************************************************  -- ***************************
+
+
+                
+                $this->ImageModel->addroomimage($data);
+                
+            }
+    }
+    public function uploadSolo( $directory , $filename)
     {
         $target_dir = "backend/assets/images/listings/$directory/";
         if (!is_dir($target_dir)){
@@ -202,7 +239,7 @@ class EditImagesController extends CI_Controller
         // log_message('debug', $target_file);
         // Check if image file is a actual image or fake image
         if(isset($_POST["submit"])) {
-            $check = getimagesize($_FILES[$id]["tmp_name"]);
+            $check = getimagesize($_FILES["photo"]["tmp_name"]);
             if($check !== false) {
                 // echo "File is an image - " . $check["mime"] . ".";
                 $uploadOk = 1;
@@ -221,7 +258,7 @@ class EditImagesController extends CI_Controller
         //     $uploadOk = 0;
         // }
         // Check file size
-        if ($_FILES[$id]["size"] > 1000000) {
+        if ($_FILES["photo"]["size"] > 1000000) {
             $_SESSION['error_page5'] = "Sorry, your file is too large. Can you please upload photos which are smaler than 900KB, each."; 
             // $this->load->view('new_listing/C5_photos');
             // echo "Sorry, your file is too large.";
@@ -244,12 +281,12 @@ class EditImagesController extends CI_Controller
         // if everything is ok, try to upload file
         } 
         else {
-            if (move_uploaded_file($_FILES[$id]["tmp_name"], $target_file)) {
+            if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
                 // $_SESSION['error_page5'] = "Sorry, file already exists."; 
                 // $this->load->view('new_listing/C4_description');
                 // $_SESSION['post'][$imageArray][] = $filename;
                 return true;
-                // echo "The file ". basename( $_FILES[$id]["name"][$i]). " has been uploaded.";
+                // echo "The file ". basename( $_FILES["photo"]["name"][$i]). " has been uploaded.";
             } else {
                 $_SESSION['error_page5'] = "Sorry, there was an unexpected error uploading your file."; 
                 // $this->load->view('new_listing/C5_photos');

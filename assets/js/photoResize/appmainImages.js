@@ -26,6 +26,38 @@
 		request.responseType = 'json';
 		request.send(formData);
 	};
+	var upload2 = function (photo,initialSize,loc, callback) {
+
+		var formData = new FormData();
+		// console.log(loc);
+		formData.append('loc', loc);
+		formData.append('photo', photo);
+		var request = new XMLHttpRequest();
+		request.onreadystatechange = function() {
+			if (request.readyState === 4) {
+				callback(request.response);
+			}
+		}
+		request.open('POST', '../EditImagesController/photoUploadRoomMultiple');
+		request.responseType = 'json';
+		request.send(formData);
+	};
+	var upload3 = function (photo,initialSize,loc, callback) {
+
+		var formData = new FormData();
+		// console.log(loc);
+		formData.append('loc', loc);
+		formData.append('photo', photo);
+		var request = new XMLHttpRequest();
+		request.onreadystatechange = function() {
+			if (request.readyState === 4) {
+				callback(request.response);
+			}
+		}
+		request.open('POST', '../EditImagesController/photoUploadMainMultiple');
+		request.responseType = 'json';
+		request.send(formData);
+	};
 
 	var fileSize = function (size) {
 		var i = Math.floor(Math.log(size) / Math.log(1024));

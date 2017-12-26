@@ -294,52 +294,54 @@
     }
 
     function addImage() {
-        $("input[name='userfile2[]']").each(function () {
+        var files = document.getElementById("userfile2").files;
+        var loc = $("#changePath").val();
+        for (var i in files) {
 
-            if ($(this).val() == "") {
-                alert("No image location is specified for the given location.");
-                val = false;
+            if (typeof files[i] !== 'object'){
+                // alert ('not object');
+                continue;
             }
-        });
-        if (!val) {
-            return false;
+            // console.log(id);
+            // console.log(loc);
+            (function () {
+
+                var initialSize = files[i].size;
+
+                resize.photo(files[i], 880, 488, 'file', function (resizedFile) {
+
+                    //var resizedSize = resizedFile.size;
+                    // ds.push(resizedFile);
+                    upload3(resizedFile,initialSize,loc, function (response) {
+                    });
+
+                });
+                // alert('for loop');
+            }());
+            // alert('object');
         }
-        else {
             $('#myModal').modal('hide');
-            var values = [];
-            $("input[name='userfile2[]']").each(function () {
-                values.push($(this).val());
-            });
-            $.ajax({
-                type: 'POST',
-                data: 'imagefile=' + values,
-                url: "<?php echo base_url(); ?>index.php/EditImagesController/addImage",
-                success: function (data) {
-                    location.reload();
-                }
-            });
-        }
     }
 
-    function addAnotherInput() {
-        var values = [];
-        $("input[name='userfile2[]']").each(function () {
+    // function addAnotherInput() {
+    //     var values = [];
+    //     $("input[name='userfile2[]']").each(function () {
 
-            if ($(this).val() == "") {
-                alert("No image location is specified for the given location.");
-                return false;
-            }
-        });
-        var node_input = document.createElement("input");
-        node_input.setAttribute("type", "file");
-        node_input.setAttribute("class", "form-control");
-        node_input.setAttribute("name", "userfile2[]");
-        var node = document.createElement("DIV");
-        node.setAttribute("class", "form-group");
-        node.appendChild(node_input);
-        document.getElementById("inputImagesAdd").appendChild(node);
+    //         if ($(this).val() == "") {
+    //             alert("No image location is specified for the given location.");
+    //             return false;
+    //         }
+    //     });
+    //     var node_input = document.createElement("input");
+    //     node_input.setAttribute("type", "file");
+    //     node_input.setAttribute("class", "form-control");
+    //     node_input.setAttribute("name", "userfile2[]");
+    //     var node = document.createElement("DIV");
+    //     node.setAttribute("class", "form-group");
+    //     node.appendChild(node_input);
+    //     document.getElementById("inputImagesAdd").appendChild(node);
 
-    }
+    // }
 
     function changeImage(imageId, loc) {
         $('#changeId').attr('value', imageId);
@@ -415,7 +417,7 @@
                     <input type="file" class="form-control" name="userfile" id="userfile">
                 </div>
                 <input type="hidden" id="changeId">
-                <input type="hidden" id="changePath">
+                <input type="hidden" id="changePath" value="<?php echo $images[0]->image_path ?>">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default"
@@ -441,13 +443,13 @@
             <div class="modal-body" id="inputImagesAdd">
                 <div class="form-group">
                     <label for="userfile2[]">Image File</label>
-                    <input type="file" class="form-control" name="userfile2[]">
+                    <input type="file" class="form-control" name="userfile2[]"  id="userfile2" accept="image/jpeg, image/png" multiple>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
+                <!-- <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
                     Add another image
-                </button>
+                </button> -->
                 <button type="button" class="btn btn-default btn-sm"
                         onclick="addImage()">Upload
                 </button>
