@@ -176,6 +176,17 @@ class EditImagesController extends CI_Controller
                 }
             }
     }
+    public function photoUploadRoom(){
+        // session_start();
+            if (isset($_FILES["photo"]) && isset($_POST["id"])&& isset($_POST["loc"])) {
+                $path =  explode("/",$_POST["loc"]);
+                // $name ='photo' . date('Y-m-d-H-i-s') . '_' . uniqid() . '.jpg';
+                $name = $path[sizeof($path)-1];
+                $dir = $path[sizeof($path)-2];
+                $this->uploadSolo("photo",$dir,$name);
+                
+            }
+    }
     public function uploadSolo($id, $directory , $filename)
     {
         $target_dir = "backend/assets/images/listings/$directory/";

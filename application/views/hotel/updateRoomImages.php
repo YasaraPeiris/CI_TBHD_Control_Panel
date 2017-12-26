@@ -393,6 +393,9 @@
     </div>
 
     </section>
+    <script src="../../assets/js/photoResize/canvas-to-blob.min.js"></script>
+    <script src="../../assets/js/photoResize/resize.js"></script>
+    <script src="../../assets/js/photoResize/appmainImages.js"></script>
     <script>
 
 
@@ -411,7 +414,7 @@
 
         function addImage() {
             var val=true;
-            $("input[name='userfile[]']").each(function () {
+            $("input[name='userfile2[]']").each(function () {
 
                 if ($(this).val() == "") {
                     alert("No image location is specified for the given location.");
@@ -425,7 +428,7 @@
                 $('#myModal').modal('hide');
                 var values = [];
 
-                $("input[name='userfile[]']").each(function () {
+                $("input[name='userfile2[]']").each(function () {
                     values.push($(this).val());
                 });
                 $.ajax({
@@ -448,32 +451,49 @@
 
         function saveImage(){
 
-            checkVal = $("input[name='userfile']").val();
+            var checkVal = $("input[name='userfile']").val();
+            var files = document.getElementById("userfile").files;
             if (checkVal == "") {
                 alert("No image location is specified for the given location.");
                 return false;
             }
             else{
-                $('#myModalChange').modal('hide');
                 var id = $("#changeId").val();
                 var loc = $("#changePath").val();
+                // console.log(id);
+                // console.log(loc);
+                (function () {
+
+                    var initialSize = files[0].size;
+
+                    resize.photo(files[0], 880, 488, 'file', function (resizedFile) {
+
+                        //var resizedSize = resizedFile.size;
+                        // ds.push(resizedFile);
+                        upload(resizedFile,initialSize,id, loc,'big', function (response) {
+                        });
+
+                    });
+                    // alert('for loop');
+                }());
+                $('#myModalChange').modal('hide');
 
                 //upload to the same location
-                $.ajax({
-                    type: 'POST',
-                    data: {"imageid": id, "imageloc": loc},
-                    url: "<?php echo base_url(); ?>index.php/EditImagesController/updateRoomImage",
-                    success: function (data) {
-                        location.reload();
-                    }
-                });
+                // $.ajax({
+                //     type: 'POST',
+                //     data: {"imageid": id, "imageloc": loc},
+                //     url: "<?php echo base_url(); ?>index.php/EditImagesController/updateRoomImage",
+                //     success: function (data) {
+                //         location.reload();
+                //     }
+                // });
             }
         }
 
         function addAnotherInput() {
             var values = [];
             var val=true;
-            $("input[name='userfile[]']").each(function () {
+            $("input[name='userfile2[]']").each(function () {
 
                 if ($(this).val() == "") {
                     alert("No image location is specified for the given location.");
@@ -486,7 +506,7 @@
             var node_input = document.createElement("input");
             node_input.setAttribute("type", "file");
             node_input.setAttribute("class", "form-control");
-            node_input.setAttribute("name", "userfile[]");
+            node_input.setAttribute("name", "userfile2[]");
             var node = document.createElement("DIV");
             node.setAttribute("class", "form-group");
             node.appendChild(node_input);
@@ -514,7 +534,7 @@
                 <div class="modal-body" id="inputImages">
                     <div class="form-group">
                         <label for="userfile">Image File</label>
-                        <input type="file" class="form-control" name="userfile">
+                        <input type="file" class="form-control" name="userfile" id="userfile">
                     </div>
                     <input type="hidden" id="changeId">
                     <input type="hidden" id="changePath">
@@ -542,8 +562,8 @@
                 </div>
                 <div class="modal-body" id="inputImagesAdd">
                     <div class="form-group">
-                        <label for="userfile[]">Image File</label>
-                        <input type="file" class="form-control" name="userfile[]">
+                        <label for="userfile2[]">Image File</label>
+                        <input type="file" class="form-control" name="userfile2[]">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -351,7 +351,7 @@
 	    // e.preventDefault();
         var checkVal = $("input[name='userfile']").val();
         var files = document.getElementById("userfile").files;
-        console.log(files);
+        // console.log(files);
         if (checkVal == "") {
             alert("No image location is specified for the given location.");
             return false;
