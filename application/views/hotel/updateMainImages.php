@@ -241,7 +241,7 @@
 
                                                     <p>
                                                         <button type="button" class="btn btn-danger btn-sm"
-                                                                onclick="deleteImage(<?php echo $img->listing_pic_id ?>)">
+                                                                onclick="confirmDialog(<?php echo $img->listing_pic_id ?>)">
                                                             Delete
                                                         </button>
                                                         <button type="button" style="float: right;"
@@ -271,7 +271,8 @@
 </div>
 <script>
 
-    function deleteImage(id) {
+    function deleteImage() {
+        id = $('#runFunc').val();
         $.ajax({
             type: 'POST',
             data: 'imageid=' + id,
@@ -281,6 +282,11 @@
             }
         });
 
+    }
+
+    function  confirmDialog(id) {
+        $('#runFunc').attr('value',id);
+        $("#confirmDialog").modal();
     }
 
     function addImage() {
@@ -416,6 +422,20 @@
             </div>
         </div>
 
+    </div>
+</div>
+<div id="confirmDialog" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                Are you sure you want to do this thing?
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="runFunc">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="confirmed" onclick="deleteImage()">Yes</button>
+                <button type="button" data-dismiss="modal" class="btn">No</button>
+            </div>
+        </div>
     </div>
 </div>
 
