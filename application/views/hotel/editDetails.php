@@ -161,7 +161,7 @@
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a title="My account" href="<?php echo base_url('index.php/EditDetailsController/roomimages'); ?>" class="small-box-footer"
+                        <a title="My account" href="<?php echo base_url('index.php/EditImagesController/roomimages'); ?>" class="small-box-footer"
                            style="height: 50px;line-height: 50px;font-size: 1.2em;color:#222d32;">Click Here <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         <!-- href='<?php //echo base_url ('index.php/EditDetailsController/viewHomePage'); ?>' -->

@@ -62,6 +62,66 @@
             border: none;
         }
     </style>
+    <style type="text/css">
+
+
+
+        body {
+            background-color: #fff;
+
+            color: #4F5155;
+        }
+
+        a {
+            color: #003399;
+            background-color: transparent;
+            font-weight: normal;
+        }
+
+        h1 {
+            color: #444;
+            background-color: transparent;
+            border-bottom: 1px solid #D0D0D0;
+            font-size: 19px;
+            font-weight: normal;
+            margin: 0 0 14px 0;
+            padding: 14px 15px 10px 15px;
+        }
+
+        code {
+            font-family: Consolas, Monaco, Courier New, Courier, monospace;
+            font-size: 12px;
+            background-color: #f9f9f9;
+            border: 1px solid #D0D0D0;
+            color: #002166;
+            display: block;
+            margin: 14px 0 14px 0;
+            padding: 12px 10px 12px 10px;
+        }
+
+        #body {
+            margin: 15px;
+        }
+
+        p.footer {
+            text-align: right;
+            font-size: 11px;
+            border-top: 1px solid #D0D0D0;
+            line-height: 32px;
+            padding: 0 10px 0 10px;
+            margin: 20px 0 0 0;
+        }
+
+        #container {
+            margin: 10px;
+            box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 10px;
+
+        }
+        h4{
+            color:dimgrey;
+        }
+    </style>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini" style="font-size: 14px;">
@@ -92,774 +152,473 @@
 
         <section class="content" style="padding-right:5%;padding-left:5%;">
             <div id="about_web" class="box box-solid"
-                 style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
+                 style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;padding: 5px;">
                 <div class="box-header with-border" style="text-align: center;">
                     <h3 class="box-title"
-                        style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">Room
-                        Details</h3>
+                        style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">
+                        Room Images Gallery</h3>
                 </div>
-
+                <?php ?>
                 <div class="small-box" id="hotelDes" style="box-shadow:none;">
                     <ul class="nav nav-tabs" id="roomnames">
                         <li id="0" class="active"><a id="0" data-toggle="tab" style="background-color: transparent;"
-                                                     href="<?php echo '#' . preg_replace('/\s+/', '', $data1[0]->room_name); ?>"><?php echo $data1[0]->room_name ?></a>
+                                                     href="<?php echo '#' . preg_replace('/\s+/', '', $room[0]['room_name']); ?>"><?php echo $room[0]['room_name'] ?></a>
                         </li>
-                        <?php for ($i = 1; $i < sizeof($data1); $i++) { ?>
+                        <?php for ($i = 1; $i < sizeof($room); $i++) { ?>
 
                             <li id="<?php echo $i ?>"><a id="<?php echo $i ?>" data-toggle="tab"
                                                          style="background-color: transparent;"
-                                                         href="<?php echo '#' . preg_replace('/\s+/', '', $data1[$i]->room_name); ?>"><?php echo $data1[$i]->room_name ?></a>
+                                                         href="<?php echo '#' . preg_replace('/\s+/', '', $room[$i]['room_name']); ?>"><?php echo $room[$i]['room_name'] ?></a>
                             </li>
                         <?php } ?>
                     </ul>
                     <div class="tab-content">
-                        <div style="background: white;" id="<?php echo preg_replace('/\s+/', '', $data1[0]->room_name); ?>"
+                        <div style="background: white;" id="<?php echo preg_replace('/\s+/', '', $room[0]['room_name']); ?>"
                              class="tab-pane fade in active">
-                            <div class="box box-info" style="padding:2%;border-color:gray;border:1px solid #f4f4f4;">
+                            <div id="container">
+                                <h4 style="font-weight:bold;">Main Images</h4>
 
+                                <div id="body">
+                                    <?php
 
-                                <div class="box-body pad"
-                                     style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 2%;padding-bottom: 1%;">
+                                    $images = $room[0]['room_images'];
 
-                                    <form method="post" action="<?php echo site_url(); ?>/EditDetailsController/saveDetails"  id="roomForm0" name="roomForm0">
-                                        <input type="hidden" name="formId" value="0">
-                                                                                <input type="hidden" name="roomTypeId" value="<?php echo $data1[0]->room_type_id?>">
-                                        <div class="col-md-12" style="margin-bottom: 10px;">
-                                            <div class="col-md-4">
-                                                <p style="color:dimgrey;font-size: 14px;"> Room Type</p>
+                                    if (sizeof($images) > 0) : ?>
+
+                                        <?php if ($this->session->flashdata('message')) : ?>
+                                            <div class="alert alert-success" role="alert" align="center">
+                                                <?= $this->session->flashdata('message') ?>
                                             </div>
-                                            <div class="col-md-8">
-                                                <div class="col-md-12">
-                                                    <div class="col-md-6" style="margin-bottom: 2%;">
-                                                        <label class="radio-inline"><input type="radio" id="Single0"
-                                                                                           name="optradio0" value="Single">Single Room</label>
-                                                    </div>
-                                                    <div class="col-md-6" style="margin-bottom: 2%;">
-                                                        <label class="radio-inline"><input type="radio" id="Double0"
-                                                                                           name="optradio0" value="Double">Double Room</label>
-                                                    </div>
-                                                </div>
+                                        <?php endif; ?>
 
-                                                <div class="col-md-12">
-                                                    <div class="col-md-6" style="margin-bottom: 2%;">
-                                                        <label class="radio-inline"><input type="radio" id="Twin0"
-                                                                                           name="optradio0" value="Twin">Twin
-                                                            Room</label>
+                                        <!-- Modal -->
+                                        <div id="myModalChange" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;
+                                                        </button>
+                                                        <h4 class="modal-title">Change existing main image</h4>
                                                     </div>
-                                                    <div class="col-md-6" style="margin-bottom: 2%;">
-                                                        <label class="radio-inline"><input type="radio" id="Triple0"
-                                                                                           name="optradio0" value="Triple">Triple Room</label>
+                                                    <div class="modal-body" id="inputImages">
+                                                        <div class="form-group">
+                                                            <label for="userfile">Image File</label>
+                                                            <input type="file" class="form-control" name="userfile">
+                                                        </div>
+                                                        <input type="hidden" id="changeId">
+                                                        <input type="hidden" id="changePath">
                                                     </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="col-md-6" style="margin-bottom: 2%;">
-                                                        <label class="radio-inline"><input type="radio" id="Quadruple0"
-                                                                                           name="optradio0" value="Quadruple">Quadruple
-                                                            Room</label>
-                                                    </div>
-                                                    <div class="col-md-6" style="margin-bottom: 2%;">
-                                                        <label class="radio-inline"><input type="radio" id="Family0"
-                                                                                           name="optradio0" value="Family">Family Room</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="col-md-6" style="margin-bottom: 2%;">
-                                                        <label class="radio-inline"><input type="radio" id="Studio0"
-                                                                                           name="optradio0" value="Studio">Studio Room</label>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Cancel
+                                                        </button>
+                                                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
+                                                                onclick="saveImage()">Save Image
+                                                        </button>
                                                     </div>
                                                 </div>
 
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-12" style="margin-bottom: 10px;">
-                                            <div class="col-md-4">
-                                                <p style="color:dimgrey;font-size: 14px;"> Room Name</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" name="room_name0"
-                                                       value="<?php echo $data1[0]->room_name; ?>"
-                                                       style="color:dimgrey;font-size: 14px;margin: 0px 10px; padding: 6px;width:100%;"
-                                                       required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12" style="margin-bottom: 10px;">
-                                            <div class="col-md-4">
-                                                <p style="color:dimgrey;font-size: 14px;"> Occupancy</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="number" name="occupancy0"
-                                                       value="<?php echo $data1[0]->no_of_people; ?>" min="1" max="16"
-                                                       style="color:dimgrey;font-size: 14px;margin: 0 10px; min-width: 50px; padding: 2px 10px; "
-                                                       required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12" style="margin-bottom: 10px;">
-                                            <div class="col-md-4">
-                                                <p style="color:dimgrey;font-size: 14px;"> Maximum Occupancy</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="number" name="max_occupancy0" id="max_ppl"
-                                                       value="<?php echo $data1[0]->max_no_of_guests; ?>" min="1"
-                                                       max="16"
-                                                       style="margin: 0 10px;color:dimgrey;font-size: 14px; min-width: 50px; padding: 2px 10px; "
-                                                       required>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- <label for="rent_area">Your Rent Area</label> -->
-                                        <br>
-                                        <hr>
-                                        <div class="col-md-12" name="roomprices" style="border:1px solid #f4f4f4;padding:2%">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr style="text-align:center;">
-                                                    <th>Price Condition</th>
-                                                    <th>Price</th>
-                                                    <th>Facilities</th>
-                                                    <th>Note</th>
-                                                    <!--                                                         <th>Add Facilities</th>-->
-                                                    <!--                                                    <th>Remove Facilities</th>-->
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <?php
-                                                $r = json_decode($data1[0]->price_details);
-                                                for($i=0;$i<sizeof($r->priceArry);$i++){  // for number of rooms
-
-                                                    ?>
-
-                                                    <tr>
-                                                        <td><?php echo $r->priceNameArry[$i]; ?>
-                                                        <input type="hidden" value="<?php echo $r->priceNameArry[$i]; ?>" name="pricename0[]"></td>
-                                                        <td><input   value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$i])),2); ?>" name="roomprice0[]"></td>
-<!--                                                        <td><input style="border: none;background-color:transparent;text-align: right;"  value="--><?php //echo $r->priceArry[$i]; ?><!--" name="roomprice0[]"></td>-->
-
-                                                        <td>
-                                                        <?php
-                                                        if (isset($r->priceFaci[$i])) {                                                          
-                                                            $nm= sizeof($r->priceFaci[$i]);
-
-                                                            for($j=0; $j<$nm; $j++){
-                                                                echo $r->priceFaci[$i][$j]." , " ; }
-                                                        }
-
-
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $r->priceOtherArry[$i]; ?></td>
-
-                                                    </tr>
-                                                <?php } 
-                                                ?>
-
-                                                        <input type="hidden" value='<?php echo json_encode( $r->priceOtherArry); ?>' name="priceOtherArry0">
-                                                        <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci0">
-
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <br>
-                                        <div class="col-md-12" style="margin-bottom: 10px;margin-top:4%;">
-                                            <div class="col-md-4">
-                                                <p style="color:dimgrey;font-size: 14px;"> Bathroom</p>
-                                            </div>
-                                            <div class="col-md-4">
-
-                                                <select id="bathroom_type" name="bathroom_type0"
-                                                        style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"
-                                                        required="true">
-                                                    <option selected disabled>Please Select</option>
-                                                    <option value="attached" <?php if ($data1[0]->bathroom_type == "attached") {
-                                                        echo "selected";
-                                                    } ?> >Attached
-                                                    </option>
-                                                    <option value="private" <?php if ($data1[0]->bathroom_type == "private") {
-                                                        echo "selected";
-                                                    } ?>>Private
-                                                    </option>
-                                                    <option value="shared" <?php if ($data1[0]->bathroom_type == "shared") {
-                                                        echo "selected";
-                                                    } ?>>Shared
-                                                    </option>
-                                                </select>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12"
-                                             style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;color:dimgrey;">
-                                            <?php $array = json_decode($data1[0]->room_facilities); ?>
-                                            <div class="col-md-12" style="margin-bottom: 1%;">
-                                                <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="Wifi" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>>
-                                                    Wifi @ the room <br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="AC" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>>
-                                                    Air Conditioned room <br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Heating Fireplace" <?php if (in_array("Heating Fireplace", $array)) { echo 'checked="checked"';}?>>
-                                                    Heating/ Fireplace in the room
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="Fan" <?php if (in_array("Fan", $array)) { echo 'checked="checked"';}?>>
-                                                    Fans in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Mosquito Nets" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>> Mosquito Nets <br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Hot Water" <?php if (in_array("Hot Water", $array)) { echo 'checked="checked"';}?>> Hot Water
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="col-md-12" style="margin-bottom: 1%;">
-                                                <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Refrigerator"> Refrigerator in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="Iron" <?php if (in_array("Refrigerator", $array)) { echo 'checked="checked"';}?>>
-                                                    Iron in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Flat Screen TV" <?php if (in_array("Flat Screen TV", $array)) { echo 'checked="checked"';}?>> Flat Screen TV in the room<br>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="TV" <?php if (in_array("TV", $array)) { echo 'checked="checked"';}?>>
-                                                    TV in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Satellite Channels" <?php if (in_array("Satellite Channels", $array)) { echo 'checked="checked"';}?>> Satellite Channels <br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Hair Dryer" <?php if (in_array("Hair Dryer", $array)) { echo 'checked="checked"';}?>> Hair Dryer in the room<br>
-                                                </div>
-                                            </div>
+                                        <hr/>
+                                        <div class="row">
 
-                                            <div class="col-md-12" style="margin-bottom: 1%;">
-                                                <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="ClothRack" <?php if (in_array("ClothRack", $array)) { echo 'checked="checked"';}?>> Cloth Rack in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Wardrobe Closet" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>> Wardrobe / Closet in the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]' value="Safe" <?php if (in_array("Safe", $array)) { echo 'checked="checked"';}?>>
-                                                    Safe in the room<br>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    Seating facilities to, <br>
-                                                    <input type="radio" name="room_faci_radio0[]" class="faci"  checked="checked"
-                                                           value="Chairs To Every One"> 
-                                                    every one 
+                                            <?php
+                                            foreach ($images as $img) :
 
-                                                    <input type="radio" name="room_faci_radio0[]" value="Chairs Only To Fewer" <?php if (in_array("Chairs Only To Fewer", $array)) { echo 'checked="checked"';}?>>
-                                                    fewer 
-                                                    <input type="radio" name="room_faci_radio0[]"  value="No chairs" <?php if (in_array("No chairs", $array)) { echo 'checked="checked"';}?>> 
-                                                    No chairs
-                                                    <br>
-                                                    <input type="checkbox" name="room_faci0[]" class="faci" name='room_faci0[]' value="Desk" <?php if (in_array("Desk", $array)) { echo 'checked="checked"';}?>>
-                                                    Desk in the room
-                                                </div>
-                                            </div>
+                                                if($img->is_main){?>
+                                                    <div class="col-md-3 col-sm-3">
+                                                        <div class="thumbnail">
+                                                            <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                            <div class="caption" style="padding-bottom: 0;">
 
-                                            <div class="col-md-12" style="margin-bottom: 1%;">
-                                                <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Carpeted" <?php if (in_array("Carpeted", $array)) { echo 'checked="checked"';}?>> Carpeted Room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Tiled/Marble Floor" <?php if (in_array("Tiled/Marble Floor", $array)) { echo 'checked="checked"';}?>> Tiled/Marble Room Floor<br>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Balcony Directly Accessible from the room" <?php if (in_array("Balcony Directly Accessible from the room", $array)) { echo 'checked="checked"';}?>> Balcony
-                                                    Directly Accessible from the room<br>
-                                                    <input type="checkbox" class="faci" name='room_faci0[]'
-                                                           value="Terrace Directly Accessible from the room" <?php if (in_array("Terrace Directly Accessible from the room", $array)) { echo 'checked="checked"';}?>> Terrace
-                                                    Directly Accessible from the room<br>
-                                                </div>
-                                            </div>
+                                                                <p style="text-align: center;">
+                                                                    <button type="button" class="btn btn-success btn-sm" style="text-align: center;margin: 0 auto;"
+                                                                            onclick="changeImage(<?php echo $img->roompic_id?>,'../../<?php echo $img->image_path ?>')">
+                                                                        Change
+                                                                    </button>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php }
+                                                endforeach; ?>
                                         </div>
-                                        <!--                                        <div class="col-md-12"-->
-                                        <!--                                             style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;;color:dimgrey;">-->
-                                        <!--                                            <div class="col-md-12" style="margin-bottom: 10px;">-->
-                                        <!--                                                <div class="col-md-4">-->
-                                        <!--                                                    <p style="color:dimgrey;font-size: 14px;"> Room has a</p>-->
-                                        <!--                                                </div>-->
-                                        <!--                                                <div class="col-md-4">-->
-                                        <!---->
-                                        <!--                                                    <select i-->
-                                        <!--                                                            d="view" name="view"-->
-                                        <!--                                                            style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"-->
-                                        <!--                                                            required="true">-->
-                                        <!--                                                        <option value="no_view" selected>No view</option>-->
-                                        <!--                                                        <option value="City">City View</option>-->
-                                        <!--                                                        <option value="Garden">Garden View</option>-->
-                                        <!--                                                        <option value="Lake">Lake View</option>-->
-                                        <!--                                                        <option value="Mountain">Mountain View</option>-->
-                                        <!--                                                        <option value="River">River View</option>-->
-                                        <!--                                                        <option value="Sea">Sea View</option>-->
-                                        <!--                                                        <option value="Pool">Pool View</option>-->
-                                        <!--                                                        <option value="Landmark_View">Landmark View</option>-->
-                                        <!--                                                    </select>-->
-                                        <!--                                                </div>-->
-                                        <!--                                            </div>-->
-                                        <!--                                        </div>-->
-                                        <div class="col-md-12"
-                                             style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
-                                            <div class="col-md-12">
-                                                <div class="col-md-6">
-                                                    <input type="checkbox" name='room_faci0[]'
-                                                           value="Wheelchair Accessible" <?php if (in_array("Wheelchair Accessible", $array)) { echo 'checked="checked"';}?>> Room is Wheelchair
-                                                    accessible<br>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="checkbox" name='room_faci0[]'
-                                                           value="Elevator Accessible" <?php if (in_array("Elevator Accessible", $array)) { echo 'checked="checked"';}?>> Room is Elevator
-                                                    accessible<br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12"
-                                             style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
-
-                                            <div class="col-md-12" style=";color:dimgrey;">
-                                                <div class="col-md-6">
-                                                    How many this kind of rooms?
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="number" name="each_room_count0"
-                                                           value="<?php echo $data1[0]->no_of_rooms; ?>" min="1"
-                                                           max="10"
-                                                           style="margin: 5px 10px; min-width: 50px; padding: 2px 10px; ">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12" style=";color:dimgrey;margin-top:2%;">
-                                            <button type="reset" name="reset0" class="btn btn-default btn-lg"
-                                                    style='float:right;background-color: #8892d6;color:white;font-size: inherit;'
-                                                    onclick="ResetDetails()">Reset Details
-                                            </button>
-                                            <button type="btn" id="save0" name="save0" class="btn btn-default btn-lg"
-                                                    style='float:right;background-color: #8892d6;color:white;font-size: inherit;'
-                                                    onclick="saveDetails()">Save
-                                            </button>
-                                        </div>
-                                    </form>
+                                    <?php else : ?>
+                                        <div align="center">We don't have any image yet, go ahead and add a new image.</div>
+                                    <?php endif;
+                                    ?>
                                 </div>
 
-
                             </div>
+
+
+                        <hr>
+                        <div id="container">
+                            <h4 style="font-weight:bold;">Other Images</h4>
+                            <hr>
+                            <div id="body">
+                                <?php
+                                if (sizeof($images) > 0) :
+                                    ?>
+                                    <?php
+                                if ($this->session->flashdata('message')) :
+                                    ?>
+                                    <div class="alert alert-success" role="alert" align="center">
+                                        <?= $this->session->flashdata('message') ?>
+                                    </div>
+                                <?php
+                                endif;
+                                ?>
+                                    <button type="button" class="btn btn-info btn-md" data-toggle="modal"
+                                            data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add a new Image
+                                    </button>
+                                    <!-- Modal -->
+                                    <div id="myModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Add new Image</h4>
+                                                </div>
+                                                <div class="modal-body" id="inputImages">
+                                                    <div class="form-group">
+                                                        <label for="userfile[]">Image File</label>
+                                                        <input type="file" class="form-control" name="userfile[]">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
+                                                        Add another image
+                                                    </button>
+                                                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
+                                                            onclick="addImage()">Upload
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <script>
+                                        function addAnotherInput() {
+                                            var values = [];
+                                            $("input[name='userfile[]']").each(function () {
+
+                                                if ($(this).val() == "") {
+                                                    alert("No image location is specified for the given location.");
+                                                    e.preventDefault();
+                                                }
+                                            });
+                                            var node_input = document.createElement("input");
+                                            node_input.setAttribute("type", "file");
+                                            node_input.setAttribute("class", "form-control");
+                                            node_input.setAttribute("name", "userfile[]");
+                                            var node = document.createElement("DIV");
+                                            node.setAttribute("class", "form-group");
+                                            node.appendChild(node_input);
+                                            document.getElementById("inputImages").appendChild(node);
+
+                                        }
+                                    </script>
+                                <hr style="margin-top: 5px;margin-bottom: 5px;">
+                                    <div class="row">
+                                        <?php foreach ($images as $img) :
+                                            if(!$img->is_main){?>
+                                                <div class="col-md-3 col-sm-3">
+                                                    <div class="thumbnail">
+                                                        <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                        <div class="caption" style="padding-bottom: 0;">
+
+                                                            <p>
+                                                                <button type="button" class="btn btn-danger btn-sm"
+                                                                        onclick="deleteImage(<?php echo $img->roompic_id ?>)">
+                                                                    Delete
+                                                                </button>
+                                                                <button type="button" style="float: right;" class="btn btn-success btn-sm"
+                                                                        onclick="changeImage(<?php echo $img->roompic_id ?>,'../../<?php echo $img->image_path ?>')">
+                                                                    Change
+                                                                </button>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php }endforeach; ?>
+                                    </div>
+                                <?php else : ?>
+                                    <div align="center">We don't have any image yet, go ahead and add a new image.</div>
+                                <?php endif; ?>
+                            </div>
+
                         </div>
-                        <?php for ($i = 1; $i < sizeof($data1); $i++) { ?>
-                            <div style="background: white;" id="<?php echo preg_replace('/\s+/', '', $data1[$i]->room_name); ?>"
-                                 class="tab-pane fade">
-                                <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
-                                    <div class="box-body pad"
-                                         style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 2%;padding-bottom: 1%;">
 
-                                        <form method="post" action="<?php echo site_url(); ?>/EditDetailsController/saveDetails"  enctype="multipart/form-data" id="roomForm<?php echo $i; ?>" name="roomForm<?php echo $i; ?>">
-                                            <input type="hidden" name="formId" value="<?php echo $i?>">
-                                                                                        <input type="hidden" name="roomTypeId" value="<?php echo $data1[$i]->room_type_id?>">
-                                            <div class="col-md-12" style="margin-bottom: 10px;">
-                                                <div class="col-md-4">
-                                                    <p style="color:dimgrey;font-size: 14px;"> Room Type</p>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="col-md-12">
-                                                        <div class="col-md-6" style="margin-bottom: 2%;">
-                                                            <label class="radio-inline"><input type="radio" id='Single<?php echo $i ?>'
-                                                                                               name="optradio<?php echo $i; ?>" value="Single">Single
-                                                                Room</label>
-                                                        </div>
-                                                        <div class="col-md-6" style="margin-bottom: 2%;">
-                                                            <label class="radio-inline"><input type="radio" id="Double<?php echo $i ?>"
-                                                                                               name="optradio<?php echo $i; ?>" value="Double">Double
-                                                                Room</label>
-                                                        </div>
-                                                    </div>
+                        </div>
+                        <?php for ($i = 1; $i < sizeof($room); $i++) { ?>
+                        <div style="background: white;" id="<?php echo preg_replace('/\s+/', '', $room[$i]['room_name']); ?>"
+                             class="tab-pane fade">
+                    <div id="container">
+                        <h4 style="font-weight:bold;">Main Images</h4>
 
-                                                    <div class="col-md-12">
-                                                        <div class="col-md-6" style="margin-bottom: 2%;">
+                        <div id="body">
+                            <?php
 
+                            $images = $room[$i]['room_images'];
 
-                                                            <label class="radio-inline"><input type="radio" id="Twin<?php echo $i; ?>"
-                                                                                               name="optradio<?php echo $i; ?>" value="Twin">Twin
-                                                                Room</label>
-                                                        </div>
-                                                        <div class="col-md-6" style="margin-bottom: 2%;">
-                                                            <label class="radio-inline"><input type="radio" id="Triple<?php echo $i; ?>"
-                                                                                               name="optradio<?php echo $i; ?>" value="Triple">Triple
-                                                                Room</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="col-md-6" style="margin-bottom: 2%;">
-                                                            <label class="radio-inline"><input type="radio"
-                                                                                               id="Quadruple<?php echo $i; ?>"
-                                                                                               name="optradio<?php echo $i; ?>" value="Quadruple">Quadruple
-                                                                Room</label>
-                                                        </div>
-                                                        <div class="col-md-6" style="margin-bottom: 2%;">
-                                                            <label class="radio-inline"><input type="radio" id="Family<?php echo $i; ?>"
-                                                                                               name="optradio<?php echo $i; ?>" value="Family">Family
-                                                                Room</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="col-md-6" style="margin-bottom: 2%;">
-                                                            <label class="radio-inline"><input type="radio" id="Studio<?php echo $i; ?>"
-                                                                                               name="optradio<?php echo $i; ?>" value="Studio">Studio
-                                                                Room</label>
-                                                        </div>
-                                                    </div>
+                            if (sizeof($images) > 0) : ?>
 
+                                <?php if ($this->session->flashdata('message')) : ?>
+                                    <div class="alert alert-success" role="alert" align="center">
+                                        <?= $this->session->flashdata('message') ?>
+                                    </div>
+                                <?php endif; ?>
 
-                                                </div>
+                                <!-- Modal -->
+                                <div id="myModalChange" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
 
-                                            </div>
-                                            <div class="col-md-12" style="margin-bottom: 10px;">
-                                                <div class="col-md-4">
-                                                    <p style="color:dimgrey;font-size: 14px;"> Room Name</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" name="room_name<?php echo $i; ?>"
-                                                           value="<?php echo $data1[$i]->room_name; ?>"
-                                                           style="color:dimgrey;font-size: 14px;margin: 0px 10px; padding: 6px;width:100%;"
-                                                           required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12" style="margin-bottom: 10px;">
-                                                <div class="col-md-4">
-                                                    <p style="color:dimgrey;font-size: 14px;"> Occupancy</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="number" name="occupancy<?php echo $i; ?>"
-                                                           value="<?php echo $data1[$i]->no_of_people; ?>" min="1"
-                                                           max="16"
-                                                           style="color:dimgrey;font-size: 14px;margin: 0 10px; min-width: 50px; padding: 2px 10px; "
-                                                           required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12" style="margin-bottom: 10px;">
-                                                <div class="col-md-4">
-                                                    <p style="color:dimgrey;font-size: 14px;"> Maximum Occupancy</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="number" name="max_occupancy<?php echo $i; ?>" id="max_ppl"
-                                                           value="<?php echo $data1[$i]->max_no_of_guests; ?>" min="1"
-                                                           max="16"
-                                                           style="margin: 0 10px;color:dimgrey;font-size: 14px; min-width: 50px; padding: 2px 10px; "
-                                                           required>
-                                                </div>
-                                            </div>
-
-                                            <!-- <label for="rent_area">Your Rent Area</label> -->
-                                            <br>
-                                            <hr>
-                                            <div class="col-md-12" style="border:1px solid #f4f4f4;padding:2%">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                    <tr style="text-align:center;">
-                                                        <th>Price Condition</th>
-                                                        <th>Price</th>
-                                                        <th>Facilities</th>
-                                                        <th>Note</th>
-                                                        <!--                                                         <th>Add Facilities</th>-->
-                                                        <!--                                                    <th>Remove Facilities</th>-->
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php
-                                                    $r = json_decode($data1[$i]->price_details);
-                                                    for($k=0;$k<sizeof($r->priceArry);$k++){
-
-                                                        ?>
-
-                                                        <tr>
-                                                            <td><?php echo $r->priceNameArry[$k]; ?>
-                                                            <input type="hidden" value="<?php echo $r->priceNameArry[$k]; ?>" name="pricename<?php echo $i; ?>[]"></td>
-                                                            <td><input name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$k])),2); ?>"></td>
-<!--                                                    <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice--><?php //echo $i; ?><!--[]"  value="--><?php //echo $r->priceArry[$k]; ?><!--"></td>-->
-
-                                                            <td>
-                                                            <?php
-                                                            $nm= sizeof($r->priceFaci[$k]);
-                                                            if($nm>0){
-
-                                                                for($j=0; $j<$nm; $j++){
-                                                                    echo $r->priceFaci[$k][$j]." , " ; }}
-                                                                ?>
-                                                            </td>
-                                                            <td><?php echo $r->priceOtherArry[$k]; ?></td>
-                                                        </tr>
-                                                    <?php } 
-                                                    // echo json_encode($r->priceFaci);
-                                                    // echo "--------";
-                                                    // print_r( json_encode($r->priceFaci));
-                                                    ?>
-                                                    <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci<?php echo $i; ?>">
-                                                    <input type="hidden" value='<?php echo json_encode( $r->priceOtherArry); ?>' name="priceOtherArry<?php echo $i; ?>">
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <br>
-                                            <div class="col-md-12" style="margin-bottom: 10px;margin-top:4%;">
-                                                <div class="col-md-4">
-                                                    <p style="color:dimgrey;font-size: 14px;"> Bathroom</p>
-                                                </div>
-                                                <div class="col-md-4">
-
-                                                    <select id="bathroom_type" name="bathroom_type<?php echo $i; ?>"
-                                                            style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"
-                                                            required="true">
-                                                        <option selected disabled>Please Select</option>
-                                                        <option value="attached" <?php if ($data1[$i]->bathroom_type == "attached") {
-                                                            echo "selected";
-                                                        } ?> >Attached
-                                                        </option>
-                                                        <option value="private" <?php if ($data1[$i]->bathroom_type == "private") {
-                                                            echo "selected";
-                                                        } ?>>Private
-                                                        </option>
-                                                        <option value="shared" <?php if ($data1[$i]->bathroom_type == "shared") {
-                                                            echo "selected";
-                                                        } ?>>Shared
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12"
-                                                 style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;color:dimgrey;">
-                                                <?php $array = json_decode($data1[$i]->room_facilities);
-                                                ?>
-                                                <div class="col-md-12" style="margin-bottom: 1%;">
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Wifi" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>>
-                                                        Wifi @ the room <br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="AC" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>>
-                                                        Air Conditioned room <br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Heating Fireplace" <?php if (in_array("Heating Fireplace", $array)) { echo 'checked="checked"';}?>>
-                                                        Heating/ Fireplace in the room
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Fan" <?php if (in_array("Fan", $array)) { echo 'checked="checked"';}?>>
-                                                        Fans in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Mosquito Nets" <?php if (in_array("AC", $array)) { echo 'checked="checked"';}?>> Mosquito Nets <br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Hot Water" <?php if (in_array("Hot Water", $array)) { echo 'checked="checked"';}?>> Hot Water
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="col-md-12" style="margin-bottom: 1%;">
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Refrigerator"> Refrigerator in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Iron" <?php if (in_array("Refrigerator", $array)) { echo 'checked="checked"';}?>>
-                                                        Iron in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Flat Screen TV" <?php if (in_array("Flat Screen TV", $array)) { echo 'checked="checked"';}?>> Flat Screen TV in the room<br>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="TV" <?php if (in_array("TV", $array)) { echo 'checked="checked"';}?>>
-                                                        TV in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Satellite Channels" <?php if (in_array("Satellite Channels", $array)) { echo 'checked="checked"';}?>> Satellite Channels <br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Hair Dryer" <?php if (in_array("Hair Dryer", $array)) { echo 'checked="checked"';}?>> Hair Dryer in the room<br>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12" style="margin-bottom: 1%;">
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="ClothRack" <?php if (in_array("ClothRack", $array)) { echo 'checked="checked"';}?>> Cloth Rack in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Wardrobe Closet" <?php if (in_array("Wifi", $array)) { echo 'checked="checked"';}?>> Wardrobe / Closet in the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Safe" <?php if (in_array("Safe", $array)) { echo 'checked="checked"';}?>>
-                                                        Safe in the room<br>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        Seating facilities to, <br>
-                                                        <input type="radio" class="faci" name="room_faci_radio<?php echo $i?>[]" checked="checked"
-                                                               value="Chairs To Every One"> every one 
-
-                                                        <input type="radio" name="room_faci_radio<?php echo $i?>[]" value="Chairs Only To Fewer" <?php if (in_array("Chairs Only To Fewer", $array)) { echo 'checked="checked"';}?>>
-                                                        fewer <input type="radio" name="room_faci_radio<?php echo $i?>[]" value="No chairs" <?php if (in_array("No chairs", $array)) { echo 'checked="checked"';}?>> No
-                                                        chairs<br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]' value="Desk" <?php if (in_array("Desk", $array)) { echo 'checked="checked"';}?>>
-                                                        Desk in the room
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12" style="margin-bottom: 1%;">
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Carpeted" <?php if (in_array("Carpeted", $array)) { echo 'checked="checked"';}?>> Carpeted Room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Tiled/Marble Floor" <?php if (in_array("Tiled/Marble Floor", $array)) { echo 'checked="checked"';}?>> Tiled/Marble Room Floor<br>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Balcony Directly Accessible from the room" <?php if (in_array("Balcony Directly Accessible from the room", $array)) { echo 'checked="checked"';}?>> Balcony
-                                                        Directly Accessible from the room<br>
-                                                        <input type="checkbox" class="faci" name='room_faci<?php echo $i?>[]'
-                                                               value="Terrace Directly Accessible from the room" <?php if (in_array("Terrace Directly Accessible from the room", $array)) { echo 'checked="checked"';}?>> Terrace
-                                                        Directly Accessible from the room<br>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--                                            <div class="col-md-12"-->
-                                            <!--                                                 style="border:1px solid #f4f4f4;padding:2%;margin-top: 2%;;color:dimgrey;">-->
-                                            <!--                                                <div class="col-md-12" style="margin-bottom: 10px;">-->
-                                            <!--                                                    <div class="col-md-4">-->
-                                            <!--                                                        <p style="color:dimgrey;font-size: 14px;"> Room has a</p>-->
-                                            <!--                                                    </div>-->
-                                            <!--                                                    <div class="col-md-4">-->
-                                            <!---->
-                                            <!--                                                        <select id="view" name="view"-->
-                                            <!--                                                                style="color:dimgrey;font-size:13px;margin: 0px 10px; padding: 8px;width:100%;"-->
-                                            <!--                                                                required="true">-->
-                                            <!--                                                            <option value="no_view" selected>No view</option>-->
-                                            <!--                                                            <option value="City">City View</option>-->
-                                            <!--                                                            <option value="Garden">Garden View</option>-->
-                                            <!--                                                            <option value="Lake">Lake View</option>-->
-                                            <!--                                                            <option value="Mountain">Mountain View</option>-->
-                                            <!--                                                            <option value="River">River View</option>-->
-                                            <!--                                                            <option value="Sea">Sea View</option>-->
-                                            <!--                                                            <option value="Pool">Pool View</option>-->
-                                            <!--                                                            <option value="Landmark_View">Landmark View</option>-->
-                                            <!--                                                        </select>-->
-                                            <!--                                                    </div>-->
-                                            <!--                                                </div>-->
-                                            <!--                                            </div>-->
-                                            <div class="col-md-12"
-                                                 style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
-                                                <div class="col-md-12">
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" name='room_faci<?php echo $i?>[]'
-                                                               value="Wheelchair Accessible" <?php if (in_array("Wheelchair Accessible", $array)) { echo 'checked="checked"';}?>> Room is Wheelchair
-                                                        accessible<br>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" name='room_faci<?php echo $i?>[]'
-                                                               value="Elevator Accessible" <?php if (in_array("Elevator Accessible", $array)) { echo 'checked="checked"';}?>> Room is Elevator
-                                                        accessible<br>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12"
-                                                 style=";color:dimgrey;border:1px solid #f4f4f4;padding:2%;margin-top: 2%;">
-
-                                                <div class="col-md-12" style=";color:dimgrey;">
-                                                    <div class="col-md-6">
-                                                        How many this kind of rooms?
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <input type="number" name="each_room_count<?php echo $i; ?>"
-                                                               value="<?php echo $data1[$i]->no_of_rooms; ?>" min="1"
-                                                               max="10"
-                                                               style="margin: 5px 10px; min-width: 50px; padding: 2px 10px; ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12" style=";color:dimgrey;margin-top:2%;">
-                                                <button type="reset" name="reset" class="btn btn-default btn-lg"
-                                                        style='float:right;background-color: #8892d6;color:white;font-size: inherit;'
-                                                        onclick="ResetDetails()">Reset Details
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;
                                                 </button>
-                                                <button type="submit" name="save" class="btn btn-default btn-lg"
-                                                        style='float:right;background-color: #8892d6;color:white;font-size: inherit;'
-                                                        onclick="saveDetails()">Save
+                                                <h4 class="modal-title">Change existing main image</h4>
+                                            </div>
+                                            <div class="modal-body" id="inputImages">
+                                                <div class="form-group">
+                                                    <label for="userfile">Image File</label>
+                                                    <input type="file" class="form-control" name="userfile">
+                                                </div>
+                                                <input type="hidden" id="changeId">
+                                                <input type="hidden" id="changePath">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Cancel
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
+                                                        onclick="saveImage()">Save Image
                                                 </button>
                                             </div>
-                                        </form>
+                                        </div>
+
                                     </div>
                                 </div>
 
-                            </div>
-                        <?php } ?>
-                        <!--<!-- <hr> -->
+                                <hr/>
+                                <div class="row">
+                                    <?php foreach ($images as $img) :
+                                        if($img->is_main){?>
+                                            <div class="col-md-3 col-sm-3">
+                                                <div class="thumbnail">
+                                                    <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                    <div class="caption" style="padding-bottom: 0;">
 
-
-                        <!-- <button onclick="goBack()" class="back_button">Back</button> -->
-                        <!-- <input type="submit" value="Finish" name="finishButton" id="dsas"> -->
-
-
-                        <hr style="border: 1px solid rgba(0, 0, 0, 0.3);margin-top: 60px;">
+                                                        <p style="text-align: center;">
+                                                            <button type="button" class="btn btn-success btn-sm" style="text-align: center;margin: 0 auto;"
+                                                                    onclick="changeImage(<?php echo $img->roompic_id?>,'../../<?php echo $img->image_path ?>')">
+                                                                Change
+                                                            </button>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php }endforeach; ?>
+                                </div>
+                            <?php else : ?>
+                                <div align="center">We don't have any image yet, go ahead and add a new image.</div>
+                            <?php endif;
+                            ?>
+                        </div>
 
                     </div>
-                </div>
-            </div>
-
-        </section>
 
 
-        <!-- <section class="content" style="padding-right:5%;padding-left:5%;">
-            <div  style="background:white;padding: 20px;box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);-webkit-border-radius: 5px;border-radius: 5px;">
+                <hr>
+                <div id="container">
+                    <h4 style="font-weight:bold;">Other Images</h4>
+                    <hr>
+                    <div id="body">
+                        <?php
+                        if (sizeof($images) > 0) :
+                            ?>
+                            <?php
+                        if ($this->session->flashdata('message')) :
+                            ?>
+                            <div class="alert alert-success" role="alert" align="center">
+                                <?= $this->session->flashdata('message') ?>
+                            </div>
+                        <?php
+                        endif;
+                        ?>
+                            <button type="button" class="btn btn-info btn-md" data-toggle="modal"
+                                    data-target="#myModal" style="background-color: #8892d6;border: #8892d6;">Add a new Image
+                            </button>
+                            <!-- Modal -->
+                            <div id="myModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
 
-            <h2 style="padding: 6px 15px 6px 15px;margin: 1px;font: bold 15px arial, sans-serif;color: #464646;margin-bottom: 20px;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);">Room Rates</h2>
-            <div class="small-box" id="hotelDes" style="box-shadow:none;">
-                <div style="background: white;" >
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="box box-info" style="border-color:gray;">
-                                <div class="box-body pad" style="color: black;">
-                                    <table id="example" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Room Type</th>
-                                                <th>Room Name</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Add new Image</h4>
+                                        </div>
+                                        <div class="modal-body" id="inputImages">
+                                            <div class="form-group">
+                                                <label for="userfile[]">Image File</label>
+                                                <input type="file" class="form-control" name="userfile[]">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-sm" onclick="addAnotherInput()">
+                                                Add another image
+                                            </button>
+                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
+                                                    onclick="addImage()">Upload
+                                            </button>
+                                        </div>
+                                    </div>
 
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
-                        </div>
+                            <script>
+                                function addAnotherInput() {
+                                    var values = [];
+                                    $("input[name='userfile[]']").each(function () {
+
+                                        if ($(this).val() == "") {
+                                            alert("No image location is specified for the given location.");
+                                            e.preventDefault();
+                                        }
+                                    });
+                                    var node_input = document.createElement("input");
+                                    node_input.setAttribute("type", "file");
+                                    node_input.setAttribute("class", "form-control");
+                                    node_input.setAttribute("name", "userfile[]");
+                                    var node = document.createElement("DIV");
+                                    node.setAttribute("class", "form-group");
+                                    node.appendChild(node_input);
+                                    document.getElementById("inputImages").appendChild(node);
+
+                                }
+                            </script>
+                        <hr style="margin-top: 5px;margin-bottom: 5px;">
+                            <div class="row">
+                                <?php foreach ($images as $img) :
+                                    if(!$img->is_main){?>
+                                        <div class="col-md-3 col-sm-3">
+                                            <div class="thumbnail">
+                                                <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                <div class="caption" style="padding-bottom: 0;">
+
+                                                    <p>
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                                onclick="deleteImage(<?php echo $img->roompic_id ?>)">
+                                                            Delete
+                                                        </button>
+                                                        <button type="button" style="float: right;" class="btn btn-success btn-sm"
+                                                                onclick="changeImage(<?php echo $img->roompic_id ?>,'../../<?php echo $img->image_path ?>')">
+                                                            Change
+                                                        </button>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php }endforeach; ?>
+                            </div>
+                        <?php else : ?>
+                            <div align="center">We don't have any image yet, go ahead and add a new image.</div>
+                        <?php endif; ?>
                     </div>
+
+                </div>
+
+                    </div>
+                    <?php } ?>
+
+                    <hr style="border: 1px solid rgba(0, 0, 0, 0.3);margin-top: 60px;">
+
                 </div>
             </div>
-
-        </div>
-
-        </section>
-     -->
-        <!-- /.content -->
     </div>
 
-    <!-- /.content-wrapper -->
-    <?php 
-       include 'footer.html';
-    ?>
+    </section>
+    <script>
 
-    <!-- Control Sidebar -->
+        function deleteImage(id) {
+            $.ajax({
+                type: 'POST',
+                data: 'imageid=' + id,
+                url: "<?php echo base_url(); ?>index.php/EditImagesController/deleteRoomImage",
+                success: function (data) {
+                    location.reload();
+                }
+            });
 
-    <!-- /.control-sidebar -->
-    <!-- Add the sidebar's background. This div must be placed
-    immediately after the control sidebar -->
-    <div class="control-sidebar-bg"></div>
+        }
+
+        function addImage() {
+            var values = [];
+            $("input[name='userfile[]']").each(function () {
+                values.push($(this).val());
+            });
+            $.ajax({
+                type: 'POST',
+                data: 'imagefile=' + values,
+                url: "<?php echo base_url(); ?>index.php/EditImagesController/addRoomImages",
+                success: function (data) {
+                    location.reload();
+                }
+            });
+
+        }
+    </script>
+    <script>
+
+        function  changeImage(imageId,loc){
+            $('#changeId').attr('value',imageId);
+            $('#changePath').attr('value',loc);
+            $("#myModalChange").modal();
+        }
+
+        function saveImage(){
+            if ($('#userfile').val() == "") {
+                alert("No image location is specified for the given location.");
+                e.preventDefault();
+            }else {
+                var id = $("#changeId").val();
+                var loc = $("#changePath").val();
+
+                //upload to the same location
+                $.ajax({
+                    type: 'POST',
+                    data: {"imageid": id, "imageloc": loc},
+                    url: "<?php echo base_url(); ?>index.php/EditImagesController/updateRoomImage",
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+            }
+        }
+
+    </script>
+</div>
+
+<!-- /.content-wrapper -->
+<?php
+include 'footer.html';
+?>
+
+<!-- Control Sidebar -->
+
+<!-- /.control-sidebar -->
+<!-- Add the sidebar's background. This div must be placed
+immediately after the control sidebar -->
+<div class="control-sidebar-bg"></div>
 </div>
 <!-- jQuery 2.2.0 -->
 <script src="../../assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
@@ -902,67 +661,5 @@
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
 
 
-<script type='text/javascript'>
-    <?php
-    $php_array = $data1;
-    $js_array = json_encode($php_array);
-    echo "var javascript_array = ". $js_array . ";\n";
-    ?>
-
-</script>
-<script>
-
-    $(document).ready(function () {
-        setInitialRadioButton();
-    });
-
-
-    $(document).ready(function () {
-        $('a[data-toggle="tab"]').bind('click', function (e) {
-//            alert($(e.target.id));
-
-        });
-
-        $('a[data-toggle=tab]').click(function(){
-            var id_val = $(this).attr('id');
-            setRadioButton(id_val);
-        });
-
-    });
-
-
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-    function setInitialRadioButton() {
-        var selected_item_id = $("#roomnames li.active").attr('id');
-
-        var room_val = capitalizeFirstLetter(javascript_array[selected_item_id].room_type);
-        $('#' + room_val + selected_item_id).prop("checked", true);
-        var valg = '#' + room_val + selected_item_id;
-
-    }
-
-    function setRadioButton(val_id)
-    {
-        var selected_item_id = val_id;
-
-        var room_val = capitalizeFirstLetter(javascript_array[selected_item_id].room_type);
-        $('#' + room_val + selected_item_id).prop("checked", true);
-        var valg = '#' + room_val + selected_item_id;
-
-
-    }
-
-    function saveDetails(){
-        var selected_item_id = $("#roomnames li.active").attr('id');
-        var valForm = '#roomForm'+ selected_item_id;
-        $(valFrom).submit();
-    }
-
-    function resetDetails(){
-        location.reload();
-    }
-</script>
 </body>
 </html>

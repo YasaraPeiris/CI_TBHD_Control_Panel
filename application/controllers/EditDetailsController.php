@@ -36,23 +36,6 @@ class EditDetailsController extends CI_Controller {
 		}
 	}
 
-	public function roomimages(){
-		$this->load->library('session');
-		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
-			$listing_no = $_SESSION['hotelno'];
-			$this->load->model('RoomModel');
-			$rooms =  $this->RoomModel->getRoomDetails($listing_no);
-			$data= array('data1'=> $rooms );
-			// echo "<br>----------<br>";
-			// print_r($data);
-			$this->load->view('hotel/updateRoomImages',$data);
-		}
-		else{
-			$_SESSION['error']= 'Time is up, please log in again for your own security.';
-			redirect();
-		}
-	}
-
 	public function roomDetails(){
 		$this->load->library('session');
 		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
