@@ -30,8 +30,23 @@ class Welcome extends CI_Controller {
     {
         $this->load->view('hotel/viewCalender');
     }
-	// public function ViewIndex()
+	// public function createindex()
 	// {
-	// 	$this->load->view('index');
+
+	// 	$this->load->model('AccountModel');
+	// 	$pics =  $this->AccountModel->createindex();
+	// 	foreach ($pics as $key => $value) {
+	// 		$length = strlen($value->image_path);
+	// 		// echo $value->image_path[$length-5];
+	// 		if ($value->image_path[$length-5] < 4){
+	// 			$value->is_main = true;
+	// 		}
+	// 		echo $value->listing_pic_id ." - ";
+	// 		print_r($value);
+	// 		echo "<br><br>";
+	// 		$this->AccountModel->addindex($value, $value->listing_pic_id);
+	// 	}
+	// 	// print_r($pics);
+	// 	// $this->load->view('index');
 	// }
 }
