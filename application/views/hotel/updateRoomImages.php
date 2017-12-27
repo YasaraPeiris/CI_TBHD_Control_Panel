@@ -516,6 +516,7 @@
         // }
 
 
+
         function  confirmDialog(id) {
             $('#runFunc').attr('value',id);
             $("#confirmDialog").modal();
@@ -650,6 +651,31 @@ immediately after the control sidebar -->
 <script>
     $('#myModal').on('hide',function(e){
         e.preventDefault();
+    });
+
+    $(document).ready(function () {
+        setInitialRoomTypeSession();
+    });
+
+    function setInitialRoomTypeSession() {
+        var selected_item_id = $("#roomnames li.active").attr('id');
+        selected_item_id = parseInt(selected_item_id);
+        alert(selected_item_id+1);
+
+    }
+
+    $(document).ready(function () {
+        $('a[data-toggle="tab"]').bind('click', function (e) {
+//            alert($(e.target.id));
+
+        });
+
+        $('a[data-toggle=tab]').click(function(){
+            var id_val = $(this).attr('id');
+            id_val = parseInt(id_val);
+            alert(id_val+1);
+        });
+
     });
 </script>
 

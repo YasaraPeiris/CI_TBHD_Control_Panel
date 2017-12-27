@@ -42,7 +42,7 @@ class EditImagesController extends CI_Controller
                 }
 
 
-                $room = array('room_name'=> $rooms[$i]->room_name,'room_images'=>$room_data);
+                $room = array('room_name'=> $rooms[$i]->room_name,'room_type_id'=> $rooms[$i]->room_type_id,'room_images'=>$room_data);
 
                 $room_data = null;
                 $data_rooms[] = $room;
@@ -178,6 +178,7 @@ class EditImagesController extends CI_Controller
     }
     public function photoUploadMainMultiple(){
         // session_start();
+
         if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
 
             if (isset($_FILES["photo"]) && isset($_POST["loc"]) ) {
@@ -199,7 +200,7 @@ class EditImagesController extends CI_Controller
     }
     public function photoUploadRoomMultiple(){
         // session_start();
-        if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+        if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel']) ) {
 
             if (isset($_FILES["photo"]) && isset($_POST["loc"]) ) {
                 $this->load->model('ImageModel');
@@ -213,7 +214,7 @@ class EditImagesController extends CI_Controller
 
                 // ****************************************************  -- ***************************
 
-                $data = array('listing_id'=> $_SESSION['hotelno'], 'room_type_id'=> 2, 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
+                $data = array('listing_id'=> $_SESSION['hotelno'], 'room_type_id'=> '2', 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
 
                 // ****************************************************  -- ***************************
 
