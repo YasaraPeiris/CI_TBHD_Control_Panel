@@ -257,16 +257,18 @@
     });
     scheduler.attachEvent("onEventSave", function (id, ev, is_new) {
 
-       
         // if ((ev.status) == 6) {
             $.ajax({
                 type: 'POST',
                 async: false,
-                data: 'checkin=' + convert(ev.start_date) + '&checkout=' + convert(ev.start_date) + 'room_id=' + ev.room + 'status=' + ev.status,
-                url: "../viewCalenderController/saveNoSpaceBookings",
-                dataType: 'json',
+                data: {checkin: convert(ev.start_date), checkout: convert(ev.end_date), room_id:ev.room,status:6},
+                 url: "../viewCalenderController/saveNoSpaceBookings",
                 success: function (response) {
+                    alert(response);
 
+                },
+                error: function(xhr, textStatus, errorThrown){
+                    alert('request failed');
                 }
             });
 

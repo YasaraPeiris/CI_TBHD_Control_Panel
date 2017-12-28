@@ -186,54 +186,54 @@ class ViewCalenderController extends CI_Controller
         $this->load->library('session');
         if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
             if (isset($_POST['checkin']) && isset($_POST['checkout']) && isset($_POST['room_id']) && isset($_POST['status'])) {
-                print_r($_POST);
+
                 $this->load->model('CalenderModel');
                 $listing_no = $_SESSION['hotelno'];
                 $checkin = $_POST['checkin'];
                 $checkout = $_POST['checkout'];
                 $room_id = $_POST['room_id'];
+
                 $status = $_POST['status'];
-                $this->CalenderModel->createEvent();
+                $myArray = explode(',', $room_id);
+
+                for($i=0;$i<sizeof($myArray);$i++){
+                    $val = $myArray[$i];;
+                    $myArray[$i]=$val[0];
+
+                }
+
+                $vals = array_count_values($myArray);
+                foreach ($vals as $key => $value) {
+                    $bookingData = array ( 'check_in' => $checkin, 'check_out' => $checkout, 'customer_id' => 'NULL', 'listing_id' => $listing_no, 'status' => 'by_hotel', 'paid_amount' => 0, 'total_to_hotel' => 0, 'total_rate' => 0,'total_for_inna' => 0, 'total_from_customer' =>  0);
+                    $this->BookingModel->place_booking ( $bookingData );
+                    $booking_id = $this->db->insert_id ();
+                    $bookingRoomData = array ( 'room_type_id' => $key, 'item_name' => '', 'rate' => 0, 'quantity' => $value, 'item_type' => 'by_hotel', 'booking_id' => $booking_id );
+                    $this->BookingModel->place_room ( $bookingRoomData );
+                }
+       //         $this->CalenderModel->createEvent();
     //            $this->AccountModel->editAccountDetails($data2,$login_id);
 
 
+         //       $bookingData = array ( 'check_in' => $checkin, 'check_out' => $checkout, 'customer_id' => 'NULL', 'listing_id' => $listing_no, 'status' => 'by_hotel', 'paid_amount' => 0, 'total_to_hotel' => 0, 'total_rate' => 0,'total_for_inna' => 0, 'total_from_customer' =>  0);
 
 
-
-
-
-
-
-                $bookingData = array ( 'check_in' => $checkin, 'check_out' => $checkout, 'customer_id' => 'NULL', 'listing_id' => $listing_no, 'status' => 'by_hotel', 'paid_amount' => 0, 'total_to_hotel' => 0, 'total_rate' => 0,'total_for_inna' => 0, 'total_from_customer' =>  0); 
-
-
-                $this->BookingModel->place_booking ( $bookingData );
-                $booking_id = $this->db->insert_id ();
+            //    $this->BookingModel->place_booking ( $bookingData );
+        //        $booking_id = $this->db->insert_id ();
                 // for ( $j = 0; $j < sizeof ( $room_count[0] ); $j++ )
                 // {
                 //     if ( $room_count[0][ $j ] > 0 )
                 //     {
-                        $bookingRoomData = array ( 'room_type_id' => $room_id, 'item_name' => '', 'rate' => 0, 'quantity' => 1, 'item_type' => 'by_hotel', 'booking_id' => $booking_id );
-                        $this->BookingModel->place_room ( $bookingRoomData );
+          //              $bookingRoomData = array ( 'room_type_id' => $room_id, 'item_name' => '', 'rate' => 0, 'quantity' => 1, 'item_type' => 'by_hotel', 'booking_id' => $booking_id );
+            //            $this->BookingModel->place_room ( $bookingRoomData );
                 //     }
                 // }
-
-
-
-
-
-
-
                 return true;
-
             }
             else{
                 return false;
             }
-
-
         }
-
-
+        $_SESSION['error']= 'Time is up, please log in again for your own security.';
+        redirect();
     }
 }
