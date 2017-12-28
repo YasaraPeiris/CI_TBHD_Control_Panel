@@ -203,7 +203,7 @@ class ViewCalenderController extends CI_Controller
                 }
 
                 $vals = array_count_values($myArray);
-                $bookingData = array ( 'check_in' => $checkin, 'check_out' => $checkout, 'customer_id' => NULL, 'listing_id' => $listing_no, 'status' => 'confirm', 'paid_amount' => 0, 'total_to_hotel' => 0, 'total_rate' => 0,'total_for_inna' => 0, 'total_from_customer' =>  0);
+                $bookingData = array ( 'check_in' => $checkin, 'check_out' => $checkout, 'customer_id' => NULL, 'listing_id' => $listing_no, 'status' => 'confirm', 'paid_amount' => 0, 'total_to_hotel' => 0, 'total_rate' => 0,'total_for_inna' => 0, 'total_from_customer' =>  0,'status_cal'=>6);
                 $this->BookingModel->place_booking ( $bookingData );
                 $booking_id = $this->db->insert_id ();
                 foreach ($vals as $key => $value) {

@@ -264,7 +264,8 @@
                 data: {checkin: convert(ev.start_date), checkout: convert(ev.end_date), room_id:ev.room,status:6},
                  url: "../viewCalenderController/saveNoSpaceBookings",
                 success: function (response) {
-                    alert(response);
+                    // alert(response);
+                    location.reload();
 
                 },
                 error: function(xhr, textStatus, errorThrown){
