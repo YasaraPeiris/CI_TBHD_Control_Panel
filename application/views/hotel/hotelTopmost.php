@@ -75,7 +75,7 @@
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header" style="text-align: center;background-color: #222d32;">
-                        <img src="../../assets/images/1_main.jpg"  style='border-radius: 40%;' class="img-circle" alt="User Image">
+                        <img src="../../assets/images/innalogo.jpg"  style='border-radius: 40%;' class="img-circle" alt="User Image">
 
                         <p>
                             <?php echo $_SESSION['login_hotel'] ?>

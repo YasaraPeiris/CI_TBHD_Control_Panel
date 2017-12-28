@@ -187,7 +187,7 @@ class ViewCalenderController extends CI_Controller
         if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
             if (isset($_POST['checkin']) && isset($_POST['checkout']) && isset($_POST['room_id']) && isset($_POST['status'])) {
 
-                $this->load->model('CalenderModel');
+                $this->load->model('BookingModel');
                 $listing_no = $_SESSION['hotelno'];
                 $checkin = $_POST['checkin'];
                 $checkout = $_POST['checkout'];
@@ -203,10 +203,11 @@ class ViewCalenderController extends CI_Controller
                 }
 
                 $vals = array_count_values($myArray);
+                $bookingData = array ( 'check_in' => $checkin, 'check_out' => $checkout, 'customer_id' => NULL, 'listing_id' => $listing_no, 'status' => 'confirm', 'paid_amount' => 0, 'total_to_hotel' => 0, 'total_rate' => 0,'total_for_inna' => 0, 'total_from_customer' =>  0);
+                $this->BookingModel->place_booking ( $bookingData );
+                $booking_id = $this->db->insert_id ();
                 foreach ($vals as $key => $value) {
-                    $bookingData = array ( 'check_in' => $checkin, 'check_out' => $checkout, 'customer_id' => 'NULL', 'listing_id' => $listing_no, 'status' => 'by_hotel', 'paid_amount' => 0, 'total_to_hotel' => 0, 'total_rate' => 0,'total_for_inna' => 0, 'total_from_customer' =>  0);
-                    $this->BookingModel->place_booking ( $bookingData );
-                    $booking_id = $this->db->insert_id ();
+                    
                     $bookingRoomData = array ( 'room_type_id' => $key, 'item_name' => '', 'rate' => 0, 'quantity' => $value, 'item_type' => 'by_hotel', 'booking_id' => $booking_id );
                     $this->BookingModel->place_room ( $bookingRoomData );
                 }

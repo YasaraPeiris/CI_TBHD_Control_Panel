@@ -223,8 +223,8 @@
                             </div>
                             <div class="form-group">
                               <label for="tel">Tele</label>
-                              <input type="tel" class="form-control is-disabled" id="tele" name="tele" value="<?php echo $data1->mobile; ?>" data-maxlength="10" data-minlength="10" pattern="[0-9]{10}" disabled required>
-                              <div class="help-block with-errors">Format of the telephone number should be [0711234567] (length - 10 numbers.)</div>
+                              <input type="tel" class="form-control is-disabled" id="tele" name="tele" value="<?php echo $data1->mobile; ?>" data-maxlength="10" data-minlength="9" pattern="[0-9]{10}" disabled required>
+                              <div class="help">Format of the telephone number should be [0711234567] (length - 10 numbers.)</div>
                             </div>
                             <h4 style="text-align:left;color:dimgrey;padding-bottom:6px;border-bottom:1px solid #f4f4f4;">Accounts Info</h4>
                             <div class="form-group">

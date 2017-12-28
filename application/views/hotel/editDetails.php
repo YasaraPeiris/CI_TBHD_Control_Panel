@@ -76,10 +76,10 @@
                 <br>
                 <div class="col-lg-6 col-xs-12">
                     <!-- small box -->
-                    <div class="small-box" style="height:250px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
+                    <div class="small-box" style="height:200px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
 ">
                         <div class="inner"
-                             style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                             style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                             <h1 style="color:black;">Update Hotel Details.</h1>
                             <br>
                             <p style="color: #555555;font-size: 1.2em;">(Click here to change hotel details,basic
@@ -98,10 +98,10 @@
                 </div>
                 <div class="col-lg-6 col-xs-12">
                     <!-- small box -->
-                    <div class="small-box " style="height:250px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
+                    <div class="small-box " style="height:200px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
 ">
                         <div class="inner"
-                             style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                             style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                             <h1 style="color:black;">Update Room Details.</h1>
                             <br>
                             <p style="color:#555555;font-size: 1.2em;">(Click here to change room details.)</p>
@@ -119,16 +119,16 @@
                 <!-- ./col -->
             </div>
             <!-- /.row -->
-            <div class="row" style="padding-top: 1%;padding-bottom: 1%;">
+            <div class="row" style="padding-top: 1%;">
                 <!--            <h1 style="color: black;padding-left: 1%;">Edit Details</h1>-->
                 <!-- ./col -->
                 <br>
                 <div class="col-lg-6 col-xs-12">
                     <!-- small box -->
-                    <div class="small-box" style="height:250px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
+                    <div class="small-box" style="height:200px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
 ">
                         <div class="inner"
-                             style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                             style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                             <h1 style="color:black;">Update Images.</h1>
                             <br>
                             <p style="color: #555555;font-size: 1.2em;">(Click here to add or alter images of your listing.)</p>
@@ -150,10 +150,10 @@
                 </div>
                 <div class="col-lg-6 col-xs-12">
                     <!-- small box -->
-                    <div class="small-box " style="height:250px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
+                    <div class="small-box " style="height:200px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
 ">
                         <div class="inner"
-                             style="height:200px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                             style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                             <h1 style="color:black;">Update Room Images.</h1>
                             <br>
                             <p style="color:#555555;font-size: 1.2em;">(Click here to add or alter room images.)</p>

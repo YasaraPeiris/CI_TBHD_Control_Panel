@@ -6,7 +6,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel" style="margin-bottom:5%;height:auto;text-align:center">
       <div class= "image" style="margin-bottom:5%;text-align:center;margin-top:10%;">
-        <img src="../../assets/images/1_main.jpg"  style='border-radius: 100%;height:95px;max-width:105px;' class="img-circle" alt="User Image">
+        <img src="../../assets/images/innalogo.jpg"  style='border-radius: 100%;max-height:105px;max-width:105px;' class="img-circle" alt="User Image">
       </div>
       <div class="info" style="left:0;position:relative;padding:0;">
         <p style="display:inline-block;"><?php echo $_SESSION['login_hotel']?></p>
@@ -53,12 +53,12 @@
 
 
 
-          <li>
+          <!-- <li>
     <a title="Quick Email" href='<?php echo base_url ('index.php/QuickEmailController/email'); ?>' >
-      <i class="fa fa-calendar"></i> <span>Quick Email</span>
+      <i class="fa fa-calendar"></i> <span>Quick Email</span> -->
       <!-- <small class="label pull-right bg-red">3</small> -->
-    </a>
-  </li>
+   <!--  </a>
+  </li> -->
 
 
 

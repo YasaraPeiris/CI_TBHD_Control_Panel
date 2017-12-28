@@ -99,15 +99,15 @@
               </div> <div class="small-box" id="hotelDes" style="box-shadow:none;">
             <div style="background: white;" >
                   <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
-                    <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 2%;padding-bottom: 1%;">
+                    <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 5px;padding-bottom: 2px;">
                       <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/EditDetailsController/updateHotelDescription" id="form2" role="form" data-toggle="validator">
-                       <textarea id="editor1" name="editor1" style="padding:3%;width: 100%;margin-bottom: 1%;" rows="8" disabled><?php echo $data2->listing_desc ?></textarea>
+                       <textarea id="editor1" name="editor1" style="padding:2px;width: 100%;margin-bottom: 1%;" rows="5" disabled><?php echo $data2->listing_desc ?></textarea>
 
 
                           <button type="button" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
                         <button type="button" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color: #8892d6;color:white;font-size: inherit;'>Edit</button>
                      </form>
-                        <hr style="border: 1px solid rgba(0, 0, 0, 0.3);margin-top: 60px;">
+                        <!-- <hr style="border: 1px solid rgba(0, 0, 0, 0.3);margin-top: 20px;"> -->
 
                     </div>
 
@@ -138,30 +138,30 @@
                                                 $y++;
                                                 if (in_array($facilities[$y], $data)) {
                                                     ?>
-                                                    <div class ="col-md-4" style="text-align: left;color: dimgrey;">
+                                                    <div class ="col-md-3" style="text-align: left;color: dimgrey;">
                                                         <label>
                                                             <input type="checkbox" style="margin-right:5px;" name="check_list[]" checked disabled="true"   value="<?php echo $facilities[$y] ?>"><?php echo $facilities[$y] ?>
                                                         </label>
                                                     </div>
                                                 <?php } else { ?>
-                                                    <div class ="col-md-4" style="text-align: left;">
+                                                    <div class ="col-md-3" style="text-align: left;">
                                                         <label style="color: dimgrey;">
                                                             <input type="checkbox" style="margin-right: 5px;" name="check_list[]" disabled="true"   value="<?php echo $facilities[$y] ?>"><?php echo $facilities[$y] ?>
                                                         </label>
                                                     </div>
-                                                <?php } if (($y + 1) % 3 == 0) { ?>
+                                                <?php } if (($y + 1) % 4 == 0) { ?>
                                                     <br><br>
                                                 <?php } ?>
                                             <?php }
                                             ?>
                                         </div>
                                     </div>
-                                    <div class ="row" style="margin-top:2%;">
+                                    <div class ="row" style="margin-top:2px;">
                                         <button type="button" id="save_btn_fac" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
                                         <button type="button" id="edit_btn_fac" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color: #8892d6;color:white;font-size: inherit;'>Edit</button>
                                     </div>
                                 </form>
-                                <hr style="border: 1px solid rgba(0, 0, 0, 0.3);">
+                                <!-- <hr style="border: 1px solid rgba(0, 0, 0, 0.3);"> -->
                             </div>
                         </div>
                     </div>
