@@ -19,8 +19,8 @@
 
     scheduler.config.lightbox.sections = [
         {map_to: "text", name: "text", type: "textarea", height: 24},
-        {map_to: "room", name: "room", type: "select", options: scheduler.serverList("currentRooms")},
-      //  { map_to:"room",name:"room", height:22, type:"multiselect", options: scheduler.serverList("currentRooms"), vertical:"false" },
+       // {map_to: "room", name: "room", type: "select", options: scheduler.serverList("currentRooms")},
+        { map_to:"room",name:"room", height:22, type:"multiselect", options: scheduler.serverList("currentRooms"), vertical:"false" },
         // {map_to: "status", name: "status", type: "radio", options: scheduler.serverList("bookingStatus")},
      //   {map_to: "is_paid", name: "is_paid", type: "checkbox", checked_value: true, unchecked_value: false},
         {map_to: "time", name: "time", type: "calendar_time"}
@@ -86,6 +86,27 @@
     function getRoom(key) {
         return findInArray(roomsArr, key);
     }
+
+    // function getRooms(key) {
+    //
+    //     if(key.includes(',')) {
+    //         var keys = key.split(',')
+    //     }
+    //     else{
+    //         var keys = [];
+    //         keys = key;
+    //     }
+    //     return findValsInArray(roomsArr, keys);
+    // }
+
+    // function findValsInArray(array, keys) {
+    //     var arr = [];
+    //         for (var j = 0; j < keys.length; j++) {
+    //                 arr.push(keys[j]);
+    //         }
+    //
+    //     return arr;
+    // }
 
     scheduler.templates.timeline_scale_label = function (key, label, section) {
         var roomStatus = getRoomStatus(section.status);
@@ -235,13 +256,14 @@
         }
     });
     scheduler.attachEvent("onEventSave", function (id, ev, is_new) {
-alert(getRoom(ev.room).label);
+
+       
         // if ((ev.status) == 6) {
             $.ajax({
                 type: 'POST',
                 async: false,
-                data: 'checkin=' + convert(ev.start_date) + '&checkout=' + convert(ev.start_date) + 'room_id=' + getRoom(ev.room).label + 'status=' + ev.status,
-                url: "<?php echo base_url(); ?>index.php/viewCalenderController/saveNoSpaceBookings",
+                data: 'checkin=' + convert(ev.start_date) + '&checkout=' + convert(ev.start_date) + 'room_id=' + ev.room + 'status=' + ev.status,
+                url: "../viewCalenderController/saveNoSpaceBookings",
                 dataType: 'json',
                 success: function (response) {
 
