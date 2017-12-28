@@ -260,6 +260,35 @@
 
                               
                     </div>
+                          <div class="form_box">    
+                            <br>
+                            <div id="progress"></div>
+                            <hr class="hr_style">
+                            <!-- <br> -->
+                            <!-- <script src="../../filedrag.js"></script> -->
+
+                            
+                                <p class="para1"><b>Details of newly updated photos,</b></p>
+
+                                <table class="table" id="imgTable">
+                                    <thead>
+                                        <th>Time</th>
+                                        <th>Initial Size</th>
+                                        <th>Image</th>
+                                        <th>Upload Size</th>
+                                        <!-- <th>Uploaded Size</th> -->
+                                    </thead>
+                                    <tbody id="tbodyID">
+                                        <tr>
+                                            <!-- <td>-NA-</td>
+                                            <td>-NA-</td>
+                                            <td>-NA-</td>
+                                            <td>Not Any Photos Uploaded Yet</td> -->
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
 
                 </div>
 

@@ -111,6 +111,9 @@
             padding: 0 10px 0 10px;
             margin: 20px 0 0 0;
         }
+        .table{
+        	color: #333;
+        }
 
         #container {
             margin: 10px;
@@ -154,9 +157,9 @@
             <div id="about_web" class="box box-solid"
                  style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;padding: 5px;">
                 <div class="box-header with-border" style="text-align: center;">
-                    <h3 class="box-title"
+                    <!-- <h3 class="box-title"
                         style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">
-                        Room Images Gallery</h3>
+                        Room Images Gallery</h3> -->
                 </div>
                 <?php ?>
                 <div class="small-box" id="hotelDes" style="box-shadow:none;">
@@ -276,6 +279,35 @@
                                     <div align="center">We don't have any image yet, go ahead and add a new image.</div>
                                 <?php endif; ?>
                             </div>
+                                  <div class="form_box">	
+                            		<br>
+                            		<div id="progress1"></div>
+                            		<hr class="hr_style">
+                            		<!-- <br> -->
+                            		<!-- <script src="../../filedrag.js"></script> -->
+
+                            		
+                            			<p class="para1"><b>Details of newly updated photos,</b></p>
+
+                            			<table class="table" id="imgTable">
+                            				<thead>
+                            					<th>Time</th>
+                            					<th>Initial Size</th>
+                            					<th>Image</th>
+                            					<th>Upload Size</th>
+                            					<!-- <th>Uploaded Size</th> -->
+                            				</thead>
+                            				<tbody id="tbodyID1">
+                            					<tr>
+                            						<!-- <td>-NA-</td>
+                            						<td>-NA-</td>
+                            						<td>-NA-</td>
+                            						<td>Not Any Photos Uploaded Yet</td> -->
+                            					</tr>
+                            					
+                            				</tbody>
+                            			</table>
+                            		</div>
 
                         </div>
 
@@ -380,6 +412,48 @@
                             <div align="center">We don't have any image yet, go ahead and add a new image.</div>
                         <?php endif; ?>
                     </div>
+
+
+
+
+
+
+
+                          <div class="form_box">	
+                    		<br>
+                    		<div id="progress<?php echo $i+1; ?>"></div>
+                    		<hr class="hr_style">
+                    		<!-- <br> -->
+                    		<!-- <script src="../../filedrag.js"></script> -->
+
+                    		
+                    			<p class="para1"><b>Details of newly updated photos,</b></p>
+
+                    			<table class="table" id="imgTable">
+                    				<thead>
+                    					<th>Time</th>
+                    					<th>Initial Size</th>
+                    					<th>Image</th>
+                    					<th>Upload Size</th>
+                    					<!-- <th>Uploaded Size</th> -->
+                    				</thead>
+                    				<tbody id="tbodyID<?php echo $i+1; ?>">
+                    					<tr>
+                    						<!-- <td>-NA-</td>
+                    						<td>-NA-</td>
+                    						<td>-NA-</td>
+                    						<td>Not Any Photos Uploaded Yet</td> -->
+                    					</tr>
+                    					
+                    				</tbody>
+                    			</table>
+                    		</div>
+
+
+
+
+
+
 
                 </div>
 
