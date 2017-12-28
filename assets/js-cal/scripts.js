@@ -27,8 +27,7 @@
     ];
 
     scheduler.attachEvent("onEventLoading", function(ev){
-        if(ev.id == 1 || ev.id == 2 || ev.id == 3 || ev.id == 4 || ev.id == 5 )
-            dhtmlx.alert("You are not allowed to edit these events");
+        if(ev.status == 1 || ev.status == 2 || ev.status == 3 || ev.status == 4 || ev.status == 5 )
             ev.readonly = true;
         return true;
     });
@@ -248,13 +247,53 @@
 
     scheduler.attachEvent("onBeforeEventDelete", function (id, ev, is_new) {
 
+        $pieces =id.split(" ");
+
         if (ev.status == 6) {
+            $.ajax({
+                type: 'POST',
+                async: false,
+                data: {room_id: ev.room[0], booking_id: $pieces[0]},
+                url: "../viewCalenderController/deleteEvent",
+                success: function (response) {
+                    alert("success");
+                    location.reload();
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('request failed');
+                }
+            });
             return true;
         } else {
             dhtmlx.alert("Unfolrtunately you can't delete the dates reserved through the system.");
             return false;
         }
     });
+    // scheduler.attachEvent("onEventDelete", function (id, ev, is_new) {
+    //     alert(ev.id);
+    //     alert(ev.room[0]);
+    //     if (ev.status == 6) {
+    //         $.ajax({
+    //             type: 'POST',
+    //             async: false,
+    //             data: {room_id: ev.room[0], booking_id: ev.id},
+    //             url: "../viewCalenderController/deleteEvent",
+    //             success: function (response) {
+    //                 alert("success");
+    //                 location.reload();
+    //
+    //             },
+    //             error: function (xhr, textStatus, errorThrown) {
+    //                 alert('request failed');
+    //             }
+    //         });
+    //         return true;
+    //     } else {
+    //         dhtmlx.alert("Unfolrtunately you can't delete the dates reserved through the system.");
+    //         return false;
+    //     }
+    // });
     scheduler.attachEvent("onEventSave", function (id, ev, is_new) {
 
         // if ((ev.status) == 6) {
