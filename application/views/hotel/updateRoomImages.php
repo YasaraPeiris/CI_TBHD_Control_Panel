@@ -415,6 +415,7 @@
         function addImage() {
             var files = document.getElementById("userfile2").files;
             var loc = $("#changePath").val();
+            var roomid = $("#roomid").val();
             for (var i in files) {
 
                 if (typeof files[i] !== 'object'){
@@ -431,15 +432,16 @@
 
                         //var resizedSize = resizedFile.size;
                         // ds.push(resizedFile);
-                        upload2(resizedFile,initialSize,loc, function (response) {
+                        upload2(resizedFile,initialSize,loc,roomid, function (response) {
                         });
 
                     });
-                    // alert('for loop');
+                    // alert(roomid);
                 }());
                 // alert('object');
             }
             $('#myModal').modal('hide');
+            // location.reload();
             // window.location.reload(false);
                
         }
@@ -478,7 +480,7 @@
                     // alert('for loop');
                 }());
                 $('#myModalChange').modal('hide');
-
+                // location.reload();
                 //upload to the same location
                 // $.ajax({
                 //     type: 'POST',
@@ -561,6 +563,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Add new Image</h4>
+                    <input type="hidden" id="roomid">
                 </div>
                 <div class="modal-body" id="inputImagesAdd">
                     <div class="form-group">
@@ -660,7 +663,8 @@ immediately after the control sidebar -->
     function setInitialRoomTypeSession() {
         var selected_item_id = $("#roomnames li.active").attr('id');
         selected_item_id = parseInt(selected_item_id);
-        alert(selected_item_id+1);
+        $('#roomid').attr('value',selected_item_id+1);
+        // alert(selected_item_id+1);
 
     }
 
@@ -673,7 +677,8 @@ immediately after the control sidebar -->
         $('a[data-toggle=tab]').click(function(){
             var id_val = $(this).attr('id');
             id_val = parseInt(id_val);
-            alert(id_val+1);
+            $('#roomid').attr('value',id_val+1);
+            // alert(id_val+1);
         });
 
     });

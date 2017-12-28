@@ -26,11 +26,12 @@
 		request.responseType = 'json';
 		request.send(formData);
 	};
-	var upload2 = function (photo,initialSize,loc, callback) {
+	var upload2 = function (photo,initialSize,loc,roomid, callback) {
 
 		var formData = new FormData();
 		// console.log(loc);
 		formData.append('loc', loc);
+		formData.append('roomid', roomid);
 		formData.append('photo', photo);
 		var request = new XMLHttpRequest();
 		request.onreadystatechange = function() {

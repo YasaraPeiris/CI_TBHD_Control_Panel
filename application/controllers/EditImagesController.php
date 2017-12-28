@@ -202,7 +202,7 @@ class EditImagesController extends CI_Controller
         // session_start();
         if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel']) ) {
 
-            if (isset($_FILES["photo"]) && isset($_POST["loc"]) ) {
+            if (isset($_FILES["photo"]) && isset($_POST["loc"])&& isset($_POST["roomid"]) ) {
                 $this->load->model('ImageModel');
 
                 $path =  explode("/",$_POST["loc"]);
@@ -214,7 +214,7 @@ class EditImagesController extends CI_Controller
 
                 // ****************************************************  -- ***************************
 
-                $data = array('listing_id'=> $_SESSION['hotelno'], 'room_type_id'=> '2', 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
+                $data = array('listing_id'=> $_SESSION['hotelno'], 'room_type_id'=> $_POST["roomid"], 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
 
                 // ****************************************************  -- ***************************
 
