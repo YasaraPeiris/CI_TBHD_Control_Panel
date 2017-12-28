@@ -20,7 +20,7 @@
     scheduler.config.lightbox.sections = [
         {map_to: "text", name: "text", type: "textarea", height: 24},
        // {map_to: "room", name: "room", type: "select", options: scheduler.serverList("currentRooms")},
-        { map_to:"room",name:"room", height:22, type:"multiselect", options: scheduler.serverList("currentRooms"), vertical:"false" },
+        { map_to:"room",name:"room", height:150, type:"multiselect", options: scheduler.serverList("currentRooms"), vertical:"true" },
         // {map_to: "status", name: "status", type: "radio", options: scheduler.serverList("bookingStatus")},
      //   {map_to: "is_paid", name: "is_paid", type: "checkbox", checked_value: true, unchecked_value: false},
         {map_to: "time", name: "time", type: "calendar_time"}
