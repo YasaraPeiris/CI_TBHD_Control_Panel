@@ -16,9 +16,9 @@
 				case "inserted":
 					insertEvent(updatedEvent, eventsArray);
 					break;
-				// case "updated":
-				// 	updateEvent(updatedEvent, eventsArray);
-				// 	break;
+				case "updated":
+					updateEvent(updatedEvent, eventsArray);
+					break;
 				case "deleted":
 					deleteEvent(updatedEvent, eventsArray);
 					break;

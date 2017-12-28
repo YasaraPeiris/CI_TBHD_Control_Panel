@@ -19,20 +19,31 @@
 
     scheduler.config.lightbox.sections = [
         {map_to: "text", name: "text", type: "textarea", height: 24},
-        //{map_to: "room", name: "room", type: "select", options: scheduler.serverList("currentRooms")},
-        { map_to:"room",name:"room", height:22, type:"multiselect", options: scheduler.serverList("currentRooms"), vertical:"false" },
+        {map_to: "room", name: "room", type: "select", options: scheduler.serverList("currentRooms")},
+      //  { map_to:"room",name:"room", height:22, type:"multiselect", options: scheduler.serverList("currentRooms"), vertical:"false" },
         // {map_to: "status", name: "status", type: "radio", options: scheduler.serverList("bookingStatus")},
      //   {map_to: "is_paid", name: "is_paid", type: "checkbox", checked_value: true, unchecked_value: false},
         {map_to: "time", name: "time", type: "calendar_time"}
     ];
 
-    scheduler.attachEvent("onBeforeLightbox", function (id, mode, native_event) {
-        if (+scheduler.getEvent(id).start_date < +new Date())
-            scheduler.config.readonly_form  = true;//readonly form for old events
-        else
-            scheduler.config.readonly_form = false;//regular form for others
+    scheduler.attachEvent("onEventLoading", function(ev){
+        if(ev.id == 1 || ev.id == 2 || ev.id == 3 || ev.id == 4 || ev.id == 5 )
+            dhtmlx.alert("You are not allowed to edit these events");
+            ev.readonly = true;
         return true;
     });
+
+
+
+    // scheduler.attachEvent("onEventCollision", function (ev, evs) {
+    //
+    //     if(ev.status==6){
+    //         return false;
+    //     }
+    //     scheduler.config.readonly_form  = true;
+    //     return true;
+    // });
+
 
     scheduler.locale.labels.timeline_tab = 'Timeline';
 
@@ -88,7 +99,15 @@
             "<span class='status-label'>" + roomStatus.label + "</span>",
             "</div>"].join("");
     };
+    scheduler.attachEvent("onBeforeLightbox", function (id, mode, native_event) {
 
+        if (+scheduler.getEvent(id).start_date < +new Date() || scheduler.getEvent(id).readonly)
+
+            scheduler.config.readonly_form  = true;//readonly form for old events
+        else
+            scheduler.config.readonly_form = false;//regular form for others
+        return true;
+    });
     scheduler.date.timeline_start = scheduler.date.month_start;
     scheduler.date.add_timeline = function (date, step) {
         return scheduler.date.add(date, step, "month");
@@ -163,6 +182,7 @@
     //     return true;
     // });
 
+
     scheduler.attachEvent('onEventCreated', function (event_id) {
 
         var ev = scheduler.getEvent(event_id);
@@ -215,7 +235,7 @@
         }
     });
     scheduler.attachEvent("onEventSave", function (id, ev, is_new) {
-
+alert(getRoom(ev.room).label);
         // if ((ev.status) == 6) {
             $.ajax({
                 type: 'POST',
