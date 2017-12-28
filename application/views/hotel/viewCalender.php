@@ -13,7 +13,9 @@
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
 
     <script src='../../assets/lib-cal/dhtmlxScheduler/dhtmlxscheduler.js'></script>
+    <script src='../../assets/lib-cal/dhtmlxScheduler/ext/dhtmlxscheduler_readonly.js'></script>
     <script src='../../assets/lib-cal/dhtmlxScheduler/ext/dhtmlxscheduler_limit.js'></script>
+    <script src='../../assets/lib-cal/dhtmlxScheduler/ext/dhtmlxscheduler_multiselect.js'></script>
     <script src='../../assets/lib-cal/dhtmlxScheduler/ext/dhtmlxscheduler_collision.js'></script>
     <script src='../../assets/lib-cal/dhtmlxScheduler/ext/dhtmlxscheduler_timeline.js'></script>
     <script src='../../assets/lib-cal/dhtmlxScheduler/ext/dhtmlxscheduler_editors.js'></script>
@@ -123,6 +125,8 @@
         <div class="dhx_cal_next_button">&nbsp;</div>
         <div class="dhx_cal_today_button"></div>
         <div class="dhx_cal_date"></div>
+        <div class="dhx_minical_icon" id="dhx_minical_icon"
+             onclick="show_minical()" style="left:0;margin-left: 5%;">&nbsp;</div>
     </div>
     <div class="dhx_cal_header">
     </div>
@@ -134,7 +138,23 @@
        include 'footer.html';
     ?>
     </div>
-
+<script>
+    function show_minical(){
+        if (scheduler.isCalendarVisible()){
+            scheduler.destroyCalendar();
+        } else {
+            scheduler.renderCalendar({
+                position:"dhx_minical_icon",
+                date:scheduler._date,
+                navigation:true,
+                handler:function(date,calendar){
+                    scheduler.setCurrentView(date);
+                    scheduler.destroyCalendar()
+                }
+            });
+        }
+    }
+</script>
 
 <!-- jQuery 2.2.0 -->
 <script src="../../assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>

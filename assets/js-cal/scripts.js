@@ -1,3 +1,4 @@
+
 (function () {
     scheduler.locale.labels.section_text = 'Name';
     scheduler.locale.labels.section_room = 'Room';
@@ -18,11 +19,20 @@
 
     scheduler.config.lightbox.sections = [
         {map_to: "text", name: "text", type: "textarea", height: 24},
-        {map_to: "room", name: "room", type: "select", options: scheduler.serverList("currentRooms")},
+        //{map_to: "room", name: "room", type: "select", options: scheduler.serverList("currentRooms")},
+        { map_to:"room",name:"room", height:22, type:"multiselect", options: scheduler.serverList("currentRooms"), vertical:"false" },
         // {map_to: "status", name: "status", type: "radio", options: scheduler.serverList("bookingStatus")},
-        {map_to: "is_paid", name: "is_paid", type: "checkbox", checked_value: true, unchecked_value: false},
+     //   {map_to: "is_paid", name: "is_paid", type: "checkbox", checked_value: true, unchecked_value: false},
         {map_to: "time", name: "time", type: "calendar_time"}
     ];
+
+    scheduler.attachEvent("onBeforeLightbox", function (id, mode, native_event) {
+        if (+scheduler.getEvent(id).start_date < +new Date())
+            scheduler.config.readonly_form  = true;//readonly form for old events
+        else
+            scheduler.config.readonly_form = false;//regular form for others
+        return true;
+    });
 
     scheduler.locale.labels.timeline_tab = 'Timeline';
 
@@ -140,16 +150,18 @@
         return formatFunc(start) + " - " + formatFunc(end);
     };
 
-    scheduler.attachEvent("onEventCollision", function (ev, evs) {
-        for (var i = 0; i < evs.length; i++) {
-            if (ev.room != evs[i].room) continue;
-            dhtmlx.message({
-                type: "error",
-                text: "This room is already booked for this date."
-            });
-        }
-        return true;
-    });
+    // scheduler.attachEvent("onEventCollision", function (ev, evs) {
+    //     alert(ev.room);
+    //     for (var i = 0; i < evs.length; i++) {
+    //         alert(evs[i].room);
+    //         if (ev.room != evs[i].room) continue;
+    //         dhtmlx.message({
+    //             type: "error",
+    //             text: "This room is already booked for this date."
+    //         });
+    //     }
+    //     return true;
+    // });
 
     scheduler.attachEvent('onEventCreated', function (event_id) {
 
@@ -235,6 +247,7 @@ function init() {
     scheduler.config.details_on_create = true;
     scheduler.config.details_on_dblclick = true;
 
+
     // scheduler.attachEvent("onBeforeLightbox", function (id){
     //     scheduler.resetLightbox();
     //     var buttonsRight,
@@ -259,7 +272,10 @@ function init() {
     scheduler.config.drag_resize = false;
     scheduler.config.drag_create = false;
     scheduler.config.drag_lightbox = false;
+    //scheduler.getEvent().readonly = true;
+
     scheduler.init('scheduler_here', new Date(), "timeline");
+
     scheduler.load("./data.php", "json");
     // scheduler.SaveAction = Url.Action("Save", "../viewCalenderController/viewData");
     window.dp = new dataProcessor("./data.php");
