@@ -9,7 +9,8 @@ class EditDetailsController extends CI_Controller {
 			$listing_no = $_SESSION['hotelno'];
 			$this->load->model('ListingsModel');
 			$listing =  $this->ListingsModel->getListingDetails($listing_no);
-			$data= array('data1'=> $listing[0]->main_facilities, 'data2'=>$listing[0] );
+			$hoteldetail =  $this->ListingsModel->getHotelDetail($listing_no);
+			$data= array('data1'=> $listing[0]->main_facilities, 'data2'=>$listing[0] ,'data3'=>$hoteldetail[0] );
 			$this->load->view('hotel/hotelDetails',$data);
 		}
 		else{
