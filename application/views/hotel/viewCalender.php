@@ -137,9 +137,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="box box-solid" style="background-color: #fff; padding: 10px; font-size: 0.9em;">Please Note that the each room number is assigned randomly by the system adminstrotors just to visualize the bookings. You are free to change the room order as your wish.
+                <div class="box box-solid" style="background-color: #fff; padding: 10px; font-size: 0.9em;">*Please Note that the each room number is assigned randomly by the system adminstrotors just to visualize the bookings. You are free to change the room order as your wish.
                 <br><br>
-                Double click on the calender to reserve a date. Hover on a booking to view more details of the booking.<br> Please note that you are not supposed to cancel any booking which has booked through the system, without informing the system administrators.
+                **Double click on the calendar to reserve a date. Hover on a booking to view more details of the booking.<br> Please note that you are not supposed to cancel any booking which has booked through the system, without informing the system administrators.
                 </div>
             </section>
         </div>

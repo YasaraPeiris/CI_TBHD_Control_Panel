@@ -966,7 +966,7 @@
         $(valFrom).submit();
     }
 
-    function resetDetails(){
+    function ResetDetails(){
         location.reload();
     }
 </script>
