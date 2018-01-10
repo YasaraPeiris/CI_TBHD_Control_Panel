@@ -189,7 +189,7 @@ class EditImagesController extends CI_Controller
                 // $name = $path[sizeof($path)-1];
                 $dir = $path[sizeof($path)-2];
                 $this->uploadSolo($dir,$name);
-                $data = array('listing_id'=> $_SESSION['hotelno'], 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
+                $data = array('listing_id'=> $_SESSION['hotelno'], 'is_main'=> 0 ,'image_path'=> 'controlpanel/backend/assets/images/listings/'.$dir.'/'.$name);
                 $this->ImageModel->addmainimage($data);
                 
             }
@@ -214,7 +214,7 @@ class EditImagesController extends CI_Controller
 
                 // ****************************************************  -- ***************************
 
-                $data = array('listing_id'=> $_SESSION['hotelno'], 'room_type_id'=> $_POST["roomid"], 'is_main'=> 0 ,'image_path'=> 'backend/assets/images/listings/'.$dir.'/'.$name);
+                $data = array('listing_id'=> $_SESSION['hotelno'], 'room_type_id'=> $_POST["roomid"], 'is_main'=> 0 ,'image_path'=> 'controlpanel/backend/assets/images/listings/'.$dir.'/'.$name);
 
                 // ****************************************************  -- ***************************
 

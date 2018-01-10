@@ -206,7 +206,13 @@
                                                 if($img->is_main){?>
                                                     <div class="col-md-3 col-sm-3">
                                                         <div class="thumbnail">
-                                                            <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                            <?php 
+                                                            $image_patharry = explode('/', $img->image_path);
+                                                            array_shift($image_patharry);
+                                                            $image_path = implode("/",$image_patharry);
+                                                            // echo $image_path;
+                                                            ?>
+                                                            <img height="100px" src="../../<?php echo $image_path ?>">
                                                             <div class="caption" style="padding-bottom: 0;">
 
                                                                 <p style="text-align: center;">
@@ -257,7 +263,13 @@
                                             if(!$img->is_main){?>
                                                 <div class="col-md-3 col-sm-3">
                                                     <div class="thumbnail">
-                                                        <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                        <?php 
+                                                        $image_patharry = explode('/', $img->image_path);
+                                                        array_shift($image_patharry);
+                                                        $image_path = implode("/",$image_patharry);
+                                                        // echo $image_path;
+                                                        ?>
+                                                        <img height="100px" src="../../<?php echo $image_path ?>">
                                                         <div class="caption" style="padding-bottom: 0;">
 
                                                             <p>
@@ -339,7 +351,13 @@
                                         if($img->is_main){?>
                                             <div class="col-md-3 col-sm-3">
                                                 <div class="thumbnail">
-                                                    <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                    <?php 
+                                                        $image_patharry = explode('/', $img->image_path);
+                                                        array_shift($image_patharry);
+                                                        $image_path = implode("/",$image_patharry);
+                                                        // echo $image_path;
+                                                        ?>
+                                                    <img height="100px" src="../../<?php echo $image_path ?>">
                                                     <div class="caption" style="padding-bottom: 0;">
 
                                                         <p style="text-align: center;">
@@ -390,7 +408,13 @@
                                     if(!$img->is_main){?>
                                         <div class="col-md-3 col-sm-3">
                                             <div class="thumbnail">
-                                                <img height="100px" src="../../<?php echo $img->image_path ?>">
+                                                <?php 
+                                                        $image_patharry = explode('/', $img->image_path);
+                                                        array_shift($image_patharry);
+                                                        $image_path = implode("/",$image_patharry);
+                                                        // echo $image_path;
+                                                        ?>
+                                                <img height="100px" src="../../<?php echo $image_path ?>">
                                                 <div class="caption" style="padding-bottom: 0;">
 
                                                     <p>
