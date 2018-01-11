@@ -357,7 +357,7 @@ function init() {
     scheduler.config.drag_create = false;
     scheduler.config.drag_lightbox = false;
     //scheduler.getEvent().readonly = true;
-
+    scheduler.config.collision_limit = 1;
     scheduler.init('scheduler_here', new Date(), "timeline");
 
     scheduler.load("./data.php", "json");
