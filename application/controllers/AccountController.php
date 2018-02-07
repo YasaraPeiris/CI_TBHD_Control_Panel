@@ -29,7 +29,7 @@ class AccountController extends CI_Controller {
 					'mobile' =>$_POST['tele']
 					);
 				$data2 = array(
-					'username'=> $_POST['username'],
+					//'username'=> $_POST['username'],
 					'password' => $_POST['inputPassword'],
 					);	
 

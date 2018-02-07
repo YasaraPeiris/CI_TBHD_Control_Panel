@@ -182,8 +182,8 @@
                                   var resizedSize = resizedFile.size;
                                   upload(resizedFile, function (response) {
 
-                                    window.location.reload(); // reload the page so that user can see the changes he made 
-
+                                    // alert('done');
+                                    window.location.reload(true); // reload the page so that user can see the changes he made 
                                   });
                                 }); 
                               }()); }
@@ -192,6 +192,8 @@
                         </script>
                         <!-- edit form column -->
                         <div class="col-md-9">
+                          <button type="button" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
+                          <button type="button" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color:#8892d6;color:white;font-size: inherit;'>Edit</button>
                           <h4 style="text-align:left;color:dimgrey;padding-bottom:6px;border-bottom:1px solid #f4f4f4;">Personal Info</h4>  
                           <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/AccountController/editMyAccount" id="form2" role="form" data-toggle="validator">
                             <input type="hidden" value = "<?php echo $data1->login_id; ?>" name="login_id" id="login_id">
@@ -248,8 +250,7 @@
                              </div>
 
 
-                           <button type="button" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
-                           <button type="button" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color:#8892d6;color:white;font-size: inherit;'>Edit</button>
+                           
 
                          </form>
                            </div>
@@ -329,6 +330,7 @@
             $form.removeClass('is-readonly').addClass('is-editing');
             var isReadonly  = $form.hasClass('is-readonly');
             $form.find('input,textarea').prop('disabled', isReadonly);
+            document.getElementById("username").disabled = true;
             document.getElementById("save_btn").disabled = false;
             document.getElementById("edit_btn").disabled = true;
           });
