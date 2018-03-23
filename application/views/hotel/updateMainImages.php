@@ -353,6 +353,7 @@
                     //var resizedSize = resizedFile.size;
                     // ds.push(resizedFile);
                     upload3(resizedFile,initialSize,loc, function (response) {
+                        alert('Photos have updated successfully. \nChanges may visible once you logged in again.');
                     });
 
                 });
@@ -419,6 +420,7 @@
 				});  
 				resize.photo(files[0], 250, 200, 'file', function (resizedFile) {
 					upload(resizedFile,initialSize,id, loc,'small', function (response) {
+                        alert('Photos have updated successfully. \nChanges may visible once you logged in again.');
 					});
 				}); 
 				// alert('for loop');

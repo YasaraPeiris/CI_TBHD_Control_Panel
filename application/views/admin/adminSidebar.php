@@ -28,30 +28,36 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
          <li>
-            <a href="adminHome.php" >
+            <a href="<?php echo base_url();?>index.php/RedirectPageController/adminHome" >
             <i class="fa fa-calendar"></i> <span>Home Page</span>
            
             </a>
         </li>
       
-  <li>
-      <a href="<?php echo base_url();?>index.php/RedirectPageController/viewCheckOrders" >
+        <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/viewCheckOrders" >
             <i class="fa fa-calendar"></i> <span>Check Orders</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li>
-         <li>
-             <a href="checkInquiries.php" >
+        <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/invoiceGenerator" >
+            <i class="fa fa-calendar"></i> <span>Invoice Generator</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li>
+         <!-- <li>
+             <a href="<?php echo base_url();?>index.php/RedirectPageController/checkInquiries" >
             <i class="fa fa-calendar"></i> <span>Check Inquiries</span>
             <small class="label pull-right bg-red" id="inquirySideBar"></small>
             </a>
         </li>
          <li>
-            <a href="updateHotelDetails.php" >
+            <a href="<?php echo base_url();?>index.php/RedirectPageController/updateHotelDetails" >
             <i class="fa fa-calendar"></i> <span>Check Updates</span>
             <small class="label pull-right bg-red" id="updateSideBar"></small>
             </a>
-        </li>
+        </li> -->
 <!--        <li>
             <a href="sendMail.php" >
             <i class="fa fa-calendar"></i> <span>Quick Email</span>
