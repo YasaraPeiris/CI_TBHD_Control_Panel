@@ -94,7 +94,7 @@
         <div class="clearfix"></div> <b>Booking Details :</b>
         <br><?php echo $listing->listing_name;?><br>
         Check in : <?php echo $booking->check_in;?><br>
-        Check in : <?php echo $booking->check_out;?>
+        Check out : <?php echo $booking->check_out;?>
 
         <section id="items">
             <table cellpadding="0" cellspacing="0">
