@@ -34,9 +34,21 @@
             </a>
         </li>
       
-        <li>
+        <!-- <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/viewCheckOrders" >
             <i class="fa fa-calendar"></i> <span>Check Orders</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li> -->
+        <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/hotelList" >
+            <i class="fa fa-calendar"></i> <span>Hotel/ Destination List</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li>
+        <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/destinationMapList" >
+            <i class="fa fa-calendar"></i> <span>Destination Map</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li>

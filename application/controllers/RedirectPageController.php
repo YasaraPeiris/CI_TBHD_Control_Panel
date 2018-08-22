@@ -67,6 +67,34 @@ class RedirectPageController extends CI_Controller {
 		$this->load->view('admin/invoiceGenerator');
 
 	}
+	public function hotelList(){
+		$this->load->model('AdminModel');
+		$listing =  $this->AdminModel->getHotelDetails();
+		$destination =  $this->AdminModel->getDestDetails();
+		$data =array('listing'=> $listing,'destination'=>$destination);
+		$this->load->view('admin/hotelList', $data);
+
+	}
+	public function destinationMapList(){
+		$this->load->model('AdminModel');
+		$destinationMap =  $this->AdminModel->getDestMapDetails();
+		$data =array('destination'=> $destinationMap);
+		$this->load->view('admin/destinationMap', $data);
+
+	}
+	public function destinationMapAdd(){
+		$this->load->library('session');
+		if (isset($_POST['listing_id']) && isset($_POST['destination_id'])) {
+			    $listing_id = $_POST['listing_id'];
+			    $destination_id = $_POST['destination_id'];
+				$this->load->model('AdminModel');
+				$destdata = array('listing_id'=>$listing_id, 'destination_id'=>$destination_id);
+				$this->AdminModel->place_destMap($destdata);
+				$_SESSION['alertDestMap'] = "Destination Map Added to listing ".$listing_id." to destination ".$destination_id;
+		}
+	    
+		$this->destinationMapList();
+	}
 	public function adminHome(){
 		$this->load->view('admin/adminHome');
 
