@@ -85,6 +85,7 @@
                                   <th>Listing ID</th>
                                   <th>Name</th>
                                   <th>Destination Id</th>
+                                  <th>email</th>
                               </tr>
                               </thead>
                               <tbody id="orderTable" style="text-align: center;">
@@ -93,6 +94,7 @@
                                     <th><?php echo $value->listing_id; ?></th>
                                     <th><?php echo $value->listing_name; ?></th>
                                     <th><?php echo $value->destination_id; ?></th>
+                                    <th><?php echo $value->email; ?></th>
                                   </tr>
                                 <?php } ?>
                               </tbody>

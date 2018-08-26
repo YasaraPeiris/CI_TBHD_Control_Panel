@@ -164,9 +164,13 @@ class LoginController extends CI_Controller {
 					redirect();
 				}
 			}
-			else{
-				$this->load->view('adminHome');
+			elseif($_SESSION['usertype'] == "hotel_owner"){
+				$this->load->view('admin/adminHome');
 			}
+			else{
+			$_SESSION['error']= 'Error occured, please log in again.';
+			redirect();
+		}
 		}
 		else{
 			$_SESSION['error']= 'Time is up, please log in again.';

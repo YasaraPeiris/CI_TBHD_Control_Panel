@@ -35,6 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | variable so that it is blank.
 |
 */
+date_default_timezone_set('Asia/Colombo');
 $config['index_page'] = 'index.php';
 $config['base_url'] = 'http://localhost/CI_TBHD_Control_Panel';
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-\=';
