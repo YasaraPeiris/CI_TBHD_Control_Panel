@@ -246,7 +246,7 @@ class EditDetailsController extends CI_Controller {
             if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel']) &&  isset($_POST['formId']) ) {
 			// print_r($_POST);
             $i = $_POST['formId'];
-            if (isset($_POST['roomprice'.$i]) && isset($_POST['pricename'.$i]) && isset($_POST['pricefaci'.$i]) && isset($_POST['priceOtherArry'.$i])) {
+            if (isset($_POST['roomprice'.$i]) && isset($_POST['pricename'.$i]) && isset($_POST['pricefaci'.$i]) && isset($_POST['priceOtherArry'.$i])&& isset($_POST['priceOccArry'.$i])) {
 	            
 				$room_type_id = $_POST['roomTypeId'];
 	                // echo gettype($_POST['pricename'.$i]);
@@ -263,7 +263,17 @@ class EditDetailsController extends CI_Controller {
 
 	                $field3_array =  json_decode($_POST['pricefaci'.$i]);
 	                $field4_array =  json_decode($_POST['priceOtherArry'.$i]);
-	                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array);
+
+	                if ($_POST['priceOccArry'.$i] == null) {
+		                $field5_array =  array_fill(0, sizeof($field4_array), "");
+	                }
+	                else{
+		                $field5_array =  json_decode($_POST['priceOccArry'.$i]);              	
+	                }
+		            print_r($field4_array);
+		            print_r($field5_array);
+		            echo "---".sizeof($field4_array);
+	                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array,"priceOccArry"=>$field5_array);
 
 
 	                   // print_r(($price_array));

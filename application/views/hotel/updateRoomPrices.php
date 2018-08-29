@@ -262,6 +262,7 @@
 
                                                         <input type="hidden" value='<?php echo json_encode( $r->priceOtherArry); ?>' name="priceOtherArry0">
                                                         <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci0">
+                                                        <input type="hidden" value='<?php echo (isset($r->priceOccArry))?json_encode( $r->priceOccArry):""; ?>' name="priceOccArry0">
 
 
                                                 </tbody>
@@ -599,6 +600,7 @@
                                                     ?>
                                                     <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci<?php echo $i; ?>">
                                                     <input type="hidden" value='<?php echo json_encode( $r->priceOtherArry); ?>' name="priceOtherArry<?php echo $i; ?>">
+                                                    <input type="hidden" value='<?php echo (isset($r->priceOccArry))?json_encode( $r->priceOccArry):""; ?>' name="priceOccArry<?php echo $i; ?>">
 
                                                     </tbody>
                                                 </table>
