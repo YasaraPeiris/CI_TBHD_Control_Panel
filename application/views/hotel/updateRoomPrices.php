@@ -129,7 +129,7 @@
 
                                     <form method="post" action="<?php echo site_url(); ?>/EditDetailsController/saveDetails"  id="roomForm0" name="roomForm0">
                                         <input type="hidden" name="formId" value="0">
-                                                                                <input type="hidden" name="roomTypeId" value="<?php echo $data1[0]->room_type_id?>">
+                                        <input type="hidden" name="roomTypeId" value="<?php echo $data1[0]->room_type_id?>">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <div class="col-md-4">
                                                 <p style="color:dimgrey;font-size: 14px;"> Room Type</p>

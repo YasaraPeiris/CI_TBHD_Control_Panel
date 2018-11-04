@@ -172,6 +172,30 @@
                         </script> -->
                     </div>
                 </div>
+                <div class="col-lg-6 col-xs-12">
+                    <!-- small box -->
+                    <div class="small-box " style="height:200px;text-align: center;background: linear-gradient(to bottom, rgba(250,250,250,1) 0%, rgba(232,232,232,1) 100%);
+">
+                        <div class="inner"
+                             style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                            <h1 style="color:black;">Add New Price Set.</h1>
+                            <br>
+                            <p style="color:#555555;font-size: 1.2em;">(Click here to add new price sets to rooms.)</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a title="My account" href="<?php echo base_url('index.php/EditDetailsController/newpriceset'); ?>" class="small-box-footer"
+                           style="height: 50px;line-height: 50px;font-size: 1.2em;color:#222d32;">Click Here <i
+                                    class="fa fa-arrow-circle-right"></i></a>
+                        <!-- href='<?php //echo base_url ('index.php/EditDetailsController/viewHomePage'); ?>' -->
+                        <!-- <script type="text/javascript">
+                            // function aa() {
+                            //     alert('Sorry, Adding package details is not allowed yet.');
+                            // }
+                        </script> -->
+                    </div>
+                </div>
                 <!-- ./col -->
             </div>
             <!-- /.row -->

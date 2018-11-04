@@ -54,7 +54,23 @@ class EditDetailsController extends CI_Controller {
 		}
 
 	}
+	public function newpriceset(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_no = $_SESSION['hotelno'];
+			$this->load->model('RoomModel');
+			$rooms =  $this->RoomModel->getRoomDetails($listing_no);
+			$data= array('data1'=> $rooms );
+			// echo "<br>----------<br>";
+			// print_r($data);
+			$this->load->view('hotel/addRoomPrices',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 
+	}
 	public function roomPics(){
 		$this->load->library('session');
 		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
@@ -270,9 +286,9 @@ class EditDetailsController extends CI_Controller {
 	                else{
 		                $field5_array =  json_decode($_POST['priceOccArry'.$i]);              	
 	                }
-		            print_r($field4_array);
-		            print_r($field5_array);
-		            echo "---".sizeof($field4_array);
+		            // print_r($field4_array);
+		            // print_r($field5_array);
+		            // echo "---".sizeof($field4_array);
 	                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array,"priceOccArry"=>$field5_array);
 
 
@@ -321,7 +337,54 @@ class EditDetailsController extends CI_Controller {
             $this->roomDetails();
 
         }
-	
+	    public function saveNewPriceDetails(){
+            $this->load->library('session');
+            $this->load->model('RoomModel');
+            $listing_id = $_SESSION['hotelno'];
+            if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel']) &&  isset($_POST['formId']) ) {
+	            $i = $_POST['formId'];
+	            if (isset($_POST['roomTypeId']) && isset($_POST['strtDate']) &&  isset($_POST['endDate'])&& isset($_POST['priority']) &&  isset($_POST['roomprice'.$i])) {
+	            	// echo "---room type id---- ".$_POST['roomTypeId']." -----listing id------". $listing_id."<br>";
+					$room_type_id = $_POST['roomTypeId'];
+					$roomprice_arr = $_POST['roomprice'.$i];
+		            $roomPriceCat = $this->RoomModel->get_roomcat($listing_id, $room_type_id);
+		            // print_r($roomprice_arr);
+		            // echo "<br>";
+					foreach ($roomprice_arr as $key => $value) {
+						$roomprice_arr[$key]= str_replace(',', '', $value);
+	        			// echo "---key ".$key." --price---- ".$value."<br>";
+					}
+					foreach ($roomPriceCat as $key => $value) {
+						// $roomprice_arr[$key]= str_replace(',', '', $value);
+						$newprice_array = array("pricecategory_id"=>$value->pricecategory_id,"price"=>$roomprice_arr[$value->price_id],"valid_from"=>$_POST['strtDate'],"valid_till"=>$_POST['endDate'],"priority"=>$_POST['priority']);
+						print_r($newprice_array);
+		                $this->load->model('RoomModel');
+		                $this->RoomModel->savePriceData($newprice_array);
+	        			echo "---<br>";
+					}
+					// print_r($roomPriceCat);
+		   //              $field1_array = $roomprice_arr;
+		   //              $field2_array = $_POST['pricename'.$i];
 
+		   //              $field3_array =  json_decode($_POST['pricefaci'.$i]);
+		   //              $field4_array =  json_decode($_POST['priceOtherArry'.$i]);
 
+		   //              if ($_POST['priceOccArry'.$i] == null) {
+			  //               $field5_array =  array_fill(0, sizeof($field4_array), "");
+		   //              }
+		   //              else{
+			  //               $field5_array =  json_decode($_POST['priceOccArry'.$i]);              	
+		   //              }
+		   //              $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array,"priceOccArry"=>$field5_array);
+		                
+		   //              $data=array('price_details'=>json_encode($price_array));
+		   //              
+				}
+				else{
+					$_SESSION['errorURP'] = "Error in saving the new price, please try again.";
+				}
+
+            }
+            $this->newpriceset();
+        }
 }

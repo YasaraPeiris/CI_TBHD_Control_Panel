@@ -26,7 +26,20 @@ class RoomModel extends CI_Model
 			return NULL;	
 		}
 	}
-
+    function get_roomcat($listing_id, $room_type_id)
+    {
+        $this->db->where('listing_id', $listing_id);
+        $this->db->where('room_type_id', $room_type_id);
+        $this->db->from('roompricecategory');
+        $this->db->order_by('room_type_id','asc');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }
 	function updateRoomDetails($data,$listing_id,$roomtype_id){
         $this->db->where('listing_id',$listing_id);
         $this->db->where('room_type_id',$roomtype_id);
@@ -39,7 +52,10 @@ class RoomModel extends CI_Model
             return false;
         }
     }
-
+    function savePriceData($data)
+    {       
+        $this->db-> insert('roomprices',$data);
+    }
     function getRoomImages($listing_id){
         $this->db->where('listing_id', $listing_id);
         $this->db-> from('roompics');
