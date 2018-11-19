@@ -265,35 +265,28 @@ class EditDetailsController extends CI_Controller {
             if (isset($_POST['roomprice'.$i]) && isset($_POST['pricename'.$i]) && isset($_POST['pricefaci'.$i]) && isset($_POST['priceOtherArry'.$i])&& isset($_POST['priceOccArry'.$i])) {
 	            
 				$room_type_id = $_POST['roomTypeId'];
-	                // echo gettype($_POST['pricename'.$i]);
-	                // echo gettype($_POST['pricefaci'.$i]);
-					// print_r($_POST['roomprice'.$i]);
 					$roomprice_arr = $_POST['roomprice'.$i];
+		            $roomPriceCat = $this->RoomModel->get_roomcat($listing_id, $room_type_id);
 					foreach ($roomprice_arr as $key => $value) {
 						$roomprice_arr[$key]= str_replace(',', '', $value);
 					}
-					// print_r($roomprice_arr);
 	                $field1_array = $roomprice_arr;
-	                // $field1_array = isset($_POST['roomprice'.$i]) ? $_POST['roomprice'.$i] : array();
 	                $field2_array = $_POST['pricename'.$i];
-
 	                $field3_array =  json_decode($_POST['pricefaci'.$i]);
 	                $field4_array =  json_decode($_POST['priceOtherArry'.$i]);
 
-	                if ($_POST['priceOccArry'.$i] == null) {
+	                if ($_POST['roomocc'.$i] == null) {
 		                $field5_array =  array_fill(0, sizeof($field4_array), "");
 	                }
 	                else{
-		                $field5_array =  json_decode($_POST['priceOccArry'.$i]);              	
+		                $field5_array =  $_POST['roomocc'.$i];              	
 	                }
-		            // print_r($field4_array);
-		            // print_r($field5_array);
-		            // echo "---".sizeof($field4_array);
-	                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array,"priceOccArry"=>$field5_array);
-
-
-	                   // print_r(($price_array));
-	                   // echo "<br> - - - <br>";			
+					for ($catlen=0; $catlen < sizeof($roomPriceCat); $catlen++) { 
+		            	$baseprice = $this->RoomModel->get_baseroomprice($roomPriceCat[$catlen]->pricecategory_id)[0];
+		            	$this->RoomModel->update_baseroomprice($baseprice->id, $roomprice_arr[$catlen]);
+		            	$this->RoomModel->update_pricecat_occ($roomPriceCat[$catlen]->pricecategory_id, $field5_array[$catlen]);
+					}
+	                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array,"priceOccArry"=>$field5_array);		
 
 
 	                $lowest_key = array_keys($field1_array, min($field1_array));
@@ -357,10 +350,10 @@ class EditDetailsController extends CI_Controller {
 					foreach ($roomPriceCat as $key => $value) {
 						// $roomprice_arr[$key]= str_replace(',', '', $value);
 						$newprice_array = array("pricecategory_id"=>$value->pricecategory_id,"price"=>$roomprice_arr[$value->price_id],"valid_from"=>$_POST['strtDate'],"valid_till"=>$_POST['endDate'],"priority"=>$_POST['priority']);
-						print_r($newprice_array);
+						// print_r($newprice_array);
 		                $this->load->model('RoomModel');
 		                $this->RoomModel->savePriceData($newprice_array);
-	        			echo "---<br>";
+	        			// echo "---<br>";
 					}
 					// print_r($roomPriceCat);
 		   //              $field1_array = $roomprice_arr;

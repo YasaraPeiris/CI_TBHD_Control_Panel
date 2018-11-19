@@ -196,7 +196,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <input type="number" name="occupancy0"
-                                                       value="<?php echo $data1[0]->no_of_people; ?>" min="1" max="16"
+                                                       value="<?php echo $data1[0]->no_of_people; ?>" min="1" max="40"
                                                        style="color:dimgrey;font-size: 14px;margin: 0 10px; min-width: 50px; padding: 2px 10px; "
                                                        required>
                                             </div>
@@ -208,7 +208,7 @@
                                             <div class="col-md-4">
                                                 <input type="number" name="max_occupancy0" id="max_ppl"
                                                        value="<?php echo $data1[0]->max_no_of_guests; ?>" min="1"
-                                                       max="16"
+                                                       max="40"
                                                        style="margin: 0 10px;color:dimgrey;font-size: 14px; min-width: 50px; padding: 2px 10px; "
                                                        required>
                                             </div>
@@ -222,7 +222,8 @@
                                                 <thead>
                                                 <tr style="text-align:center;">
                                                     <th>Price Condition</th>
-                                                    <th>Price</th>
+                                                    <th>Base Price</th>
+                                                    <th>Occupancy</th>
                                                     <th>Facilities</th>
                                                     <th>Note</th>
                                                     <!--                                                         <th>Add Facilities</th>-->
@@ -232,6 +233,7 @@
                                                 <tbody>
                                                 <?php
                                                 $r = json_decode($data1[0]->price_details);
+                                                // print_r($r);
                                                 for($i=0;$i<sizeof($r->priceArry);$i++){  // for number of rooms
 
                                                     ?>
@@ -240,8 +242,10 @@
                                                         <td><?php echo $r->priceNameArry[$i]; ?>
                                                         <input type="hidden" value="<?php echo $r->priceNameArry[$i]; ?>" name="pricename0[]"></td>
                                                         <td><input   value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$i])),2); ?>" name="roomprice0[]"></td>
-<!--                                                        <td><input style="border: none;background-color:transparent;text-align: right;"  value="--><?php //echo $r->priceArry[$i]; ?><!--" name="roomprice0[]"></td>-->
 
+                                                        <td>
+                                                            <input type="number" min="1" max="40" value="<?php echo (isset($r->priceOccArry[$i]))? $r->priceOccArry[$i]:$data1[0]->no_of_people; ?>" name="roomocc0[]" required>
+                                                        </td>
                                                         <td>
                                                         <?php
                                                         if (isset($r->priceFaci[$i])) {                                                          
@@ -536,7 +540,7 @@
                                                 <div class="col-md-4">
                                                     <input type="number" name="occupancy<?php echo $i; ?>"
                                                            value="<?php echo $data1[$i]->no_of_people; ?>" min="1"
-                                                           max="16"
+                                                           max="40"
                                                            style="color:dimgrey;font-size: 14px;margin: 0 10px; min-width: 50px; padding: 2px 10px; "
                                                            required>
                                                 </div>
@@ -548,7 +552,7 @@
                                                 <div class="col-md-4">
                                                     <input type="number" name="max_occupancy<?php echo $i; ?>" id="max_ppl"
                                                            value="<?php echo $data1[$i]->max_no_of_guests; ?>" min="1"
-                                                           max="16"
+                                                           max="40"
                                                            style="margin: 0 10px;color:dimgrey;font-size: 14px; min-width: 50px; padding: 2px 10px; "
                                                            required>
                                                 </div>
@@ -562,7 +566,8 @@
                                                     <thead>
                                                     <tr style="text-align:center;">
                                                         <th>Price Condition</th>
-                                                        <th>Price</th>
+                                                        <th>Base Price</th>
+                                                        <th>Occupancy</th>
                                                         <th>Facilities</th>
                                                         <th>Note</th>
                                                         <!--                                                         <th>Add Facilities</th>-->
@@ -572,6 +577,7 @@
                                                     <tbody>
                                                     <?php
                                                     $r = json_decode($data1[$i]->price_details);
+                                                    // print_r($r);
                                                     for($k=0;$k<sizeof($r->priceArry);$k++){
 
                                                         ?>
@@ -580,8 +586,10 @@
                                                             <td><?php echo $r->priceNameArry[$k]; ?>
                                                             <input type="hidden" value="<?php echo $r->priceNameArry[$k]; ?>" name="pricename<?php echo $i; ?>[]"></td>
                                                             <td><input name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$k])),2); ?>"></td>
-<!--                                                    <td><input style="text-align: right;border: none;background-color:transparent;" name="roomprice--><?php //echo $i; ?><!--[]"  value="--><?php //echo $r->priceArry[$k]; ?><!--"></td>-->
 
+                                                            <td>
+                                                                <input type="number" min="1" max="40" value="<?php echo (isset($r->priceOccArry[$k]))? $r->priceOccArry[$k]:$data1[$i]->no_of_people; ?>" name="roomocc<?php echo $i; ?>[]" required>
+                                                            </td>
                                                             <td>
                                                             <?php
                                                             $nm= sizeof($r->priceFaci[$k]);
