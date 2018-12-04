@@ -410,7 +410,7 @@
                    </table>
                    <hr class="hr_style">
                    <label >How many this kind of rooms? </label> 
-                   <input type="number" name="each_room_count" value="1"  min="1" max="10" style="margin: 5px 10px; min-width: 50px; padding: 2px 10px; ">
+                   <input type="number" name="each_room_count" value="1"  min="1" style="margin: 5px 10px; min-width: 50px; padding: 2px 10px; ">
                   <!-- <input type="text" id="fname" name="firstname"> -->
                   <!-- <label for="property_type">The place is a</label>
                   

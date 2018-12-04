@@ -105,7 +105,7 @@
             <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             ">
             <div class="box-header with-border" style="text-align: center;">
-              <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;">New Room Details</h3>
+              <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;">New Room Addition</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body" style="padding:3% 4%;">
@@ -115,8 +115,16 @@
                   <div class="box-body pad" style="color: black;">
 
                     <div class="row">
-                      Doneeeeeeeee.................
+                      <?php
+                      if ($status == "done") {
+                        echo "You have succesfully added a new room.";
+                      }
+                      else{                        
+                        echo "There was an error adding the new room. <br>Please try again later or contact inna.lk team.";
+                      }
 
+                      ?>
+                      
                     </div>
                   </div>
 
