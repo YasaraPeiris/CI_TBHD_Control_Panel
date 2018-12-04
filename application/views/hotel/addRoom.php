@@ -130,8 +130,8 @@
                 </select></p>
                   <!-- <label for="rent_area">Your Rent Area</label> -->
                   <p class="para1 "> Room Name<input type="text" name="room_name" placeholder="Customize your room's name" style="margin: 5px 10px; padding: 6px; max-width: 70%;" required></p>
-                  <p class="para1 ">Occupancy <input type="number" name="occupancy" id="occupancyid"  min="1" max="16" style="margin: 0 10px; min-width: 50px; padding: 2px 10px; " required></p>
-                  <p class="para1 ">Maximum Occupancy <input type="number" name="max_occupancy" id="max_ppl"  min="1" max="16" style="margin: 0 10px; min-width: 50px; padding: 2px 10px; " required></p>
+                  <p class="para1 ">Occupancy <input type="number" name="occupancy" id="occupancyid"  min="1" max="45" style="margin: 0 10px; min-width: 50px; padding: 2px 10px; " required></p>
+                  <p class="para1 ">Maximum Occupancy <input type="number" name="max_occupancy" id="max_ppl"  min="1" max="45" style="margin: 0 10px; min-width: 50px; padding: 2px 10px; " required></p>
                   <hr class="hr_style">
                   <label for="how_much">State Prices </label><span> (including Commission and all applicable Taxes)</span><br>
                  <!-- 
