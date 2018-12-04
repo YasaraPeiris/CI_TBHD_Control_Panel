@@ -434,7 +434,6 @@
                                                 <div class="col-md-6">
                                                     <input type="number" name="each_room_count0"
                                                            value="<?php echo $data1[0]->no_of_rooms; ?>" min="1"
-                                                           max="10"
                                                            style="margin: 5px 10px; min-width: 50px; padding: 2px 10px; ">
                                                 </div>
                                             </div>
@@ -771,7 +770,6 @@
                                                     <div class="col-md-6">
                                                         <input type="number" name="each_room_count<?php echo $i; ?>"
                                                                value="<?php echo $data1[$i]->no_of_rooms; ?>" min="1"
-                                                               max="10"
                                                                style="margin: 5px 10px; min-width: 50px; padding: 2px 10px; ">
                                                     </div>
                                                 </div>
