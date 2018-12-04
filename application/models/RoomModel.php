@@ -75,6 +75,19 @@ class RoomModel extends CI_Model
             return false;
         }
     }
+    function addRoomType($data)
+    {       
+        $this->db-> insert('roomtypes',$data);
+    }
+    function addRoomPic($data)
+    {       
+        $this->db-> insert('roompics',$data);
+    }
+    function addPriceCat($data)
+    {       
+        $this->db-> insert('roompricecategory',$data);
+        return $this->db->insert_id();
+    }
     function savePriceData($data)
     {       
         $this->db-> insert('roomprices',$data);

@@ -1,0 +1,347 @@
+* {
+    box-sizing: border-box;
+}
+.sub_heading {
+   color: white; 
+   font-family: cursive; 
+   padding-right: 20px;
+   padding-top: 14px; 
+}
+.para1 {color: #101010; font-family: cursive; padding: 2px;} 
+.with_indent {
+    text-indent: 5em;
+}
+.uploadButton{
+    width: 30%;
+    background-color: #abbfac;
+    color: white;
+    padding: 7px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border-style: solid; 
+    border-color: #dddddd #666 #666 #dddddd;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=Number]{
+    width: 70%;
+    padding: 3px 14px;
+    padding-right: 1px;
+    margin: 15px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    max-width: 60px;
+    font-size: 1.2em;
+}
+input[type=email]{
+    width: 70%;
+    padding: 4px 6px;
+    padding-right: 1px;
+    margin: 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    min-width: 260px;
+    font-size: 1.2em;
+}
+input[type=Time]{
+    width: 70%;
+    padding: 2px 4px;
+    margin: 0 0 0 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    max-width: 110px;
+}
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/*input[type=file] {
+    width: 100%;
+    background-color: #ddd;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}*/
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+hr.hr_style {
+    border-top: 1px solid #8c8b8b;
+    text-align: center;
+}
+hr.hr_style2 {
+    border-top: 1px solid #acabbb;
+    text-align: center;
+}
+hr.hr_style:after {
+    content: '§';
+    display: inline-block;
+    position: relative;
+    top: -14px;
+    padding: 0 10px;
+    background: #f0f0f0;
+    color: #8c8b8b;
+    font-size: 18px;
+    -webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    transform: rotate(60deg);
+}
+hr.hr_style2:after {
+    content: '**';
+    display: inline-block;
+    position: relative;
+    top: -9px;
+    padding: 0 10px;
+    background: #f0f0f0;
+    color: #8c8b8b;
+    font-size: 18px;
+    /*-webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    transform: rotate(60deg);*/
+}
+.beds{
+    margin: 5px !important; 
+    /*padding: 0;*/
+}
+.bed_para{
+    margin: 0;
+    /*padding: 0;*/
+}
+.back_button{
+    width: 30%;
+    background-color: #9baf9c;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#dsas{
+    float: right;
+    width: 40%;
+    transition: 2s;
+}
+#dsas:hover{
+    width: 65%;
+}
+
+
+div.form_box {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    /*margin-right: 0px;*/
+    margin:0px auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    max-width: 600px;
+}
+div.tip_box{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    /*margin-right: 0px;*/
+    margin:0px auto;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    padding: 20px;
+    max-width: 250px;
+
+}
+div.wrap_all {
+    border-radius: 5px;
+    background-color: #EFD5FF;
+    /*margin-right: 0px;*/
+    margin:5px auto;
+    margin-bottom: 40px;
+    padding: 10px;
+    max-width: 900px;
+}
+    /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1 !important; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: fixed;
+    background-color: #fff;
+    right: 0;
+    bottom:0;
+    margin-bottom: 35px;
+    margin-right: 5px;
+    padding: 0;
+    border: 1px solid #888;
+    max-width: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    max-height: 70%;
+    min-height: 400px;
+    min-width: 50%;
+    overflow: auto; 
+
+    
+    
+}
+.modal-content-main_page{
+    position: relative;
+    background-color: #fff;
+    margin: 0 auto;
+    width: 500px;
+    max-height: 70%;
+    max-width: 85%;
+    overflow: auto; 
+    -webkit-animation-name: animatetop_main;
+    animation-name: animatetop_main;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop_main {
+    from {top: -300px; opacity:0}
+    to {top: 0; opacity:1}
+}
+
+@keyframes animatetop_main {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {bottom: -300px; opacity:0}
+    to {bottom: 0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {bottom:-300px; opacity:0}
+    to {bottom:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #eee;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px; float: middle;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #000044;
+    color: white;
+}
+.tip_button{
+    display: none;
+    
+}
+.tip_button-main{
+    display: inline;
+    position: absolute;
+    bottom : 0px; right: 0px;    
+    color: blue;
+    font-size: 10px;
+    border-radius: 15px;
+    height: 40px;
+    width: 60px;
+    background-color: #00C8F9;
+    float: right; 
+    margin-right: 30px; 
+    margin-bottom: 40px;
+}
+@media only screen and (max-width: 991px){
+  div.tip_box{
+    display :none;
+  }
+  .tip_button{
+    display: inline;
+    position: fixed;
+    bottom : 0px; right: 0px;    
+    color: blue;
+    font-size: 10px;
+    border-radius: 15px;
+    height: 40px;
+    width: 60px;
+    background-color: #00C8F9;
+    float: right; 
+    margin-right: 30px; 
+    margin-bottom: 40px;
+  }
+  .tip_button-main{
+    position: fixed;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .modal-content {
+    text-align: center;
+  }
+  .sub_heading {
+    float: none;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 375px){ 
+  .modal-content {
+    width: 80%;
+  }
+
+}
+@media only screen and (max-height: 500px){ 
+  .modal-content {
+    max-height: 80%;
+    min-height: auto;
+  }
+
+}

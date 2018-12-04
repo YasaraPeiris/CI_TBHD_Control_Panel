@@ -71,6 +71,197 @@ class EditDetailsController extends CI_Controller {
 		}
 
 	}
+	public function newroom(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_no = $_SESSION['hotelno'];
+			$this->load->model('RoomModel');
+			$rooms =  $this->RoomModel->getRoomDetails($listing_no);
+
+
+
+			$_SESSION['post']['images'] = array();
+	        $_SESSION['post']['room_images'] = array();
+	        $_SESSION['post']['imageNumRoom'] = 1;
+	        $_SESSION['post']['bathroom_images'] = array();
+	        $_SESSION['post']['imageNumBathroom'] = 1;      
+
+
+
+
+
+			$_SESSION['post']['listing_img_dir'] = "listingNo_".$listing_no;
+			$_SESSION['post']['roomCount'] = sizeof($rooms)+1;
+			// $data= array('roomCount'=> sizeof($rooms) );
+			// echo "<br>----------<br>";
+			// print_r($_SESSION);
+			// print_r($_POST);
+			$this->load->view('hotel/addRoom');
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+
+	}
+	public function newRoomAdd(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$data = array('status'=> "notProcessed");
+			if (isset($_POST['room_type']) && isset($_POST['price1'])) {
+				$listing_id = $_SESSION['hotelno'];
+				$this->load->model('RoomModel');
+				$rooms =  $this->RoomModel->getRoomDetails($listing_id);	
+				$i = sizeof($rooms);
+				$facidata = array();
+				if (isset($_POST['room_faci'])){
+					$facidata = $_POST['room_faci'];
+					// unset($_POST['room_faci']);
+				}
+				// else{ $_SESSION['post']['room_faci2'][] = array();}
+
+
+
+
+
+
+
+
+
+
+
+							$room_facility_data = array($_POST['Seating']);
+							$room_facility_data = array_merge($facidata,$room_facility_data); // **** room_faci2
+							$room_facility_data = json_encode($room_facility_data);
+
+
+							$priceArry = array();
+							$priceNameArry = array();
+							$priceOccArry = array();
+							$priceOtherArry = array();
+							$priceFaci = array();
+							$minPrice = $_POST['price1'];
+							// $minPriceName = $_POST['priceName1'] ;
+							if ($_POST['priceName1'] == "Other") {
+								$minPriceName = $_POST['priceNameCustm1'];
+							}
+							else{$minPriceName = $_POST['priceName1'];}
+
+
+							if (isset($_POST['priceValueCount'])) {
+								for ($i=1; $i <= $_POST['priceValueCount'] ; $i++) { 
+									$priceArry[] = $_POST['price'.$i];
+									
+									if (isset($_POST['priceOther'.$i])) {
+										$priceOtherArry[] = $_POST['priceOther'.$i];
+									}
+									else {$priceOtherArry[] = "";} 
+
+
+
+
+
+									if (isset($_POST['occ'.$i])) {
+										$priceOccArry[] = $_POST['occ'.$i];
+									}
+									else {
+										$priceOccArry[] = $_POST['occupancy'];
+										echo "error in occ, check it again.";
+									}
+
+
+
+
+
+									if ($_POST['priceName'.$i] == "Other") {
+										$pName = $_POST['priceNameCustm'.$i];
+									}
+									else{$pName = $_POST['priceName'.$i];}
+									$priceNameArry[] = $pName;
+
+
+									if (isset($_POST['extraFaci'.$i])){
+										$priceFaci[] = $_POST['extraFaci'.$i];
+										// unset($_POST['room_faci']);
+									}
+									else{ $priceFaci[] = array();}
+									
+									if ($minPrice > $_POST['price'.$i]) {
+										$minPrice = $_POST['price'.$i];
+										$minPriceName = $pName;
+									}
+								}
+							}
+							$price_array = array('priceArry'=>$priceArry,'priceNameArry'=>$priceNameArry,'priceOtherArry'=>$priceOtherArry,'priceFaci'=>$priceFaci,'priceOccArry'=>$priceOccArry);
+
+							$min_price_array = array('minPriceName'=>$minPriceName,'minPrice'=>$minPrice);
+
+
+
+							$room_listing_data = array('listing_id'=> $listing_id ,'room_type_id'=>($i+1) ,'room_type'=>$_POST['room_type'],'room_name'=>$_POST['room_name'],'bathroom_type'=>$_POST['bathroom_type'] ,'min_price'=>(!empty($min_price_array) ? json_encode($min_price_array) : null) ,'price_details'=>(!empty($price_array) ? json_encode($price_array) : null),'no_of_people'=>$_POST['occupancy'],'max_no_of_guests'=>$_POST['max_occupancy'],'room_facilities'=>$room_facility_data ,'no_of_rooms'=>$_POST['each_room_count'],'room_image'=> "controlpanel/backend/assets/images/listings/listingNo_".$listing_id."/".$_SESSION['post']['room_images'][0] ,'other_on_faci'=> $_POST['other_amenities']);
+							$this->RoomModel->addRoomType($room_listing_data);
+
+
+
+
+
+
+
+
+
+
+						for ($priceTypes =0; $priceTypes  < sizeof($priceArry); $priceTypes ++) {
+				            $catdata = array('listing_id'=>$listing_id,'room_type_id'=> $i+1, 'price_id'=>$priceTypes, 'price_name'=>$priceNameArry[$priceTypes], 'price_other'=> $priceOtherArry[$priceTypes], 'price_faci'=> json_encode($priceFaci[$priceTypes]), 'price_occ'=>$priceOccArry[$priceTypes]);
+				            print_r($catdata);
+				            echo " <br> --- <br>";
+				            echo $priceArry[$priceTypes];
+				            $cat_id = $this->RoomModel->addPriceCat ($catdata);
+
+
+
+
+
+							$pdata = array('pricecategory_id'=>  $cat_id, 'price'=> $priceArry[$priceTypes], 'valid_from'=> '2018-01-01', 'valid_till'=>'9999-12-31');
+							$this->RoomModel->savePriceData ($pdata);
+						}			
+
+
+						// // foreach ($data['room_images'][$i] as $value) {
+							$room_pics_data = array('listing_id'=> $listing_id,'image_path'=> "controlpanel/backend/assets/images/listings/listingNo_".$listing_id."/".$_SESSION['post']['room_images'][0],'room_type_id'=>($i+1),'is_main'=> 1);
+							print_r($room_pics_data);
+				            echo " <br> ** <br>";
+							$this->RoomModel->addRoomPic($room_pics_data);
+
+						// // }
+						foreach ($_SESSION['post']['bathroom_images'] as $value) {
+							$bathroom_pics_data = array('listing_id'=> $listing_id,'image_path'=> "controlpanel/backend/assets/images/listings/listingNo_".$listing_id."/".$value,'room_type_id'=>($i+1),'is_main'=>0);
+							print_r($bathroom_pics_data);
+				            echo " <br> *-*-* <br>";
+							$this->RoomModel->addRoomPic($bathroom_pics_data);
+						}
+
+
+
+
+
+
+
+				// echo "in---------";
+				// $listing_no = $_SESSION['hotelno'];
+				// $this->load->model('RoomModel');
+				// $rooms =  $this->RoomModel->getRoomDetails($listing_no);	
+				$data = array('status'=> "done");
+			}
+			unset($_POST);
+			$_POST = array();			
+			$this->load->view('hotel/doneAddingRoom',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+
+	} 
 	public function roomPics(){
 		$this->load->library('session');
 		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
