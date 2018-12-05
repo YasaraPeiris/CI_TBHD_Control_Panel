@@ -70,12 +70,12 @@
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li> -->
-        <li>
+        <!-- <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/invoiceGenerator" >
             <i class="fa fa-calendar"></i> <span>Invoice Generator</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
-        </li>
+        </li> -->
          <!-- <li>
              <a href="<?php echo base_url();?>index.php/RedirectPageController/checkInquiries" >
             <i class="fa fa-calendar"></i> <span>Check Inquiries</span>
