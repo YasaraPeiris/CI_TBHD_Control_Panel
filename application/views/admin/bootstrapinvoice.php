@@ -53,6 +53,9 @@
 
             <div class="title-top">
                 <span class="x-hidden"><?php
+                if ($days < 1) {
+                    $days = 1 ;
+                }
                 $dt = new DateTime("now", new DateTimeZone('Asia/Colombo'));
 
                 $todaydate = $dt->format('Y-m-d');
@@ -152,12 +155,13 @@
                         <th><b>Sub Total with Promo</b></th>
                         <td contenteditable='false'><span style="border-top: 2px solid; font-size: 1.2em; font-weight: bold;">LKR. <?php echo number_format((float)($totalprice*(1 - $promotions->promo_amount)*$days), 2, '.', '');?></span></td>
                     </tr>
-                <?php } ?>
-
+                <?php } 
+                if ($listing->commision > 0) { ?>
                 <tr >
-                    <th>Commission</th>
+                    <th>Service Fee</th>
                     <td >LKR. <?php echo number_format((float)($totalprice*(1 - $promotions->promo_amount)*$days*$listing->commision/100), 2, '.', '');?></td>
                 </tr>
+                <?php } ?>
 
                 <tr class="amount-total">
                     <!-- {amount_total_label} -->

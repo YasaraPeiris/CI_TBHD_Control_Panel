@@ -36,11 +36,58 @@ class AdminModel extends CI_Model
         }
         
     }
-	function place_destMap($data)
-	{
-		$this->db-> insert('destinationmap',$data);
-		
-	}
+    function getBookingDetails()
+    {
+        $this->db->order_by("mb_id", "desc");
+        $this->db->from('manualbookings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function getSpcfcBookingDetails($id)
+    {
+        $this->db->where('mb_id', $id);
+        $this->db->from('manualbookings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function getSpcfcBookingItms($id)
+    {
+        $this->db->where('mb_id', $id);
+        $this->db->from('manualbookingitems');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function place_destMap($data)
+    {
+        $this->db-> insert('destinationmap',$data);
+        
+    }
+    function addManualBooking($data)
+    {
+        $this->db-> insert('manualbookings',$data);
+        return $this->db->insert_id();
+        
+    }
+    function addManualBookingItem($data)
+    {
+        $this->db-> insert('manualbookingitems',$data);
+        
+    }
 
 
 

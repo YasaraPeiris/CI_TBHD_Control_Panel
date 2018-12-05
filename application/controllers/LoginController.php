@@ -23,6 +23,7 @@ class LoginController extends CI_Controller {
 				$username = stripslashes($username);
 				$password = stripslashes($password);
 				$user =  $this->LoginModel->authenticate($username,$password);
+				// print_r($user);
 				if(!empty($user)){
 					// $_SESSION['username'] = $username;
 					// $_SESSION['password'] = $password;
@@ -42,7 +43,7 @@ class LoginController extends CI_Controller {
 						$this->load->view('hotel/hotelsHome',$data);
 					}
 					else{
-						$_SESSION['hotelno'] = 0;
+						$_SESSION['hotelno'] = $user[0]->listing_id;
 	                    $_SESSION['login_user'] =  "admin";
 						$this->load->view('admin/adminHome');
 					}	

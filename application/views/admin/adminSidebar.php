@@ -53,6 +53,24 @@
             </a>
         </li>
         <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/contentGenerator" >
+            <i class="fa fa-calendar"></i> <span>Content Generator</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li>
+        <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/bookingDetails" >
+            <i class="fa fa-calendar"></i> <span>Manual Bookings</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li>
+        <!-- <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/bookingContent" >
+            <i class="fa fa-calendar"></i> <span>Manual Booking Content</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li> -->
+        <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/invoiceGenerator" >
             <i class="fa fa-calendar"></i> <span>Invoice Generator</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
