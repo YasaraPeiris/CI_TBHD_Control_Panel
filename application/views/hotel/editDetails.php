@@ -129,7 +129,7 @@
 ">
                         <div class="inner"
                              style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                            <h1 style="color:black;">Update Images.</h1>
+                            <h1 style="color:black;">Update Hotel Images.</h1>
                             <br>
                             <p style="color: #555555;font-size: 1.2em;">(Click here to add or alter images of your listing.)</p>
 

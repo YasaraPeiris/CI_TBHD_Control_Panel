@@ -30,8 +30,8 @@
           <i class="fa fa-calendar"></i> <span>Home Page</span>
        </a>
      </li>
-     <li>
-       <a title="My account" href='<?php echo base_url ('index.php/RedirectPageController/viewMyAccount'); ?>'>
+    <li>
+      <a title="My account" href='<?php echo base_url ('index.php/RedirectPageController/viewMyAccount'); ?>'>
         <i class="fa fa-calendar"></i> <span>My Account</span>
       </a>
     </li>
@@ -39,6 +39,38 @@
       <a title="Edit Details" href='<?php echo base_url ('index.php/RedirectPageController/viewEditDetails'); ?>'>
         <i class="fa fa-calendar"></i> <span>Edit Details</span> 
       </a>
+      <ul class="sidebar-menu" style="font-size: 0.8em;">
+          <li>
+            <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/hotelDetails'); ?>'>
+              <i class="fa fa-edit"></i><span>Update Hotel Details</span>
+            </a>
+          </li>
+          <li>
+            <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/roomDetails'); ?>'>
+              <i class="fa fa-edit"></i><span>Update Room Details</span>
+            </a>
+          </li>
+          <li>
+            <a title="My account" href='<?php echo base_url ('index.php/EditImagesController/getImages'); ?>'>
+              <i class="fa fa-edit"></i><span>Update Hotel Images</span>
+            </a>
+          </li>
+          <li>
+            <a title="My account" href='<?php echo base_url ('index.php/EditImagesController/roomimages'); ?>'>
+              <i class="fa fa-edit"></i><span>Update Room Images</span>
+            </a>
+          </li>
+          <li>
+            <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/newpriceset'); ?>'>
+              <i class="fa fa-edit"></i><span>Add New Price Set</span>
+            </a>
+          </li>
+          <li>
+            <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/newroom'); ?>'>
+              <i class="fa fa-edit"></i><span>Add New Room</span>
+            </a>
+          </li>
+      </ul>
     </li>
    <li>
        <a title="My account" href='<?php echo base_url ('index.php/LoginController/viewOrderDetails'); ?>'>
