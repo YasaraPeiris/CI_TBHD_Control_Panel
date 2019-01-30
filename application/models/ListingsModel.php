@@ -83,6 +83,12 @@ class ListingsModel extends CI_Model
         $this->db->update("listings", $data);
     }
 
+     function updateListingsRules($listing_id, $data)
+    {
+        $this->db->where('listing_id', $listing_id);
+        $this->db->update("hotel", $data);
+    }
+
     function updateFacilities($listing_id, $data)
     {
         $this->db->where('listing_id', $listing_id);

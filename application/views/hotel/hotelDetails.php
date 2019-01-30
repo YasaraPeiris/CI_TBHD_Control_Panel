@@ -98,10 +98,11 @@
       <section class="content" style="padding:10px 5% 0 5%">
           <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
 
-              <div class="box-header with-border" style="text-align: center;">
-                  <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">Hotel Description</h3>
-              </div> <div class="small-box" id="hotelDes" style="box-shadow:none;">
-            <div style="background: white;" >
+            <div class="box-header with-border" style="text-align: center;">
+                <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">Hotel Description</h3>
+            </div> 
+            <div class="small-box" id="hotelDes" style="box-shadow:none;">
+              <div style="background: white;" >
                   <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
                     <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 5px;padding-bottom: 2px;">
                       <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/EditDetailsController/updateHotelDescription" id="form2" role="form" data-toggle="validator">
@@ -111,13 +112,40 @@
                           <button type="button" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
                         <button type="button" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color: #8892d6;color:white;font-size: inherit;'>Edit</button>
                      </form>
-                        <!-- <hr style="border: 1px solid rgba(0, 0, 0, 0.3);margin-top: 20px;"> -->
-
                     </div>
+                  </div>
+                </div>
+              </div>
 
-            </div>
-          </div>
-        </div>
+
+
+
+
+            <div class="box-header with-border" style="text-align: center;">
+              <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">Hotel Rules and Other Details</h3>
+            </div> 
+            <div class="small-box" id="hotelDes" style="box-shadow:none;">
+              <div style="background: white;" >
+                  <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
+                    <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 5px;padding-bottom: 2px;">
+                      <form class="is-readonly" method="POST" action="<?php echo site_url(); ?>/EditDetailsController/updateHotelRules" id="formrules" role="form" data-toggle="validator">
+                       <textarea id="editorrules" name="editorrules" style="padding:2px;width: 100%;margin-bottom: 1%;" rows="5" disabled><?php echo $data3->other_policies; ?></textarea>
+
+
+                          <button type="button" id="save_btnrules" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
+                        <button type="button" id="edit_btnrules" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color: #8892d6;color:white;font-size: inherit;'>Edit</button>
+                     </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
           </div>
       </section>
         <section class="content" style="padding:0 5%">
@@ -313,8 +341,49 @@
 
 
 
+      $('#edit_btnrules').on('click', function(){
+
+        var $form = $('#formrules');
+        $form.removeClass('is-readonly').addClass('is-editing');
+        var isReadonly  = $form.hasClass('is-readonly');
+        $form.find('input,textarea').prop('disabled', isReadonly);
+        document.getElementById("save_btnrules").disabled = false;
+        document.getElementById("edit_btnrules").disabled = true;
+      });
+      $('#save_btnrules').on('click', function(){
+        var $form = $('#formrules');
+        $form.removeClass('is-editing').addClass('is-readonly');
+        document.getElementById("edit_btnrules").disabled = false;
+        document.getElementById("save_btnrules").disabled = true;
+        $('#formrules').submit();
+      });
+
+
+
+      $('#formrules').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+              alert("Please fix all the errors before submitting.");// handle the invalid form...
+            } else {
+
+            }
+          });
+
+
+
+
+
+
     });
 $('#form2').validator().on('submit', function (e) {
+  if (e.isDefaultPrevented()) {
+              alert("Please fix all the errors before submitting.");// handle the invalid form...
+            } else {
+
+            }
+          });
+
+
+$('#formrules').validator().on('submit', function (e) {
   if (e.isDefaultPrevented()) {
               alert("Please fix all the errors before submitting.");// handle the invalid form...
             } else {
