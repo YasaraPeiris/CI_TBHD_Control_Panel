@@ -275,7 +275,7 @@ class RedirectPageController extends CI_Controller {
     	$date1obj = DateTime::createFromFormat('Y-m-d', $booking->checkin);
     	$date2obj = DateTime::createFromFormat('Y-m-d', $booking->checkout);
     	for ($rid=0; $rid < sizeof($items); $rid++) { 
-    		$roomText .= $items[$rid]->qty." ".$items[$rid]->room_name." room(s) with price category ".$items[$rid]->price_type." (listed price LKR. ".$items[$rid]->room_rate." per room per day)<br>";
+    		$roomText .= $items[$rid]->qty." ".$items[$rid]->room_name." with price category ".$items[$rid]->price_type." (listed price LKR. ".$items[$rid]->room_rate." per room per day)<br>";
     	}
 
         $Cusheading = "inna.lk :: Details of the ".$booking->hotel_name;
@@ -336,7 +336,7 @@ class RedirectPageController extends CI_Controller {
     	$date1obj = DateTime::createFromFormat('Y-m-d', $booking->checkin);
     	$date2obj = DateTime::createFromFormat('Y-m-d', $booking->checkout);
     	for ($rid=0; $rid < sizeof($items); $rid++) { 
-    		$roomText .= $items[$rid]->qty." ".$items[$rid]->room_name." room(s) with price category ".$items[$rid]->price_type." (listed price LKR. ".$items[$rid]->room_rate." per room per day)<br>";
+    		$roomText .= $items[$rid]->qty." ".$items[$rid]->room_name." with price category ".$items[$rid]->price_type." (listed price LKR. ".$items[$rid]->room_rate." per room per day)<br>";
     	}
 
         $Cusheading = "inna.lk :: Your booking at ".$booking->hotel_name." is now confirmed.";
@@ -360,7 +360,7 @@ class RedirectPageController extends CI_Controller {
 		$Cuscontent .= "Total                 : LKR ".number_format((float)$booking->total,2, '.', '')."<br><br>
 
 		Amount charged by inna.lk                                : LKR ".number_format((float)$paid,2, '.', '')."<br>
-		<b>Amout that should be collected at the hotel: LKR ".number_format((float)($booking->total - $paid), 2, '.', '')."</b><br><br>
+		<b>Amount that should be collected at the hotel: LKR ".number_format((float)($booking->total - $paid), 2, '.', '')."</b><br><br>
 
 		The invoice is attached herewith.<br><br>
 
@@ -388,10 +388,10 @@ class RedirectPageController extends CI_Controller {
 		}
 		$Hotlcontent .= "Total for hotel: LKR. ".number_format((float)$totalHotel,2, '.', '')."<br>
 		Total for inna.lk: LKR. ".number_format((float)($booking->total - $totalHotel),2, '.', '')." (commission plus service fee)<br>
-		Total charge from Customer: ".number_format((float)$booking->total,2, '.', '')."<br><br>
+		Total charge from Customer: LKR. ".number_format((float)$booking->total,2, '.', '')."<br><br>
 
 		Amount charged by inna.lk                                : LKR ".number_format((float)$paid,2, '.', '')."<br>
-		<b>Amout that should be collected at the hotel: LKR ".number_format((float)($booking->total - $paid),2, '.', '')."</b><br><br>
+		<b>Amount that should be collected at the hotel: LKR ".number_format((float)($booking->total - $paid),2, '.', '')."</b><br><br>
 
 		Please reserve the rooms.<br><br>
 
