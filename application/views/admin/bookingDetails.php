@@ -86,6 +86,12 @@
               Manual Booking Id: <input type="number" min="1" name="mbID" required><br><br>
               <input type="submit" name="submit">
             </form>
+            <br><br>
+            <form action="<?php echo site_url(); ?>/RedirectPageController/copyContent" method="post">
+
+              Copy Data from MB Id: <input type="number" min="1" name="mbID" required><br><br>
+              <input type="submit" name="submit">
+            </form>
           </div>
       </section>
       <section class="content">

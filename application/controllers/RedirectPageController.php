@@ -96,7 +96,7 @@ class RedirectPageController extends CI_Controller {
 	    	if (isset($_POST['hotelname'])) {
 				$this->load->model('AdminModel');
 				// echo "<br> -- <br>";
-				$main_arry = array('hotel_name'=>$_POST['hotelname'],'cname'=>$_POST['name'],'cemail'=>$_POST['email'],'cnic'=>$_POST['nic'],'cmobile'=>$_POST['contact'],'checkin'=>$_POST['checkin'],'checkout'=>$_POST['checkout'],'service_fee'=>$_POST['servicefee'],'commission'=>$_POST['commission'],	'promo_amount'=>$_POST['promo'],'paid'=>$_POST['paid'],'payonly'=>$_POST['payonly'],'total'=>$_POST['total'],'admin_id'=>$_SESSION['hotelno'],'note'=>$_POST['extranote']);
+				$main_arry = array('mb_id'=>$_POST['cid'], 'hotel_name'=>$_POST['hotelname'],'cname'=>$_POST['name'],'cemail'=>$_POST['email'],'cnic'=>$_POST['nic'],'cmobile'=>$_POST['contact'],'checkin'=>$_POST['checkin'],'checkout'=>$_POST['checkout'],'service_fee'=>$_POST['servicefee'],'commission'=>$_POST['commission'],	'promo_amount'=>$_POST['promo'],'paid'=>$_POST['paid'],'payonly'=>$_POST['payonly'],'total'=>$_POST['total'],'admin_id'=>$_SESSION['hotelno'],'note'=>$_POST['extranote']);
 				$mb_id =  $this->AdminModel->addManualBooking($main_arry);
 				// echo "<br> -*".$mb_id."*- <br>";
 				// print_r($main_arry);
@@ -131,6 +131,18 @@ class RedirectPageController extends CI_Controller {
 	public function contentGenerator(){
 		$this->load->view('admin/contentGenerator');
 
+	}
+	public function copyContent(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno'])) {
+	    	if (isset($_POST['mbID'])) {
+				$this->load->model('AdminModel');
+				$mbdata =  $this->AdminModel->getmbData($_POST['mbID']);
+				$mbsubdata =  $this->AdminModel->getmbSubData($_POST['mbID']);
+				$data =array('mbdata'=> $mbdata[0],'mbsubdata'=>$mbsubdata);
+				$this->load->view('admin/copyContentGenerator', $data);
+			}
+		}
 	}
 	public function hotelList(){
 		$this->load->model('AdminModel');
@@ -204,7 +216,7 @@ class RedirectPageController extends CI_Controller {
 				}
 	    		$Content = $this-> newBookingEmails($manualbkngs,$manualbkngItem,$_POST['paid']);
 	    		$data = array('Content'=>$Content);
-	    		// print_r($tentContent);
+	    		// print_r($manualbkngs);
 				$this->load->view('admin/emailContent',$data);
 	    	}
 	    	elseif (isset($_POST['invoiceGen']) && isset($_POST['paid']) && isset($_SESSION['mbID'])) {
@@ -279,11 +291,12 @@ class RedirectPageController extends CI_Controller {
     	}
 
         $Cusheading = "inna.lk :: Details of the ".$booking->hotel_name;
-        $Hotlheading = "inna.lk :: New Tentative Booking from ".$booking->checkin." to ".$booking->checkout;
+        $Hotlheading = "inna.lk :: New Tentative Booking | CD".$booking->mb_id." | ".$booking->checkin." to ".$booking->checkout;
         $Cuscontent = "Dear ".$booking->cname.",<br><br>
 
         Details of the ".$booking->hotel_name." are mentioned herewith as you requested.<br><br>
 
+        Booking ID: CD".$booking->mb_id."<br>
         Hotel Name: ".$booking->hotel_name."<br>
 		Check-in date   : ".date_format($date1obj, 'd F, Y')." <br>
 		Check-out date : ".date_format($date2obj, 'd F, Y')."<br><br>
@@ -316,6 +329,7 @@ class RedirectPageController extends CI_Controller {
 
         This is a <b>tentative booking valid till ". $datetime->format('d F, Y')."</b> and will get confirmed once the customer deposited the advance money.<br><br>
 
+        Booking ID: CD".$booking->mb_id."<br>
         Hotel Name: ".$booking->hotel_name."<br>
 		Check-in date   : ".date_format($date1obj, 'd F, Y')." <br>
 		Check-out date : ".date_format($date2obj, 'd F, Y')."<br><br>
@@ -339,11 +353,11 @@ class RedirectPageController extends CI_Controller {
     		$roomText .= $items[$rid]->qty." ".$items[$rid]->room_name." with price category ".$items[$rid]->price_type." (listed price LKR. ".$items[$rid]->room_rate." per room per day)<br>";
     	}
 
-        $Cusheading = "inna.lk :: Your booking at ".$booking->hotel_name." is now confirmed.";
-        $Hotlheading = "inna.lk :: New Booking from ".$booking->checkin." to ".$booking->checkout;
+        $Cusheading = "inna.lk :: Your booking at ".$booking->hotel_name." is now confirmed | CD".$booking->mb_id;
+        $Hotlheading = "inna.lk :: New Booking | CD".$booking->mb_id." | ".$booking->checkin." to ".$booking->checkout;
         $Cuscontent = "Dear ".$booking->cname.",<br><br>
         Your booking at ".$booking->hotel_name." is now confirmed and here are the full details of the booking:<br><br>
-        Booking id : N/A (offline booking)<br>
+        Booking ID: CD".$booking->mb_id."<br>
         Hotel Name: ".$booking->hotel_name."<br>
 		Check-in date   : ".date_format($date1obj, 'd F, Y')." <br>
 		Check-out date : ".date_format($date2obj, 'd F, Y')."<br><br>
@@ -371,7 +385,7 @@ class RedirectPageController extends CI_Controller {
 		$Hotlcontent = "Dear all,<br><br>
 
         You have a new booking and here are the full details of the booking:<br><br>
-        Booking id : N/A (offline booking)<br>
+        Booking ID: CD".$booking->mb_id."<br>
         Hotel Name: ".$booking->hotel_name."<br>
 		Check-in date   : ".date_format($date1obj, 'd F, Y')." <br>
 		Check-out date : ".date_format($date2obj, 'd F, Y')."<br><br>

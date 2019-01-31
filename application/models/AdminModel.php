@@ -34,8 +34,29 @@ class AdminModel extends CI_Model
             return $query1->result();    // return a array of object
         } else {
             return NULL;
-        }
-        
+        }        
+    }
+    function getmbData($mbid)
+    {
+        $this->db->where('mb_id', $mbid);
+        $this->db->from('manualbookings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }        
+    }
+    function getmbSubData($mbid)
+    {
+        $this->db->where('mb_id', $mbid);
+        $this->db->from('manualbookingitems');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }        
     }
     function getDestDetails()
     {

@@ -65,30 +65,30 @@
           <form name="myForm" action="<?php echo site_url(); ?>/RedirectPageController/saveContent" onsubmit="return validateForm()"  method="post">
             <input type="hidden" name="roomValueCount" id="roomValueCount" value="1">
             Customer ID: <input type="Number" name="cid" min="0" placeholder="Customer Incoming ID" required><br>
-            Hotel Name: <input type="text" name="hotelname" placeholder="Okrin Hotel - Katharagama" required><br>
-            Customer Name: <input type="text" name="name" required><br>
-            Customer Email: <input type="email" name="email" required><br>
-            Customer NIC: <input type="text" name="nic" required><br>
-            Customer Contact Number: <input type="text" name="contact" required><br><br>
-            check in Date: <input type="Date" name="checkin" required><br>
-            Check out Date: <input type="Date" name="checkout" required><br>
+            Hotel Name: <input type="text" name="hotelname" value="<?php echo $mbdata->hotel_name ?>" placeholder="Okrin Hotel - Katharagama" required><br>
+            Customer Name: <input type="text" name="name" value="<?php echo $mbdata->cname ?>" required><br>
+            Customer Email: <input type="email" name="email" value="<?php echo $mbdata->cemail ?>" required><br>
+            Customer NIC: <input type="text" name="nic" value="<?php echo $mbdata->cnic ?>" required><br>
+            Customer Contact Number: <input type="text" value="<?php echo $mbdata->cmobile ?>" name="contact" required><br><br>
+            check in Date: <input type="Date" name="checkin" value="<?php echo $mbdata->checkin ?>" required><br>
+            Check out Date: <input type="Date" name="checkout" value="<?php echo $mbdata->checkout ?>" required><br>
             Number of Days: <input type="Number" min="0" name="dayCount" required><br><br>
             <ul id="roomtype_ul">
               <li>
-                Room Name: <input type="text" name="item_name1"  placeholder="Double Room"required><br>
-                Room Rate: <input type="Number" step="0.01" name="rate1" placeholder="1200.00" required><br>
-                Quantity: <input type="Number" name="quantity1" placeholder="1" required><br>
-                Price Type: <input type="text" name="item_type1" placeholder="Half Board" required><br><br>
+                Room Name: <input type="text" name="item_name1"  placeholder="Double Room" value="<?php echo $mbsubdata[0]->room_name ?>" required><br>
+                Room Rate: <input type="Number" step="0.01" name="rate1" placeholder="1200.00" value="<?php echo $mbsubdata[0]->room_rate ?>" required><br>
+                Quantity: <input type="Number" name="quantity1" placeholder="1" value="<?php echo $mbsubdata[0]->qty ?>" required><br>
+                Price Type: <input type="text" name="item_type1" placeholder="Half Board" value="<?php echo $mbsubdata[0]->price_type ?>" required><br><br>
               </li>
             </ul>
             <button type="button" onclick="addAnotherPrice()">Add Another Room Type.</button>
             <button type="button" onclick="removeLastPrice()">Remove Last Room Type</button><br><br>
-            Service Fee: <input type="Number" min="0" step="0.01" max="100" name="servicefee" required>%<br>
-            Commission: <input type="Number" min="0" step="0.01" max="100" name="commission" required>%<br>
-            Paid Amount: <input type="Number" min="0" step="0.01" name="paid"><br>
-            Pay Only: <input type="Number" min="0" step="0.01" name="payonly">%<br>
-            Total Amount: <input type="Number" min="0" step="0.01" name="total"><br>
-            Promo Amount: <input type="Number" min="0" max="100"  name="promo" value="0" required>%<br>
+            Service Fee: <input type="Number" min="0" step="0.01" max="100" name="servicefee" value="<?php echo $mbdata->service_fee ?>" required>%<br>
+            Commission: <input type="Number" min="0" step="0.01" max="100" name="commission" value="<?php echo $mbdata->commission ?>" required>%<br>
+            Paid Amount: <input type="Number" min="0" step="0.01" name="paid" value="<?php echo $mbdata->paid ?>" ><br>
+            Pay Only: <input type="Number" min="0" step="0.01" name="payonly" value="<?php echo $mbdata->payonly ?>" >%<br>
+            Total Amount: <input type="Number" min="0" step="0.01" name="total" value="<?php echo $mbdata->total ?>" ><br>
+            Promo Amount: <input type="Number" min="0" max="100"  name="promo" value="0" value="<?php echo $mbdata->promo_amount ?>" required>%<br>
             Special Note:<br> <textarea rows="2" cols="20"  placeholder="Any Special Notes on this booking?" name="extranote" style="width: 85%; margin: 5px ; margin-left: 20px; padding: 10px; resize: vertical; border-radius: 5px;"></textarea><br><br>
             <input type="submit" value="Submit">
           </form>
