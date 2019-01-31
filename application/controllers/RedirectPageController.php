@@ -239,7 +239,11 @@ class RedirectPageController extends CI_Controller {
 		$this->destinationMapList();
 	}
 	public function adminHome(){
-		$this->load->view('admin/adminHome');
+		$this->load->model('AdminModel');
+		$logins =  $this->AdminModel->getLogin();
+		$data =array('logins'=> $logins);
+		// print_r($logins);
+		$this->load->view('admin/adminHome',$data);
 
 	}
 	public function checkInquiries(){

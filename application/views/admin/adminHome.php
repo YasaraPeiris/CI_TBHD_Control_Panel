@@ -135,7 +135,7 @@
              </div>
            <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >New Inquiries</h3>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Hotel Credentials</h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -150,12 +150,19 @@
                           <table class="table no-margin" style="font-family: Verdana;">
                               <thead>
                               <tr>
-                                  <th style="text-align: center;">Hotel ID</th>
-                                  <th style="text-align: center;">Hotel Name</th>
-                                  <th style="text-align: center;">Check</th>
+                                  <th style="text-align: center;">Login ID</th>
+                                  <th style="text-align: center;">User Name</th>
+                                  <th style="text-align: center;">Password</th>
                               </tr>
                               </thead>
                               <tbody id="orderTable" style="text-align: center;">
+                                <?php foreach ($logins as $value) {?>
+                                  <tr >
+                                    <th><?php echo $value->login_id; ?></th>
+                                    <th><?php echo $value->username; ?></th>
+                                    <th><?php echo $value->password; ?></th>
+                                  </tr>
+                                <?php } ?>
                               </tbody>
                           </table>
                       </form>

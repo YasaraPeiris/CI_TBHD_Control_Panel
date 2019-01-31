@@ -84,17 +84,19 @@
                               <tr >
                                   <th>Listing ID</th>
                                   <th>Name</th>
-                                  <th>Destination Id</th>
                                   <th>email</th>
+                                  <th>Main Contact</th>
+                                  <th>Mobile</th>
                               </tr>
                               </thead>
                               <tbody id="orderTable" style="text-align: center;">
-                                <?php foreach ($listing as $value) {?>
+                                <?php foreach ($listing as $value) { ?>
                                   <tr >
                                     <th><?php echo $value->listing_id; ?></th>
                                     <th><?php echo $value->listing_name; ?></th>
-                                    <th><?php echo $value->destination_id; ?></th>
                                     <th><?php echo $value->email; ?></th>
+                                    <th><?php echo $value->main_contact; ?></th>
+                                    <th><?php echo $value->mobile; ?></th>
                                   </tr>
                                 <?php } ?>
                               </tbody>
