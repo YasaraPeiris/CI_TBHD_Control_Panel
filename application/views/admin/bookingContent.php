@@ -69,8 +69,8 @@
             Customer Email: <input type="email" value="<?php echo $booking->cemail; ?>" name="updatedemail" required><br>
             Customer NIC: <input type="text" value="<?php echo $booking->cnic; ?>" name="updatednic" required> <br>
             Customer Contact Number: <?php echo $booking->cmobile; ?><br><br>
-            check in Date: <?php echo $booking->checkin; ?><br>
-            Check out Date: <?php echo $booking->checkout; ?><br><br>
+            check in: <?php echo $booking->checkin; ?> , <?php echo $booking->checkintime; ?><br>
+            Check out Date: <?php echo $booking->checkout; ?>, <?php echo $booking->checkouttime; ?><br><br>
 
             <ul id="roomtype_ul">
             <?php for ($rid=0; $rid <sizeof($items); $rid++) {  ?>
@@ -84,9 +84,10 @@
             </ul>
             Service Fee: <?php echo $booking->service_fee; ?>%<br>
             Commission: <?php echo $booking->commission; ?>%<br>
-            Paid Amount: <input type="Number" min="0" step="0.01" value="<?php echo $booking->paid; ?>" name="paid" required><br>
+            Paid Amount: <input type="Number" min="0" step="0.01" name="paid" required><br>
             Total Amount: <?php echo $booking->total; ?><br>
             Promo Amount: <?php echo $booking->promo_amount; ?>%<br><br>
+            Special Notes: <textarea rows="2" cols="20"  placeholder="Any Special Notes on this booking?" name="extranote" style="width: 85%; margin: 5px ; margin-left: 20px; padding: 10px; resize: vertical; border-radius: 5px;"><?php echo $booking->note; ?></textarea><br><br>
             <input type="submit" style="margin: 5px;" value="Tentative & Bank Details" name="tentativeSubmit"><br>
             <input type="submit" style="margin: 5px;" value="Generate Invoice" name="invoiceGen"><br>
             <input type="submit" style="margin: 5px;" value="Booking Email" name="newBooking"><br>

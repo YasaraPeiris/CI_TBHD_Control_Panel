@@ -14,6 +14,19 @@ class AdminModel extends CI_Model
         }
         
     }
+    function getAgentContact($admin_id)
+    {
+        $this->db->select('listing_name, mobile');
+        $this->db->where('listing_id', $admin_id);
+        $this->db->from('listings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
     function getDestMapDetails()
     {
         $this->db->from('destinationmap');

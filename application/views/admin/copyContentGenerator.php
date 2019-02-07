@@ -70,8 +70,10 @@
             Customer Email: <input type="email" name="email" value="<?php echo $mbdata->cemail ?>" required><br>
             Customer NIC: <input type="text" name="nic" value="<?php echo $mbdata->cnic ?>" required><br>
             Customer Contact Number: <input type="text" value="<?php echo $mbdata->cmobile ?>" name="contact" required><br><br>
-            check in Date: <input type="Date" name="checkin" value="<?php echo $mbdata->checkin ?>" required><br>
-            Check out Date: <input type="Date" name="checkout" value="<?php echo $mbdata->checkout ?>" required><br>
+            check in Date: <input type="Date" name="checkin" value="<?php echo $mbdata->checkin ?>" required>
+            check in Time: <input type="Time" name="checkinT" value="<?php echo $mbdata->checkintime ?>" required><br>
+            Check out Date: <input type="Date" name="checkout" value="<?php echo $mbdata->checkout ?>" required>
+            Check out TIme: <input type="Time" name="checkoutT" value="<?php echo $mbdata->checkouttime ?>" required><br>
             Number of Days: <input type="Number" min="0" name="dayCount" required><br><br>
             <ul id="roomtype_ul">
               <li>

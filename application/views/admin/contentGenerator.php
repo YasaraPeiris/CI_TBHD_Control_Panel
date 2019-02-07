@@ -70,8 +70,10 @@
             Customer Email: <input type="email" name="email" required><br>
             Customer NIC: <input type="text" name="nic" required><br>
             Customer Contact Number: <input type="text" name="contact" required><br><br>
-            check in Date: <input type="Date" name="checkin" required><br>
-            Check out Date: <input type="Date" name="checkout" required><br>
+            check in Date: <input type="Date" name="checkin" required>
+            check in Time: <input type="Time" name="checkinT" value="14:00:00" required><br>
+            Check out Date: <input type="Date" name="checkout" required>
+            Check out Time: <input type="Time" name="checkoutT" value="12:00:00" required><br>
             Number of Days: <input type="Number" min="0" name="dayCount" required><br><br>
             <ul id="roomtype_ul">
               <li>
