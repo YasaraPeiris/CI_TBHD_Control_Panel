@@ -328,7 +328,7 @@ class RedirectPageController extends CI_Controller {
 		82456678<br><br>";
 
 		if (!empty($booking->note)) {
-			$Cuscontent .="<b>Speciakkkl Notes:</b><br>".$booking->note."<br><br>";
+			$Cuscontent .="<b>Special Notes:</b><br>".$booking->note."<br><br>";
 		}
 
 		$Cuscontent .="For any inquiry related to this booking, please contact <b>".$agentContact->listing_name."</b> on <b>".$agentContact->mobile."</b><br><br>
@@ -350,7 +350,7 @@ class RedirectPageController extends CI_Controller {
 		Customer Name: ".$booking->cname."<br><br>";
 		
 		if (!empty($booking->note)) {
-			$Hotlcontent .="<b>Speciakkkl Notes:</b><br>".$booking->note."<br><br>";
+			$Hotlcontent .="<b>Special Notes:</b><br>".$booking->note."<br><br>";
 		}
 
 		$Hotlcontent .="Please reserve the rooms.<br><br>
@@ -394,7 +394,7 @@ class RedirectPageController extends CI_Controller {
 		<b>Amount that should be collected at the hotel: LKR ".number_format((float)($booking->total - $paid), 2, '.', '')."</b><br><br>";
 		
 		if (!empty($booking->note)) {
-			$Cuscontent .="<b>Speciakkkl Notes:</b><br>".$booking->note."<br><br>";
+			$Cuscontent .="<b>Special Notes:</b><br>".$booking->note."<br><br>";
 		}
 
 		$Cuscontent .="The invoice is attached herewith.<br><br>
@@ -431,7 +431,7 @@ class RedirectPageController extends CI_Controller {
 		<b>Amount that should be collected at the hotel: LKR ".number_format((float)($booking->total - $paid),2, '.', '')."</b><br><br>";
 		
 		if (!empty($booking->note)) {
-			$Hotlcontent .="<b>Speciakkkl Notes:</b><br>".$booking->note."<br><br>";
+			$Hotlcontent .="<b>Special Notes:</b><br>".$booking->note."<br><br>";
 		}
 
 		$Hotlcontent .="Please reserve the rooms.<br><br>
