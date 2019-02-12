@@ -121,20 +121,23 @@
                       <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
                   </div>
               </div><br><br>
-            <form action="<?php echo site_url(); ?>/RedirectPageController/generateContent" method="post">
+              <div class="row" style="padding: 10px;">
+                <div class="col-md-6">
+                  <form action="<?php echo site_url(); ?>/RedirectPageController/generateContent" method="post">
 
-              Manual Booking Id: <input type="number" min="1" name="mbID" required><br><br>
-              <input type="submit" name="submit">
-            </form>
-            <br><br>
-            <form action="<?php echo site_url(); ?>/RedirectPageController/copyContent" method="post">
+                    Manual Booking Id: <input type="number" min="1" name="mbID" required><br><br>
+                    <input type="submit" name="submit">
+                  </form>
+                </div>
+                <div class="col-md-6">
+                  <form action="<?php echo site_url(); ?>/RedirectPageController/copyContent" method="post">
 
-              Copy Data from MB Id: <input type="number" min="1" name="mbID" required><br><br>
-              <input type="submit" name="submit">
-            </form>
+                    Copy Data from MB Id: <input type="number" min="1" name="mbID" required><br><br>
+                    <input type="submit" name="submit">
+                  </form>
+                </div>
+              </div>
           </div>
-      </section>
-      <section class="content">
           <!-- Small boxes (Stat box) -->
           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>

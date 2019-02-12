@@ -222,7 +222,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../../assets/images/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $_SESSION['login_user']."      "?></span><i class="fa fa-gears"></i>
+              <span class="hidden-xs"><?php //echo $_SESSION['login_user']."      "?></span><i class="fa fa-gears"></i>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -230,7 +230,7 @@
                 <img src="../../assets/images/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $_SESSION['login_user']?>
+                  <!-- <?php //echo $_SESSION['login_user']?> -->
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>

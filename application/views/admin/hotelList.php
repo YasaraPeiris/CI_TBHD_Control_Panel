@@ -105,6 +105,63 @@
     <!-- Main content -->
       <section class="content">
           <!-- Small boxes (Stat box) -->
+          <?php
+          if (!empty($_SESSION['alertHtlStatus'])) {
+              echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['alertHtlStatus']."</div>";
+              unset($_SESSION['alertHtlStatus']);
+          }
+          if (!empty($_SESSION['alertDestStatus'])) {
+              echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['alertDestStatus']."</div>";
+              unset($_SESSION['alertDestStatus']);
+          }
+          ?>
+          <div class="box box-info">
+              <div class="box-header with-border" style='background-color: #000044;'>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Change Details</h3>
+                  <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                  </div>
+              </div><br><br>
+              <div class="row" style="padding: 0 10px 10px 10px;">
+                <div class="col-md-4">
+                  <h4 style="margin-top:0 ; padding-top: 0;">Change Hotel Status</h4>
+                  <form action="<?php echo site_url(); ?>/RedirectPageController/hotelstatus" method="post">
+                    Listing Id: <input type="number" min="1" name="Vlisting_id" required><br><br>
+                    Status: 
+                    <select name="Vstatus">
+                      <option value="rejected">Rejected</option>
+                      <option value="verified">Verified</option>
+                      <option value="pending">Pending</option>
+                    </select><br><br>
+                    <input type="submit" name="submit">
+                  </form>
+                </div>
+                <div class="col-md-4">
+                  <h4 style="margin-top:0 ; padding-top: 0;">Add Destination</h4>
+                  <form action="<?php echo site_url(); ?>/RedirectPageController/addDest" method="post">
+                    Destination Name: <input type="text" name="destName" required><br>
+                    *Insert as First Letter CAPITAL and in correct manner.<br><br>
+
+                    <input type="submit" name="submit">
+                  </form>
+                </div>
+                <div class="col-md-4">
+                  <h4 style="margin-top:0 ; padding-top: 0;">Show/ Hide Destination</h4>
+                  <form action="<?php echo site_url(); ?>/RedirectPageController/showDest" method="post">
+                    Destination ID: <input type="number" min="1" name="destID" required style="margin-bottom: 5px;"><br>Status: 
+                    <select name="destShow">
+                      <option value="1">Show</option>
+                      <option value="0">Hide</option>
+                    </select><br>
+                    *Before Showing the Destination, makesure to add atleast one hotel to that destination.<br>
+
+                    <input type="submit" name="submit">
+                  </form>
+                </div>
+              </div>
+          </div>
           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
                   <h3 class="box-title"style='color:white;font-size: 1.5em;' >Full Hotel List</h3>

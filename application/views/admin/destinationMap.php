@@ -121,12 +121,14 @@
                       <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
               </div><br><br>
-            <form action="<?php echo site_url(); ?>/RedirectPageController/destinationMapAdd" method="post">
+              <div style="padding: 0 10px 10px 10px;">
+                <form action="<?php echo site_url(); ?>/RedirectPageController/destinationMapAdd" method="post">
 
-              Listing Id: <input type="number" min="1" name="listing_id" required><br><br>
-              Destination Id: <input type="number" min="1" name="destination_id" required><br><br>
-              <input type="submit" name="submit">
-            </form>
+                  Listing Id: <input type="number" min="1" name="listing_id" required><br><br>
+                  Destination Id: <input type="number" min="1" name="destination_id" required><br><br>
+                  <input type="submit" name="submit">
+                </form>
+              </div>
           </div>
       </section>
       <section class="content">

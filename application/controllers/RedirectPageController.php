@@ -192,6 +192,66 @@ class RedirectPageController extends CI_Controller {
 			redirect();
 		}    
 	}
+	public function hotelstatus(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno'])) {
+	    	if (isset($_POST['Vlisting_id']) || isset($_POST['Vstatus']) ) {
+	    		$this->load->model('AdminModel');
+	    		$listingDetails = $this->AdminModel->getAgentContact($_POST['Vlisting_id']);
+	    		if (sizeof($listingDetails)>0) {
+		    		$this->AdminModel->changeHotelStatus($_POST['Vlisting_id'],array('verification' => $_POST['Vstatus'] ));
+					$_SESSION['alertHtlStatus'] = "Hotel Status of the ".$listingDetails[0]->listing_name." (#".$_POST['Vlisting_id'].") is changed to ".$_POST['Vstatus'];
+	    		}
+	    		else $_SESSION['alertHtlStatus'] = "No Hotel found with listing ID #".$_POST['Vlisting_id'];
+	    	}	
+	    	$_SESSION['hotelno'] = $_SESSION['hotelno'];
+	    	$this->hotelList();
+ 		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security. (error code: hotelstatus_error)';
+			redirect();
+		}    
+	}
+	public function addDest(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno'])) {
+	    	if (isset($_POST['destName'])) {
+	    		$this->load->model('AdminModel');
+	    		$destDetails = $this->AdminModel->getDestination($_POST['destName']);
+	    		if (sizeof($destDetails) == 0) {
+		    		$destID = $this->AdminModel->addDestination(array('destination_name'=>$_POST['destName'],'show'=>0,'main_dest'=>0));
+					$_SESSION['alertDestStatus'] = "Destination ".$_POST['destName']." is added as the destination ID #".$destID;
+	    		}
+	    		else $_SESSION['alertDestStatus'] = "A Destination Found with the same name, ".$_POST['destName']." which has Destination ID #".$destDetails[0]->destination_id;
+	    	}	
+	    	$_SESSION['hotelno'] = $_SESSION['hotelno'];
+	    	$this->hotelList();
+ 		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security. (error code: addDest_error)';
+			redirect();
+		}    
+	}
+	public function showDest(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno'])) {
+	    	if (isset($_POST['destID']) || isset($_POST['destShow'])) {
+	    		$this->load->model('AdminModel');
+	    		$destDetails = $this->AdminModel->getDestinationbyID($_POST['destID']);
+	    		if (sizeof($destDetails) > 0) {
+		    		$this->AdminModel->showDestination($_POST['destID'], array('show'=>$_POST['destShow']));
+					$_SESSION['alertDestStatus'] = "Destination ".$destDetails[0]->destination_name." (#".$_POST['destID'].") show status changed to ".$_POST['destShow'];
+	    		}
+	    		else $_SESSION['alertDestStatus'] = "A Destination NOT Found with the Destination ID #".$_POST['destID'];
+	    	}	
+	    	$_SESSION['hotelno'] = $_SESSION['hotelno'];
+	    	$this->hotelList();
+ 		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security. (error code: showDest_error)';
+			redirect();
+		}    
+	}
 	public function generateAllContent(){
 		$this->load->library('session');
 		if (isset($_SESSION['hotelno'])) {

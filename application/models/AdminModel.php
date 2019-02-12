@@ -14,6 +14,33 @@ class AdminModel extends CI_Model
         }
         
     }
+    function getDestination($destName)
+    {
+        $this->db->select('destination_id, show, main_dest');
+        $this->db->where('destination_name', $destName);
+        $this->db->from('destination');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+
+    function getDestinationbyID($destID)
+    {
+        $this->db->select('destination_name, show, main_dest');
+        $this->db->where('destination_id', $destID);
+        $this->db->from('destination');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
     function getAgentContact($admin_id)
     {
         $this->db->select('listing_name, mobile');
@@ -118,6 +145,11 @@ class AdminModel extends CI_Model
         }
         
     }
+    function addDestination($data)
+    {
+        $this->db-> insert('destination',$data);
+        return $this->db->insert_id();
+    }
     function place_destMap($data)
     {
         $this->db-> insert('destinationmap',$data);
@@ -134,10 +166,14 @@ class AdminModel extends CI_Model
         $this->db-> insert('manualbookingitems',$data);
         
     }
-
-
-
-
-
-
+    function changeHotelStatus($id,$status)
+    {
+        $this->db->where('listing_id', $id);
+        $this->db->update("listings", $status);
+    }
+    function showDestination($id,$data)
+    {
+        $this->db->where('destination_id', $id);
+        $this->db->update("destination", $data);
+    }
 }
