@@ -33,13 +33,53 @@
   <link rel="stylesheet" href="../../assets/plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+  <!-- bootstrap wysihtml5 - text editor -->
+    <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style type="text/css">
+        table.dataTable tr.odd {
+            font-size: 13px;
+            font-weight: 200;
+            background-color: #f8f8f8;
+            color: #404040;
+            font-family: -apple-system, "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+        }
+        /* tr. not tr: */
+        table.dataTable tr.even {
+            font-size: 13px;
+            font-weight: 200;
+            background-color: white;
+            color: #404040;
+            font-family: -apple-system, "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+        }
+        table.dataTable > tbody > tr.child span.dtr-title {
+            text-align: left;
+
+            float: left;
+        }
+        table.dataTable > tbody > tr.child span.dtr-data {
+            text-align: right;
+
+            float: right;
+        }
+
+        table.dataTable > tbody > tr.child ul.dtr-details {
+            width: 50%;
+        }
+
+        table.dataTable > tbody > tr.child ul.dtr-details li {
+            border-bottom: none !important;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" onload="">
     <?php ?>
@@ -79,18 +119,19 @@
                       <form id="notifications" method="post" >
                           <input type="hidden" id="bookingidset" name="bookingidset"/>
                           <input type="hidden" id="itemidset" name="itemidset"/>
-                          <table class="table no-margin" style="font-family: Verdana;">
-                              <thead >
-                              <tr >
-                                  <th>Listing ID</th>
-                                  <th>Name</th>
-                                  <th>email</th>
-                                  <th>Main Contact</th>
-                                  <th>Mobile</th>
-                              </tr>
-                              </thead>
-                              <tbody id="orderTable" style="text-align: center;">
-                                <?php foreach ($listing as $value) { ?>
+                          <table id="hoteltable" class="table table-striped nowrap table-responsive"
+                                   cellspacing="0" width="100%">
+                                <thead class="no-border">
+                                <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
+                                  <th data-priority="1">Listing ID</th>
+                                  <th data-priority="1">Name</th>
+                                  <th data-priority="1" data-orderable="false">email</th>
+                                  <th data-priority="2" data-orderable="false">Main Contact</th>
+                                  <th data-priority="3" data-orderable="false">Mobile</th>
+                                </tr>
+                                </thead>
+                                <tbody id="orderTable" style="text-align: center;">
+                                  <?php foreach ($listing as $value) { ?>
                                   <tr >
                                     <th><?php echo $value->listing_id; ?></th>
                                     <th><?php echo $value->listing_name; ?></th>
@@ -99,8 +140,8 @@
                                     <th><?php echo $value->mobile; ?></th>
                                   </tr>
                                 <?php } ?>
-                              </tbody>
-                          </table>
+                                </tbody>
+                            </table>
                       </form>
                   </div>
               </div>
@@ -119,18 +160,21 @@
                       <form id="notifications" method="post" >
                           <input type="hidden" id="bookingidset" name="bookingidset"/>
                           <input type="hidden" id="itemidset" name="itemidset"/>
-                          <table class="table no-margin" style="font-family: Verdana;">
-                              <thead >
-                              <tr >
-                                  <th>destination ID</th>
-                                  <th>Name</th>
-                                  <th>Show</th>
-                                  <th>Main Destination</th>
-                                  <th>Visit Reason</th>
-                              </tr>
-                              </thead>
-                              <tbody id="orderTable" style="text-align: center;">
-                                <?php foreach ($destination as $value) {?>
+
+
+                          <table id="desttable" class="table table-striped nowrap table-responsive"
+                                   cellspacing="0" width="100%">
+                                <thead class="no-border">
+                                <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
+                                  <th data-priority="1">Destination ID</th>
+                                  <th data-priority="1">Name</th>
+                                  <th data-priority="1" data-orderable="false">Show</th>
+                                  <th data-priority="2" data-orderable="false">Main Destination</th>
+                                  <th data-priority="3" data-orderable="false">Visit Reason</th>
+                                </tr>
+                                </thead>
+                                <tbody id="orderTable" style="text-align: center;">
+                                  <?php foreach ($destination as $value) {?>
                                   <tr >
                                     <th><?php echo $value->destination_id; ?></th>
                                     <th><?php echo $value->destination_name; ?></th>
@@ -139,8 +183,8 @@
                                     <th><?php echo $value->visit_reason; ?></th>
                                   </tr>
                                 <?php } ?>
-                              </tbody>
-                          </table>
+                                </tbody>
+                            </table>
                       </form>
                   </div>
               </div>
@@ -201,8 +245,21 @@
                 alert(data);
                 result = data;
             }
-        });
-            }
+          });
+        }
             </script>
+ <!--datatables-->
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
+    <script>
+      var table_checkin = $('#hoteltable').DataTable({
+          responsive: true
+      });
+      var table_checkin = $('#desttable').DataTable({
+          responsive: true
+      });
+    </script>
 </body>
 </html>

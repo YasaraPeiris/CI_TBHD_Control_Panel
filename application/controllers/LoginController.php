@@ -43,9 +43,12 @@ class LoginController extends CI_Controller {
 						$this->load->view('hotel/hotelsHome',$data);
 					}
 					else{
+						$this->load->model('AdminModel');
+						$logins =  $this->AdminModel->getLogin();
+						$data =array('logins'=> $logins);
 						$_SESSION['hotelno'] = $user[0]->listing_id;
 	                    $_SESSION['login_user'] =  "admin";
-						$this->load->view('admin/adminHome');
+						$this->load->view('admin/adminHome',$data);
 					}	
 				}
 				else {
