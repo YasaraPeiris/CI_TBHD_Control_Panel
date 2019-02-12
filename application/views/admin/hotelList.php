@@ -131,8 +131,8 @@
                     Listing Id: <input type="number" min="1" name="Vlisting_id" required><br><br>
                     Status: 
                     <select name="Vstatus">
-                      <option value="rejected">Rejected</option>
                       <option value="verified">Verified</option>
+                      <option value="rejected">Rejected</option>
                       <option value="pending">Pending</option>
                     </select><br><br>
                     <input type="submit" name="submit">
@@ -185,7 +185,7 @@
                                   <th data-priority="1" data-orderable="false">email</th>
                                   <th data-priority="2" data-orderable="false">Main Contact</th>
                                   <th data-priority="4" data-orderable="false">Mobile</th>
-                                  <th data-priority="3" data-orderable="false">Status</th>
+                                  <th data-priority="3">Status</th>
                                 </tr>
                                 </thead>
                                 <tbody id="orderTable" style="text-align: center;">
