@@ -33,13 +33,53 @@
   <link rel="stylesheet" href="../../assets/plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style type="text/css">
+        table.dataTable tr.odd {
+            font-size: 13px;
+            font-weight: 200;
+            background-color: #f8f8f8;
+            color: #404040;
+            font-family: -apple-system, "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+        }
+        /* tr. not tr: */
+        table.dataTable tr.even {
+            font-size: 13px;
+            font-weight: 200;
+            background-color: white;
+            color: #404040;
+            font-family: -apple-system, "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+        }
+        table.dataTable > tbody > tr.child span.dtr-title {
+            text-align: left;
+
+            float: left;
+        }
+        table.dataTable > tbody > tr.child span.dtr-data {
+            text-align: right;
+
+            float: right;
+        }
+
+        table.dataTable > tbody > tr.child ul.dtr-details {
+            width: 50%;
+        }
+
+        table.dataTable > tbody > tr.child ul.dtr-details li {
+            border-bottom: none !important;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" onload="">
     <?php ?>
@@ -110,36 +150,37 @@
                       <form id="notifications" method="post" >
                           <input type="hidden" id="bookingidset" name="bookingidset"/>
                           <input type="hidden" id="itemidset" name="itemidset"/>
-                          <table class="table no-margin" style="font-family: Verdana;">
-                              <thead >
-                              <tr >
-                                  <th>M.B. ID</th>
-                                  <th>Hotel Name</th>
-                                  <th>Customer Name</th>
-                                  <th>Mobile</th>
-                                  <th>Check in</th>
-                                  <th>Check out</th>
-                                  <th>Admin Id</th>
-                                  <th>Notes</th>
-                              </tr>
-                              </thead>
-                              <tbody id="orderTable" style="text-align: center;">
-                                <?php
-                                if (sizeof($manualbkngs)>0) {
-                                 foreach ($manualbkngs as $value) {?>
-                                  <tr >
-                                    <th><?php echo $value->mb_id; ?></th>
-                                    <th><?php echo $value->hotel_name; ?></th>
-                                    <th><?php echo $value->cname; ?></th>
-                                    <th><?php echo $value->cmobile; ?></th>
-                                    <th><?php echo $value->checkin; ?></th>
-                                    <th><?php echo $value->checkout; ?></th>
-                                    <th><?php echo $value->admin_id; ?></th>
-                                    <th><?php echo $value->note; ?></th>
-                                  </tr>
-                                <?php } } ?>
-                              </tbody>
-                          </table>
+                          <table id="mbtable" class="table table-striped nowrap table-responsive"
+                                   cellspacing="0" width="100%">
+                                <thead class="no-border">
+                                <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
+                                  <th data-priority="1">M.B. ID</th>
+                                  <th data-priority="2">Hotel Name</th>
+                                  <th data-priority="3">Customer Name</th>
+                                  <th data-priority="5" data-orderable="false">Mobile</th>
+                                  <th data-priority="4">Check-in</th>
+                                  <th data-priority="4">Check-out</th>
+                                  <th data-priority="3">Admin ID</th>
+                                  <th data-priority="6" data-orderable="false">Notes</th>
+                                </tr>
+                                </thead>
+                                <tbody id="orderTable" style="text-align: center;">
+                                  <?php
+                                  if (sizeof($manualbkngs)>0) {
+                                   foreach ($manualbkngs as $value) {?>
+                                    <tr >
+                                      <th><?php echo $value->mb_id; ?></th>
+                                      <th><?php echo $value->hotel_name; ?></th>
+                                      <th><?php echo $value->cname; ?></th>
+                                      <th><?php echo $value->cmobile; ?></th>
+                                      <th><?php echo $value->checkin; ?></th>
+                                      <th><?php echo $value->checkout; ?></th>
+                                      <th><?php echo $value->admin_id; ?></th>
+                                      <th><?php echo $value->note; ?></th>
+                                    </tr>
+                                  <?php } } ?>
+                                </tbody>
+                            </table>
                       </form>
                   </div>
               </div>
@@ -203,5 +244,16 @@
         });
             }
             </script>
+ <!--datatables-->
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
+    <script>
+      var table_checkin = $('#mbtable').DataTable({
+        "order": [[ 0, "desc" ]],
+          responsive: true
+      });
+    </script>
 </body>
 </html>

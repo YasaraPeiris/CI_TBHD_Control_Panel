@@ -34,10 +34,10 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- bootstrap wysihtml5 - text editor -->
-    <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
+  <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -107,7 +107,7 @@
           <!-- Small boxes (Stat box) -->
           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Hotel List</h3>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Full Hotel List</h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -127,7 +127,8 @@
                                   <th data-priority="1">Name</th>
                                   <th data-priority="1" data-orderable="false">email</th>
                                   <th data-priority="2" data-orderable="false">Main Contact</th>
-                                  <th data-priority="3" data-orderable="false">Mobile</th>
+                                  <th data-priority="4" data-orderable="false">Mobile</th>
+                                  <th data-priority="3" data-orderable="false">Status</th>
                                 </tr>
                                 </thead>
                                 <tbody id="orderTable" style="text-align: center;">
@@ -138,6 +139,7 @@
                                     <th><?php echo $value->email; ?></th>
                                     <th><?php echo $value->main_contact; ?></th>
                                     <th><?php echo $value->mobile; ?></th>
+                                    <th><?php echo $value->verification; ?></th>
                                   </tr>
                                 <?php } ?>
                                 </tbody>
