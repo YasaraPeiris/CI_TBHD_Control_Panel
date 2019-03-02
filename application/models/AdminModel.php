@@ -14,11 +14,24 @@ class AdminModel extends CI_Model
         }
         
     }
-    function getSpecificHotelDetails($listing_id)
+    function getSpecificListingDetails($listing_id)
     {
-        $this->db->select('listing_name');  //, email,main_contact,mobile
+        $this->db->select('listing_name, latitude, longitude, address_line_1, address_line_2,email,main_contact,mobile');  
         $this->db->where('listing_id', $listing_id);
         $this->db->from('listings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function getSpecificHotelDetails($listing_id)
+    {
+        $this->db->select('cancelation_policy');  
+        $this->db->where('listing_id', $listing_id);
+        $this->db->from('hotel');
         $query1 = $this->db->get();
         if ($query1->num_rows() > 0) {
             return $query1->result();    // return a array of object

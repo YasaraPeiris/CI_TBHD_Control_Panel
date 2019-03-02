@@ -286,7 +286,9 @@ class RedirectPageController extends CI_Controller {
 	    		$manualbkngs =  $this->AdminModel->getSpcfcBookingDetails($mbID)[0];
 	    		$manualbkngItem =  $this->AdminModel->getSpcfcBookingItms($mbID);
 	    		$agentContact =  $this->AdminModel->getAgentContact($manualbkngs->admin_id)[0];
-	    		$listingdetails =  $this->AdminModel->getSpecificHotelDetails($manualbkngs->listing_id)[0];
+	    		$listingdetails =  $this->AdminModel->getSpecificListingDetails($manualbkngs->listing_id)[0];
+	    		$hoteldetails =  json_decode($this->AdminModel->getSpecificHotelDetails($manualbkngs->listing_id)[0]->cancelation_policy);
+	    		print_r($hoteldetails);
 				if (isset($_POST['updatedemail']) && isset($_POST['updatednic'])) {
 					$manualbkngs->cemail = $_POST['updatedemail'];
 					$manualbkngs->cnic = $_POST['updatednic'];
@@ -294,7 +296,7 @@ class RedirectPageController extends CI_Controller {
 				if (isset($_POST['extranote'])) {
 					$manualbkngs->note = $_POST['extranote'];
 				}
-	    		$Content = $this-> newBookingEmails($manualbkngs,$manualbkngItem,$_POST['paid'],$agentContact,$listingdetails);
+	    		$Content = $this-> newBookingEmails($manualbkngs,$manualbkngItem,$_POST['paid'],$agentContact,$listingdetails,$hoteldetails);
 	    		$data = array('Content'=>$Content);
 	    		// print_r($manualbkngs);
 				$this->load->view('admin/emailContent',$data);
@@ -433,7 +435,7 @@ class RedirectPageController extends CI_Controller {
 		Best Regards,";
 		return array(0 => $Cusheading, 1 => $Hotlheading,2 => $Cuscontent, 3 => $Hotlcontent);
     }
-    public function newBookingEmails($booking,$items,$paid, $agentContact,$listingdetails){
+    public function newBookingEmails($booking,$items,$paid, $agentContact,$listingdetails,$hoteldetails){
     	$totalbeforSF = $booking->total/(1+$booking->service_fee/100) ;
     	$totalHotel = $totalbeforSF*(1-$booking->commission/100);
     	$roomText = "";
@@ -470,9 +472,24 @@ class RedirectPageController extends CI_Controller {
 			$Cuscontent .="<b>Special Notes:</b><br>".$booking->note."<br><br>";
 		}
 
-		$Cuscontent .="The invoice is attached herewith.<br><br>
+		$Cuscontent .="For any inquiry related to this booking, please contact our agent (inna.lk) <b>".$agentContact->listing_name."</b> on <b>".$agentContact->mobile."</b><br>
+		<b>Hotel Contact Details</b><br>
+		<ul>
+		<li>Main Contact Number: ".$listingdetails->main_contact."</li>
+		<li>Hotel Mobile Number: ".$listingdetails->mobile."</li>
+		<li>Hotel email: ".$listingdetails->email."</li>
+		<li>Hotel Address: ".$listingdetails->address_line_1.", ".$listingdetails->address_line_2."</li>
+		<li>Hotel Location (latitude, longitude): ".$listingdetails->latitude.", ".$listingdetails->longitude."</li>
+		<li>Google Map Location: <a href='https://maps.google.com/?q=".$listingdetails->latitude.",".$listingdetails->longitude."&ll=".$listingdetails->latitude.",".$listingdetails->longitude."&z=12' target='_blank'> Click Here</a></li>
+		</ul>
+		( <a href='https://maps.google.com/?q=".$listingdetails->latitude.",".$listingdetails->longitude."&ll=".$listingdetails->latitude.",".$listingdetails->longitude."&z=12' target='_blank'>https://maps.google.com/?q=".$listingdetails->latitude.",".$listingdetails->longitude."&ll=".$listingdetails->latitude.",".$listingdetails->longitude."&z=12</a> )<br><br>
 
-		For any inquiry related to this booking, please contact <b>".$agentContact->listing_name."</b> on <b>".$agentContact->mobile."</b><br><br>
+		<b>Cancellation Policy</b><ul>
+		<li>".$hoteldetails->full_before." days and Above: Free Cancellation,</li>
+		<li>".($hoteldetails->full_before - 1)." days to ".$hoteldetails->days_before." days: ".$hoteldetails->return_percentage."% Cancellation Fee (on full booking value upto maximum of advance value),</li>
+		<li>".$hoteldetails->days_before." days and Below: No Cancellation. (don't panic, in most cases we bridge the difference :D )</li></ul><br>
+
+		The invoice is attached herewith for your reference.<br><br>
 
 		Enjoy your stay.<br><br>
 
