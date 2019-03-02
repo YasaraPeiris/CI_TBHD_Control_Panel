@@ -189,7 +189,7 @@ class RedirectPageController extends CI_Controller {
 	    			$this->bookingDetails();
 	    		}
 	    		$manualbkngItem =  $this->AdminModel->getSpcfcBookingItms($mbID);
-	    		$listingdetails =  $this->AdminModel->getSpecificHotelDetails($manualbkngs->listing_id)[0];
+	    		$listingdetails =  $this->AdminModel->getSpecificListingDetails($manualbkngs->listing_id)[0];
 	    		// $hoteldetails =  $this->AdminModel->getSpcfcBookingItms($manualbkngs->listing_id);	    		
 	    		$data =array('booking'=> $manualbkngs,'items'=>$manualbkngItem,'listingdetails'=>$listingdetails);
 	    		// print_r($data);
@@ -271,7 +271,7 @@ class RedirectPageController extends CI_Controller {
 	    		$manualbkngs =  $this->AdminModel->getSpcfcBookingDetails($mbID)[0];
 	    		$manualbkngItem =  $this->AdminModel->getSpcfcBookingItms($mbID);
 	    		$agentContact =  $this->AdminModel->getAgentContact($manualbkngs->admin_id)[0];
-	    		$listingdetails =  $this->AdminModel->getSpecificHotelDetails($manualbkngs->listing_id)[0];
+	    		$listingdetails =  $this->AdminModel->getSpecificListingDetails($manualbkngs->listing_id)[0];
 				if (isset($_POST['extranote'])) {
 					$manualbkngs->note = $_POST['extranote'];
 				}
@@ -306,7 +306,7 @@ class RedirectPageController extends CI_Controller {
 	    		$this->load->model('AdminModel');
 	    		$manualbkngs =  $this->AdminModel->getSpcfcBookingDetails($mbID)[0];
 	    		$manualbkngItem =  $this->AdminModel->getSpcfcBookingItms($mbID);
-	    		$listingdetails =  $this->AdminModel->getSpecificHotelDetails($manualbkngs->listing_id)[0];
+	    		$listingdetails =  $this->AdminModel->getSpecificListingDetails($manualbkngs->listing_id)[0];
 				if (isset($_POST['updatedemail']) && isset($_POST['updatednic'])) {
 					$manualbkngs->cemail = $_POST['updatedemail'];
 					$manualbkngs->cnic = $_POST['updatednic'];
