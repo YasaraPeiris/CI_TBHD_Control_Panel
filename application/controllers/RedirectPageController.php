@@ -332,6 +332,23 @@ class RedirectPageController extends CI_Controller {
 	    
 		$this->destinationMapList();
 	}
+	public function destinationMapDelete(){
+		$this->load->library('session');
+		if (isset($_POST['listing_id']) && isset($_POST['destination_id'])&& isset($_POST['destmap_id']) ) {
+			    $destmap_id = $_POST['destmap_id'];
+			    $listing_id = $_POST['listing_id'];
+			    $destination_id = $_POST['destination_id'];
+				$this->load->model('AdminModel');
+				$destdata = array('id'=>$destmap_id,'listing_id'=>$listing_id, 'destination_id'=>$destination_id);
+				$deletedRows =  $this->AdminModel->delete_destMap($destdata);
+				if ($deletedRows>0) {
+					$_SESSION['alertDestMap'] = "Destination Map Deleted of the listing ".$listing_id." from destination ".$destination_id;
+				}
+				else $_SESSION['warnDestMap'] = "Destination Map Deleted Unsucessful";
+		}
+	    
+		$this->destinationMapList();
+	}
 	public function adminHome(){
 		$this->load->model('AdminModel');
 		$logins =  $this->AdminModel->getLogin();

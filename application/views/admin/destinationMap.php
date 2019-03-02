@@ -110,6 +110,10 @@
             echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['alertDestMap']."</div>";
             unset($_SESSION['alertDestMap']);
         }
+        if (!empty($_SESSION['warnDestMap'])) {
+            echo "<div class='alert alert-danger' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['warnDestMap']."</div>";
+            unset($_SESSION['warnDestMap']);
+        }
         ?>
         <!-- Small boxes (Stat box) -->
           <div class="box box-info">
@@ -124,6 +128,26 @@
               <div style="padding: 0 10px 10px 10px;">
                 <form action="<?php echo site_url(); ?>/RedirectPageController/destinationMapAdd" method="post">
 
+                  Listing Id: <input type="number" min="1" name="listing_id" required><br><br>
+                  Destination Id: <input type="number" min="1" name="destination_id" required><br><br>
+                  <input type="submit" name="submit">
+                </form>
+              </div>
+          </div>
+        <!-- Small boxes (Stat box) -->
+          <div class="box box-info">
+              <div class="box-header with-border" style='background-color: #000044;'>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Delete Destination Map</h3>
+                  <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+              </div><br><br>
+              <div style="padding: 0 10px 10px 10px;">
+                <form action="<?php echo site_url(); ?>/RedirectPageController/destinationMapDelete" method="post">
+
+                  Id: <input type="number" min="1" name="destmap_id" required><br><br>
                   Listing Id: <input type="number" min="1" name="listing_id" required><br><br>
                   Destination Id: <input type="number" min="1" name="destination_id" required><br><br>
                   <input type="submit" name="submit">

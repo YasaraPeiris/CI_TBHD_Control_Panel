@@ -209,6 +209,12 @@ class AdminModel extends CI_Model
         $this->db-> insert('destinationmap',$data);
         
     }
+    function delete_destMap($data)
+    {
+        $this->db-> delete('destinationmap',$data);
+        return $this->db->affected_rows();
+        
+    }
     function addManualBooking($data)
     {
         $this->db-> insert('manualbookings',$data);
