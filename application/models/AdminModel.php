@@ -14,6 +14,20 @@ class AdminModel extends CI_Model
         }
         
     }
+    function getHotelList()
+    {
+        $this->db->select('listing_id, listing_name');
+        $this->db->where('verification', 'verified');
+        $this->db->order_by("listing_name", "asc");
+        $this->db->from('listings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
     function getDestination($destName)
     {
         $this->db->select('destination_id, show, main_dest');
@@ -110,6 +124,20 @@ class AdminModel extends CI_Model
         
     }
     function getBookingDetails()
+    {
+        $this->db->order_by("mb_id", "desc");
+        $this->db->from('manualbookings');
+        $this->db->join('listings','manualbookings.listing_id=listings.listing_id');        
+        $this->db->select('manualbookings.mb_id, listings.listing_name, manualbookings.cname,manualbookings.cmobile,manualbookings.checkin , manualbookings.checkout,manualbookings.note,manualbookings.admin_id');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function getBookingDetails_all()
     {
         $this->db->order_by("mb_id", "desc");
         $this->db->from('manualbookings');

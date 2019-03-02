@@ -173,6 +173,55 @@
                                    foreach ($manualbkngs as $value) {?>
                                     <tr >
                                       <th><?php echo $value->mb_id; ?></th>
+                                      <th><?php echo $value->listing_name; ?></th>
+                                      <th><?php echo $value->cname; ?></th>
+                                      <th><?php echo $value->cmobile; ?></th>
+                                      <th><?php echo $value->checkin; ?></th>
+                                      <th><?php echo $value->checkout; ?></th>
+                                      <th><?php echo $value->admin_id; ?></th>
+                                      <th><?php echo $value->note; ?></th>
+                                    </tr>
+                                  <?php } } ?>
+                                </tbody>
+                            </table>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <div class="box box-info">
+              <div class="box-header with-border" style='background-color: #000044;'>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Old Manual Bookings</h3>
+                  <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                  </div>
+              </div>
+              <div class="box-body">
+                  <div class="table-responsive">
+                      <form id="notifications" method="post" >
+                          <input type="hidden" id="bookingidset" name="bookingidset"/>
+                          <input type="hidden" id="itemidset" name="itemidset"/>
+                          <table id="mbtableold" class="table table-striped nowrap table-responsive"
+                                   cellspacing="0" width="100%">
+                                <thead class="no-border">
+                                <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
+                                  <th data-priority="1">M.B. ID</th>
+                                  <th data-priority="2">Hotel Name</th>
+                                  <th data-priority="3">Customer Name</th>
+                                  <th data-priority="5" data-orderable="false">Mobile</th>
+                                  <th data-priority="4">Check-in</th>
+                                  <th data-priority="4">Check-out</th>
+                                  <th data-priority="3">Admin ID</th>
+                                  <th data-priority="6" data-orderable="false">Notes</th>
+                                </tr>
+                                </thead>
+                                <tbody id="orderTable" style="text-align: center;">
+                                  <?php
+                                  if (sizeof($manualbkngs_old)>0) {
+                                   foreach ($manualbkngs_old as $value) {?>
+                                    <tr >
+                                      <th><?php echo $value->mb_id; ?></th>
                                       <th><?php echo $value->hotel_name; ?></th>
                                       <th><?php echo $value->cname; ?></th>
                                       <th><?php echo $value->cmobile; ?></th>
@@ -254,6 +303,10 @@
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
     <script>
       var table_checkin = $('#mbtable').DataTable({
+        "order": [[ 0, "desc" ]],
+          responsive: true
+      });
+      var table_checkin = $('#mbtableold').DataTable({
         "order": [[ 0, "desc" ]],
           responsive: true
       });

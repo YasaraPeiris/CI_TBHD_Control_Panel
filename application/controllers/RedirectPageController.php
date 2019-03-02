@@ -93,10 +93,10 @@ class RedirectPageController extends CI_Controller {
     {
 		$this->load->library('session');
 		if (isset($_SESSION['hotelno'])) {
-	    	if (isset($_POST['hotelname'])) {
+	    	if (isset($_POST['listingID'])) {
 				$this->load->model('AdminModel');
 				// echo "<br> -- <br>";
-				$main_arry = array('mb_id'=>$_POST['cid'], 'hotel_name'=>$_POST['hotelname'],'cname'=>$_POST['name'],'cemail'=>$_POST['email'],'cnic'=>$_POST['nic'],'cmobile'=>$_POST['contact'],'checkin'=>$_POST['checkin'],'checkout'=>$_POST['checkout'],'checkintime'=>$_POST['checkinT'],'checkouttime'=>$_POST['checkoutT'],'service_fee'=>$_POST['servicefee'],'commission'=>$_POST['commission'],	'promo_amount'=>$_POST['promo'],'paid'=>$_POST['paid'],'payonly'=>$_POST['payonly'],'total'=>$_POST['total'],'admin_id'=>$_SESSION['hotelno'],'note'=>$_POST['extranote']);
+				$main_arry = array('mb_id'=>$_POST['cid'], 'listing_id'=>$_POST['listingID'],'cname'=>$_POST['name'],'cemail'=>$_POST['email'],'cnic'=>$_POST['nic'],'cmobile'=>$_POST['contact'],'checkin'=>$_POST['checkin'],'checkout'=>$_POST['checkout'],'checkintime'=>$_POST['checkinT'],'checkouttime'=>$_POST['checkoutT'],'service_fee'=>$_POST['servicefee'],'commission'=>$_POST['commission'],	'promo_amount'=>$_POST['promo'],'paid'=>0,'payonly'=>$_POST['payonly'],'total'=>$_POST['total'],'admin_id'=>$_SESSION['hotelno'],'note'=>$_POST['extranote']);
 				$mb_id =  $this->AdminModel->addManualBooking($main_arry);
 				// echo "<br> -*".$mb_id."*- <br>";
 				// print_r($main_arry);
@@ -129,7 +129,9 @@ class RedirectPageController extends CI_Controller {
 
 	}
 	public function contentGenerator(){
-		$this->load->view('admin/contentGenerator');
+		$this->load->model('AdminModel');
+		$hotelList =  $this->AdminModel->getHotelList();
+		$this->load->view('admin/contentGenerator',array('hotelList'=>$hotelList));
 
 	}
 	public function copyContent(){
@@ -139,7 +141,8 @@ class RedirectPageController extends CI_Controller {
 				$this->load->model('AdminModel');
 				$mbdata =  $this->AdminModel->getmbData($_POST['mbID']);
 				$mbsubdata =  $this->AdminModel->getmbSubData($_POST['mbID']);
-				$data =array('mbdata'=> $mbdata[0],'mbsubdata'=>$mbsubdata);
+				$hotelList =  $this->AdminModel->getHotelList();
+				$data =array('mbdata'=> $mbdata[0],'mbsubdata'=>$mbsubdata,'hotelList'=>$hotelList);
 				$this->load->view('admin/copyContentGenerator', $data);
 			}
 		}
@@ -162,7 +165,8 @@ class RedirectPageController extends CI_Controller {
 	public function bookingDetails(){
 		$this->load->model('AdminModel');
 		$manualbkngs =  $this->AdminModel->getBookingDetails();
-		$data =array('manualbkngs'=> $manualbkngs);
+		$manualbkngs_old =  $this->AdminModel->getBookingDetails_all();
+		$data =array('manualbkngs'=> $manualbkngs,'manualbkngs_old'=>$manualbkngs_old);
 		$this->load->view('admin/bookingDetails', $data);
 
 	}

@@ -65,7 +65,13 @@
           <form name="myForm" action="<?php echo site_url(); ?>/RedirectPageController/saveContent" onsubmit="return validateForm()"  method="post">
             <input type="hidden" name="roomValueCount" id="roomValueCount" value="1">
             Customer ID: <input type="Number" name="cid" min="0" placeholder="Customer Incoming ID" required><br>
-            Hotel Name: <input type="text" name="hotelname" placeholder="Okrin Hotel - Katharagama" required><br>
+            Hotel Name: <!-- <input type="text" name="hotelname" placeholder="Okrin Hotel - Katharagama" required><br> -->
+            <select name="listingID" required>
+              <option disabled selected value="">Select a Hotel</option>
+              <?php for ($hotelNum=0; $hotelNum < sizeof($hotelList); $hotelNum++) { 
+                echo "<option value='".$hotelList[$hotelNum]->listing_id."' >".$hotelList[$hotelNum]->listing_name." - ".$hotelList[$hotelNum]->listing_id." </option>";
+              } ?>
+            </select><br>
             Customer Name: <input type="text" name="name" required><br>
             Customer Email: <input type="email" name="email" required><br>
             Customer NIC: <input type="text" name="nic" required><br>
@@ -87,7 +93,7 @@
             <button type="button" onclick="removeLastPrice()">Remove Last Room Type</button><br><br>
             Service Fee: <input type="Number" min="0" step="0.01" max="100" name="servicefee" required>%<br>
             Commission: <input type="Number" min="0" step="0.01" max="100" name="commission" required>%<br>
-            Paid Amount: <input type="Number" min="0" step="0.01" name="paid"><br>
+            <!-- Paid Amount: <input type="Number" min="0" step="0.01" name="paid"><br> -->
             Pay Only: <input type="Number" min="0" step="0.01" name="payonly">%<br>
             Total Amount: <input type="Number" min="0" step="0.01" name="total"><br>
             Promo Amount: <input type="Number" min="0" max="100"  name="promo" value="0" required>%<br>
