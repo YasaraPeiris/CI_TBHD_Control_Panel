@@ -288,7 +288,6 @@ class RedirectPageController extends CI_Controller {
 	    		$agentContact =  $this->AdminModel->getAgentContact($manualbkngs->admin_id)[0];
 	    		$listingdetails =  $this->AdminModel->getSpecificListingDetails($manualbkngs->listing_id)[0];
 	    		$hoteldetails =  json_decode($this->AdminModel->getSpecificHotelDetails($manualbkngs->listing_id)[0]->cancelation_policy);
-	    		print_r($hoteldetails);
 				if (isset($_POST['updatedemail']) && isset($_POST['updatednic'])) {
 					$manualbkngs->cemail = $_POST['updatedemail'];
 					$manualbkngs->cnic = $_POST['updatednic'];
@@ -367,6 +366,7 @@ class RedirectPageController extends CI_Controller {
     public function tentativeEmails($booking,$items,$agentContact,$listingdetails){
     	$roomText = "";
     	$datetime = new DateTime('tomorrow');
+    	$datetimehtl = new DateTime('tomorrow + 1day');
     	$date1obj = DateTime::createFromFormat('Y-m-d', $booking->checkin);
     	$date2obj = DateTime::createFromFormat('Y-m-d', $booking->checkout);
     	for ($rid=0; $rid < sizeof($items); $rid++) { 
@@ -380,7 +380,7 @@ class RedirectPageController extends CI_Controller {
         Details of the ".$listingdetails->listing_name." are mentioned herewith as you requested.<br><br>
 
         Booking ID: CD".$booking->mb_id."<br>
-        Hotel Name: ".$listingdetails->listing_name."<br>
+        Hotel Name: <a href='https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$listingdetails->destination_id."&listing_id=".$listingdetails->listing_id."&listing_type=hotel' target='_blank'>".$listingdetails->listing_name."</a><br>
 		Check-in: ".date_format($date1obj, 'd F, Y')." at ".date("g:i A", strtotime($booking->checkintime))." <br>
 		Check-out: ".date_format($date2obj, 'd F, Y')." at ".date("g:i A", strtotime($booking->checkouttime))."<br><br>
 		Rooms : ".$roomText."<br>";
@@ -390,23 +390,30 @@ class RedirectPageController extends CI_Controller {
 		}
 		$Cuscontent .= "Total                 : LKR ".number_format((float)$booking->total,2, '.', '')."<br><br>
 
-		You Only have to pay ".$booking->payonly."% (LKR ".number_format((float)($booking->total*$booking->payonly/100),2, '.', '').") to reserve now. <br><br>
+		<b>You only have to pay ".$booking->payonly."% (LKR ".number_format((float)($booking->total*$booking->payonly/100),2, '.', '').") to reserve now.</b> <br><br>
 
-		Here are our bank details.<br><br>
-
-		Sampath Bank - Maharagama Super Branch<br> 
+		Here are our bank details.<br>
+		<ul>
+		<li>Sampath Bank - Maharagama Super Branch<br> 
 		THE BEST HOTEL DEAL<br>
-		109214006797<br><br>
+		109214006797<br></li>
 
-		BOC Bank - Wijerama Branch<br>
+		<li>BOC Bank - Wijerama Branch<br>
 		THE BEST HOTEL DEAL <br>
-		82456678<br><br>";
+		82456678</li></ul>
+
+		Or, if you prefer to pay online, you can use our <a href='https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$listingdetails->destination_id."&listing_id=".$listingdetails->listing_id."&listing_type=hotel' target='_blank'>online portal here</a>.<br>
+		( <a href='https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$listingdetails->destination_id."&listing_id=".$listingdetails->listing_id."&listing_type=hotel' target='_blank'>https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$listingdetails->destination_id."&listing_id=".$listingdetails->listing_id."&listing_type=hotel</a> )<br><br>";
 
 		if (!empty($booking->note)) {
 			$Cuscontent .="<b>Special Notes:</b><br>".$booking->note."<br><br>";
 		}
 
-		$Cuscontent .="For any inquiry related to this booking, please contact <b>".$agentContact->listing_name."</b> on <b>".$agentContact->mobile."</b><br><br>
+		$Cuscontent .="We have <b>tentatively reserved</b> these room(s)/ property(s) <b>untill ". $datetime->format('d F, Y')."</b> and will get confirmed once you pay the advance money.<br>
+		Please be kind enough to send us the payment receipt as soon as you do the payment.<br><br>
+
+		For any inquiry related to this booking, please contact our agent (inna.lk) <b>".$agentContact->listing_name."</b> on <b>".$agentContact->mobile."</b><br><br>
+
 		Thank you very much.<br><br>
 
 		Best Regards,";
@@ -415,7 +422,7 @@ class RedirectPageController extends CI_Controller {
 
         You have a new booking and here are the full details of the booking:<br><br>
 
-        This is a <b>tentative booking valid till ". $datetime->format('d F, Y')."</b> and will get confirmed once the customer deposited the advance money.<br><br>
+        This is a <b>tentative booking valid till ". $datetimehtl->format('d F, Y')."</b> and will get confirmed once the customer deposited the advance money.<br><br>
 
         Booking ID: CD".$booking->mb_id."<br>
         Hotel Name: ".$listingdetails->listing_name."<br>
@@ -428,7 +435,7 @@ class RedirectPageController extends CI_Controller {
 			$Hotlcontent .="<b>Special Notes:</b><br>".$booking->note."<br><br>";
 		}
 
-		$Hotlcontent .="Please reserve the rooms.<br><br>
+		$Hotlcontent .="<b>Please revert back with the confirmation.</b><br><br>
 
 		Thank you very much.<br><br>
 
@@ -450,7 +457,7 @@ class RedirectPageController extends CI_Controller {
         $Cuscontent = "Dear ".$booking->cname.",<br><br>
         Your booking at ".$listingdetails->listing_name." is now confirmed and here are the full details of the booking:<br><br>
         Booking ID: CD".$booking->mb_id."<br>
-        Hotel Name: ".$listingdetails->listing_name."<br>
+        Hotel Name: <a href='https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$listingdetails->destination_id."&listing_id=".$listingdetails->listing_id."&listing_type=hotel' target='_blank'>".$listingdetails->listing_name."</a><br>
 		Check-in: ".date_format($date1obj, 'd F, Y')." at ".date("g:i A", strtotime($booking->checkintime))." <br>
 		Check-out: ".date_format($date2obj, 'd F, Y')." at ".date("g:i A", strtotime($booking->checkouttime))."<br><br>
 		Rooms : ".$roomText."<br>
@@ -466,14 +473,13 @@ class RedirectPageController extends CI_Controller {
 		$Cuscontent .= "Total                 : LKR ".number_format((float)$booking->total,2, '.', '')."<br><br>
 
 		Amount charged by inna.lk                                : LKR ".number_format((float)$paid,2, '.', '')."<br>
-		<b>Amount that should be collected at the hotel: LKR ".number_format((float)($booking->total - $paid), 2, '.', '')."</b><br><br>";
+		<b>Amount that should be paid at the property: LKR ".number_format((float)($booking->total - $paid), 2, '.', '')."</b><br><br>";
 		
 		if (!empty($booking->note)) {
 			$Cuscontent .="<b>Special Notes:</b><br>".$booking->note."<br><br>";
 		}
 
-		$Cuscontent .="For any inquiry related to this booking, please contact our agent (inna.lk) <b>".$agentContact->listing_name."</b> on <b>".$agentContact->mobile."</b><br>
-		<b>Hotel Contact Details</b><br>
+		$Cuscontent .="<b>Hotel Contact Details</b><br>
 		<ul>
 		<li>Main Contact Number: ".$listingdetails->main_contact."</li>
 		<li>Hotel Mobile Number: ".$listingdetails->mobile."</li>
@@ -486,11 +492,16 @@ class RedirectPageController extends CI_Controller {
 
 		<b>Cancellation Policy</b><ul>
 		<li>".$hoteldetails->full_before." days and Above: Free Cancellation,</li>
-		<li>".($hoteldetails->full_before - 1)." days to ".$hoteldetails->days_before." days: ".$hoteldetails->return_percentage."% Cancellation Fee (on full booking value upto maximum of advance value),</li>
-		<li>".$hoteldetails->days_before." days and Below: No Cancellation. (don't panic, in most cases we bridge the difference :D )</li></ul><br>
+		<li>".($hoteldetails->full_before - 1)." days to ".$hoteldetails->days_before." days: ".$hoteldetails->return_percentage."% Cancellation Fee (on full booking value upto a maximum of advance value),</li>
+		<li>".$hoteldetails->days_before." days and Below: No Cancellation Permitted.</li></ul>
+
+		Always adhere to the rules of the hotel all the time for your own safety. You can find the basic rules for this property<a href='https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$listingdetails->destination_id."&listing_id=".$listingdetails->listing_id."&listing_type=hotel' target='_blank'> here in our website</a>.<br>
+		You can find our <a href='https://inna.lk/index.php/Welcome/showTermsandConditions' target='_blank'> Terms and Conditions Here </a>.<br><br>
 
 		The invoice is attached herewith for your reference.<br><br>
 
+		For any inquiry related to this booking, please contact our agent (inna.lk) <b>".$agentContact->listing_name."</b> on <b>".$agentContact->mobile."</b><br><br>
+		
 		Enjoy your stay.<br><br>
 
 		Best Regards,";
@@ -524,7 +535,9 @@ class RedirectPageController extends CI_Controller {
 			$Hotlcontent .="<b>Special Notes:</b><br>".$booking->note."<br><br>";
 		}
 
-		$Hotlcontent .="Please reserve the rooms.<br><br>
+		$Hotlcontent .="For any inquiry related to this booking, please contact our agent (inna.lk) <b>".$agentContact->listing_name."</b> on <b>".$agentContact->mobile."</b><br><br>
+
+		<b>Please revert back with the confirmation.</b><br><br>
 
 		Thank you very much.<br><br>
 

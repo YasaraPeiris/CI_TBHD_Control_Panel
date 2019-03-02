@@ -3,7 +3,7 @@ class AdminModel extends CI_Model
 {
     function getHotelDetails()
     {
-        $this->db->select('listing_id, listing_name, destination_id,email,main_contact,mobile,verification');
+        $this->db->select('listing_id, listing_name, destination_id, email, main_contact, mobile, verification');
         // $this->db->where('verification', 'verified');
         $this->db->from('listings');
         $query1 = $this->db->get();
@@ -16,7 +16,7 @@ class AdminModel extends CI_Model
     }
     function getSpecificListingDetails($listing_id)
     {
-        $this->db->select('listing_name, latitude, longitude, address_line_1, address_line_2,email,main_contact,mobile');  
+        $this->db->select('listing_id, listing_name, latitude, longitude, address_line_1, address_line_2,email, main_contact, mobile, destination_id');  
         $this->db->where('listing_id', $listing_id);
         $this->db->from('listings');
         $query1 = $this->db->get();
