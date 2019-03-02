@@ -64,7 +64,7 @@
       <section class="content">
           <form action="<?php echo site_url(); ?>/RedirectPageController/generateAllContent" method="post">
             <input type="hidden" name="roomValueCount" id="roomValueCount" value="1">
-            Hotel Name: <?php echo $booking->hotel_name; ?><br>
+            Hotel Name: <?php echo $listingdetails->listing_name; ?><br>
             Customer Name: <?php echo $booking->cname; ?><br>
             Customer Email: <input type="email" value="<?php echo $booking->cemail; ?>" name="updatedemail" required><br>
             Customer NIC: <input type="text" value="<?php echo $booking->cnic; ?>" name="updatednic" required> <br>

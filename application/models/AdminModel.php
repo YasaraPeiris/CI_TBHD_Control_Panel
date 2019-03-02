@@ -1,10 +1,23 @@
 <?php
 class AdminModel extends CI_Model
 {
-	function getHotelDetails()
+    function getHotelDetails()
     {
         $this->db->select('listing_id, listing_name, destination_id,email,main_contact,mobile,verification');
         // $this->db->where('verification', 'verified');
+        $this->db->from('listings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function getSpecificHotelDetails($listing_id)
+    {
+        $this->db->select('listing_name');  //, email,main_contact,mobile
+        $this->db->where('listing_id', $listing_id);
         $this->db->from('listings');
         $query1 = $this->db->get();
         if ($query1->num_rows() > 0) {

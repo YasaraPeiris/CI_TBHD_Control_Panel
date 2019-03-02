@@ -60,7 +60,7 @@
 
                 $todaydate = $dt->format('Y-m-d');
                  echo $todaydate;?></span>
-                <span><?php echo $todaydate;?></span> <span id="number">#10</span>
+                <span><?php echo $todaydate;?></span> <span id="number">CD<?php echo $booking->mb_id; ?></span>
             </div>
 
             <div id="title">invoice</div>

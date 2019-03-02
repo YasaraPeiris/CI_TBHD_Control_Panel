@@ -110,6 +110,10 @@
             echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['alertDestMap']."</div>";
             unset($_SESSION['alertDestMap']);
         }
+        if (!empty($_SESSION['bookingDtls'])) {
+            echo "<div class='alert alert-danger' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['bookingDtls']."</div>";
+            unset($_SESSION['bookingDtls']);
+        }
         ?>
         <!-- Small boxes (Stat box) -->
           <div class="box box-info">
