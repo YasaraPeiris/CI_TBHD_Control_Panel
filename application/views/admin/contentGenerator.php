@@ -104,10 +104,10 @@
   </div>
 </div>
 <div id="confirmation-msg" style="display:none">
-        Update Record?
-        <button type="submit" id="yesButton">Yes</button>
-        <button type="button" onClick="$('#confirmation-msg').hide()">No</button>
-    </div>
+    Update Record?
+    <button type="submit" id="yesButton">Yes</button>
+    <button type="button" onClick="$('#confirmation-msg').hide()">No</button>
+</div>
 <script type="text/javascript">
   var x = 2;
   function addAnotherPrice() {

@@ -64,6 +64,12 @@
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li>
+        <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/priceSets" >
+            <i class="fa fa-calendar"></i> <span>Extra Price Sets</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li>
         <!-- <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/bookingContent" >
             <i class="fa fa-calendar"></i> <span>Manual Booking Content</span>

@@ -33,11 +33,11 @@
   <link rel="stylesheet" href="../../assets/plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-  <!-- bootstrap wysihtml5 - text editor -->
-  <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
+<!-- bootstrap wysihtml5 - text editor -->
+    <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -106,19 +106,19 @@
       <section class="content">
         <?php
 
-        if (!empty($_SESSION['alertDestMap'])) {
-            echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['alertDestMap']."</div>";
-            unset($_SESSION['alertDestMap']);
+        if (!empty($_SESSION['alertPrice'])) {
+            echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['alertPrice']."</div>";
+            unset($_SESSION['alertPrice']);
         }
-        if (!empty($_SESSION['warnDestMap'])) {
-            echo "<div class='alert alert-danger' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['warnDestMap']."</div>";
-            unset($_SESSION['warnDestMap']);
+        if (!empty($_SESSION['warnPrice'])) {
+            echo "<div class='alert alert-danger' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['warnPrice']."</div>";
+            unset($_SESSION['warnPrice']);
         }
         ?>
         <!-- Small boxes (Stat box) -->
           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Add Destination Map</h3>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Delete Price Sets</h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -126,45 +126,24 @@
                   </div>
               </div><br><br>
               <div style="padding: 0 10px 10px 10px;">
-                <form action="<?php echo site_url(); ?>/RedirectPageController/destinationMapAdd" method="post">
+                <form action="<?php echo site_url(); ?>/RedirectPageController/priceSetDelete" method="post" onsubmit="return validateForm()" >
 
-                  Listing Id: <input type="number" min="1" name="listing_id" required><br><br>
-                  Destination Id: <input type="number" min="1" name="destination_id" required><br><br>
-                  <input type="submit" name="submit">
-                </form>
-              </div>
-          </div>
-        <!-- Small boxes (Stat box) -->
-          <div class="box box-info">
-              <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Delete Destination Map</h3>
-                  <div class="box-tools pull-right">
-                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-              </div><br><br>
-              <div style="padding: 0 10px 10px 10px;">
-                <form action="<?php echo site_url(); ?>/RedirectPageController/destinationMapDelete" method="post" onsubmit="return validateForm()" >
-
-                  Id: <input type="number" min="1" name="destmap_id" required><br><br>
-                  Listing Id: <input type="number" min="1" name="listing_id" required><br><br>
-                  Destination Id: <input type="number" min="1" name="destination_id" required><br><br>
+                  Id: <input type="number" min="1" name="price_id" required><br><br>
+                  Price Category Id: <input type="number" min="1" name="priceCat_id" required><br><br>
+                  Priority: <input type="number" min="1" name="priority" required><br><br>
                   <input type="submit" name="submit" value="Delete">
-                </form>                
+                </form>
                 <script type="text/javascript">
                   function validateForm() { 
-                        return confirm('Do you really want to delete this destination map?');
+                        return confirm('Do you really want to delete this price?');
                     }
                 </script>
               </div>
           </div>
-      </section>
-      <section class="content">
           <!-- Small boxes (Stat box) -->
-          <div class="box box-info">
+           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Destination Map</h3>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Price Categories</h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -176,28 +155,82 @@
                       <form id="notifications" method="post" >
                           <input type="hidden" id="bookingidset" name="bookingidset"/>
                           <input type="hidden" id="itemidset" name="itemidset"/>
-                          <table id="destidtable" class="table table-striped nowrap table-responsive"
+                          <table id="priceCatTable" class="table table-striped nowrap table-responsive"
                                    cellspacing="0" width="100%">
                                 <thead class="no-border">
                                 <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
-                                  <th data-priority="1">ID</th>
+                                  <th data-priority="2">Price Category ID</th>
                                   <th data-priority="1">Listing ID</th>
-                                  <th data-priority="1">Destination ID</th>
+                                  <th data-priority="3">Listing Name</th>
+                                  <th data-priority="3" data-orderable="false">Room Type ID</th>
+                                  <th data-priority="4" data-orderable="false">Price ID</th>
+                                  <th data-priority="5" data-orderable="false">Name</th>
+                                  <th data-priority="6" >Occupancy</th>
                                 </tr>
                                 </thead>
                                 <tbody id="orderTable" style="text-align: center;">
-                                  <?php foreach ($destination as $value) {?>
+                                  <?php foreach ($priceCatgories as $value) {?>
                                   <tr >
-                                    <th><?php echo $value->id; ?></th>
+                                    <th><?php echo $value->pricecategory_id; ?></th>
                                     <th><?php echo $value->listing_id; ?></th>
-                                    <th><?php echo $value->destination_id; ?></th>
+                                    <th><?php echo $value->listing_name; ?></th>
+                                    <th><?php echo $value->room_type_id; ?></th>
+                                    <th><?php echo $value->price_id; ?></th>
+                                    <th><?php echo $value->price_name; ?></th>
+                                    <th><?php echo $value->price_occ; ?></th>
                                   </tr>
                                 <?php } ?>
                                 </tbody>
                             </table>
                       </form>
                   </div>
+               </div>
+          </div>
+          <!-- Small boxes (Stat box) -->
+           <div class="box box-info">
+              <div class="box-header with-border" style='background-color: #000044;'>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Prices</h3>
+                  <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
               </div>
+              <div class="box-body">
+                  <div class="table-responsive">
+                      <form id="notifications" method="post" >
+                          <input type="hidden" id="bookingidset" name="bookingidset"/>
+                          <input type="hidden" id="itemidset" name="itemidset"/>
+                          <table id="pricetable" class="table table-striped nowrap table-responsive"
+                                   cellspacing="0" width="100%">
+                                <thead class="no-border">
+                                <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
+                                  <th data-priority="3">ID</th>
+                                  <th data-priority="1">Price Category ID</th>
+                                  <th data-priority="4">Price</th>
+                                  <th data-priority="2">From</th>
+                                  <th data-priority="2">Till</th>
+                                  <th data-priority="2">Priority</th>
+                                  <th data-priority="6">Insert Time</th>
+                                </tr>
+                                </thead>
+                                <tbody id="orderTable" style="text-align: center;">
+                                  <?php foreach ($prices as $value) {?>
+                                  <tr >
+                                    <th><?php echo $value->id; ?></th>
+                                    <th><?php echo $value->pricecategory_id; ?></th>
+                                    <th><?php echo $value->price; ?></th>
+                                    <th><?php echo $value->valid_from; ?></th>
+                                    <th><?php echo $value->valid_till; ?></th>
+                                    <th><?php echo $value->priority; ?></th>
+                                    <th><?php echo $value->insert_time; ?></th>
+                                  </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                      </form>
+                  </div>
+               </div>
           </div>
        </section>
   </div>
@@ -258,15 +291,18 @@
         });
             }
             </script>
-<!--datatables-->
-   <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
-   <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
-   <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
-   <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
-   <script>
-     var table_checkin = $('#destidtable').DataTable({
-         responsive: true
-     });
-   </script>
+ <!--datatables-->
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
+    <script>
+      var table_checkin = $('#priceCatTable').DataTable({
+          responsive: true
+      });
+      var table_checkin = $('#pricetable').DataTable({
+          responsive: true
+      });
+    </script>
 </body>
 </html>

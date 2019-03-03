@@ -14,11 +14,48 @@ class AdminModel extends CI_Model
         }
         
     }
+    function piceSetData($price_id)
+    {
+        $this->db->where('id', $price_id);
+        $this->db->from('roomprices');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
     function getSpecificListingDetails($listing_id)
     {
         $this->db->select('listing_id, listing_name, latitude, longitude, address_line_1, address_line_2,email, main_contact, mobile, destination_id');  
         $this->db->where('listing_id', $listing_id);
         $this->db->from('listings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function getPriceCategories()
+    {
+        $this->db->from('roompricecategory');
+        $this->db->join('listings','roompricecategory.listing_id=listings.listing_id');        
+        $this->db->where('listings.verification', 'verified');
+        $this->db->select('listings.listing_id, listings.listing_name, pricecategory_id, room_type_id, price_id, price_name,price_occ');  
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function getPrices()
+    {
+        $this->db->from('roomprices');
         $query1 = $this->db->get();
         if ($query1->num_rows() > 0) {
             return $query1->result();    // return a array of object
@@ -212,8 +249,12 @@ class AdminModel extends CI_Model
     function delete_destMap($data)
     {
         $this->db-> delete('destinationmap',$data);
-        return $this->db->affected_rows();
-        
+        return $this->db->affected_rows(); 
+    }
+    function delete_price($data)
+    {
+        $this->db-> delete('roomprices',$data);
+        return $this->db->affected_rows(); 
     }
     function addManualBooking($data)
     {

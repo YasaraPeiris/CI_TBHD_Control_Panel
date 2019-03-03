@@ -168,7 +168,13 @@ class RedirectPageController extends CI_Controller {
 		$manualbkngs_old =  $this->AdminModel->getBookingDetails_all();
 		$data =array('manualbkngs'=> $manualbkngs,'manualbkngs_old'=>$manualbkngs_old);
 		$this->load->view('admin/bookingDetails', $data);
-
+	}
+	public function priceSets(){
+		$this->load->model('AdminModel');
+		$priceCatgories =  $this->AdminModel->getPriceCategories();
+		$prices =  $this->AdminModel->getPrices();
+		$data =array('priceCatgories'=> $priceCatgories, 'prices'=> $prices);
+		$this->load->view('admin/priceSets',$data);
 	}
 	public function generateContent(){
 		$this->load->library('session');
@@ -344,18 +350,40 @@ class RedirectPageController extends CI_Controller {
 				if ($deletedRows>0) {
 					$_SESSION['alertDestMap'] = "Destination Map Deleted of the listing ".$listing_id." from destination ".$destination_id;
 				}
-				else $_SESSION['warnDestMap'] = "Destination Map Deleted Unsucessful";
+				else $_SESSION['warnDestMap'] = "Destination Map Delete Unsucessful";
 		}
 	    
 		$this->destinationMapList();
+	}
+	public function priceSetDelete(){
+		$this->load->library('session');
+		if (isset($_POST['price_id']) && isset($_POST['priceCat_id'])&& isset($_POST['priority']) ) {
+			    $price_id = $_POST['price_id'];
+			    $priceCat_id = $_POST['priceCat_id'];
+			    $priority = $_POST['priority'];
+				$this->load->model('AdminModel');
+				if ($priority == 10) {					
+					$priceSetData =  $this->AdminModel->piceSetData($price_id)[0];
+					if ($priceSetData->valid_till == '9999-12-31') {
+						$_SESSION['warnPrice'] = "Price Delete Unsucessful. Dont delete base prices.";
+						$this->priceSets();
+					}
+				}
+				$pricedata = array('id'=>$price_id,'pricecategory_id'=>$priceCat_id, 'priority'=>$priority);
+				$deletedRows =  $this->AdminModel->delete_price($pricedata);
+				if ($deletedRows>0) {
+					$_SESSION['alertPrice'] = "Price Deleted of the price category ".$priceCat_id;
+				}
+				else $_SESSION['warnPrice'] = "Price Delete Unsucessful, No match found.";
+		}
+	    
+		$this->priceSets();
 	}
 	public function adminHome(){
 		$this->load->model('AdminModel');
 		$logins =  $this->AdminModel->getLogin();
 		$data =array('logins'=> $logins);
-		// print_r($logins);
 		$this->load->view('admin/adminHome',$data);
-
 	}
 	public function checkInquiries(){
 		$this->load->view('admin/checkInquiries');
