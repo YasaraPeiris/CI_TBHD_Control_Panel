@@ -47,6 +47,12 @@
             </a>
         </li>
         <li>
+          <a href="<?php echo base_url();?>index.php/HotelDeatailController/index" >
+            <i class="fa fa-calendar"></i> <span>Hotels</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li>
+        <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/destinationMapList" >
             <i class="fa fa-calendar"></i> <span>Destination Map</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>

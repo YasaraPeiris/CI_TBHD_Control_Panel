@@ -14,6 +14,20 @@ class AdminModel extends CI_Model
         }
         
     }
+    function getVerifiedHotelDetails()
+    {
+        $this->db->select('listing_id, listing_name, destination_id');
+        $this->db->order_by("listing_name", "asc");
+        $this->db->where('verification', 'verified');
+        $this->db->from('listings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
     function piceSetData($price_id)
     {
         $this->db->where('id', $price_id);
