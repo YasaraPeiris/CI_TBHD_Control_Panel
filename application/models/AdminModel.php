@@ -16,7 +16,7 @@ class AdminModel extends CI_Model
     }
     function getVerifiedHotelDetails()
     {
-        $this->db->select('listing_id, listing_name, destination_id');
+        $this->db->select('listing_id, listing_name, destination_id,display_loc');
         $this->db->order_by("listing_name", "asc");
         $this->db->where('verification', 'verified');
         $this->db->from('listings');
@@ -53,6 +53,118 @@ class AdminModel extends CI_Model
         }
         
     }
+    function getAllSpecificListingDetails($listing_id)
+    {
+        $this->db->where('listing_id', $listing_id);
+        $this->db->from('listings');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function get_owner($owner_id)
+    {
+        $this->db->where('owner_id',$owner_id);
+        $this->db-> from('owner');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }
+    function get_bookings($listing_id,$checkin,$checkout)
+    {
+        // date_default_timezone_set('Asia/Colombo');
+        // $nowdate = date("Y-m-d H:i:s");
+        // echo $nowdate;
+        $this->db->where('listing_id',$listing_id);
+        $this->db->where('check_out>',$checkin);
+        $this->db->where('check_in<',$checkout);
+        // $this->db->group_start()->where('status','confirm')->or_where("('status'='in_progree' AND 'order_created_date<'='$nowdate')", NULL, FALSE)->group_end();
+        // $this->db->or_where('status','confirm');
+        $this->db-> from('booking');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }   
+    function get_hotel($listing_id)
+    {
+        $this->db->where('listing_id',$listing_id);
+        $this->db-> from('hotel');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }
+    function get_promotions( $listing_id, $checkin, $checkout  )
+    {
+        $this->db->where('listing_id', $listing_id);
+        $this->db->where('start_date <=',date('Y-m-d', strtotime($checkin)));
+        $this->db->where('end_date >=',date('Y-m-d', strtotime($checkout)));
+
+        $this->db-> from('promotions');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }
+        else{
+            return NULL;
+        }
+    }
+    function get_roomtypes($listing_id)
+    {
+        $this->db->where('listing_id', $listing_id);
+        $this->db->from('roomtypes');
+        $this->db->order_by('room_type_id','asc');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }
+    function get_roomcat($listing_id, $room_type_id)
+    {
+        $this->db->where('listing_id', $listing_id);
+        $this->db->where('room_type_id', $room_type_id);
+        $this->db->from('roompricecategory');
+        $this->db->order_by('room_type_id','asc');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }
+    function getbestprice($pricecategory_id,$date1,$date2)
+    {
+        $this->db->where('pricecategory_id', $pricecategory_id);
+        $this->db->where('valid_till >=', $date1);
+        $this->db->where('valid_from <', $date2);
+        $this->db->from('roomprices');
+        $this->db->order_by('priority','asc');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }
     function getPriceCategories()
     {
         $this->db->from('roompricecategory');
@@ -77,6 +189,18 @@ class AdminModel extends CI_Model
             return NULL;
         }
         
+    }
+    function get_booked_rooms($booking_id)
+    {
+        $this->db->where('booking_id',$booking_id);
+        $this->db-> from('itemdetails');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
     }
     function getSpecificHotelDetails($listing_id)
     {

@@ -124,7 +124,7 @@
                 <?php if (sizeof($hotels)>0) {
                   foreach ($hotels as $value) {
                     
-                    ?><button onclick="window.open('<?php echo "https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$value->destination_id."&listing_id=".$value->listing_id."&listing_type=hotel"; ?>','_blank')"> <?php echo $value->listing_name; ?></button><?php
+                    ?><button onclick="window.open('<?php echo base_url()."/index.php/HotelDeatailController/showHotel?destination=".$value->destination_id."&listing_id=".$value->listing_id; ?>','_blank')"> <?php echo $value->listing_name."- ".$value->display_loc ; ?></button><?php
                   }
                 }
 
