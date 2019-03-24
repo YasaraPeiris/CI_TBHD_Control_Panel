@@ -131,15 +131,31 @@ class HotelDeatailController extends CI_Controller {
 			$listing_id = $this->input->get('listing_id');
 			$destination_id = $this->input->get('destination');
 			$guest_count = 2;
-	        $date = strtotime("+13 day");
-	        $checkin = date('m/d/Y', $date);
-	        $date = strtotime("+14 day");
-	        $checkout = date('m/d/Y', $date);
+			if ( isset($_SESSION['checkin']) & isset($_SESSION['checkout'])){
+				$checkin =  $_SESSION['checkin'];
+				$checkout =  $_SESSION['checkout'];
+			}
+			else{
+		        $date = strtotime("+13 day");
+		        $checkin = date('m/d/Y', $date);
+		        $date = strtotime("+14 day");
+		        $checkout = date('m/d/Y', $date);
+		    }
 	        // echo $checkin;
 	        // echo "<br>";
 	        // echo $checkout;
         	$available_flag = 1;
 			$listing_data =  $this->AdminModel->getAllSpecificListingDetails($listing_id);
+			$this->session->set_userdata('listing_id', $listing_id);
+			$this->session->set_userdata('listing_type', "hotel");
+			//$this->session->set_userdata('default', $listing_type);
+			$this->session->set_userdata('destination_id', $destination_id);
+			$this->session->set_userdata('checkin', $checkin);
+			$this->session->set_userdata('checkout', $checkout);
+			$this->session->set_userdata('guest_count', $guest_count);
+			$this->session->set_userdata('listing_name', $listing_data[0]->listing_name);
+			$this->session->set_userdata('listing_address_1', $listing_data[0]->address_line_1);
+			$this->session->set_userdata('listing_address_2', $listing_data[0]->address_line_2);
 			if ($listing_data[0]->verification == "rejected") {
 			    $_SESSION['alertHtlDStatus'] = " Rejected Hotel!!!";
 			    // redirect();

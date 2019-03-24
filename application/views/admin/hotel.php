@@ -172,7 +172,166 @@
                 width: 100%;
             }
         </style>
+        <script type="text/javascript">
 
+            var roomPrices = <?php echo json_encode($roomPricesFull); ?>;
+            var roomAvl = <?php echo json_encode($roomAvailability); ?>;
+            var roomCount = <?php echo json_encode($roomCount); ?>; 
+            var countarry = <?php echo json_encode($countarry); ?>; 
+            var roomNames = <?php echo json_encode($roomNames); ?>;
+            var diffDays = 1; // just to initialize
+            var serviceFee = <?php echo ($commondetails->commision) / 100; ?>;
+            var advancePerc = <?php echo ($commondetails->advance) / 100; ?>; 
+            var promoCodeVal = <?php echo (isset($_SESSION['promorate']))?$_SESSION['promorate']:0; ?>; 
+            var promoCodeMax = <?php echo (isset($_SESSION['promomax']))?$_SESSION['promomax']:1000; ?>; 
+            if (serviceFee == 0) {
+                document.getElementById("servicefeevaldiv").style.display = "none";
+                document.getElementById("servicefeetextdiv").style.display = "none";
+            }
+
+
+            // initialize on change functions and etc...
+            function update_with_date(roomAvl) {
+                for (var i = 1; i < (roomPrices.length) + 1; i++) {
+                    for (var j = 0; j < roomPrices[i - 1].length; j++) {
+                        // initially set room count
+                        $('#roomCountOf' + i + '_' + j + '').val(roomCount[i - 1][j]).change();
+                        // if room availability is one and if it is selected by min price(by Default), reduce the availablity of other prices for the same room, initialy.
+                        if (roomCount[i - 1][j] > 0) {
+                            for (var k = 0; k < roomPrices[i - 1].length; k++) {
+                                if (j != k) {
+                                    // alert(i+ "----"+ k);
+                                    $('input[id=roomCountOf' + i + '_' + k + ']').attr('data-max', (roomAvl[i - 1] - roomCount[i - 1][j]));
+                                    $('#roomCountOf' + i + '_' + k + ' option[value='+roomAvl[i - 1]+']').prop("disabled", true);
+                                }
+                            }
+                        }
+                        // change price as room count changes
+                        $('#roomCountOf' + i + '_' + j + '').change({dataItr: i, dataItr2: j}, function (event) {
+                            // console.log(event.data.dataItr2);
+                            roomCount[event.data.dataItr - 1][event.data.dataItr2] = $('#roomCountOf' + event.data.dataItr + '_' + event.data.dataItr2 + '').val();
+                            var price = CalcPrice(roomPrices, roomCount);
+                            var afterpromo = 1 - <?php echo $promotions->promo_amount; ?>;
+                            // $('#pricePerNightH3').html('<span style="font-size: 0.7em;">Rs. </span>' + (price*afterpromo).toFixed(2));
+                            // $('#noOfDays').text(diffDays);
+                            $('#subTotalDiv').text((price * diffDays).toFixed(2));
+                            if (afterpromo < 1) {
+                                $('#promoPriceDiv').text((price * afterpromo * diffDays).toFixed(2));
+                            }
+                            promoCodeDeduction = Math.min(price * afterpromo * diffDays* promoCodeVal,promoCodeMax);
+                            if (promoCodeVal > 0) {
+                                $('#promoCodePriceDiv').text('('+(promoCodeDeduction).toFixed(2)+')');
+                            }
+                            $('#serviceFeeDiv').text((price * afterpromo * diffDays * serviceFee).toFixed(2));
+                            $('#totalDiv').text((price * afterpromo * diffDays * (1 + serviceFee)- promoCodeDeduction).toFixed(2));
+                            $('#payOnlyDiv').text("(LKR "+((price * afterpromo * diffDays * (1 + serviceFee )-promoCodeDeduction)* advancePerc).toFixed(2)+")");
+                            var SelRooms = '<ul>';
+                            for (var i = 0; i < roomPrices.length; i++) {
+                                for (var j = 0; j < roomPrices[i].length; j++) {
+                                    if (roomCount[i][j] > 0) {
+                                        SelRooms += '<li style="width:88%;">' + roomNames[i] + '<span style="float:right;"> (' + roomPrices[i][j] + ' x ' + roomCount[i][j] + ')</span></li>';
+                                    }
+                                }
+                            }
+                            SelRooms += '</ul>';
+                            $('#SlctdRooms').html(SelRooms);
+                            $('#submit_id').html("Book Now");
+                            $('#perNightspan').html("per Night");
+                            $('#priceTab').show();
+
+                            //to make the room count less than desired
+                            // calculate roomOccupancy & now remaining
+                            roomOccupancy = 0;
+                            for (var j = 0; j < roomCount[event.data.dataItr - 1].length; j++) {
+                                roomOccupancy += parseInt(roomCount[event.data.dataItr - 1][j]);
+                            }
+                            var remnngRooms = roomAvl[event.data.dataItr - 1] - roomOccupancy;
+                            for (var j = 0; j < roomPrices[event.data.dataItr - 1].length; j++) {                    // update max
+                                var nowMax = parseInt($('#roomCountOf' + event.data.dataItr + '_' + j + '').val()) + remnngRooms;
+                                for (var jj = roomAvl[event.data.dataItr - 1]; jj >= 0; jj--) {
+                                    if (jj > nowMax) {
+                                        $('#roomCountOf' + event.data.dataItr + '_' + j + ' option[value='+jj+']').prop("disabled", true);
+                                    }
+                                    else{
+                                        $('#roomCountOf' + event.data.dataItr + '_' + j + ' option[value='+jj+']').prop("disabled", false);
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            // caling the function
+            // update_with_date(roomAvl);
+
+
+            // SelRooms += '</ul>';
+            // $('#SlctdRooms').html(SelRooms);
+            function changePriceBoxVal(start, end) { // further, this will fill the price box initially
+                diffDays = end.diff(start, 'days');
+                var price = CalcPrice(roomPrices, roomCount);
+                var afterpromo = 1 - <?php echo $promotions->promo_amount; ?>;
+                var minRoomVal = <?php echo (isset($minRoomVal))?$minRoomVal:$roomPricesFull[0][0]; ?>;
+                // var price2 = price * afterpromo;
+                // $('#pricePerNightH3').html('<span style="font-size: 0.7em;">Rooms From Rs. </span>' + (minRoomVal*afterpromo).toFixed(2));
+                $('#noOfDays').text(diffDays);
+                $('#subTotalDiv').text((price * diffDays).toFixed(2));
+                if (afterpromo < 1) {
+                    $('#promoPriceDiv').text((price * afterpromo * diffDays).toFixed(2));
+                }
+                $('#serviceFeeDiv').text((price * diffDays * afterpromo * serviceFee).toFixed(2));
+                $('#totalDiv').text((price * diffDays * afterpromo * (1 + serviceFee- promoCodeVal)).toFixed(2));
+                // $('#payOnlyDiv').text("(LKR "+(price * afterpromo * diffDays * (1 + serviceFee)* advancePerc).toFixed(2)+")");
+                // alert(diffDays);
+
+            }
+
+            function CalcPrice(roomPrices, roomCount) {
+                var price = 0;
+                var str_html = '';  //<input type="hidden" id="guest_count" name="guest_count" value="' + document.getElementById('guest_count_form').value + '">
+                for (var i = 0; i < roomCount.length; i++) {
+                    for (var j = 0; j < roomCount[i].length; j++) {
+                        // console.log(i+' - '+j)
+                        price += roomCount[i][j] * roomPrices[i][j];
+
+                    }
+                    var r = i + 1;
+                    str_html += '<input type="hidden" id="roomcount' + i + '" name="roomcount[' + i + ']" value="' + roomCount[i] + '">';
+
+                }
+                // str_html+='<input type="hidden" id="roomCount" name="roomCount" value="'+roomCount+'">';
+                // console.log(roomCount);
+                //str_html+='    <button type="submit" name="submit" class="btn hvr-overline-from-left" style="float:right;background: linear-gradient(to bottom, #f5d11d 0%,#f3d10e 1%,#efcf1c 2%,#fccd0d 4%,#f7ca0d 5%,#f9cb1e 6%,#f7cb10 7%,#f8cc14 8%,#f0c40c 54%,#edc50c 55%,#e9c108 71%,#ecc008 78%,#e6be06 91%,#e9bd06 93%,#e8bc06 100%);background-image: linear-gradient(rgb(245, 209, 29) 0%, rgb(243, 209, 14) 1%, rgb(239, 207, 28) 2%, rgb(252, 205, 13) 4%, rgb(247, 202, 13) 5%, rgb(249, 203, 30) 6%, rgb(247, 203, 16) 7%, rgb(248, 204, 20) 8%, rgb(240, 196, 12) 54%, rgb(237, 197, 12) 55%, rgb(233, 193, 8) 71%, rgb(236, 192, 8) 78%, rgb(230, 190, 6) 91%, rgb(233, 189, 6) 93%, rgb(232, 188, 6) 100%);border-radius: 0;border: none;" >Book Now</button>';
+                $('#room_val_div').html(str_html);
+                return price;
+            }
+
+            // $('input[name=price1]').change(function(){
+            //     console.log ('roomPrices');
+            // })
+            // console.log (roomPrices);
+            // console.log($('input[name=price2]:checked').val());
+            function setLength(x, val) {
+
+                var id = "showmore" + x;
+
+                if (document.getElementById(id).innerText == "Show More...") {
+                    for (var i = 4; i < val; i++) {
+                        var id2 = i + 'r' + x;
+                        document.getElementById(id2).style.display = "block";
+                    }
+                    document.getElementById(id).innerText = "Show Less...";
+                } else {
+                    for (var i = 4; i < val; i++) {
+                        var id2 = i + 'r' + x;
+                        document.getElementById(id2).style.display = "none";
+                    }
+                    document.getElementById(id).innerText = "Show More...";
+                }
+            }
+        </script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" onload="">
     <?php ?>
@@ -218,178 +377,348 @@
                   </div>
               </div>
               <div class="box-body" style="padding: 0;">
+                <section style="padding:0 40px;">
+                  
+                  <div class="tm-form-inner">
+                      <br>
+                      <div id="reportrange" class="selectbox "
+                           style="border: 1px solid #ddd; border-radius: 4px; padding:5px; background: #fff; cursor: pointer; margin: 0  0 4px 0;overflow: hidden; white-space: nowrap;">
+                          <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                          <input type="hidden" name="selectdaterange" id="selectdaterange"
+                                 value="<?php echo $_SESSION['checkin'] ?> - <?php echo $_SESSION['checkout'] ?>"
+                                 disabled/>
+                          <span></span>
+                          <!-- <b class="caret" style="border: 1px solid #ddd; "></b> -->
+                      </div>
+                      <script type="text/javascript">
+                          $(function () {
+
+                              // var start = moment().add(1, 'days');
+                              // var end = moment().add(2, 'days');
+                              var start = moment('<?php echo $_SESSION['checkin'] ?>', 'MM/DD/YYYY');
+                              var end = moment('<?php echo $_SESSION['checkout'] ?>', 'MM/DD/YYYY');
+                              var initialtime = true;
+                              var availableflag = <?php echo $available_flag; ?>;
+                              var prev_indate = start.format('MM%2FDD%2FYYYY');
+                              var prev_outdate = end.format('MM%2FDD%2FYYYY');
+                              var min_date = moment().add(1, 'days');
+
+                              function cb(start, end) {
+                                  $('#selectdaterange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+                                  $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                                  var startNew = start.format('MM/DD/YYYY');
+                                  var endNew = end.format('MM/DD/YYYY');
+                                  // GetDateRange(start, end);
+                                  changeSession(startNew, endNew);
+                                  if (availableflag) {
+                                      changePriceBoxVal(start, end);
+                                      update_with_date(roomAvl);                                                    
+                                  }
+                                  else{
+                                      if (initialtime) {
+                                          BootstrapDialog.alert('Sorry, there are no Rooms Available for this date. Please select another date.');
+                                      }
+                                  }
+                                  // end.diff(start, 'days');
+                                  // $('#noOfDays').text(end.diff(start, 'days'));
+                                  // alert (start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                                  // alert (roomAvl);
+                                  // roomAvl = [3,3] ;
+                                  if (!initialtime) {
+                                      // alert("date change succesfull");
+                                      var url = window.location.href.replace(prev_outdate, end.format('MM%2FDD%2FYYYY'));
+                                      url = url.replace(prev_indate, start.format('MM%2FDD%2FYYYY'));
+                                      setTimeout(function() {
+                                          window.location.href = url;
+                                      }, 1500);
+                                      
+                                  }
+                                  initialtime = false;
+                                  prev_indate = start.format('MM%2FDD%2FYYYY');
+                                  prev_outdate = end.format('MM%2FDD%2FYYYY');
+
+                              }
+
+                              $('#reportrange').daterangepicker({
+                                  "autoApply": true,
+                                  "startDate": start,
+                                  "endDate": end,
+                                  "minDate": min_date,
+                                  "opens": "center"
+                              }, cb);
+                              cb(start, end);
+
+                              $('#guest_count_form').change(function () {
+                                  $('#guest_count').val($(this).val());
+                                  // alert($('#guest_count').val());
+                              })
+
+                          });
+
+                          function changeSession(start, end) {
+                              // alert("gfgf");
+                              $.ajax({
+                                  type: 'POST',
+                                  data: 'checkin=' + start + '&checkout=' + end,
+                                  url: "<?php echo base_url(); ?>index.php/DateController/setHotelPageDate",
+                                  dataType: 'json',
+                                  success: function (response) {
+                                  }
+                              });
+                          }
+
+
+                      </script>
+                  </div>
+                </section>
                 <section>
                   <div class="container" style="padding: 0;">
-                    <div class="col-md-12" style="padding-left:0;padding-right:0;" id="check">
-                      <!-- <div class="col-md-8" style="margin-bottom: 20px;">
-                        <div class="visible-lg visible-md">
-                          <h2 id="pageheading" style="text-transform: capitalize;color:black;"><?php echo $commondetails->listing_name; ?></h2>
-                        </div>
-                      </div> -->
+                    <div class="col-md-12" style="width:100% !important;padding-left:0;padding-right:0;margin-top:10px;">
+                        <div class="hidden-lg hidden-md hidden-sm"><br></div>
+                        <!-- <h4 style="color:black;">All available rooms</h4> -->
+                        <?php
+                        if ($promotions->promo_amount != 0) { ?>
+                          <h4 >
+                            <span style="color: red;font-weight: bold;"><?php echo $promotions->promo_amount*100; ?>% OFF</span> <span style="font-size: 0.8em;">(*for the selected date)</span>
+                          </h4> 
+                        <?php }
+                        else { echo "No Promotion For the selected date.<br><br>";}
+                        echo "<b>Check-in Time: ".$commondetails->check_in;
+                        echo "<br>Check-out Time: ".$commondetails->check_out."<br></b>";
+                        if ($commondetails->advance == 100) {
+                            echo "<p style='font-weight:bold;color:darkred;margin-bottom: 5px; '>Full payment needed.</p>";
+                        } elseif ($commondetails->advance > 0) {
+                            echo "<p style='font-weight:bold;color:orange;margin-bottom: 5px; '>Pay only " . $commondetails->advance . " %   to book now.</p>";
+                        } else {
+                            echo "<p style='font-weight:bold;color:green;margin-bottom: 5px;'>No payment needed today. Pay when you stay.</p>";
+                        } 
+                        if ($commondetails->commision > 0) {
+                            echo "<p style='font-weight:bold;color:darkred;margin-bottom: 5px; '>".$commondetails->commision."% Service Fee.</p>";
+                        }
+                        ?>
+                        <br>
+                        <table id="example" class="vistable table-striped table-bordered table-responsive" cellspacing="0"
+                               width="100%">
 
-                      <div class="col-md-12" style="width:100% !important;padding:0;">
+                            <thead style="background:gainsboro;font-weight: bold;padding: 1%;">
+                            <tr>
+                                <th data-priority="1" style="min-width:10px;padding: 5px 15px 5px 5px;"
+                                    data-orderable="false">No
+                                </th>
+                                <th data-priority="3" style="max-width: 100px;padding: 5px 15px 5px 5px;">Room Type</th>
+                                <th data-priority="4" style="min-width: 100px;padding: 5px 15px 5px 5px;">Max</th>
+                                <th data-priority="4" style="min-width: 100px;padding: 5px 15px 5px 5px;">Availability</th>
+                                <th data-priority="2" style="min-width: 120px;padding: 5px 15px 5px 5px;"
+                                    data-orderable="false">Select Rooms
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($roomtypes as $rooms) { ?>
+                                <tr style="max-height: 10px;overflow-y: auto;">
+                                    <td><?php echo $rooms->room_type_id ?></td>
+                                    <td style="font-weight:bold;text-transform: capitalize;"><?php echo $rooms->room_name ?></td>
+                                    <td><?php
+                                        $price_detailArry = json_decode($rooms->price_details);
+                                        if (!isset($price_detailArry->priceOccArry)) {  // if occupancy array not set just show general occupancy
+                                            if ($rooms->no_of_people < 5) {
+                                                for ($i = 0; $i < $rooms->no_of_people; $i++) {
+                                                    if ($i == 0) {
+                                                        ?>
+                                                        <i class="material-icons" style="font-size: 22px;">person</i>
+                                                    <?php } else { ?>
+                                                        <i class="material-icons" style="font-size: 22px;margin-left: -10px;">person</i>
+                                                    <?php }
+                                                }
+                                            } else { ?>
+                                                <i class='material-icons'
+                                                   style='font-size: 22px; margin: 0;padding: 0;'>person</i>x
+                                                <?php echo $rooms->no_of_people;
+                                            }
+                                        }
+                                        else{
+                                            $prv_count = $rooms->no_of_people;
+                                            $checksum = 0;
+                                            for ($j = 0; $j < sizeof($price_detailArry->priceOccArry); $j++) {
+                                                $no_of_people = $price_detailArry->priceOccArry[$j];
+                                                if ($prv_count != $no_of_people) {
+                                                    break;
+                                                }
+                                                $checksum += 1;
+                                            }
+                                            if ($checksum == sizeof($price_detailArry->priceOccArry) || $price_detailArry->priceOccArry[0] == "") {  // if all occupancy is same
+                                                // echo "same";
+                                                if ($rooms->no_of_people < 5) {
+                                                    for ($i = 0; $i < $rooms->no_of_people; $i++) {
+                                                        if ($i == 0) {
+                                                            ?>
+                                                            <i class="material-icons" style="font-size: 22px;">person</i>
+                                                        <?php } else { ?>
+                                                            <i class="material-icons" style="font-size: 22px;margin-left: -10px;">person</i>
+                                                        <?php }
+                                                    }
+                                                } else { ?>
+                                                    <i class='material-icons'
+                                                       style='font-size: 22px; margin: 0;padding: 0;'>person</i>x
+                                                    <?php echo $rooms->no_of_people;
+                                                }
+                                            }
+                                            else{      // if atleast one occupancy is different
+                                                for ($j = 0; $j < sizeof($price_detailArry->priceOccArry); $j++) {
 
-                          <div class="col-md-12" style="width:100% !important;padding-left:0;padding-right:0;margin-top:10px;">
-                              <div class="hidden-lg hidden-md hidden-sm"><br></div>
-                              <!-- <h4 style="color:black;">All available rooms</h4> -->
-                              <?php
-                              echo "<b>Check-in Time: ".$commondetails->check_in;
-                              echo "<br>Check-out Time: ".$commondetails->check_out."<br></b>";
-                              if ($commondetails->advance == 100) {
-                                  echo "<p style='font-weight:bold;color:darkred;margin-bottom: 5px; '>Full payment needed.</p>";
-                              } elseif ($commondetails->advance > 0) {
-                                  echo "<p style='font-weight:bold;color:orange;margin-bottom: 5px; '>Pay only " . $commondetails->advance . " %   to book now.</p>";
-                              } else {
-                                  echo "<p style='font-weight:bold;color:green;margin-bottom: 5px;'>No payment needed today. Pay when you stay.</p>";
-                              } 
-                              if ($commondetails->commision > 0) {
-                                  echo "<p style='font-weight:bold;color:darkred;margin-bottom: 5px; '>".$commondetails->commision."% Service Fee Included.</p>";
-                              }
-                              ?>
-                              <br>
-                              <table id="example" class="vistable table-striped table-bordered table-responsive" cellspacing="0"
-                                     width="100%">
+                                                    $no_of_people = $price_detailArry->priceOccArry[$j];
+                                                    echo '<div class="row" style="margin:0 10px 30px 0; font-weight:bold;">';
+                                                    if ($no_of_people < 5) {
+                                                        for ($i = 0; $i < $no_of_people; $i++) {
+                                                            if ($i == 0) {
+                                                                ?>
+                                                                <i class="material-icons" style="font-size: 22px;">person</i>
+                                                            <?php } else { ?>
+                                                                <i class="material-icons" style="font-size: 22px;margin-left: -10px;">person</i>
+                                                            <?php }
+                                                        }
+                                                    } else { ?>
+                                                        <i class='material-icons'
+                                                           style='font-size: 22px; margin: 0;padding: 0;'>person</i>x
+                                                        <?php echo $no_of_people;
+                                                    }
+                                                    echo '</div>'; 
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </td>
+                                    <td> <b><?php print_r($roomAvailability[($rooms->room_type_id) - 1]); ?> rooms</b></td>
+                                    <td name="priceColumn">
+                                        <?php 
+                                        $price_detailArry = json_decode($rooms->price_details); 
+                                        for ($i = 0; $i < sizeof($price_detailArry->priceNameArry); $i++) {
+                                            if ($promotions->promo_amount > 0) {
+                                                echo '<div class="row" style="width:100% !important;font-weight:bold;"><div class="col-md-5 col-sm-5 col-xs-12" >' . $price_detailArry->priceNameArry[$i] . '</div><div class="hidden-xs hidden-sm col-md-1 col-sm-1">-</div><div class="col-sm-6 col-md-5 col-xs-12"> <span style="text-decoration: line-through;margin-right: 20px;text-decoration-color: red;"> Rs.' . number_format($price_detailArry->priceArry[$i], 2, '.', ',') . '</span><span style="color: darkgreen;font-weight: bold;">Rs.' . number_format(($price_detailArry->priceArry[$i] * (1 - $promotions->promo_amount)), 2, '.', ',') . '</span></div><div class="col-sm-12 col-xs-12" style="margin-top:3px;"> ';
+                                            } else {
+                                                echo '<div class="row" style="width:100% !important;font-weight:bold;"><div class="col-md-5 col-sm-5 col-xs-12"  style="">' . $price_detailArry->priceNameArry[$i] . '</div><div class="hidden-xs hidden-sm col-md-1 col-sm-1">-</div><div class="col-sm-6 col-md-5 col-xs-12"> Rs. ' . number_format($price_detailArry->priceArry[$i] , 2, '.', ','). '</div><div class="col-sm-12 col-xs-12" style="margin-top:3px;"> ';
+                                            }
 
-                                  <thead style="background:gainsboro;font-weight: bold;padding: 1%;">
-                                  <tr>
-                                      <th data-priority="1" style="min-width:10px;padding: 5px 15px 5px 5px;"
-                                          data-orderable="false">No
-                                      </th>
-                                      <th data-priority="3" style="max-width: 100px;padding: 5px 15px 5px 5px;">Room Type</th>
-                                      <th data-priority="4" style="min-width: 100px;padding: 5px 15px 5px 5px;">Max</th>
-                                      <th data-priority="4" style="min-width: 100px;padding: 5px 15px 5px 5px;">Availability</th>
-                                      <th data-priority="2" style="min-width: 120px;padding: 5px 15px 5px 5px;"
-                                          data-orderable="false">Select Rooms
-                                      </th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <?php foreach ($roomtypes as $rooms) { ?>
-                                      <tr style="max-height: 10px;overflow-y: auto;">
-                                          <td><?php echo $rooms->room_type_id ?></td>
-                                          <td style="font-weight:bold;text-transform: capitalize;"><?php echo $rooms->room_name ?></td>
-                                          <td><?php
-                                              $price_detailArry = json_decode($rooms->price_details);
-                                              if (!isset($price_detailArry->priceOccArry)) {  // if occupancy array not set just show general occupancy
-                                                  if ($rooms->no_of_people < 5) {
-                                                      for ($i = 0; $i < $rooms->no_of_people; $i++) {
-                                                          if ($i == 0) {
-                                                              ?>
-                                                              <i class="material-icons" style="font-size: 22px;">person</i>
-                                                          <?php } else { ?>
-                                                              <i class="material-icons" style="font-size: 22px;margin-left: -10px;">person</i>
-                                                          <?php }
-                                                      }
-                                                  } else { ?>
-                                                      <i class='material-icons'
-                                                         style='font-size: 22px; margin: 0;padding: 0;'>person</i>x
-                                                      <?php echo $rooms->no_of_people;
-                                                  }
-                                              }
-                                              else{
-                                                  $prv_count = $rooms->no_of_people;
-                                                  $checksum = 0;
-                                                  for ($j = 0; $j < sizeof($price_detailArry->priceOccArry); $j++) {
-                                                      $no_of_people = $price_detailArry->priceOccArry[$j];
-                                                      if ($prv_count != $no_of_people) {
-                                                          break;
-                                                      }
-                                                      $checksum += 1;
-                                                  }
-                                                  if ($checksum == sizeof($price_detailArry->priceOccArry) || $price_detailArry->priceOccArry[0] == "") {  // if all occupancy is same
-                                                      // echo "same";
-                                                      if ($rooms->no_of_people < 5) {
-                                                          for ($i = 0; $i < $rooms->no_of_people; $i++) {
-                                                              if ($i == 0) {
-                                                                  ?>
-                                                                  <i class="material-icons" style="font-size: 22px;">person</i>
-                                                              <?php } else { ?>
-                                                                  <i class="material-icons" style="font-size: 22px;margin-left: -10px;">person</i>
-                                                              <?php }
-                                                          }
-                                                      } else { ?>
-                                                          <i class='material-icons'
-                                                             style='font-size: 22px; margin: 0;padding: 0;'>person</i>x
-                                                          <?php echo $rooms->no_of_people;
-                                                      }
-                                                  }
-                                                  else{      // if atleast one occupancy is different
-                                                      for ($j = 0; $j < sizeof($price_detailArry->priceOccArry); $j++) {
+                                            if ($roomAvailability[($rooms->room_type_id) - 1] > 0) {
+                                                echo '<div  style="width:100% !important;">';
+                                                echo '<select class="selecthotel" id="roomCountOf' . $rooms->room_type_id . '_' . $i . '">';
+                                                for ($num=0; $num < $roomAvailability[($rooms->room_type_id) - 1] +1; $num++) { 
+                                                    echo '<option value="'.$num.'">'.$num.'</option>';
+                                                }
+                                                echo '</select>';
 
-                                                          $no_of_people = $price_detailArry->priceOccArry[$j];
-                                                          echo '<div class="row" style="margin:0 10px 30px 0; font-weight:bold;">';
-                                                          if ($no_of_people < 5) {
-                                                              for ($i = 0; $i < $no_of_people; $i++) {
-                                                                  if ($i == 0) {
-                                                                      ?>
-                                                                      <i class="material-icons" style="font-size: 22px;">person</i>
-                                                                  <?php } else { ?>
-                                                                      <i class="material-icons" style="font-size: 22px;margin-left: -10px;">person</i>
-                                                                  <?php }
-                                                              }
-                                                          } else { ?>
-                                                              <i class='material-icons'
-                                                                 style='font-size: 22px; margin: 0;padding: 0;'>person</i>x
-                                                              <?php echo $no_of_people;
-                                                          }
-                                                          echo '</div>'; 
-                                                      }
-                                                  }
-                                              }
-                                              ?>
-                                          </td>
-                                          <td> <b><?php print_r($roomAvailability[($rooms->room_type_id) - 1]); ?> rooms</b></td>
-                                          <td name="priceColumn">
-                                              <?php 
-                                              $price_detailArry = json_decode($rooms->price_details); 
-                                              for ($i = 0; $i < sizeof($price_detailArry->priceNameArry); $i++) {
-                                                  if ($promotions->promo_amount > 0) {
-                                                      echo '<div class="row" style="width:100% !important;font-weight:bold;"><div class="col-md-5 col-sm-5 col-xs-12" >' . $price_detailArry->priceNameArry[$i] . '</div><div class="hidden-xs hidden-sm col-md-1 col-sm-1">-</div><div class="col-sm-6 col-md-5 col-xs-12"> <span style="text-decoration: line-through;margin-right: 20px;text-decoration-color: red;"> Rs.' . number_format($price_detailArry->priceArry[$i], 2, '.', ',') . '</span><span style="color: darkgreen;font-weight: bold;">Rs.' . number_format(($price_detailArry->priceArry[$i] * (1 - $promotions->promo_amount)), 2, '.', ',') . '</span></div><div class="col-sm-12 col-xs-12" style="margin-top:3px;"> ';
-                                                  } else {
-                                                      echo '<div class="row" style="width:100% !important;font-weight:bold;"><div class="col-md-5 col-sm-5 col-xs-12"  style="">' . $price_detailArry->priceNameArry[$i] . '</div><div class="hidden-xs hidden-sm col-md-1 col-sm-1">-</div><div class="col-sm-6 col-md-5 col-xs-12"> Rs. ' . number_format($price_detailArry->priceArry[$i] , 2, '.', ','). '</div><div class="col-sm-12 col-xs-12" style="margin-top:3px;"> ';
-                                                  }
+                                                echo '</div><div class="col-sm-12 col-xs-12" style="margin-top:3px;"></div> ';
 
-                                                  if ($roomAvailability[($rooms->room_type_id) - 1] > 0) {
-                                                      echo '<div  style="width:100% !important;">';
-                                                      echo '<select class="selecthotel" id="roomCountOf' . $rooms->room_type_id . '_' . $i . '">';
-                                                      for ($num=0; $num < $roomAvailability[($rooms->room_type_id) - 1] +1; $num++) { 
-                                                          echo '<option value="'.$num.'">'.$num.'</option>';
-                                                      }
-                                                      echo '</select>';
-
-                                                      echo '</div><div class="col-sm-12 col-xs-12" style="margin-top:3px;"></div> ';
-
-                                                  } else {
-                                                      echo "<span style='color:coral;'>Sorry, All rooms are booked.</span>";
-                                                  }
-                                                  echo '</div></div>';
-                                              }
-                                              ?>
-                                          </td>
-                                      </tr>
-                                  <?php } ?>
+                                            } else {
+                                                echo "<span style='color:coral;'>Sorry, All rooms are booked.</span>";
+                                            }
+                                            echo '</div></div>';
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
 
 
-                                  </tbody>
+                            </tbody>
 
-                              </table>
-                          </div>
-
-                      </div>
-
-
-
+                        </table>
                     </div>
                   </div>
                 </section>
-                <section style="padding: 10px; margin-top: 20px;">
+                <section id="priceTab" style="display: none;">
+                  <div class="col-md-12" id="tabs" style="padding: 20px;"> 
+                      <div class="col-md-6" id="tabs" style="padding: 20px; background-color: #eee;"> 
+                        <div id="tabcontent" style="width:auto;border-radius: 0;">
+                          <div class="row" style="width:100% !important;font-family:sans-serif;padding:0;">
+                              <div class="col-md-8 col-xs-8" style="margin-bottom: 2%;">
+                                  <h5>No of Days</h5>
+                                  <h5>Selected Room Types</h5>
+                              </div>
+                              <div class="col-md-4 col-xs-4" style="padding:0;margin-bottom: 2%;">
+                                  <h5 id="noOfDays" style="text-align:right;"><!-- <?php echo $range ?> --></h5>
+                              </div>
+                              <div class="col-md-12 col-xs-12" style="margin: 0 30px; padding: 0;">
+
+                                  <div id="SlctdRooms"><ul><li style="width:88%;">-Select a Room Type Below-<span style="float:right;">-Qty-</span></li></ul></div>
+                              </div>
+                              <div class="col-md-12 col-xs-12">
+                                  <hr style="margin-top:3px;margin-bottom:5px;border-color:#555;">
+                              </div>
+                              <div id="bookings">
+                                  <div class="col-md-8 col-xs-8">
+                                      <h5>Sub Total</h5>
+                                  </div>
+                                  <div class="col-md-4 col-xs-4" style="padding:0;">
+                                      <h5 style="text-align:right;" id="subTotalDiv">
+                                          <!-- <?php //echo  number_format($tot, 2, '.', ''); ?> --></h5>
+                                  </div>
+                                  <?php if ($promotions->promo_amount > 0) { ?>
+                                      <div class="col-md-8 col-xs-8">
+                                          <h5>After Promotion Price</h5>
+                                      </div>
+                                      <div class="col-md-4 col-xs-4" style="padding:0;">
+                                          <h5 style="text-align:right; border-top:  1px solid; font-size: 1.2em; font-weight: bold; "
+                                              id="promoPriceDiv">
+                                              <!-- <?php //echo  number_format($tot, 2, '.', ''); ?> --></h5>
+                                      </div>
+                                  <?php } ?>
+                                  <?php if (isset($_SESSION['promorate'])) { 
+                                      if ($_SESSION['promorate'] > 0) { ?>
+                                      <div class="col-md-8 col-xs-8">
+                                          <h5>Deduction on Promocode</h5>
+                                      </div>
+                                      <div class="col-md-4 col-xs-4" style="padding:0;">
+                                          <h5 style="text-align:right;" id="promoCodePriceDiv">-</h5>
+                                      </div>
+                                  <?php }}else{ $_SESSION['promorate'] = 0;} ?>
+
+
+
+
+
+                                  <div class="col-md-8 col-xs-8" id="servicefeetextdiv">
+                                      <h5>Service Fee</h5>
+                                  </div>
+                                  <div class="col-md-4 col-xs-4" style="padding:0;" id="servicefeevaldiv">
+                                      <h5 style="text-align:right;"
+                                          id="serviceFeeDiv">
+                                          <!-- <?php //echo  number_format($service, 2, '.', ''); ?> --></h5>
+                                  </div>
+                                  <div class="col-md-8 col-xs-8">
+                                      <h5 style="font-weight: bold;font-size: medium;padding-top:10px;">Total</h5>
+                                  </div>
+                                  <div class="col-md-4 col-xs-4" style="padding:0;">
+                                      <h5 style="padding-bottom:6px;padding-top:10px;text-align:right;border-bottom:  4px double ;border-top:  1px solid ;font-weight: bold;font-size: medium;"
+                                          id="totalDiv">
+                                          <!-- //<?php //echo  number_format($tot, 2, '.', ''); ?> --></h5>
+                                  </div>
+                                  <div class="col-md-12 col-xs-12">
+                                      <h5 style="font-weight: bold; color: #999;">
+                                          <?php if ($commondetails->advance == 0) { ?>
+                                              *no prepayment required,<br><span style="color: white;">*</span>pay the full amount to the Hotel.
+                                          <?php } elseif ($commondetails->advance < 100) { ?>
+                                              *pay only <?php echo $commondetails->advance; ?>% <span id="payOnlyDiv"></span> to book now.
+                                          <?php } ?>
+                                      </h5>
+                                  </div>
+                                  
+
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </section>
+                <section style="color: white;">.</section>
+                <section style="padding: 10px;">
                   <!-- Faq Item -->
                   <div id="amenityid" class="panel panel-default panel-faq"
                        style="background: ghostwhite;">
                       <div class="panel-heading" style="background: ghostwhite;">
                           <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-2">
                               <h4 class="panel-title" style="color:black;">
-                                  Amenities
+                                  Amenities/ Facilities
                                   <span class="pull-right">
                                               <i class="glyphicon glyphicon-plus"></i>
                                           </span>
@@ -438,7 +767,7 @@
                       <div class="panel-heading" style="background:ghostwhite;">
                           <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-7">
                               <h4 class="panel-title" style="color:black;">
-                                  Location
+                                  Location / Map
                                   <span class="pull-right">
                                       <i class="glyphicon glyphicon-plus"></i>
                                   </span>
@@ -470,7 +799,7 @@
                       <div class="panel-heading" style="background: ghostwhite;">
                           <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-4">
                               <h4 class="panel-title" style="color:black;">
-                                  Hotel Rules
+                                  Hotel Rules / Policies
                                   <span class="pull-right">
                                       <i class="glyphicon glyphicon-plus"></i>
                                   </span>
@@ -563,6 +892,56 @@
 
                   </div>
                   <!-- End FAQ Item -->
+                  <!-- Faq Item -->
+                   <div class="panel panel-default panel-faq" style="background: ghostwhite;">
+                      <div class="panel-heading" style="background: ghostwhite;">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-6">
+                              <h4 class="panel-title" style="color:black;">
+                                  Hotel Contact Details
+                                  <span class="pull-right">
+                                          <i class="glyphicon glyphicon-plus"></i>
+                                      </span>
+                              </h4>
+                          </a>
+                      </div>
+                      <div id="faq-sub-6" class="panel-collapse collapse">
+                          <div class="panel-body">
+
+                              <ul class="col-md-12"
+                                  style="list-style-type: square; text-transform: capitalize;">
+                                  <li>
+                                      <h5> <?php echo $commondetails->listing_name; ?></h5>
+                                      <h5> <?php echo (isset($moredetails->hotel_chain_name))?$moredetails->hotel_chain_name:"-No Hotel Chain Name-"; ?></h5>
+
+                                  </li>
+                                  <li>
+                                      <h5 style="font-weight:bold;">Email Addrsess</h5>
+                                      <?php echo $commondetails->email; ?>
+
+                                  </li>
+                                  <li>
+                                      <h5 style="font-weight:bold;">Tel</h5>
+                                      <?php echo $moredetails->hotel_main_contact_number; ?>
+                                      /
+                                      <?php echo $moredetails->hotel_mobile_number; ?>
+                                      /
+                                      <?php echo $moredetails->hotel_land_line; ?>
+
+
+                                  </li>
+                                  <li>
+                                      <h5 style="font-weight:bold;">Website</h5>
+                                      <?php echo (isset($moredetails->website))?$moredetails->website:"-No Website-"; ?>
+
+
+                                  </li>
+                              </ul>
+                              <br>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- End FAQ Item -->
                 </section>
               </div>
           </div>
@@ -594,8 +973,12 @@
 <!-- jQuery Knob Chart -->
 <script src="../../assets/plugins/knob/jquery.knob.js"></script>
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="../../assets/plugins/daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="../../assets/plugins/daterangepicker/daterangepicker.js"></script> -->
 <!-- datepicker -->
 <script src="../../assets/plugins/datepicker/bootstrap-datepicker.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
@@ -633,31 +1016,6 @@
     <script type="text/javascript">
 
         $('#submit_id').click(function (e) {
-    //        if(currentUid != null){
-    //            checklogin(e);
-    //        }
-    //        else{
-    //
-    //            BootstrapDialog.show({
-    //                title: '<div style="font-size:1.2em;"><img class="icon icons8-Mandatory" width="100" height="100" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAHaElEQVR4Xu2cQUhcRxjHv0BSUIuChujBPZg2hlbqCgm0K1iopnqoAWsxl0bNLbu5pTGXmFJDYy9qvEVzi0ovSm1ALxo1UGk2hZSqJYZsGi2YgpYoCIlCPbR8Cwu6OzPvvZn5nvPsvOvOfDPz/735ZuZ73+yh852L/4J9jFHgkAViDItkRywQs3hYIIbxsEAsENMUMKw/dg2xQAxTwLDu2BligRimgGHdsTPEAjFMAcO6Y2eIJJDK0CTkZ/2dUfv5Rjk8e1UuadWGTqSFuxJpg9KC3zPqjye+hLFEi7RdO0MkpbNAJIWjqmaBUCkradcCkRSOqpoFQqWspF0LRFI4qmoWCJWyknYtEEnhqKpZIFTKStq1QCSFo6pmgVApK2nXApEUjqqaBUKlrKRdC0RSOKpq/wsg2UdeQ7goDgVZaxDK/QOyDr/Zo2diIwzbOzkwvxqBV9tFVFq7sntggSCESPF9iBRPQihvyZUYWGh9qxB+W62EB8sN+wLnQAKJhO7D2RNDUJC95hpEesGtf3Jg+s9GmFlugK2dt6XteK14oICE8l5A7NQNJRAsMCNPo/BwpdartlLlDwyQiqKH0FreDdlv7V0fpFRhVBpLNMN44rwuc1w7BwIIJga0hnvIxYqvfAp359tI2wk8EC8wXm6WwNxaZYagxblLUFEUdyU0NZRAA8E146sPrwrd1NZOTnJhjq/UCndNuCtDt1ef3AxkpuHspjUwf4VsTQksEBSw85MWIYz4yhkYXox53iWdOT4KTe/fEc6YW4+6lPKkeMYDC+Rs6SDUl37PFU31LU7Ovo+uQvYR9iYBk9YQiu4nkECcZocqjJTITlAoZkkggVwId0EkNMV8OaeXG2D4SUzbi4vrSuz0DaY9PNVfmxnU1hYaCiSQ3tpG5tqxvnUMrs0MaRUIjYlegJuzt2Fl8x1tbZ4r64NQ7osMe/GXtUobCbJU0pNHF5K+nfXoclXpto9mrUJnTSuzzZHFizC11KgNCJUhMiD4BtWU3MvoN25vL0+MUo0HYqc7mGeVlc3jcHO2j6xdXYbJgPB8LG5x786zZ46OQYkOoBfHJ3Q0QWqDDAhv/eh7/A3MrWaewnWNUuS22qcH9iVU72VsZEDu1Ncx+0GxBU1vaD/b9iI+qywJEDx/9NZ9weyb7t0OqxELhKHKforiR9uBO4f4IQrPPfjRduCA9NY1MuNLVGeQFBwMo1yvukTuLgMHhNfhudUI9D3uUF37uPVFEWCd297AAeEdDFHJyxM/eA61uyV4vSrGzF5JrH8APfFut2YcywUOiMh1qF4d5qklCtfoDp0EDgiK9l11M/OrHqbutD8Y1D5LMHaGUFiP7kMhvnCsbzDrb44pHT5JziEpQUQfp3R/OBK1pdtdOfozhQKkQJIfqKpbuF/zdCUiOCVQ+BEdUGCwpyopEGzJ6bs3QhlejEq7r5qSH+FcWT9XD+pdnS4QKTvkQLChr6uiUJy3zO07hsZHnsY8JSNgELGprF+YFoSh/s6fbiv5dN2CO9nzBQiK1/7xJa7rSnUS15X4X7XJ7HZeni7mZVUU/gyYF+z0UEeWndqX+d0XINgxp0SE9M7jrEmHwttBsQZOHRGQEdtNHd+AYGdQ0OipDseZ4qbjojJBhYFj8hWIzEzxCifIMHwHgjPks3eHuIc3r+KzymPKz9jzZsDdWxAfX2YILuot4R5SEOniI5iBhTZPOzcTAJIDwUNb03v9ZPdBnEScWvocRhajTsWM+Z0MCJ7SW8Pdrq8P7FYEE+nWtwszRMo+/Fp4nuGpijs2nC06E+WoCJIAQRgY6HN7iTN1HySxUeHKxeAW+mTBPJzIX3ANHAOat37pMh6KdiBeYGCOFl7YVHlzcX2KhCahuuSe43Y6CFC0AnFzMQenOsaXRp5EtYY08EWoKRkVXn3AthGKn5dDvbo2bUDczAyMLfX/2uHKLXkdSKo8zhhMJxXFzkyeKdqAXAh3C+NLuE70POqWjup6BSTKhEdbuNBjWN7Pu+1uxqAFiHOInTaflzdQ537R39Z1A2F3GWUgolxabIg6udppwE4fr0yLCCsD4aX/o1B+uykeHJH7orhd5fSSiH5XAiLK8jDt45DoIxlVFowMGCUgoiwP01yB6CMZVRaMr0BEeVemZnmIMlN0523JwMA60jNE5Jd150DJDo5Vj5crZsqVN2kgvBtSpmd5iLbCftxdcXq5pICI7oSbtnakCyC6TKT77ryT+KzfpYDwEqmp7p/LDExUh+duTXBbUkB4icYmvGFu4Jl8U1cKCO+GkunuancAkvcHA/udduoZiOgwaPLuKn3m8HZb+31I1ApE5w0lN65HpQzV/Q6VPkmdQ3g7LIxbfTvLT3pW7aju+ryNSeBmCO+0a+rpnAfS1HFIuazS/LmMca5vFyn9LZHuGeBkD9dCE8fhGYjTQO3vagpYIGr6aa9tgWiXVM2gBaKmn/baFoh2SdUMWiBq+mmvbYFol1TNoAWipp/22haIdknVDFogavppr22BaJdUzaAFoqaf9tr/AQ31y7nPmNiPAAAAAElFTkSuQmCC"> Sign-In Required. </div>',
-    //                message: '<div style="font-size:1.1em;">Please sign in to continue </div>',
-    //                buttons: [{
-    //                    label: 'Cancel',
-    //                    cssClass: 'btn_css hvr-shutter-in-horizontal_modal',
-    //                    action: function(dialog) {
-    //                        dialog.close();
-    //                    }},{
-    //                    label: 'Ok',
-    //                    cssClass: 'btn_css hvr-shutter-in-horizontal_modal',
-    //                    action: function(dialog) {
-    //                        window.location.href = "<?php //echo base_url(); ?>///index.php/Welcome/signin";
-    //                    }}
-    //                ]
-    //            });
-    //
-    //            e.preventDefault();
-    //
-    //        }
             var flag = 0;
             var totalcount = 0;
             for (i = 0; i < roomCount.length; ++i) {
