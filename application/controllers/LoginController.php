@@ -6,7 +6,6 @@ class LoginController extends CI_Controller {
 	public function login(){
 		$this->load->library('session');
 		$errors = 'Sign into start your session';
-
 		if (!empty($_POST) ) {
 		
 			$username=$this->input->post('username');
@@ -43,6 +42,7 @@ class LoginController extends CI_Controller {
 						$this->load->view('hotel/hotelsHome',$data);
 					}
 					else{
+						$this->session->sess_expiration = '43200';// expires in 12 hours
 						$this->load->model('AdminModel');
 						$logins =  $this->AdminModel->getLogin();
 						$data =array('logins'=> $logins);
