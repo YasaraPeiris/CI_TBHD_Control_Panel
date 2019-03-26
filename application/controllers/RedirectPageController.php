@@ -21,7 +21,7 @@ class RedirectPageController extends CI_Controller {
 	public function invoice()
     {
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno'])) {
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 	    	if (isset($_POST['hotelname'])) {
 				// print_r($_POST);
 			    $listing = (object)array('listing_name' => $_POST['hotelname'],'listing_type' => 'hotel','commision'=> $_POST['commission']);
@@ -62,7 +62,7 @@ class RedirectPageController extends CI_Controller {
 	public function invoiceContent($booking, $items,$paid,$listingdetails)
     {
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno'])) {
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin' ) {
 			$pamount = $booking->promo_amount/100;
 			// echo $booking->promo_amount/100;
 		    $listing = (object)array('listing_name' => $listingdetails->listing_name,'listing_type' => 'hotel','commision'=> $booking->service_fee);
@@ -92,7 +92,7 @@ class RedirectPageController extends CI_Controller {
 	public function saveContent()
     {
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno'])) {
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin' ) {
 	    	if (isset($_POST['listingID'])) {
 				$this->load->model('AdminModel');
 				// echo "<br> -- <br>";
@@ -129,14 +129,20 @@ class RedirectPageController extends CI_Controller {
 
 	}
 	public function contentGenerator(){
-		$this->load->model('AdminModel');
-		$hotelList =  $this->AdminModel->getHotelList();
-		$this->load->view('admin/contentGenerator',array('hotelList'=>$hotelList));
-
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno'])  && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AdminModel');
+			$hotelList =  $this->AdminModel->getHotelList();
+			$this->load->view('admin/contentGenerator',array('hotelList'=>$hotelList));
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 	public function copyContent(){
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno'])) {
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 	    	if (isset($_POST['mbID'])) {
 				$this->load->model('AdminModel');
 				$mbdata =  $this->AdminModel->getmbData($_POST['mbID']);
@@ -146,39 +152,69 @@ class RedirectPageController extends CI_Controller {
 				$this->load->view('admin/copyContentGenerator', $data);
 			}
 		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 	public function hotelList(){
-		$this->load->model('AdminModel');
-		$listing =  $this->AdminModel->getHotelDetails();
-		$destination =  $this->AdminModel->getDestDetails();
-		$data =array('listing'=> $listing,'destination'=>$destination);
-		$this->load->view('admin/hotelList', $data);
-
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AdminModel');
+			$listing =  $this->AdminModel->getHotelDetails();
+			$destination =  $this->AdminModel->getDestDetails();
+			$data =array('listing'=> $listing,'destination'=>$destination);
+			$this->load->view('admin/hotelList', $data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 	public function destinationMapList(){
-		$this->load->model('AdminModel');
-		$destinationMap =  $this->AdminModel->getDestMapDetails();
-		$data =array('destination'=> $destinationMap);
-		$this->load->view('admin/destinationMap', $data);
-
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AdminModel');
+			$destinationMap =  $this->AdminModel->getDestMapDetails();
+			$data =array('destination'=> $destinationMap);
+			$this->load->view('admin/destinationMap', $data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 	public function bookingDetails(){
-		$this->load->model('AdminModel');
-		$manualbkngs =  $this->AdminModel->getBookingDetails();
-		$manualbkngs_old =  $this->AdminModel->getBookingDetails_all();
-		$data =array('manualbkngs'=> $manualbkngs,'manualbkngs_old'=>$manualbkngs_old);
-		$this->load->view('admin/bookingDetails', $data);
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AdminModel');
+			$manualbkngs =  $this->AdminModel->getBookingDetails();
+			$manualbkngs_old =  $this->AdminModel->getBookingDetails_all();
+			$data =array('manualbkngs'=> $manualbkngs,'manualbkngs_old'=>$manualbkngs_old);
+			$this->load->view('admin/bookingDetails', $data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 	public function priceSets(){
-		$this->load->model('AdminModel');
-		$priceCatgories =  $this->AdminModel->getPriceCategories();
-		$prices =  $this->AdminModel->getPrices();
-		$data =array('priceCatgories'=> $priceCatgories, 'prices'=> $prices);
-		$this->load->view('admin/priceSets',$data);
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AdminModel');
+			$priceCatgories =  $this->AdminModel->getPriceCategories();
+			$prices =  $this->AdminModel->getPrices();
+			$data =array('priceCatgories'=> $priceCatgories, 'prices'=> $prices);
+			$this->load->view('admin/priceSets',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 	public function generateContent(){
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno'])) {
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 	    	if (isset($_POST['mbID']) || isset($_SESSION['mbID'])) {
 	    		$mbID = 1;
 	    		if (isset($_POST['mbID'])) {
@@ -210,7 +246,7 @@ class RedirectPageController extends CI_Controller {
 	}
 	public function hotelstatus(){
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno'])) {
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 	    	if (isset($_POST['Vlisting_id']) || isset($_POST['Vstatus']) ) {
 	    		$this->load->model('AdminModel');
 	    		$listingDetails = $this->AdminModel->getAgentContact($_POST['Vlisting_id']);
@@ -230,7 +266,7 @@ class RedirectPageController extends CI_Controller {
 	}
 	public function addDest(){
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno'])) {
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 	    	if (isset($_POST['destName'])) {
 	    		$this->load->model('AdminModel');
 	    		$destDetails = $this->AdminModel->getDestination($_POST['destName']);
@@ -250,7 +286,7 @@ class RedirectPageController extends CI_Controller {
 	}
 	public function showDest(){
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno'])) {
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 	    	if (isset($_POST['destID']) || isset($_POST['destShow'])) {
 	    		$this->load->model('AdminModel');
 	    		$destDetails = $this->AdminModel->getDestinationbyID($_POST['destID']);
@@ -270,7 +306,7 @@ class RedirectPageController extends CI_Controller {
 	}
 	public function generateAllContent(){
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno'])) {
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 	    	if (isset($_POST['tentativeSubmit']) && isset($_SESSION['mbID'])) {
 	    		$mbID =  $_SESSION['mbID'];
 	    		$this->load->model('AdminModel');
@@ -380,10 +416,17 @@ class RedirectPageController extends CI_Controller {
 		$this->priceSets();
 	}
 	public function adminHome(){
-		$this->load->model('AdminModel');
-		$logins =  $this->AdminModel->getLogin();
-		$data =array('logins'=> $logins);
-		$this->load->view('admin/adminHome',$data);
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AdminModel');
+			$logins =  $this->AdminModel->getLogin();
+			$data =array('logins'=> $logins);
+			$this->load->view('admin/adminHome',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
 	public function checkInquiries(){
 		$this->load->view('admin/checkInquiries');

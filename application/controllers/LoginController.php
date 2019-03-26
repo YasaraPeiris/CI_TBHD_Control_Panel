@@ -42,7 +42,9 @@ class LoginController extends CI_Controller {
 						$this->load->view('hotel/hotelsHome',$data);
 					}
 					else{
-						$this->session->sess_expiration = '43200';// expires in 12 hours
+						$this->load->helper('cookie');
+		                set_cookie('hotelno', $user[0]->listing_id, time() + 86400); // expires in 24 hours
+		                set_cookie('login_user', 'admin', time() + 86400); // expires in 24 hours
 						$this->load->model('AdminModel');
 						$logins =  $this->AdminModel->getLogin();
 						$data =array('logins'=> $logins);
