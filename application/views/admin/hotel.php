@@ -785,6 +785,8 @@
                                   <?php echo $commondetails->city; ?><br>
                                   <button id="mapBtn" style="margin: 10px 0;">Load Map</button>
                                   <br>
+                                  <?php echo "<a href='https://maps.google.com/?q=".$commondetails->latitude.",".$commondetails->longitude."&ll=".$commondetails->latitude.",".$commondetails->longitude."&z=12' target='_blank'>https://maps.google.com/?q=".$commondetails->latitude.",".$commondetails->longitude."&ll=".$commondetails->latitude.",".$commondetails->longitude."&z=12</a>"; ?>
+                                  <br><br>
                                   <?php echo 'Lonitude : ' . $commondetails->longitude;
                                   echo ' Latitude : ' . $commondetails->latitude; ?>
 
