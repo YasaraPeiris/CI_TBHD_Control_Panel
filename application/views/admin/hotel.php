@@ -369,7 +369,7 @@
           ?>
           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' ><?php echo $commondetails->listing_name."- ".$commondetails->display_loc; ?></h3>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' ><?php echo $commondetails->listing_name."- ".$commondetails->display_loc." (Listing id #".$commondetails->listing_id.")"; ?></h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -496,6 +496,8 @@
                             echo "<p style='font-weight:bold;color:darkred;margin-bottom: 5px; '>".$commondetails->commision."% Service Fee.</p>";
                         }
                         ?>
+                        <?php echo "<a href='https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$commondetails->destination_id."&listing_id=".$commondetails->listing_id."&listing_type=hotel' target='_blank'>https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$commondetails->destination_id."&listing_id=".$commondetails->listing_id."&listing_type=hotel</a>"; ?>
+                        <br>
                         <br>
                         <table id="example" class="vistable table-striped table-bordered table-responsive" cellspacing="0"
                                width="100%">
