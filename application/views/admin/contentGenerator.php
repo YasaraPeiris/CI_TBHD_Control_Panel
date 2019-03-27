@@ -76,9 +76,9 @@
             Customer Email: <input type="email" name="email" required><br>
             Customer NIC: <input type="text" name="nic" required><br>
             Customer Contact Number: <input type="text" name="contact" required><br><br>
-            check in Date: <input type="Date" name="checkin" required>
+            check in Date: <input type="Date" id="checkin" name="checkin" required>
             check in Time: <input type="Time" name="checkinT" value="14:00:00" required><br>
-            Check out Date: <input type="Date" name="checkout" required>
+            Check out Date: <input type="Date" id="checkout" name="checkout" required>
             Check out Time: <input type="Time" name="checkoutT" value="12:00:00" required><br>
             Number of Days: <input type="Number" min="0" name="dayCount" required><br><br>
             <ul id="roomtype_ul">
@@ -143,10 +143,16 @@
 <script type="text/javascript">
   function validateForm() { 
     var rcount = document.forms["myForm"]["roomValueCount"].value;
+    var cin = new Date (document.forms["myForm"]["checkin"].value);
+    var cout =  new Date (document.forms["myForm"]["checkout"].value);
     var i;
     var val = 0;
     var namerate = "";
     var qtyname = "";
+    if (cin.getTime() > cout.getTime()) {
+      alert ("Check-in should be prior or similar to chack-out date.");
+      return false;
+    }
     for (i = 1; i <= rcount; i++) { 
         val += document.forms["myForm"]["rate"+i].value * document.forms["myForm"]["quantity"+i].value;
         // alert (val);

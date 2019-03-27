@@ -80,9 +80,9 @@
             Customer Email: <input type="email" name="email" value="<?php echo $mbdata->cemail ?>" required><br>
             Customer NIC: <input type="text" name="nic" value="<?php echo $mbdata->cnic ?>" required><br>
             Customer Contact Number: <input type="text" value="<?php echo $mbdata->cmobile ?>" name="contact" required><br><br>
-            check in Date: <input type="Date" name="checkin" value="<?php echo $mbdata->checkin ?>" required>
+            check in Date: <input type="Date" id="checkin" name="checkin" value="<?php echo $mbdata->checkin ?>" required>
             check in Time: <input type="Time" name="checkinT" value="<?php echo $mbdata->checkintime ?>" required><br>
-            Check out Date: <input type="Date" name="checkout" value="<?php echo $mbdata->checkout ?>" required>
+            Check out Date: <input type="Date" id="checkout" name="checkout" value="<?php echo $mbdata->checkout ?>" required>
             Check out TIme: <input type="Time" name="checkoutT" value="<?php echo $mbdata->checkouttime ?>" required><br>
             Number of Days: <input type="Number" min="0" name="dayCount" required><br><br>
             <ul id="roomtype_ul">
@@ -147,6 +147,8 @@
 <script type="text/javascript">
   function validateForm() { 
     var rcount = document.forms["myForm"]["roomValueCount"].value;
+    var cin = new Date (document.forms["myForm"]["checkin"].value);
+    var cout =  new Date (document.forms["myForm"]["checkout"].value);
     var i;
     var val = 0;
     var namerate = "";
@@ -157,6 +159,10 @@
     }
     var subtotal = val*document.forms["myForm"]["dayCount"].value*(1+ document.forms["myForm"]["servicefee"].value/100)*(1-document.forms["myForm"]["promo"].value/100);
     var total = document.forms["myForm"]["total"].value;
+    if (cin.getTime() > cout.getTime()) {
+      alert ("Check-in should be prior or similar to chack-out date.");
+      return false;
+    }
     if (total != subtotal) {
         alert('The Total prices are not matching. \nTotal Sum of Room Prices is : '+subtotal+'\nTotal Sum You entered is : '+total+' \nPlease refill the form.')
         return confirm('Do you really want to submit the form?');
