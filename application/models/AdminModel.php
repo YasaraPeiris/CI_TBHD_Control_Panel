@@ -405,7 +405,7 @@ class AdminModel extends CI_Model
         $this->db-> insert('manualbookingitems',$data);
         
     }
-    function changeHotelStatus($id,$status)
+    function changeHotelStatus($id,$status) // for status and ourInsight changes
     {
         $this->db->where('listing_id', $id);
         $this->db->update("listings", $status);

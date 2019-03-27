@@ -312,7 +312,6 @@
           });
 
       $('#edit_btn').on('click', function(){
-
         var $form = $('#form2');
         $form.removeClass('is-readonly').addClass('is-editing');
         var isReadonly  = $form.hasClass('is-readonly');

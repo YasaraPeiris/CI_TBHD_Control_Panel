@@ -173,6 +173,28 @@
             }
         </style>
         <script type="text/javascript">
+            function editbtn(){
+                document.getElementById("insights").disabled = false;
+                document.getElementById("save_btn").disabled = false;
+                document.getElementById("edit_btn").disabled = true;
+            }
+            function savebtn(){
+                document.getElementById("insights").disabled = true;
+                document.getElementById("save_btn").disabled = true;
+                document.getElementById("edit_btn").disabled = false;
+                // $('#form2').submit();
+                var insightData = document.getElementById("insights").value;
+                $.ajax({
+                    type: 'POST',
+                    data: {'insightData': insightData ,'listingId': '<?php echo $commondetails->listing_id; ?>'},
+                    url: "<?php echo base_url(); ?>index.php/HotelDeatailController/changeHotelInfo",
+                    success: function (data) {
+                        alert("succesfully updated.");
+                    }
+                });
+            }
+        </script>
+        <script type="text/javascript">
 
             var roomPrices = <?php echo json_encode($roomPricesFull); ?>;
             var roomAvl = <?php echo json_encode($roomAvailability); ?>;
@@ -492,9 +514,11 @@
                         } else {
                             echo "<p style='font-weight:bold;color:green;margin-bottom: 5px;'>No payment needed today. Pay when you stay.</p>";
                         } 
+                        echo "<p style='margin-bottom: 5px; '>";
                         if ($commondetails->commision > 0) {
-                            echo "<p style='font-weight:bold;color:darkred;margin-bottom: 5px; '>".$commondetails->commision."% Service Fee.</p>";
+                            echo "<span style='font-weight:bold;color:darkred;' >".$commondetails->commision."% Service Fee. </span>";
                         }
+                        echo "(Commission ".$commondetails->commission_hotel."%)</p>";
                         ?>
                         <?php echo "<a href='https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$commondetails->destination_id."&listing_id=".$commondetails->listing_id."&listing_type=hotel' target='_blank'>https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$commondetails->destination_id."&listing_id=".$commondetails->listing_id."&listing_type=hotel</a>"; ?>
                         <br>
@@ -850,6 +874,43 @@
                   </div>
                   <!-- End FAQ Item -->
                   <!-- Faq Item -->
+                  
+                  <div class="panel panel-default panel-faq" style="background: ghostwhite;">
+                      <div class="panel-heading" style="background: ghostwhite;">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-8">
+                              <h4 class="panel-title" style="color:black;">
+                                  Our Comments/ Insights <?php if ($commondetails->other_insights == "") { echo "<span style='font-weight:bold; color:darkred;'>(-still no details-)</span>"; }?>
+                                  <span class="pull-right">
+                                      <i class="glyphicon glyphicon-plus"></i>
+                                  </span>
+                              </h4>
+                          </a>
+                      </div>
+                      <div id="faq-sub-8" class="panel-collapse collapse">
+                          <div class="panel-body">
+
+
+
+                             <form class="is-readonly" method="POST" id="form2" role="form" data-toggle="validator">
+
+
+                                <textarea rows='<?php echo substr_count($commondetails->other_insights,"\n")+1; ?>' cols="50" name="insights" id="insights" style="width: 85%; margin: 5px ; margin-left: 20px; padding: 10px; resize: vertical; border-radius: 5px;" required disabled><?php echo $commondetails->other_insights; ?></textarea>
+
+
+
+                                <button type="button" onclick="savebtn()" id="save_btn" class="btn btn-default btn-lg btn-save js-save" style='float:right;background-color: #8892d6;color:white;font-size: inherit;' disabled>Save</button>
+                                <button type="button" onclick="editbtn()" id="edit_btn" class="btn btn-default btn-lg btn-edit js-edit" style='float:right;background-color: #8892d6;color:white;font-size: inherit;'>Edit</button>
+                             </form>
+
+
+
+
+                          </div>
+
+                      </div>
+                  </div>
+                  <!-- End FAQ Item -->
+                  <!-- Faq Item -->
                   <div class="panel panel-default panel-faq" style="background: ghostwhite;">
                       <div class="panel-heading" style="background: ghostwhite;">
                           <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-5">
@@ -1119,6 +1180,5 @@
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlFwHhg15iNpuqL5psZs8TVXMbtrwRUJo"></script>
-
 </body>
 </html>

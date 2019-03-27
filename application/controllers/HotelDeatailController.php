@@ -226,6 +226,16 @@ class HotelDeatailController extends CI_Controller {
 
 		$this->load->view('admin/hotel',$data);
 	}
-
-	
+	public function changeHotelInfo(){
+		$this->load->helper('cookie');
+		$this->load->library('session');
+		if ((!isset($_COOKIE['hotelno']) || $this->input->cookie('login_user')!= 'admin') && (!isset($_SESSION['hotelno']) || $this->session->userdata('login_user')!= 'admin')) {
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+		$this->load->model('AdminModel');
+		$data = array("other_insights"=> $_POST["insightData"]);
+		$this->AdminModel->changeHotelStatus($_POST["listingId"],$data);
+		return "Success";
+	}	
 }
