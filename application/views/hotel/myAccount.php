@@ -313,9 +313,6 @@
       <script src="../../assets/dist/js/validator.min.js"></script>
       <!-- /.content -->
       <script type="text/javascript">
-
-
-
         $(document).ready(function(){
 
           // $('.js-edit, .js-save').on('click', function(){

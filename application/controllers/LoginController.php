@@ -50,7 +50,7 @@ class LoginController extends CI_Controller {
 						$data =array('logins'=> $logins);
 						$_SESSION['hotelno'] = $user[0]->listing_id;
 	                    $_SESSION['login_user'] =  "admin";
-						$this->load->view('admin/adminHome',$data);
+						$this->adminHome();
 					}	
 				}
 				else {
@@ -63,6 +63,21 @@ class LoginController extends CI_Controller {
 		}
 		else{
 			$this->viewHomePage();
+		}
+	}
+	public function adminHome(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AdminModel');
+			$manualbkngs =  $this->AdminModel->getRecentBookingDetails($_SESSION['hotelno']);
+			$logins =  $this->AdminModel->getLogin();
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$data =array('logins'=> $logins,'manualbkngs'=>$manualbkngs,'admindata'=> $adminData);
+			$this->load->view('admin/adminHome',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
 		}
 	}
 	

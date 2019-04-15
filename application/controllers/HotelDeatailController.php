@@ -12,7 +12,8 @@ class HotelDeatailController extends CI_Controller {
 		}
 		$this->load->model('AdminModel');
 		$listing =  $this->AdminModel->getVerifiedHotelDetails();
-		$data= array('hotels'=> $listing );
+		$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+		$data= array('hotels'=> $listing ,'admindata'=> $adminData);
 		$this->load->view('admin/hotelListButtons',$data);
 	}
     public function newRoomData($listing_id,$date1,$date2)

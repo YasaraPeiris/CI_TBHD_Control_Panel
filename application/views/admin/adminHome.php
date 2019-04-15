@@ -6,7 +6,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>CP :: Home</title>
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -108,7 +109,7 @@
           <?php include 'adminTop.php'; ?>
           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Latest Orders</h3>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Your Upcoming Orders</h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -117,27 +118,49 @@
               </div>
               <div class="box-body">
                   <div class="table-responsive">
-                      <form id="notifications" method="post" >
-                          <input type="hidden" id="bookingidset" name="bookingidset"/>
-                          <input type="hidden" id="itemidset" name="itemidset"/>
-                          <table class="table no-margin" style="font-family: Verdana;">
-                              <thead >
-                              <tr >
-                                  <th style="text-align: center;">Order ID</th>
-                                  <th style="text-align: center;">Item ID</th>
-                                  <th style="text-align: center;">Hotel</th>
-                                  <th style="text-align: center;">Room Type</th>
-                                  <th style="text-align: center;">Check-In Date</th>
-                                  <th style="text-align: center;">Check-Out Date</th>
-                                  <th style="text-align: center;">No of Rooms</th>
-                                  <th style="text-align: center;">Notified</th>
-                                  <th style="text-align: center;">Status</th>
-                              </tr>
-                              </thead>
-                              <tbody id="orderTable" style="text-align: center;">
-                              </tbody>
-                          </table>
-                      </form>
+                      <!-- <input type="hidden" id="bookingidset" name="bookingidset"/> -->
+                      <!-- <input type="hidden" id="itemidset" name="itemidset"/> -->
+                      <table id="mbtable" class="table table-striped nowrap table-responsive"
+                               cellspacing="0" width="100%">
+                            <thead class="no-border">
+                            <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
+                              <th data-priority="1">Check-in</th>
+                              <th data-priority="4">Check-out</th>
+                              <th data-priority="2">M.B. ID</th>
+                              <th data-priority="2">Hotel Name</th>
+                              <th data-priority="3">Customer Name</th>
+                              <th data-priority="5" data-orderable="false">Mobile</th>
+                              <th data-priority="3">Admin</th>
+                              <th data-priority="6" data-orderable="false">Notes</th>
+                            </tr>
+                            </thead>
+                            <tbody id="orderTable" style="text-align: center;">
+                              <?php
+                              if (sizeof($manualbkngs)>0) {
+                               foreach ($manualbkngs as $value) {?>
+                                <tr <?php if (strtotime($value->checkin)-strtotime("now") > 0 ) { // future bookings
+                                  echo "style='background-color:#FFFFE0;'";
+                                } 
+                                elseif (strtotime($value->checkin)-strtotime("now") > -86400 ) { // today's bookings
+                                  echo "style='background-color:#7FFFD4;'";
+                                } 
+                                else {
+                                  echo "style='background-color:#FF6347;'"; // past bookings
+                                }
+
+                                ?> >
+                                  <th><?php echo $value->checkin; ?></th>
+                                  <th><?php echo $value->checkout; ?></th>
+                                  <th><?php echo $value->mb_id; ?></th>
+                                  <th><?php echo $value->listing_name; ?></th>
+                                  <th><?php echo $value->cname; ?></th>
+                                  <th><?php echo $value->cmobile; ?></th>
+                                  <th><?php echo (isset($admindata))?$admindata->first_name :' ';?></th>
+                                  <th><?php echo $value->note; ?></th>
+                                </tr>
+                              <?php } } ?>
+                            </tbody>
+                        </table>
                   </div>
               </div>
           </div>
@@ -277,6 +300,10 @@
     <script>
       var table_checkin = $('#logintable').DataTable({
           responsive: true
+      });
+      var table_checkin = $('#mbtable').DataTable({
+          responsive: true,
+          "paging": false
       });
     </script>
 </body>

@@ -133,7 +133,8 @@ class RedirectPageController extends CI_Controller {
 		if (isset($_SESSION['hotelno'])  && $this->session->userdata('login_user')== 'admin') {
 			$this->load->model('AdminModel');
 			$hotelList =  $this->AdminModel->getHotelList();
-			$this->load->view('admin/contentGenerator',array('hotelList'=>$hotelList));
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$this->load->view('admin/contentGenerator',array('hotelList'=>$hotelList,'admindata'=> $adminData));
 		}
 		else{
 			$_SESSION['error']= 'Time is up, please log in again for your own security.';
@@ -163,7 +164,8 @@ class RedirectPageController extends CI_Controller {
 			$this->load->model('AdminModel');
 			$listing =  $this->AdminModel->getHotelDetails();
 			$destination =  $this->AdminModel->getDestDetails();
-			$data =array('listing'=> $listing,'destination'=>$destination);
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$data =array('listing'=> $listing,'destination'=>$destination,'admindata'=> $adminData);
 			$this->load->view('admin/hotelList', $data);
 		}
 		else{
@@ -176,7 +178,8 @@ class RedirectPageController extends CI_Controller {
 		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 			$this->load->model('AdminModel');
 			$destinationMap =  $this->AdminModel->getDestMapDetails();
-			$data =array('destination'=> $destinationMap);
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$data =array('destination'=> $destinationMap,'admindata'=> $adminData);
 			$this->load->view('admin/destinationMap', $data);
 		}
 		else{
@@ -190,11 +193,26 @@ class RedirectPageController extends CI_Controller {
 			$this->load->model('AdminModel');
 			$manualbkngs =  $this->AdminModel->getBookingDetails();
 			$manualbkngs_old =  $this->AdminModel->getBookingDetails_all();
-			$data =array('manualbkngs'=> $manualbkngs,'manualbkngs_old'=>$manualbkngs_old);
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$data =array('manualbkngs'=> $manualbkngs,'manualbkngs_old'=>$manualbkngs_old,'admindata'=> $adminData);
 			$this->load->view('admin/bookingDetails', $data);
 		}
 		else{
 			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+	}
+	public function myAccount(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AccountModel');
+			$listing_no = $_SESSION['hotelno'];
+			$listing =  $this->AccountModel->getAccountDetails($listing_no);
+			$data= array('admindata'=> $listing[0] );
+			$this->load->view('admin/myAccount', $data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again fssssor your own security.';
 			redirect();
 		}
 	}
@@ -204,7 +222,8 @@ class RedirectPageController extends CI_Controller {
 			$this->load->model('AdminModel');
 			$priceCatgories =  $this->AdminModel->getPriceCategories();
 			$prices =  $this->AdminModel->getPrices();
-			$data =array('priceCatgories'=> $priceCatgories, 'prices'=> $prices);
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$data =array('priceCatgories'=> $priceCatgories, 'prices'=> $prices,'admindata'=> $adminData);
 			$this->load->view('admin/priceSets',$data);
 		}
 		else{
@@ -414,19 +433,6 @@ class RedirectPageController extends CI_Controller {
 		}
 	    
 		$this->priceSets();
-	}
-	public function adminHome(){
-		$this->load->library('session');
-		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
-			$this->load->model('AdminModel');
-			$logins =  $this->AdminModel->getLogin();
-			$data =array('logins'=> $logins);
-			$this->load->view('admin/adminHome',$data);
-		}
-		else{
-			$_SESSION['error']= 'Time is up, please log in again for your own security.';
-			redirect();
-		}
 	}
 	public function checkInquiries(){
 		$this->load->view('admin/checkInquiries');

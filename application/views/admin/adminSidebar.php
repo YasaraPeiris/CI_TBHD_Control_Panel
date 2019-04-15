@@ -5,30 +5,18 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="../../../assets/images/user8-128x128.jpg" class="img-circle" alt="User Image">
+      <div class="user-panel" style="margin-bottom:5%;height:auto;text-align:center">
+        <div class= "image" style="margin-bottom:5%;text-align:center;margin-top:10%;">
+          <img src="<?php echo (isset($admindata))?'../../'.$admindata->image_path:'../../assets/images/avatar.png';?>"  style='border-radius: 100%;max-height:105px;max-width:105px;' class="img-circle" alt="User Image">
         </div>
-        <div class="pull-left info">
-          <p><?php //echo $_SESSION['login_user']?></p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        <div class="info" style="left:0;position:relative;padding:0;">
+          <p style="display:inline-block;">Admin #<?php echo $_SESSION['hotelno'];?></p><p style="font-size: 1.2em;"> <?php echo (isset($admindata))?$admindata->first_name.' '.$admindata->last_name :'';?></p>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
          <li>
-            <a href="<?php echo base_url();?>index.php/RedirectPageController/adminHome" >
+            <a href="<?php echo base_url();?>index.php/LoginController/adminHome" >
             <i class="fa fa-calendar"></i> <span>Home Page</span>
            
             </a>
@@ -40,6 +28,12 @@
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li> -->
+        <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/myAccount" >
+            <i class="fa fa-calendar"></i> <span>My Account</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li>
         <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/hotelList" >
             <i class="fa fa-calendar"></i> <span>Hotel/ Destination List</span>
