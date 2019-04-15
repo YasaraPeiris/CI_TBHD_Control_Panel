@@ -166,7 +166,7 @@
           </div>
           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >New Inquiries</h3>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >All Upcoming Orders</h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -175,64 +175,50 @@
               </div>
                <div class="box-body">
                   <div class="table-responsive">
-                      <form id="notifications" method="post" >
-                          <input type="hidden" id="bookingidset" name="bookingidset"/>
-                          <input type="hidden" id="itemidset" name="itemidset"/>
-                          <table class="table no-margin" style="font-family: Verdana;">
-                              <thead>
-                              <tr>
-                                  <th style="text-align: center;">Contact ID</th>
-                                  <th style="text-align: center;">Customer First Name</th>
-                                  <th style="text-align: center;">Customer Last Name</th>
-                                  <th style="text-align: center;">EMail</th>
-                                  <th style="text-align: center;">Phone</th>
-                                  <th style="text-align: center;">Check</th>
-                              </tr>
-                              </thead>
-                              <tbody id="inquiryTable" style="text-align: center;">
-                              </tbody>
-                          </table>
-                      </form>
+                      <table id="allmbtable" class="table table-striped nowrap table-responsive"
+                               cellspacing="0" width="100%">
+                            <thead class="no-border">
+                            <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
+                              <th data-priority="1">Check-in</th>
+                              <th data-priority="4">Check-out</th>
+                              <th data-priority="2">M.B. ID</th>
+                              <th data-priority="2">Hotel Name</th>
+                              <th data-priority="3">Customer Name</th>
+                              <th data-priority="5" data-orderable="false">Mobile</th>
+                              <th data-priority="3">Admin ID</th>
+                              <th data-priority="6" data-orderable="false">Notes</th>
+                            </tr>
+                            </thead>
+                            <tbody id="orderTable" style="text-align: center;">
+                              <?php
+                              if (sizeof($allmanualbkngs)>0) {
+                               foreach ($allmanualbkngs as $value) {?>
+                                <tr <?php if (strtotime($value->checkin)-strtotime("now") > 0 ) { // future bookings
+                                  echo "style='background-color:#FFFFE0;'";
+                                } 
+                                elseif (strtotime($value->checkin)-strtotime("now") > -86400 ) { // today's bookings
+                                  echo "style='background-color:#7FFFD4;'";
+                                } 
+                                else {
+                                  echo "style='background-color:#FF6347;'"; // past bookings
+                                }
+
+                                ?> >
+                                  <th><?php echo $value->checkin; ?></th>
+                                  <th><?php echo $value->checkout; ?></th>
+                                  <th><?php echo $value->mb_id; ?></th>
+                                  <th><?php echo $value->listing_name; ?></th>
+                                  <th><?php echo $value->cname; ?></th>
+                                  <th><?php echo $value->cmobile; ?></th>
+                                  <th><?php echo $value->admin_id;?></th>
+                                  <th><?php echo $value->note; ?></th>
+                                </tr>
+                              <?php } } ?>
+                            </tbody>
+                        </table>
                   </div>
                 </div>
              </div>
-           <div class="box box-info">
-              <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Hotel Credentials</h3>
-                  <div class="box-tools pull-right">
-                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-              </div>
-              <div class="box-body">
-                  <div class="table-responsive">
-                      <form id="notifications" method="post" >
-                          <input type="hidden" id="bookingidset" name="bookingidset"/>
-                          <input type="hidden" id="itemidset" name="itemidset"/>
-                          <table id="logintable" class="table table-striped nowrap table-responsive"
-                                   cellspacing="0" width="100%">
-                                <thead class="no-border">
-                                <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
-                                  <th data-priority="2">Login ID</th>
-                                  <th data-priority="1">Username</th>
-                                  <th data-priority="1" data-orderable="false">Password</th>
-                                </tr>
-                                </thead>
-                                <tbody id="orderTable" style="text-align: center;">
-                                  <?php foreach ($logins as $value) {?>
-                                  <tr >
-                                    <th><?php echo $value->login_id; ?></th>
-                                    <th><?php echo $value->username; ?></th>
-                                    <th><?php echo $value->password; ?></th>
-                                  </tr>
-                                <?php } ?>
-                                </tbody>
-                            </table>
-                      </form>
-                  </div>
-               </div>
-      </div>
        </section>
   </div>
 </div>
@@ -298,10 +284,11 @@
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
     <script>
-      var table_checkin = $('#logintable').DataTable({
-          responsive: true
-      });
       var table_checkin = $('#mbtable').DataTable({
+          responsive: true,
+          "paging": false
+      });
+      var table_checkin = $('#allmbtable').DataTable({
           responsive: true,
           "paging": false
       });

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class HotelDeatailController extends CI_Controller {
+class HotelDetailController extends CI_Controller {
 
 	public function index(){
 		$this->load->helper('cookie');
@@ -15,6 +15,21 @@ class HotelDeatailController extends CI_Controller {
 		$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
 		$data= array('hotels'=> $listing ,'admindata'=> $adminData);
 		$this->load->view('admin/hotelListButtons',$data);
+	}
+	public function logins(){
+		$this->load->helper('cookie');
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AdminModel');
+			$logins =  $this->AdminModel->getLogin();
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$data =array('logins'=> $logins,'admindata'=> $adminData);
+			$this->load->view('admin/hotelLogins',$data);
+		}
+		else{			
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
 	}
     public function newRoomData($listing_id,$date1,$date2)
     {

@@ -360,7 +360,23 @@ class AdminModel extends CI_Model
     {
         $this->db->order_by("checkin", "asc");
         $this->db->where('admin_id', $id);
-        $this->db->where('checkin>=',date('Y-m-d', strtotime("-1 day")));
+        $this->db->where('checkin>=',date('Y-m-d', strtotime("-2 day")));
+        $this->db->where('checkin<',date('Y-m-d', strtotime("+7 day")));
+        $this->db->from('manualbookings');
+        $this->db->join('listings','manualbookings.listing_id=listings.listing_id');        
+        $this->db->select('manualbookings.mb_id, listings.listing_name, manualbookings.cname,manualbookings.cmobile,manualbookings.checkin , manualbookings.checkout,manualbookings.note,manualbookings.admin_id');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
+    function getAllRecentBookingDetails()
+    {
+        $this->db->order_by("checkin", "asc");
+        $this->db->where('checkin>=',date('Y-m-d', strtotime("-2 day")));
         $this->db->where('checkin<',date('Y-m-d', strtotime("+7 day")));
         $this->db->from('manualbookings');
         $this->db->join('listings','manualbookings.listing_id=listings.listing_id');        

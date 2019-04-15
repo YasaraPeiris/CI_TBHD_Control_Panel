@@ -21,13 +21,6 @@
            
             </a>
         </li>
-      
-        <!-- <li>
-          <a href="<?php echo base_url();?>index.php/RedirectPageController/viewCheckOrders" >
-            <i class="fa fa-calendar"></i> <span>Check Orders</span>
-            <small class="label pull-right bg-red" id="ordersSideBar"></small>
-            </a>
-        </li> -->
         <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/myAccount" >
             <i class="fa fa-calendar"></i> <span>My Account</span>
@@ -35,14 +28,20 @@
             </a>
         </li>
         <li>
-          <a href="<?php echo base_url();?>index.php/RedirectPageController/hotelList" >
-            <i class="fa fa-calendar"></i> <span>Hotel/ Destination List</span>
+          <a href="<?php echo base_url();?>index.php/HotelDetailController/index" >
+            <i class="fa fa-calendar"></i> <span>Hotels</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li>
         <li>
-          <a href="<?php echo base_url();?>index.php/HotelDeatailController/index" >
-            <i class="fa fa-calendar"></i> <span>Hotels</span>
+          <a href="<?php echo base_url();?>index.php/HotelDetailController/logins" >
+            <i class="fa fa-calendar"></i> <span>Hotel Logins</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li>
+        <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/hotelList" >
+            <i class="fa fa-calendar"></i> <span>Hotel/ Destination List</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li>

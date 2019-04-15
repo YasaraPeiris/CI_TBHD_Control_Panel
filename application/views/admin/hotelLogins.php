@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CP:: Hotel List</title>
+  <title>CP :: Hotel Logins</title>
   <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -34,11 +34,11 @@
   <link rel="stylesheet" href="../../assets/plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="../../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-  <!-- bootstrap wysihtml5 - text editor -->
-  <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
+<!-- bootstrap wysihtml5 - text editor -->
+    <link href="../../assets/dist/css/bootstrap-dialog.css" rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -106,15 +106,9 @@
     <!-- Main content -->
       <section class="content">
           <!-- Small boxes (Stat box) -->
-          <?php
-          if (!empty($_SESSION['alertHtlDStatus'])) {
-              echo "<div class='alert alert-info' style='margin-bottom: 0;'><strong>Alert! </strong> ".$_SESSION['alertHtlDStatus']."</div>";
-              unset($_SESSION['alertHtlDStatus']);
-          }
-          ?>
-          <div class="box box-info">
+           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Full Hotel List</h3>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Hotel Credentials</h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -122,17 +116,33 @@
                   </div>
               </div>
               <div class="box-body">
-                <?php if (sizeof($hotels)>0) {
-                  foreach ($hotels as $value) {
-                    
-                    ?><button onclick="window.open('<?php echo base_url()."index.php/HotelDetailController/showHotel?destination=".$value->destination_id."&listing_id=".$value->listing_id; ?>','_blank')"> <?php echo $value->listing_name."- ".$value->display_loc ; ?></button><?php
-                  }
-                }
-
-                ?>
-                
-              </div>
-          </div>
+                  <div class="table-responsive">
+                      <form id="notifications" method="post" >
+                          <input type="hidden" id="bookingidset" name="bookingidset"/>
+                          <input type="hidden" id="itemidset" name="itemidset"/>
+                          <table id="logintable" class="table table-striped nowrap table-responsive"
+                                   cellspacing="0" width="100%">
+                                <thead class="no-border">
+                                <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
+                                  <th data-priority="2">Login ID</th>
+                                  <th data-priority="1">Username</th>
+                                  <th data-priority="1" data-orderable="false">Password</th>
+                                </tr>
+                                </thead>
+                                <tbody id="orderTable" style="text-align: center;">
+                                  <?php foreach ($logins as $value) {?>
+                                  <tr >
+                                    <th><?php echo $value->login_id; ?></th>
+                                    <th><?php echo $value->username; ?></th>
+                                    <th><?php echo $value->password; ?></th>
+                                  </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                      </form>
+                  </div>
+               </div>
+      </div>
        </section>
   </div>
 </div>
@@ -189,13 +199,18 @@
                 alert(data);
                 result = data;
             }
-          });
-        }
+        });
+            }
             </script>
  <!--datatables-->
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
+    <script>
+      var table_checkin = $('#logintable').DataTable({
+          responsive: true
+      });
+    </script>
 </body>
 </html>

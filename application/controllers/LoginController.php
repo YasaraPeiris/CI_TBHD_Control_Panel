@@ -70,9 +70,9 @@ class LoginController extends CI_Controller {
 		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 			$this->load->model('AdminModel');
 			$manualbkngs =  $this->AdminModel->getRecentBookingDetails($_SESSION['hotelno']);
-			$logins =  $this->AdminModel->getLogin();
+			$allmanualbkngs =  $this->AdminModel->getAllRecentBookingDetails();
 			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
-			$data =array('logins'=> $logins,'manualbkngs'=>$manualbkngs,'admindata'=> $adminData);
+			$data =array('manualbkngs'=>$manualbkngs,'allmanualbkngs'=>$allmanualbkngs,'admindata'=> $adminData);
 			$this->load->view('admin/adminHome',$data);
 		}
 		else{
