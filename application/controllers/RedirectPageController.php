@@ -149,7 +149,8 @@ class RedirectPageController extends CI_Controller {
 				$mbdata =  $this->AdminModel->getmbData($_POST['mbID']);
 				$mbsubdata =  $this->AdminModel->getmbSubData($_POST['mbID']);
 				$hotelList =  $this->AdminModel->getHotelList();
-				$data =array('mbdata'=> $mbdata[0],'mbsubdata'=>$mbsubdata,'hotelList'=>$hotelList);
+				$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+				$data =array('mbdata'=> $mbdata[0],'mbsubdata'=>$mbsubdata,'hotelList'=>$hotelList,'admindata'=> $adminData);
 				$this->load->view('admin/copyContentGenerator', $data);
 			}
 		}
@@ -252,7 +253,8 @@ class RedirectPageController extends CI_Controller {
 	    		$manualbkngItem =  $this->AdminModel->getSpcfcBookingItms($mbID);
 	    		$listingdetails =  $this->AdminModel->getSpecificListingDetails($manualbkngs->listing_id)[0];
 	    		// $hoteldetails =  $this->AdminModel->getSpcfcBookingItms($manualbkngs->listing_id);	    		
-	    		$data =array('booking'=> $manualbkngs,'items'=>$manualbkngItem,'listingdetails'=>$listingdetails);
+				$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+	    		$data =array('booking'=> $manualbkngs,'items'=>$manualbkngItem,'listingdetails'=>$listingdetails,'admindata'=> $adminData);
 	    		// print_r($data);
 				$this->load->view('admin/bookingContent',$data);
 	    	}	
