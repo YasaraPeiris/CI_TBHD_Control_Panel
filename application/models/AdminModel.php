@@ -301,6 +301,37 @@ class AdminModel extends CI_Model
     function getLogin()
     {
         $this->db->where('usertype', 'hotel_owner');
+        $this->db->join('loginhotel','login.login_id=loginhotel.login_id');        
+        $this->db->join('listings','loginhotel.listing_id=listings.listing_id');        
+        $this->db->where('listings.verification', 'verified');
+        $this->db->from('login');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }        
+    }
+    function get_specificlogin($listing_id)
+    {
+        $this->db->where('usertype', 'hotel_owner');
+        $this->db->join('loginhotel','login.login_id=loginhotel.login_id');        
+        $this->db->join('listings','loginhotel.listing_id=listings.listing_id');        
+        $this->db->where('listings.listing_id', $listing_id);
+        $this->db->from('login');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }        
+    }
+    function validateAccount($username,$password,$usertype,$login_id)
+    {
+        $this->db->where('username', $username);
+        $this->db->where('password', $password);
+        $this->db->where('usertype', $usertype);
+        $this->db->where('login_id', $login_id);
         $this->db->from('login');
         $query1 = $this->db->get();
         if ($query1->num_rows() > 0) {
@@ -362,7 +393,7 @@ class AdminModel extends CI_Model
         $this->db->from('booking');
         $this->db->join('listings','booking.listing_id=listings.listing_id');        
         $this->db->join('customers','booking.customer_id=customers.customer_no');        
-        $this->db->select('booking.booking_id, listings.listing_name, listings.listing_id, customers.customer_name,customers.phone,booking.check_in , booking.check_out,booking.remark,booking.paid_amount,booking.total_rate,customers.email');
+        $this->db->select('booking.booking_id, booking.status, listings.listing_name, listings.listing_id, customers.customer_name,customers.phone,booking.check_in , booking.check_out,booking.remark,booking.paid_amount,booking.total_rate,customers.email');
         $query1 = $this->db->get();
         if ($query1->num_rows() > 0) {
             return $query1->result();    // return a array of object

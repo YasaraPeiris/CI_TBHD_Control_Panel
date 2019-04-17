@@ -234,13 +234,12 @@ class HotelDetailController extends CI_Controller {
 		    //redirect();
 		}
 		$promotions = $this->AdminModel->get_promotions($listing_id, $checkin, $checkout)[0];
+		$login_hotel = $this->AdminModel->get_specificlogin($listing_id)[0];
 		if ($promotions == null) {
 		    $promotions = (object)array('promo_amount' => 0);
 		}
 		$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
-		$data = array('status' => 'hotel', 'promotions' => $promotions, 'moredetails' => $db_data[0], 'commondetails' => $listing_data[0], 'roomtypes' => $room_data,  'owner_details' => $owner_details[0], 'roomPricesFull' => $roomPricesFull, 'roomCount' => $roomCount, 'roomNames' => $roomNames, 'roomAvailability' => $roomAvailability, 'countarry' => $countarry, 'maxOccpncy' => $maxOccpncy, 'minRoomName' => $roomNames[$minPriceLocalIdx], 'minRoomVal' => $roomPricesFull[$minPriceLocalIdx][$minKey],'available_flag'=> $available_flag,'admindata'=> $adminData);
-
-
+		$data = array('status' => 'hotel', 'promotions' => $promotions, 'moredetails' => $db_data[0], 'commondetails' => $listing_data[0], 'roomtypes' => $room_data,  'owner_details' => $owner_details[0], 'roomPricesFull' => $roomPricesFull, 'roomCount' => $roomCount, 'roomNames' => $roomNames, 'roomAvailability' => $roomAvailability, 'countarry' => $countarry, 'maxOccpncy' => $maxOccpncy, 'minRoomName' => $roomNames[$minPriceLocalIdx], 'minRoomVal' => $roomPricesFull[$minPriceLocalIdx][$minKey],'available_flag'=> $available_flag,'admindata'=> $adminData,'login_hotel'=>$login_hotel);
 		$this->load->view('admin/hotel',$data);
 	}
 	public function changeHotelInfo(){

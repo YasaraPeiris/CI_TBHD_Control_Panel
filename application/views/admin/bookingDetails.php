@@ -221,6 +221,7 @@
                                   <th data-priority="9" data-orderable="false">Email</th>
                                   <th data-priority="4">Check-in</th>
                                   <th data-priority="5">Check-out</th>
+                                  <th data-priority="3">Status</th>
                                   <th data-priority="7">Total (LKR)</th>
                                   <th data-priority="8">Paid Amount (LKR)</th>
                                   <th data-priority="10" data-orderable="false">Notes</th>
@@ -238,6 +239,7 @@
                                       <th><?php echo $value->email; ?></th>
                                       <th><?php echo $value->check_in; ?></th>
                                       <th><?php echo $value->check_out; ?></th>
+                                      <th><?php echo $value->status; ?></th>
                                       <th><?php echo $value->total_rate; ?></th>
                                       <th><?php echo $value->paid_amount; ?></th>
                                       <th><?php echo $value->remark; ?></th>

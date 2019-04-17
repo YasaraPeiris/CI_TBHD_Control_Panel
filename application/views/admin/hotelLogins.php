@@ -124,21 +124,28 @@
                                    cellspacing="0" width="100%">
                                 <thead class="no-border">
                                 <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
-                                  <th data-priority="2">Login ID</th>
+                                  <th data-priority="4">Login ID</th>
+                                  <th data-priority="3">Listing ID</th>
+                                  <th data-priority="2">Hotel Name</th>
                                   <th data-priority="1">Username</th>
                                   <th data-priority="1" data-orderable="false">Password</th>
+                                  <th data-priority="3">Copy URl Login</th>
                                 </tr>
                                 </thead>
                                 <tbody id="orderTable" style="text-align: center;">
                                   <?php foreach ($logins as $value) {?>
                                   <tr >
                                     <th><?php echo $value->login_id; ?></th>
+                                    <th><?php echo $value->listing_id; ?></th>
+                                    <th><?php echo $value->listing_name; ?></th>
                                     <th><?php echo $value->username; ?></th>
                                     <th><?php echo $value->password; ?></th>
+                                    <th><button onclick="return copyFunc('<?php echo $value->login_id; ?>','<?php echo $value->username; ?>','<?php echo $value->password; ?>')">Copy</button></th>
                                   </tr>
                                 <?php } ?>
                                 </tbody>
                             </table>
+                            <input type="hidden" id="copycontent">
                       </form>
                   </div>
                </div>
@@ -147,7 +154,19 @@
   </div>
 </div>
 <!-- ./wrapper -->
+<script type="text/javascript">
+  function copyFunc(lid,un,pp){
+    var textcop = "<?php echo base_url(); ?>index.php/LoginController/adminHotelLogin?un="+un+"&ut=hotel_owner&pp="+pp+"&lid="+lid;
+    document.getElementById("copycontent").value = textcop;
+    var copyText = document.getElementById("copycontent");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copy this text in Incognito Tab: " + copyText.value);
 
+
+    return false;
+  }
+</script>
 <!-- jQuery 2.2.0 -->
 <script src="../../assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

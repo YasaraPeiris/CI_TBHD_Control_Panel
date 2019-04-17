@@ -502,7 +502,7 @@
                         <?php
                         if ($promotions->promo_amount != 0) { ?>
                           <h4 >
-                            <span style="color: red;font-weight: bold;"><?php echo $promotions->promo_amount*100; ?>% OFF</span> <span style="font-size: 0.8em;">(*for the selected date)</span>
+                            <span style="color: red;font-weight: bold;"><?php echo $promotions->promo_amount*100; ?>% OFF</span> <span style="font-size: 0.8em;">(*until <?php echo date("d F, Y", strtotime($promotions->end_date)); ?>)</span>
                           </h4> 
                         <?php }
                         else { echo "No Promotion For the selected date.<br><br>";}
@@ -1006,8 +1006,11 @@
                           </div>
                       </div>
                   </div>
-
                   <!-- End FAQ Item -->
+                </section>
+                <section style="margin:0 20px 20px 20px; background-color: #ddd; padding: 10px;">
+                    <h5 style="color: red;"><b>Admin Link to Edit Hotel:</b></h5>
+                    <textarea class="form-control" rows="2"><?php echo base_url(); ?>index.php/LoginController/adminHotelLogin?un=<?php echo $login_hotel->username; ?>&ut=hotel_owner&pp=<?php echo $login_hotel->password; ?>&lid=<?php echo $login_hotel->login_id; ?></textarea>
                 </section>
               </div>
           </div>

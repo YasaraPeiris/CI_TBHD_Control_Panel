@@ -10,6 +10,13 @@ class LoginController extends CI_Controller {
 		
 			$username=$this->input->post('username');
 			$password=$this->input->post('password');
+			$this->login_check($username, $password);
+		}
+		else{
+			$this->viewHomePage();
+		}
+	}
+	public function login_check($username, $password){
 			if ($username==null || $password==null) {
 				$_SESSION['error'] = "Don't keep any of the spaces blank.";
 				// echo $errors;
@@ -60,10 +67,6 @@ class LoginController extends CI_Controller {
 	                // $this->load->view('index');
 	            }
 			}
-		}
-		else{
-			$this->viewHomePage();
-		}
 	}
 	public function adminHome(){
 		$this->load->library('session');
@@ -80,7 +83,18 @@ class LoginController extends CI_Controller {
 			redirect();
 		}
 	}
-	
+	public function adminHotelLogin(){
+		$this->load->library('session');
+		$username=$this->input->get('un');
+		$password=$this->input->get('pp');
+		$usertype=$this->input->get('ut');
+		$login_id=$this->input->get('lid');
+		$this->load->model('AdminModel');
+		$adminData =  $this->AdminModel->validateAccount($username,$password,$usertype,$login_id)[0];
+		if (sizeof($adminData)>0) {
+			$this->login_check($username, $password);
+		}
+	}	
 	public function newOrders($listing_no){
 		$this->load->model('CheckOrderModel');
 		$orders =  $this->CheckOrderModel->getRecentOrders($listing_no);
