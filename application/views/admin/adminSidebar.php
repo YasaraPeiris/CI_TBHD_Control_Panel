@@ -59,7 +59,7 @@
         </li>
         <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/bookingDetails" >
-            <i class="fa fa-calendar"></i> <span>Manual Bookings</span>
+            <i class="fa fa-calendar"></i> <span>All Bookings</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li>

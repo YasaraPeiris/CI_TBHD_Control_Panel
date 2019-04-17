@@ -126,19 +126,23 @@
                       <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
                   </div>
               </div><br><br>
-              <div class="row" style="padding: 10px;">
-                <div class="col-md-6">
+              <div class="row" style="padding: 0  10px 10px 10px; ">
+                <div class="col-md-4" style="border-right: solid 1px;">
                   <form action="<?php echo site_url(); ?>/RedirectPageController/generateContent" method="post">
-
                     Manual Booking Id: <input type="number" min="1" name="mbID" required><br><br>
-                    <input type="submit" name="submit">
+                    <input type="submit" name="submit" value="Create Content for Manual Booking">
                   </form>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4" style="border-right: solid 1px;">
                   <form action="<?php echo site_url(); ?>/RedirectPageController/copyContent" method="post">
-
                     Copy Data from MB Id: <input type="number" min="1" name="mbID" required><br><br>
-                    <input type="submit" name="submit">
+                    <input type="submit" name="submit" value="Copy Details">
+                  </form>
+                </div>
+                <div class="col-md-4" >
+                  <form action="<?php echo site_url(); ?>/RedirectPageController/generateOnlineContent" method="post">
+                    Online Booking Id: <input type="number" min="1" name="bkngID" required><br><br>
+                    <input type="submit" name="submit" value="Create Invoice for Online Bookings">
                   </form>
                 </div>
               </div>
@@ -195,11 +199,10 @@
           </div>
           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Old Manual Bookings</h3>
+                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Online Bookings</h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
-                      <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
                   </div>
               </div>
               <div class="box-body">
@@ -211,29 +214,33 @@
                                    cellspacing="0" width="100%">
                                 <thead class="no-border">
                                 <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
-                                  <th data-priority="1">M.B. ID</th>
+                                  <th data-priority="1">Onnline Booking ID</th>
                                   <th data-priority="2">Hotel Name</th>
                                   <th data-priority="3">Customer Name</th>
-                                  <th data-priority="5" data-orderable="false">Mobile</th>
+                                  <th data-priority="6" data-orderable="false">Mobile</th>
+                                  <th data-priority="9" data-orderable="false">Email</th>
                                   <th data-priority="4">Check-in</th>
-                                  <th data-priority="4">Check-out</th>
-                                  <th data-priority="3">Admin ID</th>
-                                  <th data-priority="6" data-orderable="false">Notes</th>
+                                  <th data-priority="5">Check-out</th>
+                                  <th data-priority="7">Total (LKR)</th>
+                                  <th data-priority="8">Paid Amount (LKR)</th>
+                                  <th data-priority="10" data-orderable="false">Notes</th>
                                 </tr>
                                 </thead>
                                 <tbody id="orderTable" style="text-align: center;">
                                   <?php
-                                  if (sizeof($manualbkngs_old)>0) {
-                                   foreach ($manualbkngs_old as $value) {?>
+                                  if (sizeof($onlinebkngs)>0) {
+                                   foreach ($onlinebkngs as $value) {?>
                                     <tr >
-                                      <th><?php echo $value->mb_id; ?></th>
-                                      <th><?php echo $value->hotel_name; ?></th>
-                                      <th><?php echo $value->cname; ?></th>
-                                      <th><?php echo $value->cmobile; ?></th>
-                                      <th><?php echo $value->checkin; ?></th>
-                                      <th><?php echo $value->checkout; ?></th>
-                                      <th><?php echo $value->admin_id; ?></th>
-                                      <th><?php echo $value->note; ?></th>
+                                      <th><?php echo $value->booking_id; ?></th>
+                                      <th><?php echo $value->listing_name; ?></th>
+                                      <th><?php echo $value->customer_name; ?></th>
+                                      <th><?php echo $value->phone; ?></th>
+                                      <th><?php echo $value->email; ?></th>
+                                      <th><?php echo $value->check_in; ?></th>
+                                      <th><?php echo $value->check_out; ?></th>
+                                      <th><?php echo $value->total_rate; ?></th>
+                                      <th><?php echo $value->paid_amount; ?></th>
+                                      <th><?php echo $value->remark; ?></th>
                                     </tr>
                                   <?php } } ?>
                                 </tbody>

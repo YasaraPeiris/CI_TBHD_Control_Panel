@@ -54,46 +54,44 @@
     <section class="content-header">
       <h1>
         Invoice Generator 
-        <small>Manual Bookings: offline</small>
+        <small>Online Bookings</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-        <li class="active">Invoice Generator</li>
+        <li class="active">Invoice Generator (Online Booking)</li>
       </ol>
     </section>
     <!-- Main content -->
       <section class="content">
           <form action="<?php echo site_url(); ?>/RedirectPageController/generateAllContent" method="post">
             <input type="hidden" name="roomValueCount" id="roomValueCount" value="1">
-            Manual Booking ID: CD<?php echo $booking->mb_id; ?><br>
+            Online Booking ID: <?php echo $booking->booking_id; ?><br>
             Hotel Name: <?php echo $listingdetails->listing_name; ?><br>
-            Customer Name: <?php echo $booking->cname; ?><br>
-            Customer Email: <input type="email" value="<?php echo $booking->cemail; ?>" name="updatedemail" required><br>
-            Customer NIC: <input type="text" value="<?php echo $booking->cnic; ?>" name="updatednic" required> <br>
-            Customer Contact Number: <?php echo $booking->cmobile; ?><br><br>
-            Check in: <?php echo $booking->checkin; ?> , <?php echo $booking->checkintime; ?><br>
-            Check out Date: <?php echo $booking->checkout; ?>, <?php echo $booking->checkouttime; ?><br><br>
+            Customer Name: <?php echo $booking->customer_name; ?><br>
+            Customer Email: <?php echo $booking->email; ?><br>
+            Customer NIC: <?php echo $booking->nic_number; ?><br>
+            Customer Contact Number: <?php echo $booking->phone; ?><br><br>
+            Check in: <?php echo $booking->check_in; ?><br>
+            Check out Date: <?php echo $booking->check_out; ?><br><br>
 
             <ul id="roomtype_ul">
             <?php for ($rid=0; $rid <sizeof($items); $rid++) {  ?>
               <li>
-                Room Name: <?php echo $items[$rid]->room_name; ?><br>
-                Room Rate: <?php echo $items[$rid]->room_rate; ?><br>
-                Quantity: <?php echo $items[$rid]->qty; ?><br>
-                Price Type: <?php echo $items[$rid]->price_type; ?><br>
+                Room Name: <?php echo $items[$rid]->item_name; ?><br>
+                Room Rate: <?php echo $items[$rid]->rate; ?><br>
+                Quantity: <?php echo $items[$rid]->quantity; ?><br>
+                Price Type: <?php echo $items[$rid]->item_type; ?><br>
               </li>
             <?php } ?>
             </ul>
-            Service Fee: <?php echo $booking->service_fee; ?>%<br>
-            Commission: <?php echo $booking->commission; ?>%<br>
-            Paid Amount: <input type="Number" min="0" step="0.01" name="paid" required><br>
-            Total Amount: <?php echo $booking->total; ?><br>
-            Promo Amount: <?php echo $booking->promo_amount; ?>%<br><br>
-            Special Notes: <textarea rows="2" cols="20"  placeholder="Any Special Notes on this booking?" name="extranote" style="width: 85%; margin: 5px ; margin-left: 20px; padding: 10px; resize: vertical; border-radius: 5px;"><?php echo $booking->note; ?></textarea><br><br>
-            <input type="submit" style="margin: 5px;" value="Tentative & Bank Details" name="tentativeSubmit"><br>
-            <input type="submit" style="margin: 5px;" value="Generate Invoice" name="invoiceGen"><br>
-            <input type="submit" style="margin: 5px;" value="Booking Email" name="newBooking"><br>
-            <input type="submit" style="margin: 5px;" value="Previous Day Email" name="prevDay"><br>
+            Status: <?php echo $booking->status; ?><br>
+            Commission for inna.lk: LKR. <?php echo $booking->total_for_inna; ?><br>
+            Paid Amount: LKR. <?php echo $booking->paid_amount; ?><br>
+            Total Amount: LKR. <?php echo $booking->total_rate; ?><br>
+            Special Notes:<?php echo $booking->remark; ?><br><br>
+            <input type="submit" style="margin: 5px;" value="Generate Invoice" name="invoiceGenOnline"><br>
+            <!-- <input type="submit" style="margin: 5px;" value="Booking Email" name="newOnlineBooking"><br> -->
+            <!-- <input type="submit" style="margin: 5px;" value="Previous Day Email" name="prevDay"><br> -->
             <!-- <input type="submit" value="Feedback Email" name="feedbackEmail"><br> -->
 
 

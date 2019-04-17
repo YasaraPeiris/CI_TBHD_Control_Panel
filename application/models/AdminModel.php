@@ -356,6 +356,21 @@ class AdminModel extends CI_Model
         }
         
     }
+    function getOnlineBookingDetails()
+    {
+        $this->db->order_by("booking_id", "desc");
+        $this->db->from('booking');
+        $this->db->join('listings','booking.listing_id=listings.listing_id');        
+        $this->db->join('customers','booking.customer_id=customers.customer_no');        
+        $this->db->select('booking.booking_id, listings.listing_name, listings.listing_id, customers.customer_name,customers.phone,booking.check_in , booking.check_out,booking.remark,booking.paid_amount,booking.total_rate,customers.email');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
     function getRecentBookingDetails($id)
     {
         $this->db->order_by("checkin", "asc");
@@ -413,6 +428,19 @@ class AdminModel extends CI_Model
         }
         
     }
+    function getSpcfcOnlineBookingDetails($id)
+    {
+        $this->db->where('booking_id', $id);
+        $this->db->join('customers','booking.customer_id=customers.customer_no');        
+        $this->db->from('booking');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
     function getSpcfcBookingItms($id)
     {
         $this->db->where('mb_id', $id);
@@ -424,6 +452,17 @@ class AdminModel extends CI_Model
             return NULL;
         }
         
+    }
+    function getSpcfcOnlineBookingItms($id)
+    {
+        $this->db->where('booking_id', $id);
+        $this->db->from('itemdetails');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
     }
     function addDestination($data)
     {

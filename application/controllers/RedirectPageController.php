@@ -80,14 +80,40 @@ class RedirectPageController extends CI_Controller {
 		    $dDiff = $dStart->diff($dEnd);
 		    $promotions= (object)array('promo_amount' => $pamount );
 		    $data= array('customer'=> $customer , 'booking'=>$booking ,'booked_rooms'=>$booked_rooms,'days'=>$dDiff->days,'listing'=>$listing,'promotions'=>$promotions);
-		    // print_r($data);
 		    $this->load->view('admin/bootstrapinvoice.php', $data);	
 	    }
 		else{
 			$_SESSION['error']= 'Time is up, please log in again for your own security.';
 			redirect();
-		}
-    	
+		}   	
+    }
+	public function invoiceContentOnline($booking, $items,$listingdetails)
+    {
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin' ) {
+			$pamount = $booking->promo_amount/100;
+			// echo $booking->promo_amount/100;
+		    $listing = (object)array('listing_name' => $listingdetails->listing_name,'listing_type' => 'hotel','commision'=> $booking->service_fee);
+		    $check_incustom = $booking->check_in;
+		    $check_outcustom = $booking->check_out;
+		    // $customer = (object)array('customer_name' => $booking->cname, 'email' => $booking->cemail  , 'country' => 'Sri Lanka','nic_number' => $booking->cnic ,'phone' => $booking->cmobile);
+		    
+		    // $booking= (object)array('mb_id'=> $booking->mb_id, 'check_in' => $check_incustom ,'check_out' => $check_outcustom ,'paid_amount' =>  $paid ,'total_rate' => $booking->total);
+		    // $booked_rooms = array();
+		    // for ($i=0; $i < sizeof($items) ; $i++) {
+		    // 	$booked_rooms[] = (object)array( 'item_name' => $items[$i]->room_name ,'rate' => $items[$i]->rate, 'quantity' => $items[$i]->quantity ,'item_type' => $items[$i]->item_type);
+		    // }
+		    $dStart = new DateTime($check_incustom);
+		    $dEnd  = new DateTime($check_outcustom);
+		    $dDiff = $dStart->diff($dEnd);
+		    $promotions= (object)array('promo_amount' => $pamount );
+		    $data= array('booking'=>$booking ,'booked_rooms'=>$items,'days'=>$dDiff->days,'listing'=>$listing,'promotions'=>$promotions);
+		    $this->load->view('admin/bootstrapinvoiceOnline.php', $data);	
+	    }
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}   	
     }
 	public function saveContent()
     {
@@ -193,9 +219,10 @@ class RedirectPageController extends CI_Controller {
 		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
 			$this->load->model('AdminModel');
 			$manualbkngs =  $this->AdminModel->getBookingDetails();
-			$manualbkngs_old =  $this->AdminModel->getBookingDetails_all();
+			// $manualbkngs_old =  $this->AdminModel->getBookingDetails_all();
+			$onlinebkngs =  $this->AdminModel->getOnlineBookingDetails();
 			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
-			$data =array('manualbkngs'=> $manualbkngs,'manualbkngs_old'=>$manualbkngs_old,'admindata'=> $adminData);
+			$data =array('manualbkngs'=> $manualbkngs,'admindata'=> $adminData,'onlinebkngs'=>$onlinebkngs); // ,'manualbkngs_old'=>$manualbkngs_old
 			$this->load->view('admin/bookingDetails', $data);
 		}
 		else{
@@ -257,6 +284,39 @@ class RedirectPageController extends CI_Controller {
 	    		$data =array('booking'=> $manualbkngs,'items'=>$manualbkngItem,'listingdetails'=>$listingdetails,'admindata'=> $adminData);
 	    		// print_r($data);
 				$this->load->view('admin/bookingContent',$data);
+	    	}	
+	    	else $this->bookingDetails();
+ 		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}    
+	}
+	public function generateOnlineContent(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+	    	if (isset($_POST['bkngID']) || isset($_SESSION['bkngID'])) {
+	    		$bkngID = 1;
+	    		if (isset($_POST['bkngID'])) {
+	    			$_SESSION['bkngID'] = $_POST['bkngID'];
+	    			$bkngID = $_POST['bkngID'];
+	    		}
+	    		elseif (isset($_SESSION['bkngID'])) {
+	    			$bkngID = $_SESSION['bkngID'];
+	    		}
+	    		$this->load->model('AdminModel');
+	    		$onlinebkngs =  $this->AdminModel->getSpcfcOnlineBookingDetails($bkngID)[0];
+	    		if (!isset($onlinebkngs->customer_name)) {
+					$_SESSION['bookingDtls']= 'Invalid Online Booking ID.';
+	    			$this->bookingDetails();
+	    		}
+	    		$onlinebkngItem =  $this->AdminModel->getSpcfcOnlineBookingItms($bkngID);
+	    		$listingdetails =  $this->AdminModel->getSpecificListingDetails($onlinebkngs->listing_id)[0];
+	    		// $hoteldetails =  $this->AdminModel->getSpcfcBookingItms($onlinebkngs->listing_id);	    		
+				$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+	    		$data =array('booking'=> $onlinebkngs,'items'=>$onlinebkngItem,'listingdetails'=>$listingdetails,'admindata'=> $adminData);
+	    		// print_r($data);
+				$this->load->view('admin/bookingContentOnline',$data);
 	    	}	
 	    	else $this->bookingDetails();
  		}
@@ -374,8 +434,38 @@ class RedirectPageController extends CI_Controller {
 					$manualbkngs->cnic = $_POST['updatednic'];
 				}
 				$this->invoiceContent($manualbkngs,$manualbkngItem,$_POST['paid'] , $listingdetails);
+	    	}
+	   //  	elseif (isset($_POST['newOnlineBooking']) && isset($_SESSION['bkngID'])) {
+	   //  		$bkngID =  $_SESSION['bkngID'];
+	   //  		$this->load->model('AdminModel');
+	   //  		$manualbkngs =  $this->AdminModel->getOnlineBookingDetails($bkngID)[0];
+	   //  		$manualbkngItem =  $this->AdminModel->getSpcfcOnlineBookingItms($bkngID);
+	   //  		$agentContact =  $this->AdminModel->getAgentContact($manualbkngs->admin_id)[0];
+	   //  		$listingdetails =  $this->AdminModel->getSpecificListingDetails($manualbkngs->listing_id)[0];
+	   //  		$hoteldetails =  json_decode($this->AdminModel->getSpecificHotelDetails($manualbkngs->listing_id)[0]->cancelation_policy);
+				// if (isset($_POST['updatedemail']) && isset($_POST['updatednic'])) {
+				// 	$manualbkngs->cemail = $_POST['updatedemail'];
+				// 	$manualbkngs->cnic = $_POST['updatednic'];
+				// }
+				// if (isset($_POST['extranote'])) {
+				// 	$manualbkngs->note = $_POST['extranote'];
+				// }
+	   //  		$Content = $this-> newBookingEmails($manualbkngs,$manualbkngItem,$_POST['paid'],$agentContact,$listingdetails,$hoteldetails);
+	   //  		$data = array('Content'=>$Content);
+				// $this->load->view('admin/emailContent',$data);
+	   //  	}
+	    	elseif (isset($_POST['invoiceGenOnline']) && isset($_SESSION['bkngID'])) {
+	    		$bkngID =  $_SESSION['bkngID'];
+	    		$this->load->model('AdminModel');
+	    		$onlinebkngs =  $this->AdminModel->getSpcfcOnlineBookingDetails($bkngID)[0];
+	    		$onlinebkngItem =  $this->AdminModel->getSpcfcOnlineBookingItms($bkngID);
+	    		$listingdetails =  $this->AdminModel->getSpecificListingDetails($onlinebkngs->listing_id)[0];
+				$this->invoiceContentOnline($onlinebkngs,$onlinebkngItem, $listingdetails);
 	    	}	
-	    	else $this->bookingDetails();
+	    	else{ 
+				$_SESSION['bookingDtls']= 'Server could not understand your request. Please retry.';
+	    		$this->bookingDetails();
+	    	}
  		}
 		else{
 			$_SESSION['error']= 'Time is up, please log in again for your own security.';
