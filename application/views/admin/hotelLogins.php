@@ -124,22 +124,36 @@
                                    cellspacing="0" width="100%">
                                 <thead class="no-border">
                                 <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
-                                  <th data-priority="4">Login ID</th>
-                                  <th data-priority="3">Listing ID</th>
+                                  <th data-priority="6">Login ID</th>
+                                  <th data-priority="1">Listing ID</th>
                                   <th data-priority="2">Hotel Name</th>
-                                  <th data-priority="1">Username</th>
-                                  <th data-priority="1" data-orderable="false">Password</th>
-                                  <th data-priority="3">Copy URl Login</th>
+                                  <th data-priority="3">Email</th>
+                                  <th data-priority="4">Main Contact</th>
+                                  <th data-priority="10">Mobile</th>
+                                  <th data-priority="9">Sort Order</th>
+                                  <th data-priority="7">Username</th>
+                                  <th data-priority="8" data-orderable="false">Password</th>
+                                  <th data-priority="5">Status</th>
+                                  <th data-priority="6">Copy URl Login</th>
                                 </tr>
                                 </thead>
                                 <tbody id="orderTable" style="text-align: center;">
                                   <?php foreach ($logins as $value) {?>
-                                  <tr >
+                                  <tr 
+                                  <?php if ($value->verification != 'verified') {
+                                    echo "style='background-color:#FFA397'";
+                                  } ?>
+                                  >
                                     <th><?php echo $value->login_id; ?></th>
                                     <th><?php echo $value->listing_id; ?></th>
                                     <th><?php echo $value->listing_name; ?></th>
+                                    <th><?php echo $value->email; ?></th>
+                                    <th><?php echo $value->main_contact; ?></th>
+                                    <th><?php echo $value->mobile; ?></th>
+                                    <th><?php echo $value->sort_order; ?></th>
                                     <th><?php echo $value->username; ?></th>
                                     <th><?php echo $value->password; ?></th>
+                                    <th><?php echo $value->verification; ?></th>
                                     <th><button onclick="return copyFunc('<?php echo $value->login_id; ?>','<?php echo $value->username; ?>','<?php echo $value->password; ?>')">Copy</button></th>
                                   </tr>
                                 <?php } ?>
@@ -228,7 +242,8 @@
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
     <script>
       var table_checkin = $('#logintable').DataTable({
-          responsive: true
+          responsive: true,
+          pageLength: 25
       });
     </script>
 </body>

@@ -35,13 +35,13 @@
         </li>
         <li>
           <a href="<?php echo base_url();?>index.php/HotelDetailController/logins" >
-            <i class="fa fa-calendar"></i> <span>Hotel Logins</span>
+            <i class="fa fa-calendar"></i> <span>Hotel Details/ Logins</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li>
         <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/hotelList" >
-            <i class="fa fa-calendar"></i> <span>Hotel/ Destination List</span>
+            <i class="fa fa-calendar"></i> <span>Destination List</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li>

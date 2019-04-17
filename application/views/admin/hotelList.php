@@ -165,49 +165,6 @@
           </div>
           <div class="box box-info">
               <div class="box-header with-border" style='background-color: #000044;'>
-                  <h3 class="box-title"style='color:white;font-size: 1.5em;' >Full Hotel List</h3>
-                  <div class="box-tools pull-right">
-                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-              </div>
-              <div class="box-body">
-                  <div class="table-responsive">
-                      <form id="notifications" method="post" >
-                          <input type="hidden" id="bookingidset" name="bookingidset"/>
-                          <input type="hidden" id="itemidset" name="itemidset"/>
-                          <table id="hoteltable" class="table table-striped nowrap table-responsive"
-                                   cellspacing="0" width="100%">
-                                <thead class="no-border">
-                                <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
-                                  <th data-priority="1">Listing ID</th>
-                                  <th data-priority="1">Name</th>
-                                  <th data-priority="1" data-orderable="false">email</th>
-                                  <th data-priority="2" data-orderable="false">Main Contact</th>
-                                  <th data-priority="4" data-orderable="false">Mobile</th>
-                                  <th data-priority="3">Status</th>
-                                </tr>
-                                </thead>
-                                <tbody id="orderTable" style="text-align: center;">
-                                  <?php foreach ($listing as $value) { ?>
-                                  <tr >
-                                    <th><?php echo $value->listing_id; ?></th>
-                                    <th><?php echo $value->listing_name; ?></th>
-                                    <th><?php echo $value->email; ?></th>
-                                    <th><?php echo $value->main_contact; ?></th>
-                                    <th><?php echo $value->mobile; ?></th>
-                                    <th><?php echo $value->verification; ?></th>
-                                  </tr>
-                                <?php } ?>
-                                </tbody>
-                            </table>
-                      </form>
-                  </div>
-              </div>
-          </div>
-          <div class="box box-info">
-              <div class="box-header with-border" style='background-color: #000044;'>
                   <h3 class="box-title"style='color:white;font-size: 1.5em;' >Destination List</h3>
                   <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

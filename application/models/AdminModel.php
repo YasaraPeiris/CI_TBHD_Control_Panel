@@ -303,7 +303,7 @@ class AdminModel extends CI_Model
         $this->db->where('usertype', 'hotel_owner');
         $this->db->join('loginhotel','login.login_id=loginhotel.login_id');        
         $this->db->join('listings','loginhotel.listing_id=listings.listing_id');        
-        $this->db->where('listings.verification', 'verified');
+        // $this->db->where('listings.verification', 'verified');
         $this->db->from('login');
         $query1 = $this->db->get();
         if ($query1->num_rows() > 0) {
