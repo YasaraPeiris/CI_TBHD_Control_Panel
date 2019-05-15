@@ -17,7 +17,22 @@ class RedirectPageController extends CI_Controller {
 			redirect();
 		}
 	}
-
+	public function saveFaci(){
+		$this->load->library('session');
+		$_SESSION['pstData'] = $_POST;
+		$this->load->model('AdminModel');
+		$faciArray = array();
+		$this->AdminModel->updateFaci($_POST['listing_id'],$_POST);
+		// // if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+		// // $listing_no = $_SESSION['hotelno'];
+		// // 	$data= array('data1'=> $listing[0] );
+		// // 	$this->load->view('hotel/myAccount',$data);
+		// // }
+		// // else{
+		// // 	$_SESSION['error']= 'Time is up, please log in again for your own security.';
+		// // 	redirect();
+		// // }
+	}
 	public function invoice()
     {
 		$this->load->library('session');
@@ -253,6 +268,23 @@ class RedirectPageController extends CI_Controller {
 			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
 			$data =array('priceCatgories'=> $priceCatgories, 'prices'=> $prices,'admindata'=> $adminData);
 			$this->load->view('admin/priceSets',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+	}
+	public function tickFaci(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			$this->load->model('AdminModel');
+			$faciData =  $this->AdminModel->getFacilities();
+			// $priceCatgories =  $this->AdminModel->getPriceCategories();
+			// $prices =  $this->AdminModel->getPrices();
+			// $adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$data =array('faciData'=> $faciData);
+			// print_r($data);
+			$this->load->view('admin/newFacilities',$data);
 		}
 		else{
 			$_SESSION['error']= 'Time is up, please log in again for your own security.';

@@ -124,7 +124,7 @@
                                    cellspacing="0" width="100%">
                                 <thead class="no-border">
                                 <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
-                                  <th data-priority="6">Login ID</th>
+                                  <!-- <th data-priority="6">Login ID</th> -->
                                   <th data-priority="1">Listing ID</th>
                                   <th data-priority="2">Hotel Name</th>
                                   <th data-priority="3">Email</th>
@@ -144,7 +144,7 @@
                                     echo "style='background-color:#FFA397'";
                                   } ?>
                                   >
-                                    <th><?php echo $value->login_id; ?></th>
+                                    <!-- <th><?php //echo $value->login_id; ?></th> -->
                                     <th><?php echo $value->listing_id; ?></th>
                                     <th><?php echo $value->listing_name; ?></th>
                                     <th><?php echo $value->email; ?></th>

@@ -197,6 +197,20 @@ class AdminModel extends CI_Model
         }
         
     }
+    function getFacilities()
+    {
+        $this->db->from('facilities');
+        $this->db->join('listings','facilities.listing_id=listings.listing_id');        
+        // $this->db->limit(10);
+        $this->db->select('listings.verification, listings.listing_name, facilities.*');  
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+        
+    }
     function getPrices()
     {
         $this->db->from('roomprices');
@@ -535,5 +549,10 @@ class AdminModel extends CI_Model
     {
         $this->db->where('destination_id', $id);
         $this->db->update("destination", $data);
+    }
+    function updateFaci($id,$data)
+    {
+        $this->db->where('listing_id', $id);
+        $this->db->update("facilities", $data);
     }
 }

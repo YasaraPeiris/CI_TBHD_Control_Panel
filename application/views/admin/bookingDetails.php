@@ -214,7 +214,7 @@
                                    cellspacing="0" width="100%">
                                 <thead class="no-border">
                                 <tr style="text-align:center;color:#404040;font-size: 13px;font-weight: 200;">
-                                  <th data-priority="1">Onnline Booking ID</th>
+                                  <th data-priority="1">Online Booking ID</th>
                                   <th data-priority="2">Hotel Name</th>
                                   <th data-priority="3">Customer Name</th>
                                   <th data-priority="6" data-orderable="false">Mobile</th>
