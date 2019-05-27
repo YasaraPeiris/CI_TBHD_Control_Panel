@@ -64,6 +64,12 @@
             </a>
         </li>
         <li>
+          <a href="<?php echo base_url();?>index.php/RedirectPageController/generateProposalEmail" >
+            <i class="fa fa-calendar"></i> <span>Proposal Email</span>
+            <small class="label pull-right bg-red" id="ordersSideBar"></small>
+            </a>
+        </li>
+        <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/priceSets" >
             <i class="fa fa-calendar"></i> <span>Extra Price Sets</span>
             <small class="label pull-right bg-red" id="ordersSideBar"></small>

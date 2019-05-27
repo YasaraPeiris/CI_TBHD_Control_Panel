@@ -504,6 +504,19 @@ class RedirectPageController extends CI_Controller {
 			redirect();
 		}    
 	}
+	public function generateProposalEmail(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+    		$this->load->model('AdminModel');
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+    		$data = array('admindata'=> $adminData);
+			$this->load->view('admin/proposalEmail',$data);
+ 		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}    
+	}
 	public function destinationMapAdd(){
 		$this->load->library('session');
 		if (isset($_POST['listing_id']) && isset($_POST['destination_id'])) {
