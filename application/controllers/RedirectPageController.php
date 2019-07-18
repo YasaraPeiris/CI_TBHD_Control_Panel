@@ -629,9 +629,9 @@ class RedirectPageController extends CI_Controller {
 		THE BEST HOTEL DEAL<br>
 		109214006797<br></li>
 
-		<li>BOC Bank - Wijerama Branch<br>
+		<li>Commercial Bank - Delkanda Branch<br>
 		THE BEST HOTEL DEAL <br>
-		82456678</li></ul>
+		8004690937</li></ul>
 
 		Or, if you prefer to pay online, you can use our <a href='https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$listingdetails->destination_id."&listing_id=".$listingdetails->listing_id."&listing_type=hotel' target='_blank'>online portal here</a>.<br>
 		( <a href='https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$listingdetails->destination_id."&listing_id=".$listingdetails->listing_id."&listing_type=hotel' target='_blank'>https://inna.lk/index.php/HotelApartmentController/index?guestcount=2&destination=".$listingdetails->destination_id."&listing_id=".$listingdetails->listing_id."&listing_type=hotel</a> )<br><br>";
