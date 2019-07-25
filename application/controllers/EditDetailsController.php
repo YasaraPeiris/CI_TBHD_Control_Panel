@@ -41,6 +41,21 @@ class EditDetailsController extends CI_Controller {
 			$listing_no = $_SESSION['hotelno'];
 			$this->load->model('RoomModel');
 			$rooms =  $this->RoomModel->getRoomDetails($listing_no);
+			for ($roomC=0; $roomC < sizeof($rooms); $roomC++) { 
+				$roomCatg =  $this->RoomModel->get_roomcat($listing_no,$roomC+1);
+				for ($i=0; $i < sizeof($roomCatg); $i++) { 
+	            	$baseprice = $this->RoomModel->get_baseroomprice($roomCatg[$i]->pricecategory_id)[0];
+	            	$roomCatg[$i]->baseprice =$baseprice->price;
+					// echo "<br>--";
+					// print_r($baseprice);
+					// echo "<br>--";
+				}
+				$rooms[$roomC]->roomCatg = $roomCatg;
+				// print_r($rooms[$roomC]);
+				// echo "<br><br>";
+			}
+			// $roomPrices =  $this->RoomModel->get_allroomcat($listing_no);
+			// print_r($roomPrices);
 			$data= array('data1'=> $rooms );
 			$this->load->view('hotel/updateRoomPrices',$data);
 		}
@@ -435,8 +450,8 @@ class EditDetailsController extends CI_Controller {
 	                }
 					for ($catlen=0; $catlen < sizeof($roomPriceCat); $catlen++) { 
 		            	$baseprice = $this->RoomModel->get_baseroomprice($roomPriceCat[$catlen]->pricecategory_id)[0];
-		            	$this->RoomModel->update_baseroomprice($baseprice->id, $roomprice_arr[$catlen]);
-		            	$this->RoomModel->update_pricecat_occ($roomPriceCat[$catlen]->pricecategory_id, $field5_array[$catlen]);
+		            	$this->RoomModel->update_baseroomprice($baseprice->id, $roomprice_arr[$catlen]); // update the base price (expiry unlimited)
+		            	$this->RoomModel->update_pricecat_occ($roomPriceCat[$catlen]->pricecategory_id, $field5_array[$catlen]); // update the occupancy for the room
 					}
 	                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array,"priceOccArry"=>$field5_array);		
 

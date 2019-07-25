@@ -225,48 +225,54 @@
                                                     <th>Base Price</th>
                                                     <th>Occupancy</th>
                                                     <th>Facilities</th>
-                                                    <th>Note</th>
+                                                    <!-- <th>Note</th> -->
                                                     <!--                                                         <th>Add Facilities</th>-->
                                                     <!--                                                    <th>Remove Facilities</th>-->
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php
-                                                $r = json_decode($data1[0]->price_details);
-                                                // print_r($r);
-                                                for($i=0;$i<sizeof($r->priceArry);$i++){  // for number of rooms
+                                                $r = $data1[0]->roomCatg;
+                                                $r2 = json_decode($data1[0]->price_details);
+                                                // print_r(json_decode($data1[0]->price_details));
+                                                // echo "<br><br>";
+                                                // print_r($data1[0]->roomCatg);
+                                                
+                                                for($i=0;$i<sizeof($r);$i++){  // for number of rooms
 
                                                     ?>
 
                                                     <tr>
-                                                        <td><?php echo $r->priceNameArry[$i]; ?>
-                                                        <input type="hidden" value="<?php echo $r->priceNameArry[$i]; ?>" name="pricename0[]"></td>
-                                                        <td><input   value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$i])),2); ?>" name="roomprice0[]"></td>
+                                                        <td><?php echo $r[$i]->price_name; ?>
+                                                        <input type="hidden" value="<?php echo $r[$i]->price_name; ?>" name="pricename0[]"></td>
+                                                        <td><input   value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r[$i]->baseprice)),2); ?>" name="roomprice0[]"></td>
 
                                                         <td>
-                                                            <input type="number" min="1" max="40" value="<?php echo (isset($r->priceOccArry[$i]))? $r->priceOccArry[$i]:$data1[0]->no_of_people; ?>" name="roomocc0[]" required>
+                                                            <input type="number" min="1" max="40" value="<?php echo (isset($r[$i]->price_occ))? $r[$i]->price_occ:$data1[0]->no_of_people; ?>" name="roomocc0[]" required>
                                                         </td>
                                                         <td>
                                                         <?php
-                                                        if (isset($r->priceFaci[$i])) {                                                          
-                                                            $nm= sizeof($r->priceFaci[$i]);
+                                                        if (isset($r[$i]->price_faci)) { 
+                                                            $nm= json_decode($r[$i]->price_faci);
+                                                            // print_r($r[$i]->price_faci);
 
-                                                            for($j=0; $j<$nm; $j++){
-                                                                echo $r->priceFaci[$i][$j]." , " ; }
+                                                            for($j=0; $j<sizeof($nm); $j++){
+                                                                echo $nm[$j]." , " ; 
+                                                            }
                                                         }
 
 
                                                             ?>
                                                         </td>
-                                                        <td><?php echo $r->priceOtherArry[$i]; ?></td>
+                                                        <!-- <td><?php //echo $r[$i]->priceOtherArry; ?></td> -->
 
                                                     </tr>
                                                 <?php } 
                                                 ?>
 
-                                                        <input type="hidden" value='<?php echo json_encode( $r->priceOtherArry); ?>' name="priceOtherArry0">
-                                                        <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci0">
-                                                        <input type="hidden" value='<?php echo (isset($r->priceOccArry))?json_encode( $r->priceOccArry):""; ?>' name="priceOccArry0">
+                                                        <input type="hidden" value='<?php echo json_encode( $r2->priceOtherArry); ?>' name="priceOtherArry0">
+                                                        <input type="hidden" value='<?php echo json_encode( $r2->priceFaci); ?>' name="pricefaci0">
+                                                        <input type="hidden" value='<?php echo (isset($r2->priceOccArry))?json_encode( $r2->priceOccArry):""; ?>' name="priceOccArry0">
 
 
                                                 </tbody>
@@ -568,46 +574,44 @@
                                                         <th>Base Price</th>
                                                         <th>Occupancy</th>
                                                         <th>Facilities</th>
-                                                        <th>Note</th>
+                                                        <!-- <th>Note</th> -->
                                                         <!--                                                         <th>Add Facilities</th>-->
                                                         <!--                                                    <th>Remove Facilities</th>-->
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     <?php
-                                                    $r = json_decode($data1[$i]->price_details);
+                                                    $r = $data1[$i]->roomCatg;
+                                                    $r2 = json_decode($data1[$i]->price_details);
                                                     // print_r($r);
-                                                    for($k=0;$k<sizeof($r->priceArry);$k++){
+                                                    for($k=0;$k<sizeof($r);$k++){
 
                                                         ?>
 
                                                         <tr>
-                                                            <td><?php echo $r->priceNameArry[$k]; ?>
-                                                            <input type="hidden" value="<?php echo $r->priceNameArry[$k]; ?>" name="pricename<?php echo $i; ?>[]"></td>
-                                                            <td><input name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$k])),2); ?>"></td>
+                                                            <td><?php echo $r[$k]->price_name; ?>
+                                                            <input type="hidden" value="<?php echo $r[$k]->price_name; ?>" name="pricename<?php echo $i; ?>[]"></td>
+                                                            <td><input name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r[$k]->baseprice)),2); ?>"></td>
 
                                                             <td>
-                                                                <input type="number" min="1" max="40" value="<?php echo (isset($r->priceOccArry[$k]))? $r->priceOccArry[$k]:$data1[$i]->no_of_people; ?>" name="roomocc<?php echo $i; ?>[]" required>
+                                                                <input type="number" min="1" max="40" value="<?php echo (isset($r[$k]->price_occ))? $r[$k]->price_occ:$data1[$i]->no_of_people; ?>" name="roomocc<?php echo $i; ?>[]" required>
                                                             </td>
                                                             <td>
                                                             <?php
-                                                            $nm= sizeof($r->priceFaci[$k]);
-                                                            if($nm>0){
+                                                            $nm= json_decode($r[$k]->price_faci);
+                                                            if(sizeof($nm)>0){
 
-                                                                for($j=0; $j<$nm; $j++){
-                                                                    echo $r->priceFaci[$k][$j]." , " ; }}
+                                                                for($j=0; $j<sizeof($nm); $j++){
+                                                                    echo $nm[$j]." , " ; }}
                                                                 ?>
                                                             </td>
-                                                            <td><?php echo $r->priceOtherArry[$k]; ?></td>
+                                                            <!-- <td><?php //echo $r2->priceOtherArry[$k]; ?></td> -->
                                                         </tr>
                                                     <?php } 
-                                                    // echo json_encode($r->priceFaci);
-                                                    // echo "--------";
-                                                    // print_r( json_encode($r->priceFaci));
                                                     ?>
-                                                    <input type="hidden" value='<?php echo json_encode( $r->priceFaci); ?>' name="pricefaci<?php echo $i; ?>">
-                                                    <input type="hidden" value='<?php echo json_encode( $r->priceOtherArry); ?>' name="priceOtherArry<?php echo $i; ?>">
-                                                    <input type="hidden" value='<?php echo (isset($r->priceOccArry))?json_encode( $r->priceOccArry):""; ?>' name="priceOccArry<?php echo $i; ?>">
+                                                    <input type="hidden" value='<?php echo json_encode( $r2->priceFaci); ?>' name="pricefaci<?php echo $i; ?>">
+                                                    <input type="hidden" value='<?php echo json_encode( $r2->priceOtherArry); ?>' name="priceOtherArry<?php echo $i; ?>">
+                                                    <input type="hidden" value='<?php echo (isset($r2->priceOccArry))?json_encode( $r2->priceOccArry):""; ?>' name="priceOccArry<?php echo $i; ?>">
 
                                                     </tbody>
                                                 </table>

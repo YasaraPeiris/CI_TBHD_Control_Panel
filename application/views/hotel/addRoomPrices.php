@@ -197,7 +197,7 @@
                                                 <p style="color:dimgrey;font-size: 14px;"><b>Priority</b></p>
                                             </div>
                                             <div class="col-md-3">
-                                                <input type="number" min="1" max="10" name="priority" style="color:dimgrey;font-size: 14px;margin: 0px 10px; padding: 6px;width:100%;" required>
+                                                <input type="number" min="1" max="9" name="priority" style="color:dimgrey;font-size: 14px;margin: 0px 10px; padding: 6px;width:100%;" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12" style=";color:dimgrey;margin-top:2%;">
@@ -291,7 +291,7 @@
                                                     <p style="color:dimgrey;font-size: 14px;"><b>Priority</b></p>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" min="1" max="10" name="priority" style="color:dimgrey;font-size: 14px;margin: 0px 10px; padding: 6px;width:100%;" required>
+                                                    <input type="number" min="1" max="9" name="priority" style="color:dimgrey;font-size: 14px;margin: 0px 10px; padding: 6px;width:100%;" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-12" style=";color:dimgrey;margin-top:2%;">
