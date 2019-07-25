@@ -87,6 +87,12 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="background-color:ghostwhite;">
       <!-- Content Header (Page header) -->
+      <?php
+      if (!empty($_SESSION['alerAddRoom'])) {
+          echo "<div class='alert alert-warning' style='margin-bottom: 0;'><strong>Alert! </strong>" . $_SESSION['alerAddRoom'] . "</div>";
+          unset($_SESSION['alerAddRoom']);
+      }
+      ?>
       <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:2%;">
         <h1 style="font-weight:bold;font-size: 2em;">
           Add New Room
@@ -422,9 +428,10 @@
                   <!-- <input type="submit" value="Add Another Room Type" name="another_room" > -->
                   <!-- <button onclick="goBack()" class="back_button">Back</button> -->
                   <input type="submit" value="Add This Room" name="finishButton">
-              </form>
-        </div>
+                </form>
+              </div>
 
+              <div style="text-align: right;"><form action="<?php echo site_url(); ?>/EditDetailsController/lastRoomRmv"><input type="submit" value="Delete Last Room" name="deleteButton" style="background-color: #F83650;"></form></div>
                     </div>
                   </div>
 

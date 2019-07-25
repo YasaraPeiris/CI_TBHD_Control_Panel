@@ -47,7 +47,7 @@
           </li>
           <li>
             <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/roomDetails'); ?>'>
-              <i class="fa fa-edit"></i><span>Update Room Details</span>
+              <i class="fa fa-edit"></i><span>Update Room Prices/ Details</span>
             </a>
           </li>
           <li>
@@ -62,7 +62,7 @@
           </li>
           <li>
             <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/newpriceset'); ?>'>
-              <i class="fa fa-edit"></i><span>Add New Price Set</span>
+              <i class="fa fa-edit"></i><span>Add New Specific Price Set</span>
             </a>
           </li>
           <li>

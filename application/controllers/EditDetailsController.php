@@ -85,6 +85,55 @@ class EditDetailsController extends CI_Controller {
 		}
 
 	}
+	public function lastRoomRmv(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_no = $_SESSION['hotelno'];
+			$this->load->model('RoomModel');
+			$rooms =  $this->RoomModel->getRoomDetails($listing_no);
+			$roomNum = sizeof($rooms);
+			$roomCatg =  $this->RoomModel->get_roomcat($listing_no,$roomNum);
+			$roomPic =  $this->RoomModel->getMainRoomPic($listing_no,$roomNum)[0];
+			// print_r($roomPic);
+			$data = array('rooms'=> $rooms[$roomNum-1],'roomCatg'=> $roomCatg,'roomPic'=> $roomPic);
+
+			$this->load->view('hotel/lastRoom',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+	}
+	public function lastRoomDelete(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			if (isset($_POST["confirmPage"]) && isset($_POST["finishButton"]) ) {
+				$listing_no = $_SESSION['hotelno'];
+				$this->load->model('RoomModel');
+				$rooms =  $this->RoomModel->getRoomDetails($listing_no);
+				$roomNum = sizeof($rooms);
+				$roomCatg =  $this->RoomModel->get_roomcat($listing_no,$roomNum);
+				for ($rcat=0; $rcat < sizeof($roomCatg); $rcat++) { 
+					// print_r($roomCatg[$rcat]);
+					// echo "<br><br>";
+					$this->RoomModel->deletePrices($roomCatg[$rcat]->pricecategory_id);
+				}
+				$this->RoomModel->deletePriceCategory($listing_no,$roomNum);
+				$this->RoomModel->deleteAllRoomPics($listing_no,$roomNum);
+				$this->RoomModel->deleteRoom($listing_no,$roomNum);
+				$_SESSION['alerAddRoom'] = "You have sucessfully deleted the last room of this property.";
+			}
+			else $_SESSION['alerAddRoom'] = "There was a issue deleting the last room. Please retry.";
+			// $_POST["confirmPage"] = "second";
+			$posts = $this->input->post();
+			unset($posts['confirmPage']);
+			redirect('EditDetailsController/newroom', 'refresh');
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+	}
 	public function newRoomAdd(){
 		$this->load->library('session');
 		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {

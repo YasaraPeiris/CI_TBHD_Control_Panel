@@ -14,18 +14,31 @@ class RoomModel extends CI_Model
 		}
 	}
 
-	function getRoomPics($listing_id,$roomtype_id){
-		$this->db->where('listing_id', $listing_id);
-		$this->db->where('room_type_id', $roomtype_id);
-		$this->db-> from('roompics');
-		$query1 = $this->db->get();
-		if ($query1-> num_rows() > 0){
-			return $query1->result();    // return a array of object
-		}	
-		else{
-			return NULL;	
-		}
-	}
+    function getRoomPics($listing_id,$roomtype_id){
+        $this->db->where('listing_id', $listing_id);
+        $this->db->where('room_type_id', $roomtype_id);
+        $this->db-> from('roompics');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }
+    function getMainRoomPic($listing_id,$roomtype_id){
+        $this->db->where('listing_id', $listing_id);
+        $this->db->where('room_type_id', $roomtype_id);
+        $this->db->where('is_main', 1);
+        $this->db-> from('roompics');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }
     function get_roomcat($listing_id, $room_type_id)
     {
         $this->db->where('listing_id', $listing_id);
@@ -120,5 +133,17 @@ class RoomModel extends CI_Model
 
     function deleteRoomPics($roomPic_id){
         $this->db->delete('roompics', array('roompic_id' => $roomPic_id));
+    }
+    function deletePrices($pricecategory_id){
+        $this->db->delete('roomprices', array('pricecategory_id' => $pricecategory_id));
+    }
+    function deletePriceCategory($listing_no,$roomNum){
+        $this->db->delete('roompricecategory', array('listing_id' => $listing_no,'room_type_id' => $roomNum));
+    }
+    function deleteAllRoomPics($listing_no,$roomNum){
+        $this->db->delete('roompics', array('listing_id' => $listing_no,'room_type_id' => $roomNum));
+    }
+    function deleteRoom($listing_no,$roomNum){
+        $this->db->delete('roomtypes', array('listing_id' => $listing_no,'room_type_id' => $roomNum));
     }
 }

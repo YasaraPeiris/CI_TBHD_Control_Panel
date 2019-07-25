@@ -37,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 date_default_timezone_set('Asia/Colombo');
 $config['index_page'] = 'index.php';
-$config['base_url'] = 'http://localhost/CI_TBHD_Control_Panel';
+$config['base_url'] = 'http://localhost:8080/CI_TBHD_Control_Panel';
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-\=';
 $config['encryption_key'] = 'thu23456789#[n,';
 /*
