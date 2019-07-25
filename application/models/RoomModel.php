@@ -39,6 +39,19 @@ class RoomModel extends CI_Model
             return NULL;    
         }
     }
+    function get_roomcatbyId($pricecategory_id)
+    {
+        $this->db->where('pricecategory_id', $pricecategory_id);
+        $this->db->from('roompricecategory');
+        $this->db->order_by('room_type_id','asc');
+        $query1 = $this->db->get();
+        if ($query1-> num_rows() > 0){
+            return $query1->result();    // return a array of object
+        }   
+        else{
+            return NULL;    
+        }
+    }
     function get_roomcat($listing_id, $room_type_id)
     {
         $this->db->where('listing_id', $listing_id);

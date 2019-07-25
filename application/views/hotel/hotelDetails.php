@@ -80,7 +80,7 @@
     <?php include 'hotelSidebar.php';?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="background-color:rgb(235, 235, 235);">
+    <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header" style="padding-right:5%;padding-left:5%;padding-top:2%;">
           <h1 style="font-weight:bold;font-size: 2em;">
@@ -95,6 +95,57 @@
 
 
       <!-- Main content -->
+
+      <section class="content" style="padding: 20px 5% 5px 5%;">
+          <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
+
+              <div class="box-header with-border" style="text-align: center;">
+                  <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">Hotel Rules</h3>
+              </div> <div class="small-box" id="hotelDes" style="box-shadow:none;">
+            <div style="background: white;" >
+                  <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
+                    <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 5px;padding-bottom: 2px;">
+                        <!-- <label for="basic">Basic Rules</label> -->
+                        <p class="para1"> Advance percentage required, <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data2->advance ?> </span> %<!-- <input type="number" value="0" min="0" max="100" name="bookforvalue"  style="margin-top: 0; min-width: 65px;" required> % --></p>
+                        <!-- <br> -->
+                        <p class="para1 with_indent"> Check-in Time <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data2->check_in ?> </span> <!-- <input type="Time" value="13:00" name="hotel_check_in"  style="margin-top: 0; min-width: 85px;" required> --></p>
+                         <p class="para1 with_indent"> Check-out Time <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data2->check_out ?> </span><!-- <input type="Time" value="11:00" name="hotel_check_out"  style="margin-top: 0; min-width: 85px; " required> --></p>
+                         <label for="stay_within">Stay should be within, </label>
+                         <br>
+                         <p class="with_indent">
+                         <!-- <input type="Number" id="min_stay" value="1" name="min_stay" min="1" max="60" required> --><span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data3->min_stay ?> </span> (min) days to 
+                         <!-- <input type="Number" placeholder="-" id="max_stay" name="max_stay" min="1" > --><span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php if ($data3->max_stay != null) {
+                           echo $data3->max_stay;
+                         } else{echo "<span style='font-size: .8em;'>not specified</span>";} ?> </span> (max) days .</p> 
+                        
+                      <!-- max should be greater than min -->
+                         <label for="stay_within">Guests should book atleast, <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data3->confirm_before ?> </span></label> 
+                         <!-- <input type="Number" id="book_min_dates_before" value="0" name="book_min_dates_before" min="0" max="30" style="margin-top: 0;" required> --> days before.
+                         <br>
+
+
+                        <label for="Cancellation">Cancellation Policy </label><span style="font-size: .8em;"><?php if ($data2->advance == 0) { echo "not vital since the commission rate is zero";} ?></span>
+                        <?php
+                          $cancellationpolicy = json_decode($data3->cancelation_policy);
+                        ?>
+                        <p class="para1 with_indent"> Full pre payement if cancels before <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $cancellationpolicy->full_before ?> </span>
+                        <!-- <input type="number" id="full_before" name="full_before" value="20" min="2" style="margin: 0; " required> --> days. </p>
+                        <p class="para1 with_indent" > <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $cancellationpolicy->return_percentage ?> </span>
+                        <!-- <input type="number" name="return_percentage" value="50" min="0" max="100" style="margin: 0; " required> --> % pay back if cancels before <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $cancellationpolicy->days_before ?> </span>
+                        <!-- <input type="number" id="days_before" name="days_before" value="7" min="1"  max="100" style="margin: 0; " required> --> days. </p>
+                        <p class="para1 with_indent"> No refund if cancels after <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $cancellationpolicy->zero_after ?> </span>
+                         days. </p>
+                        <!-- <input type='hidden' id="zero_after" name="zero_after" min="0" style="margin: 0; " required> -->
+                        <!-- <hr style="border: 1px solid rgba(0, 0, 0, 0.3);margin-top: 20px;"> -->
+                        <br>
+                        <p style="font-size: .8em;"> Please note that these sensitive data are not subject to direct alter from the control panel. Please contact the system administraters to alter these values.<br>Thank you for your understanding.</p>
+                    </div>
+
+            </div>
+          </div>
+        </div>
+          </div>
+      </section>
       <section class="content" style="padding:10px 5% 0 5%">
           <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
 
@@ -198,56 +249,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section class="content" style="padding:0 5% 15px 5%;">
-            <div id="about_web" class="box box-solid" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-top: 3px solid #d2d6de;">
-
-                <div class="box-header with-border" style="text-align: center;">
-                    <h3 class="box-title" style="text-align: center;color:dimgrey;padding-top:6px;font-weight: bold;font-size: 18px;">Hotel Rules</h3>
-                </div> <div class="small-box" id="hotelDes" style="box-shadow:none;">
-              <div style="background: white;" >
-                    <div class="box box-info" style="border-color:gray;border:1px solid #f4f4f4;">
-                      <div class="box-body pad" style="color: black;padding-left: 3%;padding-right: 3%;padding-top: 5px;padding-bottom: 2px;">
-                          <!-- <label for="basic">Basic Rules</label> -->
-                          <p class="para1"> Advance percentage required, <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data2->advance ?> </span> %<!-- <input type="number" value="0" min="0" max="100" name="bookforvalue"  style="margin-top: 0; min-width: 65px;" required> % --></p>
-                          <!-- <br> -->
-                          <p class="para1 with_indent"> Check-in Time <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data2->check_in ?> </span> <!-- <input type="Time" value="13:00" name="hotel_check_in"  style="margin-top: 0; min-width: 85px;" required> --></p>
-                           <p class="para1 with_indent"> Check-out Time <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data2->check_out ?> </span><!-- <input type="Time" value="11:00" name="hotel_check_out"  style="margin-top: 0; min-width: 85px; " required> --></p>
-                           <label for="stay_within">Stay should be within, </label>
-                           <br>
-                           <p class="with_indent">
-                           <!-- <input type="Number" id="min_stay" value="1" name="min_stay" min="1" max="60" required> --><span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data3->min_stay ?> </span> (min) days to 
-                           <!-- <input type="Number" placeholder="-" id="max_stay" name="max_stay" min="1" > --><span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php if ($data3->max_stay != null) {
-                             echo $data3->max_stay;
-                           } else{echo "<span style='font-size: .8em;'>not specified</span>";} ?> </span> (max) days .</p> 
-                          
-                        <!-- max should be greater than min -->
-                           <label for="stay_within">Guests should book atleast, <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $data3->confirm_before ?> </span></label> 
-                           <!-- <input type="Number" id="book_min_dates_before" value="0" name="book_min_dates_before" min="0" max="30" style="margin-top: 0;" required> --> days before.
-                           <br>
-
-
-                          <label for="Cancellation">Cancellation Policy </label><span style="font-size: .8em;"><?php if ($data2->advance == 0) { echo "not vital since the commission rate is zero";} ?></span>
-                          <?php
-                            $cancellationpolicy = json_decode($data3->cancelation_policy);
-                          ?>
-                          <p class="para1 with_indent"> Full pre payement if cancels before <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $cancellationpolicy->full_before ?> </span>
-                          <!-- <input type="number" id="full_before" name="full_before" value="20" min="2" style="margin: 0; " required> --> days. </p>
-                          <p class="para1 with_indent" > <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $cancellationpolicy->return_percentage ?> </span>
-                          <!-- <input type="number" name="return_percentage" value="50" min="0" max="100" style="margin: 0; " required> --> % pay back if cancels before <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $cancellationpolicy->days_before ?> </span>
-                          <!-- <input type="number" id="days_before" name="days_before" value="7" min="1"  max="100" style="margin: 0; " required> --> days. </p>
-                          <p class="para1 with_indent"> No refund if cancels after <span style="background-color: #eee; padding: 1px 4px; border-radius: 3px;"><?php echo $cancellationpolicy->zero_after ?> </span>
-                           days. </p>
-                          <!-- <input type='hidden' id="zero_after" name="zero_after" min="0" style="margin: 0; " required> -->
-                          <!-- <hr style="border: 1px solid rgba(0, 0, 0, 0.3);margin-top: 20px;"> -->
-                          <br>
-                          <p style="font-size: .8em;"> Please note that these sensitive data are not subject to direct alter from the control panel. Please contact the system administraters to alter these values.<br>Thank you for your understanding.</p>
-                      </div>
-
-              </div>
-            </div>
-          </div>
             </div>
         </section>
 

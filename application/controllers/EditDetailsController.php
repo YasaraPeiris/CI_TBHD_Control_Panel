@@ -184,16 +184,22 @@ class EditDetailsController extends CI_Controller {
 				$this->load->model('RoomModel');
 				$rooms =  $this->RoomModel->getRoomDetails($listing_no);
 				$roomNum = sizeof($rooms);
-				$roomCatg =  $this->RoomModel->get_roomcat($listing_no,$roomNum);
-				for ($rcat=0; $rcat < sizeof($roomCatg); $rcat++) { 
-					// print_r($roomCatg[$rcat]);
-					// echo "<br><br>";
-					$this->RoomModel->deletePrices($roomCatg[$rcat]->pricecategory_id);
+				if ($roomNum < 2) {
+					$_SESSION['alerAddRoom'] = "Error: You can not delete all the rooms in the listing.";
+					redirect('EditDetailsController/newroom', 'refresh');
 				}
-				$this->RoomModel->deletePriceCategory($listing_no,$roomNum);
-				$this->RoomModel->deleteAllRoomPics($listing_no,$roomNum);
-				$this->RoomModel->deleteRoom($listing_no,$roomNum);
-				$_SESSION['alerAddRoom'] = "You have sucessfully deleted the last room of this property.";
+				else{
+					$roomCatg =  $this->RoomModel->get_roomcat($listing_no,$roomNum);
+					for ($rcat=0; $rcat < sizeof($roomCatg); $rcat++) { 
+						// print_r($roomCatg[$rcat]);
+						// echo "<br><br>";
+						$this->RoomModel->deletePrices($roomCatg[$rcat]->pricecategory_id);
+					}
+					$this->RoomModel->deletePriceCategory($listing_no,$roomNum);
+					$this->RoomModel->deleteAllRoomPics($listing_no,$roomNum);
+					$this->RoomModel->deleteRoom($listing_no,$roomNum);
+					$_SESSION['alerAddRoom'] = "You have sucessfully deleted the last room of this property.";
+				}
 			}
 			else $_SESSION['alerAddRoom'] = "There was a issue deleting the last room. Please retry.";
 			// $_POST["confirmPage"] = "second";
@@ -411,9 +417,17 @@ class EditDetailsController extends CI_Controller {
 			if (isset($_POST["pricecategory_id"]) ) {
 				$pricecategory_id = $_POST["pricecategory_id"];
 				$this->load->model('RoomModel');
-				$this->RoomModel->deletePrices($pricecategory_id);
-				$this->RoomModel->deleteOnePriceCategory($pricecategory_id);
-				$_SESSION['errorURP'] = "Sucessfully removed last Price Category with ID: ".$pricecategory_id;
+				$priceCategoryData = $this->RoomModel->get_roomcatbyId($pricecategory_id)[0];
+				if ($priceCategoryData->price_id < 1) {
+					$_SESSION['errorURP'] = "You can't delete Price Category with ID: ".$pricecategory_id." because it is the only price category for the room.";
+					redirect('EditDetailsController/roomDetails', 'refresh');
+				}
+				else{
+					// print_r($priceCategoryData);
+					$this->RoomModel->deletePrices($pricecategory_id);
+					$this->RoomModel->deleteOnePriceCategory($pricecategory_id);
+					$_SESSION['errorURP'] = "Sucessfully removed last Price Category with ID: ".$pricecategory_id;
+				}
 			}
 			else	$_SESSION['errorURP'] = "There wasa an error when trying to delete last Price Category.";
 			redirect('EditDetailsController/roomDetails', 'refresh');
