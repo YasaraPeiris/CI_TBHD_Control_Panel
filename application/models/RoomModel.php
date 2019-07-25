@@ -71,6 +71,11 @@ class RoomModel extends CI_Model
         $this->db->where('pricecategory_id',$pricecategory_id);
         $this->db->update('roompricecategory',array('price_occ'=> $occ));
     }
+    function update_pricecat($pricecategory_id, $data)
+    {
+        $this->db->where('pricecategory_id',$pricecategory_id);
+        $this->db->update('roompricecategory',$data);
+    }
     function update_baseroomprice($id, $price)
     {
         $this->db->where('id',$id);
@@ -139,6 +144,9 @@ class RoomModel extends CI_Model
     }
     function deletePriceCategory($listing_no,$roomNum){
         $this->db->delete('roompricecategory', array('listing_id' => $listing_no,'room_type_id' => $roomNum));
+    }
+    function deleteOnePriceCategory($pricecategory_id){
+        $this->db->delete('roompricecategory', array('pricecategory_id' => $pricecategory_id));
     }
     function deleteAllRoomPics($listing_no,$roomNum){
         $this->db->delete('roompics', array('listing_id' => $listing_no,'room_type_id' => $roomNum));

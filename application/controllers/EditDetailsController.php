@@ -65,6 +65,63 @@ class EditDetailsController extends CI_Controller {
 		}
 
 	}
+	public function addNewPriceCategory(){
+		// print_r($_POST);
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_no = $_SESSION['hotelno'];
+			$this->load->model('RoomModel');
+			$rooms =  $this->RoomModel->getRoomDetails($listing_no);
+			for ($roomC=0; $roomC < sizeof($rooms); $roomC++) { 
+				$roomCatg =  $this->RoomModel->get_roomcat($listing_no,$roomC+1);
+				for ($i=0; $i < sizeof($roomCatg); $i++) { 
+	            	$baseprice = $this->RoomModel->get_baseroomprice($roomCatg[$i]->pricecategory_id)[0];
+	            	$roomCatg[$i]->baseprice =$baseprice->price;
+				}
+				$rooms[$roomC]->roomCatg = $roomCatg;
+			}
+			$data= array('data1'=> $rooms );
+			$this->load->view('hotel/addRoomCategory',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+
+	}
+	public function saveNewPriceCategory(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_id = $_SESSION['hotelno'];
+			$this->load->model('RoomModel');
+            if (isset($_POST['formId']) && isset($_POST['roomTypeId']) ) {
+				$i = $_POST['formId'];
+				$room_type_id = $_POST['roomTypeId'];
+	            if (isset($_POST['priceNameCustm'.$i]) && isset($_POST['price'.$i]) && isset($_POST['occ'.$i])&& isset($_POST['priceOther'.$i])) {
+	            	$faci = array();
+	            	if (isset($_POST['extraFaci'.$i])) {
+	            		$faci = $_POST['extraFaci'.$i];
+	            	}
+		            $roomPriceCat = $this->RoomModel->get_roomcat($listing_id, $room_type_id);
+		            $catdata = array('listing_id'=>$listing_id,'room_type_id'=> $room_type_id, 'price_id'=>sizeof($roomPriceCat), 'price_name'=>$_POST['priceNameCustm'.$i], 'price_other'=> $_POST['priceOther'.$i], 'price_faci'=> json_encode($faci), 'price_occ'=>$_POST['occ'.$i]);
+		            $cat_id = $this->RoomModel->addPriceCat ($catdata);
+					$pdata = array('pricecategory_id'=>  $cat_id, 'price'=> $_POST['price'.$i], 'valid_from'=> '2018-01-01', 'valid_till'=>'9999-12-31');
+					$this->RoomModel->savePriceData ($pdata);
+					$_SESSION['newCatAlert'] = "You have sucessfully added the new Price Category: <b>".$_POST['priceNameCustm'.$i]."</b>";
+					$posts = $this->input->post();
+					unset($posts['priceNameCustm'.$i]);
+				}
+	            else $_SESSION['newCatAlert'] = "Unsucessful in adding a new Price Category";
+            }
+            else $_SESSION['newCatAlert'] = "Unsucessful in adding a new Price Category";
+			redirect('EditDetailsController/addNewPriceCategory', 'refresh');
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+
+	}
 	public function newpriceset(){
 		$this->load->library('session');
 		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
@@ -348,7 +405,25 @@ class EditDetailsController extends CI_Controller {
 		}
 
 	}
-	    public function photoUpload(){
+    public function removePriceCategory(){	    	
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			if (isset($_POST["pricecategory_id"]) ) {
+				$pricecategory_id = $_POST["pricecategory_id"];
+				$this->load->model('RoomModel');
+				$this->RoomModel->deletePrices($pricecategory_id);
+				$this->RoomModel->deleteOnePriceCategory($pricecategory_id);
+				$_SESSION['errorURP'] = "Sucessfully removed last Price Category with ID: ".$pricecategory_id;
+			}
+			else	$_SESSION['errorURP'] = "There wasa an error when trying to delete last Price Category.";
+			redirect('EditDetailsController/roomDetails', 'refresh');
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+    }
+    public function photoUpload(){
 	    	$this->load->library('session');
 	    	if (isset($_SESSION['username'])){
 		    	if (isset($_FILES["photo"])) { 
@@ -429,7 +504,7 @@ class EditDetailsController extends CI_Controller {
             if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel']) &&  isset($_POST['formId']) ) {
 			// print_r($_POST);
             $i = $_POST['formId'];
-            if (isset($_POST['roomprice'.$i]) && isset($_POST['pricename'.$i]) && isset($_POST['pricefaci'.$i]) && isset($_POST['priceOtherArry'.$i])&& isset($_POST['priceOccArry'.$i])) {
+            if (isset($_POST['roomprice'.$i]) && isset($_POST['pricename'.$i]) && isset($_POST['extraFaci'.$i.'0']) && isset($_POST['priceOtherArry'.$i])&& isset($_POST['priceOccArry'.$i])) {
 	            
 				$room_type_id = $_POST['roomTypeId'];
 					$roomprice_arr = $_POST['roomprice'.$i];
@@ -439,9 +514,11 @@ class EditDetailsController extends CI_Controller {
 					}
 	                $field1_array = $roomprice_arr;
 	                $field2_array = $_POST['pricename'.$i];
-	                $field3_array =  json_decode($_POST['pricefaci'.$i]);
+	                $field3_array = array(); // json_decode($_POST['pricefaci'.$i]);
 	                $field4_array =  json_decode($_POST['priceOtherArry'.$i]);
-
+	                // echo "<br><br>";
+	                // print_r(json_decode($_POST['pricefaci'.$i]));
+	                // echo "<br><br>";
 	                if ($_POST['roomocc'.$i] == null) {
 		                $field5_array =  array_fill(0, sizeof($field4_array), "");
 	                }
@@ -449,10 +526,14 @@ class EditDetailsController extends CI_Controller {
 		                $field5_array =  $_POST['roomocc'.$i];              	
 	                }
 					for ($catlen=0; $catlen < sizeof($roomPriceCat); $catlen++) { 
+						$field3_array[] = $_POST['extraFaci'.$i.''.$catlen];
 		            	$baseprice = $this->RoomModel->get_baseroomprice($roomPriceCat[$catlen]->pricecategory_id)[0];
 		            	$this->RoomModel->update_baseroomprice($baseprice->id, $roomprice_arr[$catlen]); // update the base price (expiry unlimited)
-		            	$this->RoomModel->update_pricecat_occ($roomPriceCat[$catlen]->pricecategory_id, $field5_array[$catlen]); // update the occupancy for the room
+		            	$this->RoomModel->update_pricecat($roomPriceCat[$catlen]->pricecategory_id, array('price_occ'=> $field5_array[$catlen] , 'price_name'=> $field2_array[$catlen] , 'price_faci'=> json_encode($field3_array[$catlen]) )); // update the occupancy for the room
 					}
+	                // echo "<br><br>";
+	                // print_r($field3_array);
+	                // echo "<br><br>";
 	                $price_array = array("priceArry"=>$field1_array,"priceNameArry"=>$field2_array,"priceFaci"=>$field3_array,"priceOtherArry"=>$field4_array,"priceOccArry"=>$field5_array);		
 
 

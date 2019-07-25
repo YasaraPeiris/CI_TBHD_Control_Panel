@@ -221,7 +221,7 @@
                                             <table class="table table-striped">
                                                 <thead>
                                                 <tr style="text-align:center;">
-                                                    <th>Price Condition</th>
+                                                    <th>Price Category</th>
                                                     <th>Base Price</th>
                                                     <th>Occupancy</th>
                                                     <th>Facilities</th>
@@ -234,17 +234,14 @@
                                                 <?php
                                                 $r = $data1[0]->roomCatg;
                                                 $r2 = json_decode($data1[0]->price_details);
-                                                // print_r(json_decode($data1[0]->price_details));
-                                                // echo "<br><br>";
-                                                // print_r($data1[0]->roomCatg);
                                                 
                                                 for($i=0;$i<sizeof($r);$i++){  // for number of rooms
 
                                                     ?>
 
                                                     <tr>
-                                                        <td><?php echo $r[$i]->price_name; ?>
-                                                        <input type="hidden" value="<?php echo $r[$i]->price_name; ?>" name="pricename0[]"></td>
+                                                        <td><!-- <?php //echo $r[$i]->price_name; ?> -->
+                                                        <input value="<?php echo $r[$i]->price_name; ?>" name="pricename0[]"></td>
                                                         <td><input   value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r[$i]->baseprice)),2); ?>" name="roomprice0[]"></td>
 
                                                         <td>
@@ -252,22 +249,23 @@
                                                         </td>
                                                         <td>
                                                         <?php
+                                                        $nm = array();
                                                         if (isset($r[$i]->price_faci)) { 
                                                             $nm= json_decode($r[$i]->price_faci);
-                                                            // print_r($r[$i]->price_faci);
-
-                                                            for($j=0; $j<sizeof($nm); $j++){
-                                                                echo $nm[$j]." , " ; 
-                                                            }
+                                                            // print_r($nm);
                                                         }
-
-
-                                                            ?>
+                                                        ?>
+                                                           <input type="checkbox" name="extraFaci0<?php echo $i; ?>[]" value="Breakfast" <?php echo (in_array('Breakfast',$nm))?('checked'):('');?>>Breakfast 
+                                                           <input type="checkbox" name="extraFaci0<?php echo $i; ?>[]" value="Dinner" <?php echo (in_array('Dinner',$nm))?('checked'):('');?>>Dinner
+                                                           <input type="checkbox" name="extraFaci0<?php echo $i; ?>[]" value="Lunch" <?php echo (in_array('Lunch',$nm))?('checked'):('');?>>Lunch
+                                                           <input type="checkbox" name="extraFaci0<?php echo $i; ?>[]" value="AC" <?php echo (in_array('AC',$nm))?('checked'):('');?>>A/C
+                                                           <input type="checkbox" name="extraFaci0<?php echo $i; ?>[]" value="Hot water" <?php echo (in_array('Hot water',$nm))?('checked'):('');?>>Hot water
+                                                        <!-- <input  value='<?php //echo json_encode( $r[$i]->price_faci ); ?>' name="pricefaci_0[]"> -->
                                                         </td>
                                                         <!-- <td><?php //echo $r[$i]->priceOtherArry; ?></td> -->
 
                                                     </tr>
-                                                <?php } 
+                                                <?php } $lastPC0 = $r[$i-1]->pricecategory_id;
                                                 ?>
 
                                                         <input type="hidden" value='<?php echo json_encode( $r2->priceOtherArry); ?>' name="priceOtherArry0">
@@ -277,6 +275,23 @@
 
                                                 </tbody>
                                             </table>
+                                            <div style="text-align: right; opacity: 0.8;">
+                                                <button type="button" id="newCat" class="btn btn-success">Add New Price Category to this Room</button>
+                                                <button type="button" id="removeCat" class="btn btn-danger">Remove Last Price Category (<?php echo $r[$i-1]->price_name; ?>)</button>
+                                                <script type="text/javascript">
+                                                    document.getElementById("newCat").onclick = function () {
+                                                        location.href = "<?php echo site_url(); ?>/EditDetailsController/addNewPriceCategory";
+                                                    };
+                                                </script>
+                                                <script type="text/javascript">
+                                                    document.getElementById("removeCat").onclick = function () {
+                                                        if (confirm("Do you really want to remove last Price Category of this room?")){
+                                                            $('#removePC0').submit();
+                                                        }
+                                                        // location.href = "<?php //echo site_url(); ?>/EditDetailsController/addNewPriceCategory";
+                                                    };
+                                                </script>
+                                            </div>
                                         </div>
 
                                         <br>
@@ -455,6 +470,9 @@
                                             </button>
                                         </div>
                                     </form>
+                                    <form method="post" action="<?php echo site_url(); ?>/EditDetailsController/removePriceCategory"  id="removePC0" name="removePC0">
+                                        <input type="hidden" name="pricecategory_id" value="<?php echo $lastPC0; ?>">
+                                    </form>
                                 </div>
 
 
@@ -570,7 +588,7 @@
                                                 <table class="table table-striped">
                                                     <thead>
                                                     <tr style="text-align:center;">
-                                                        <th>Price Condition</th>
+                                                        <th>Price Category</th>
                                                         <th>Base Price</th>
                                                         <th>Occupancy</th>
                                                         <th>Facilities</th>
@@ -583,14 +601,17 @@
                                                     <?php
                                                     $r = $data1[$i]->roomCatg;
                                                     $r2 = json_decode($data1[$i]->price_details);
+                                                // print_r(json_decode($data1[$i]->price_details));
+                                                // echo "<br><br>";
+                                                // print_r($data1[$i]->roomCatg);
                                                     // print_r($r);
                                                     for($k=0;$k<sizeof($r);$k++){
 
                                                         ?>
 
                                                         <tr>
-                                                            <td><?php echo $r[$k]->price_name; ?>
-                                                            <input type="hidden" value="<?php echo $r[$k]->price_name; ?>" name="pricename<?php echo $i; ?>[]"></td>
+                                                            <td><!-- <?php //echo $r[$k]->price_name; ?> -->
+                                                            <input value="<?php echo $r[$k]->price_name; ?>" name="pricename<?php echo $i; ?>[]"></td>
                                                             <td><input name="roomprice<?php echo $i; ?>[]"  value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r[$k]->baseprice)),2); ?>"></td>
 
                                                             <td>
@@ -598,16 +619,22 @@
                                                             </td>
                                                             <td>
                                                             <?php
-                                                            $nm= json_decode($r[$k]->price_faci);
-                                                            if(sizeof($nm)>0){
+                                                                $nm = array();
+                                                                if (isset($r[$k]->price_faci)) { 
+                                                                    $nm= json_decode($r[$k]->price_faci);
+                                                                    // print_r($nm);
+                                                                }
+                                                            ?>
 
-                                                                for($j=0; $j<sizeof($nm); $j++){
-                                                                    echo $nm[$j]." , " ; }}
-                                                                ?>
+                                                               <input type="checkbox" name="extraFaci<?php echo $i.''.$k; ?>[]" value="Breakfast" <?php echo (in_array('Breakfast',$nm))?('checked'):('');?>>Breakfast 
+                                                               <input type="checkbox" name="extraFaci<?php echo $i.''.$k; ?>[]" value="Dinner" <?php echo (in_array('Dinner',$nm))?('checked'):('');?>>Dinner
+                                                               <input type="checkbox" name="extraFaci<?php echo $i.''.$k; ?>[]" value="Lunch" <?php echo (in_array('Lunch',$nm))?('checked'):('');?>>Lunch
+                                                               <input type="checkbox" name="extraFaci<?php echo $i.''.$k; ?>[]" value="AC" <?php echo (in_array('AC',$nm))?('checked'):('');?>>A/C
+                                                               <input type="checkbox" name="extraFaci<?php echo $i.''.$k; ?>[]" value="Hot water" <?php echo (in_array('Hot water',$nm))?('checked'):('');?>>Hot water
                                                             </td>
                                                             <!-- <td><?php //echo $r2->priceOtherArry[$k]; ?></td> -->
                                                         </tr>
-                                                    <?php } 
+                                                    <?php } $lastPC = $r[$k-1]->pricecategory_id;
                                                     ?>
                                                     <input type="hidden" value='<?php echo json_encode( $r2->priceFaci); ?>' name="pricefaci<?php echo $i; ?>">
                                                     <input type="hidden" value='<?php echo json_encode( $r2->priceOtherArry); ?>' name="priceOtherArry<?php echo $i; ?>">
@@ -615,6 +642,25 @@
 
                                                     </tbody>
                                                 </table>
+
+                                                    <div style="text-align: right; opacity: 0.8;">
+                                                        <button type="button" id="newCat<?php echo $i; ?>" class="btn btn-success">Add New Price Category to this Room</button>
+                                                        <button type="button" id="removeCat<?php echo $i; ?>" class="btn btn-danger">Remove Last Price Category (<?php echo $r[$k-1]->price_name; ?>)</button>
+                                                        <script type="text/javascript">
+                                                            document.getElementById("newCat<?php echo $i; ?>").onclick = function () {
+                                                                location.href = "<?php echo site_url(); ?>/EditDetailsController/addNewPriceCategory";
+                                                            };
+                                                        </script>
+                                                        <script type="text/javascript">
+                                                            document.getElementById("removeCat<?php echo $i; ?>").onclick = function () {
+                                                                if (confirm("Do you really want to remove last Price Category of this room?")){
+                                                                    $('#removePC<?php echo $i; ?>').submit();
+                                                                }
+                                                                // location.href = "<?php //echo site_url(); ?>/EditDetailsController/addNewPriceCategory";
+                                                            };
+                                                        </script>
+                                                    </div>
+
                                             </div>
                                             <br>
                                             <div class="col-md-12" style="margin-bottom: 10px;margin-top:4%;">
@@ -789,12 +835,15 @@
                                                 </button>
                                             </div>
                                         </form>
+                                        <form method="post" action="<?php echo site_url(); ?>/EditDetailsController/removePriceCategory"  id="removePC<?php echo $i; ?>" name="removePC<?php echo $i; ?>">
+                                            <input type="hidden" name="pricecategory_id" value="<?php echo $lastPC; ?>">
+                                        </form>
                                     </div>
                                 </div>
 
                             </div>
                         <?php } ?>
-                        <!--<!-- <hr> -->
+                        <!-- <hr> -->
 
 
                         <!-- <button onclick="goBack()" class="back_button">Back</button> -->

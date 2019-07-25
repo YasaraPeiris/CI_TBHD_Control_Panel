@@ -102,7 +102,7 @@
 ">
                         <div class="inner"
                              style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                            <h1 style="color:black;">Update Room Details.</h1>
+                            <h1 style="color:black;">Update Room Prices, Details.</h1>
                             <br>
                             <p style="color:#555555;font-size: 1.2em;">(Click here to change room details.)</p>
                         </div>
@@ -131,7 +131,7 @@
                              style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                             <h1 style="color:black;">Update Hotel Images.</h1>
                             <br>
-                            <p style="color: #555555;font-size: 1.2em;">(Click here to add or alter images of your listing.)</p>
+                            <p style="color: #555555;font-size: 1.2em;">(Click here to add or alter images of your hotel.)</p>
 
                         </div>
                         <div class="icon">
@@ -178,9 +178,9 @@
 ">
                         <div class="inner"
                              style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                            <h1 style="color:black;">Add New Price Set.</h1>
+                            <h1 style="color:black;">Add New Specific Price Set.</h1>
                             <br>
-                            <p style="color:#555555;font-size: 1.2em;">(Click here to add new price sets to rooms.)</p>
+                            <p style="color:#555555;font-size: 1.2em;">(Say you only want to increase price for Chirstmas eve...)</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
@@ -202,7 +202,7 @@
 ">
                         <div class="inner"
                              style="height:150px;background: white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                            <h1 style="color:black;">Add New Room.</h1>
+                            <h1 style="color:black;">Add/ Delete Rooms.</h1>
                             <br>
                             <p style="color:#555555;font-size: 1.2em;">(Click here to add a new room.)</p>
                         </div>

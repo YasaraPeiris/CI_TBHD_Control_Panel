@@ -67,7 +67,7 @@
           </li>
           <li>
             <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/newroom'); ?>'>
-              <i class="fa fa-edit"></i><span>Add New Room</span>
+              <i class="fa fa-edit"></i><span>Add/ Delete Rooms</span>
             </a>
           </li>
       </ul>
