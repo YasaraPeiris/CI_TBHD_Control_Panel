@@ -136,6 +136,20 @@ class EditDetailsController extends CI_Controller {
 			redirect();
 		}
 	}
+	public function hotelpromotions(){
+		$this->load->library('session');
+		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
+			$listing_no = $_SESSION['hotelno'];
+			$this->load->model('RoomModel');
+			$rooms =  $this->RoomModel->getRoomDetails($listing_no);
+			$data= array('data1'=> $rooms );
+			$this->load->view('hotel/hotelPromotions.php',$data);
+		}
+		else{
+			$_SESSION['error']= 'Time is up, please log in again for your own security.';
+			redirect();
+		}
+	}
 	public function newroom(){
 		$this->load->library('session');
 		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
@@ -273,9 +287,10 @@ class EditDetailsController extends CI_Controller {
 							}
 						}
 					}
+					// print_r($_SESSION['post']);
 					$price_array = array('priceArry'=>$priceArry,'priceNameArry'=>$priceNameArry,'priceOtherArry'=>$priceOtherArry,'priceFaci'=>$priceFaci,'priceOccArry'=>$priceOccArry);
 					$min_price_array = array('minPriceName'=>$minPriceName,'minPrice'=>$minPrice);
-					$room_listing_data = array('listing_id'=> $listing_id ,'room_type_id'=>($roomcnt+1) ,'room_type'=>$_POST['room_type'],'room_name'=>$_POST['room_name'],'bathroom_type'=>$_POST['bathroom_type'] ,'min_price'=>(!empty($min_price_array) ? json_encode($min_price_array) : null) ,'price_details'=>(!empty($price_array) ? json_encode($price_array) : null),'no_of_people'=>$_POST['occupancy'],'max_no_of_guests'=>$_POST['max_occupancy'],'room_facilities'=>$room_facility_data ,'no_of_rooms'=>$_POST['each_room_count'],'room_image'=> "controlpanel/backend/assets/images/listings/listingNo_".$listing_id."/".$_SESSION['post']['room_images'][0] ,'other_on_faci'=> $_POST['other_amenities']);
+					$room_listing_data = array('listing_id'=> $listing_id ,'room_type_id'=>($roomcnt+1) ,'room_type'=>$_POST['room_type'],'room_name'=>$_POST['room_name'],'bathroom_type'=>$_POST['bathroom_type'] ,'min_price'=>(!empty($min_price_array) ? json_encode($min_price_array) : null) ,'price_details'=>(!empty($price_array) ? json_encode($price_array) : null),'no_of_people'=>$_POST['occupancy'],'max_no_of_guests'=>$_POST['max_occupancy'],'room_facilities'=>$room_facility_data ,'no_of_rooms'=>$_POST['each_room_count'],'room_image'=> "controlpanel/backend/assets/images/listings/listingNo_".$listing_id."/".(isset($_SESSION['post']['room_images'][0]) ?$_SESSION['post']['room_images'][0] :"room_".($roomcnt+1)."_1.png"),'other_on_faci'=> $_POST['other_amenities']);
 					$this->RoomModel->addRoomType($room_listing_data);
 				for ($priceTypes =0; $priceTypes  < sizeof($priceArry); $priceTypes ++) {
 		            $catdata = array('listing_id'=>$listing_id,'room_type_id'=> $roomcnt+1, 'price_id'=>$priceTypes, 'price_name'=>$priceNameArry[$priceTypes], 'price_other'=> $priceOtherArry[$priceTypes], 'price_faci'=> json_encode($priceFaci[$priceTypes]), 'price_occ'=>$priceOccArry[$priceTypes]);
@@ -283,7 +298,7 @@ class EditDetailsController extends CI_Controller {
 					$pdata = array('pricecategory_id'=>  $cat_id, 'price'=> $priceArry[$priceTypes], 'valid_from'=> '2018-01-01', 'valid_till'=>'9999-12-31');
 					$this->RoomModel->savePriceData ($pdata);
 				}			
-					$room_pics_data = array('listing_id'=> $listing_id,'image_path'=> "controlpanel/backend/assets/images/listings/listingNo_".$listing_id."/".$_SESSION['post']['room_images'][0],'room_type_id'=>($roomcnt+1),'is_main'=> 1);
+					$room_pics_data = array('listing_id'=> $listing_id,'image_path'=> "controlpanel/backend/assets/images/listings/listingNo_".$listing_id."/".(isset($_SESSION['post']['room_images'][0]) ?$_SESSION['post']['room_images'][0] :"room_".($roomcnt+1)."_1.png"),'room_type_id'=>($roomcnt+1),'is_main'=> 1);
 					$this->RoomModel->addRoomPic($room_pics_data);
 				foreach ($_SESSION['post']['bathroom_images'] as $value) {
 					$bathroom_pics_data = array('listing_id'=> $listing_id,'image_path'=> "controlpanel/backend/assets/images/listings/listingNo_".$listing_id."/".$value,'room_type_id'=>($roomcnt+1),'is_main'=>0);
