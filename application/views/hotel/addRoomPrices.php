@@ -167,7 +167,6 @@
                                                         <td><?php echo $r->priceNameArry[$i]; ?>
                                                         <input type="hidden" value="<?php echo $r->priceNameArry[$i]; ?>" name="pricename0[]"></td>
                                                         <td><input   value="<?php echo number_format(floatval(preg_replace('/[^\d.]/', '', $r->priceArry[$i])),2); ?>" name="roomprice0[]"></td>
-<!--                                                        <td><input style="border: none;background-color:transparent;text-align: right;"  value="--><?php //echo $r->priceArry[$i]; ?><!--" name="roomprice0[]"></td>-->
 
                                                         <td>
                                                         <?php
@@ -194,13 +193,18 @@
                                         </div>
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <div class="col-md-2">
-                                                <p style="color:dimgrey;font-size: 14px;"><b>Priority</b></p>
+                                                <p style="color:dimgrey;font-size: 14px;"><b>Priority</b>**</p>
                                             </div>
                                             <div class="col-md-3">
                                                 <input type="number" min="1" max="9" name="priority" style="color:dimgrey;font-size: 14px;margin: 0px 10px; padding: 6px;width:100%;" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-12" style=";color:dimgrey;margin-top:2%;">
+                                        <div class="col-md-12" style=";color:black;margin-top:2%;">
+                                            *this is to add prices for specific dates. For example use this to update special prices for Chirstmas, or for Perahera Season.<br>
+                                            Use the "Update Room Prices/ Details" tab to update regular prices applicable for every day.
+                                            <br><br>**prices with higher priority are showed on top of prices with lower priority.
+                                            <br>For example say Christmas week room price is higher than usual and in Christmas eve, room prices are much higher. 
+                                            <br>for the Christmas week prices use a price set with priority 8. For the Christmas eve where the prices are much higher, use a priority 6.
                                             <button type="reset" name="reset0" class="btn btn-default btn-lg"
                                                     style='float:right;background-color: #8892d6;color:white;font-size: inherit;'
                                                     onclick="ResetDetails()">Reset Details
@@ -288,13 +292,18 @@
                                             </div>
                                             <div class="col-md-12" style="margin-bottom: 10px;">
                                                 <div class="col-md-2">
-                                                    <p style="color:dimgrey;font-size: 14px;"><b>Priority</b></p>
+                                                    <p style="color:dimgrey;font-size: 14px;"><b>Priority</b>**</p>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <input type="number" min="1" max="9" name="priority" style="color:dimgrey;font-size: 14px;margin: 0px 10px; padding: 6px;width:100%;" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-12" style=";color:dimgrey;margin-top:2%;">
+                                            *this is to add prices for specific dates. For example use this to update special prices for Chirstmas, or for Perahera Season.<br>
+                                            Use the "Update Room Prices/ Details" tab to update regular prices applicable for every day.
+                                            <br><br>**prices with higher priority are showed on top of prices with lower priority.
+                                            <br>For example say Christmas week room price is higher than usual and in Christmas eve, room prices are much higher. 
+                                            <br>for the Christmas week prices use a price set with priority 8. For the Christmas eve where the prices are much higher, use a priority 6.
                                                 <button type="reset" name="reset" class="btn btn-default btn-lg"
                                                         style='float:right;background-color: #8892d6;color:white;font-size: inherit;'
                                                         onclick="ResetDetails()">Reset Details
@@ -310,7 +319,7 @@
 
                             </div>
                         <?php } ?>
-                        <!--<!-- <hr> -->
+                        <!-- <hr> -->
 
 
                         <!-- <button onclick="goBack()" class="back_button">Back</button> -->

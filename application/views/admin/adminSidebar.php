@@ -63,6 +63,11 @@
             <small class="label pull-right bg-red" id="ordersSideBar"></small>
             </a>
         </li>
+          <li>
+            <a href="<?php echo base_url(); ?>index.php/EditDetailsController/hotelpromotions">
+              <i class="fa fa-edit"></i><span>Add/ Edit/ Stop Promotions</span>
+            </a>
+          </li>
         <li>
           <a href="<?php echo base_url();?>index.php/RedirectPageController/generateProposalEmail" >
             <i class="fa fa-calendar"></i> <span>Proposal Email</span>

@@ -138,12 +138,15 @@ class EditDetailsController extends CI_Controller {
 	}
 	public function hotelpromotions(){
 		$this->load->library('session');
-		if (isset($_SESSION['hotelno']) && isset($_SESSION['login_hotel'])) {
-			$listing_no = $_SESSION['hotelno'];
-			$this->load->model('RoomModel');
-			$rooms =  $this->RoomModel->getRoomDetails($listing_no);
-			$data= array('data1'=> $rooms );
-			$this->load->view('hotel/hotelPromotions.php',$data);
+		if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin') {
+			// $listing_no = $_SESSION['hotelno'];
+			$this->load->model('AdminModel');
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$this->load->model('ListingsModel');
+			$promos =  $this->ListingsModel->getAllListingPromos();
+			$data= array('data1'=> $promos ,'admindata'=> $adminData);
+			// print_r($promos);
+			$this->load->view('admin/hotelPromotions',$data);
 		}
 		else{
 			$_SESSION['error']= 'Time is up, please log in again for your own security.';
@@ -639,5 +642,30 @@ class EditDetailsController extends CI_Controller {
 
             }
             $this->newpriceset();
+        }
+	    public function editPromoDetails(){
+            $this->load->library('session');
+            if (isset($_SESSION['hotelno']) && $this->session->userdata('login_user')== 'admin' ) {
+	            // $i = $_POST['formId'];
+	            if (isset($_POST['promo_id']) && isset($_POST['promo']) &&  isset($_POST['start_date']) && isset($_POST['end_date']) && isset($_POST['top_reasons']) && isset($_POST['starting_price']) &&  isset($_POST['promo_amount'])) {
+	            	$topreasons = $_POST['top_reasons'];
+	            	if (empty($_POST['top_reasons'])) {
+	            		$topreasons = null;
+	            	}
+	            	if (ctype_space($_POST['top_reasons'])) {
+	            		$topreasons = null;
+	            	}
+	            	$data = array('promo'=> $_POST['promo'], 'start_date'=> $_POST['start_date'], 'end_date'=> $_POST['end_date'], 'promo_amount'=> $_POST['promo_amount'], 'top_reasons'=> $topreasons, 'starting_price'=> $_POST['starting_price']);
+	            	// print_r($data);
+	            	$_SESSION['alertHtlPromo'] = "Sucessfully updated the Promotion";
+		            $this->load->model('ListingsModel');
+	                $this->ListingsModel->updatePromotion($_POST['promo_id'],$data);           
+				}
+				else{
+					$_SESSION['errorURP'] = "Error in editing Promo, please try again.";
+				}
+
+            }
+            $this->hotelpromotions();
         }
 }

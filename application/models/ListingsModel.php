@@ -36,7 +36,29 @@ class ListingsModel extends CI_Model
             return NULL;
         }
     }
-
+    function getListingPromos($listing_no)
+    {
+        $this->db->where('listing_id', $listing_no);
+        $this->db->from('promotions');
+        $this->db->order_by('end_date','desc');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+    }
+    function getAllListingPromos()
+    {
+        $this->db->from('promotions');
+        $this->db->order_by('end_date','desc');
+        $query1 = $this->db->get();
+        if ($query1->num_rows() > 0) {
+            return $query1->result();    // return a array of object
+        } else {
+            return NULL;
+        }
+    }
     function deleteListingPics($image_id)
     {
         $this->db->delete('listingpics', array('listing_pic_id' => $image_id));
@@ -88,11 +110,15 @@ class ListingsModel extends CI_Model
         $this->db->where('listing_id', $listing_id);
         $this->db->update("hotel", $data);
     }
-
     function updateFacilities($listing_id, $data)
     {
         $this->db->where('listing_id', $listing_id);
         $this->db->update("listings", $data);
+    }
+    function updatePromotion($promo_id, $data)
+    {
+        $this->db->where('promo_id', $promo_id);
+        $this->db->update("promotions", $data);
     }
 
 

@@ -281,8 +281,8 @@ class RedirectPageController extends CI_Controller {
 			$faciData =  $this->AdminModel->getFacilities();
 			// $priceCatgories =  $this->AdminModel->getPriceCategories();
 			// $prices =  $this->AdminModel->getPrices();
-			// $adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
-			$data =array('faciData'=> $faciData);
+			$adminData =  $this->AdminModel->getAccountDetails($_SESSION['hotelno'])[0];
+			$data =array('faciData'=> $faciData,'admindata'=> $adminData);
 			// print_r($data);
 			$this->load->view('admin/newFacilities',$data);
 		}

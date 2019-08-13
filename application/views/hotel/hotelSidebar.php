@@ -41,13 +41,13 @@
       </a>
       <ul class="sidebar-menu" style="font-size: 0.8em;">
           <li>
-            <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/hotelDetails'); ?>'>
-              <i class="fa fa-edit"></i><span>Update Hotel Details</span>
+            <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/roomDetails'); ?>'>
+              <i class="fa fa-edit"></i><span>Update Room Prices/ Details</span>
             </a>
           </li>
           <li>
-            <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/roomDetails'); ?>'>
-              <i class="fa fa-edit"></i><span>Update Room Prices/ Details</span>
+            <a title="My account" href='<?php echo base_url ('index.php/EditDetailsController/hotelDetails'); ?>'>
+              <i class="fa fa-edit"></i><span>Update Hotel Details</span>
             </a>
           </li>
           <li>
